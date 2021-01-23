@@ -7,20 +7,18 @@ const { remove_linebreaks,
     is2dArray,
     replace1QTo2Q } = require('../utils/helperFunctions');
 
-const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
-    // replacing '/' with '\\' because path like './onlineJudge/questions/solution.exe' 
-    // is not recognized by machine while running .exe file
-    let exeFile = file.replace('.cpp', '.exe').replace(/[/]+/gm, '\\');
-
+const testCodeJava = async (file, testcaseFile, noOfInputs) => {
     try {
         await new Promise((resolve, reject) => {
-            exec(`g++ ${file} -o ${exeFile}`, (err, stdout, stderr) => {
+
+            exec(`javac ${file}`, function (err, stdout, stderr) {
                 if (err) {
+                    console.log(err);
                     reject(stderr);
                 }
                 resolve();
-            });
-        });
+            })
+        })
     } catch (err) {
         return {
             message: 'Error occured at Catch at compile time',
@@ -32,6 +30,11 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
     let results = [];
     const data = fs.readFileSync(testcaseFile, { encoding: 'utf8', flag: 'r' });
     let testcases = data.split('\n');
+    // console.log('tt', typeof testcases[0]);
+    // console.log('tt1', testcases);
+   
+
+    // console.log("ERROR K BADDD");
     let i;
     for (i = 0; i < testcases.length; i = i + noOfInputs + 1) {
         let inputArr = [];
@@ -67,12 +70,14 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
             }
         }
         let inputStr = inputArr.join('\n');
+        //console.log('instrr', inputStr, ' end', inputArr);
         fs.writeFileSync('./onlineJudge/input.txt', inputStr);
 
         try {
             const info = await new Promise((resolve, reject) => {
-                exec(`${exeFile} < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
+                exec(`java ${file}  < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
                     if (err) {
+                        //console.log('err1', stderr, 'end');
                         reject(stderr);
                     }
                     else if (stdout) {
@@ -80,6 +85,8 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                         let trimmedTestcaseOutput = remove_linebreaks(testcases[i + noOfInputs]);
                         // Checking if the std output is an array
                         if (isJSON(replace1QTo2Q(trimmedStdout)) && JSON.parse(replace1QTo2Q(trimmedStdout)).constructor === Array) {
+                            // let strToArrStdout = stringArrayToArray(stdout);
+                            // let strToArrTestcaseOutput = stringArrayToArray(testcases[i + noOfInputs]);
                             if (isJSON(replace1QTo2Q(trimmedTestcaseOutput)) && JSON.parse(replace1QTo2Q(trimmedTestcaseOutput)).constructor === Array) {
                                 let strToArrStdout = JSON.parse(replace1QTo2Q(trimmedStdout));
                                 let strToArrTestcaseOutput = JSON.parse(replace1QTo2Q(trimmedTestcaseOutput));
@@ -88,6 +95,8 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                                     if (is2dArray(strToArrTestcaseOutput)) {
                                         let oneDArrStdout = from2dTo1dArr(strToArrStdout);
                                         let oneDArrTestcaseOutput = from2dTo1dArr(strToArrTestcaseOutput);
+                                        // console.log('std 2d array', oneDArrStdout);
+                                        // console.log('test 2d array', oneDArrTestcaseOutput);
                                         console.log('test ', arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                         resolve(arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                     }
@@ -99,6 +108,7 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                                     console.log(`Output no. ${i} -> ${trimmedStdout} `);
                                     console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
                                     console.log(`output and testcase arraya -> `, strToArrStdout, ' and ', strToArrTestcaseOutput);
+                                    // console.log('array equals', arraysEqual(strToArrStdout, strToArrTestcaseOutput));
                                     resolve(arraysEqual(strToArrStdout, strToArrTestcaseOutput));
                                 }
                             }
@@ -107,8 +117,12 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                             }
                         }
                         else {
+                            // Old code
+                            //results.push(trimmedStdout == trimmedTestcaseOutput);
                             console.log(`Output no. ${i} -> ${trimmedStdout} `);
                             console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
+                            // console.log(`Result no. ${i} -> ${trimmedStdout == trimmedTestcaseOutput} `);
+                            // console.log(`Result no. ${i} -> `, temp);
                             resolve(trimmedStdout == trimmedTestcaseOutput);
 
                         }
@@ -119,8 +133,6 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                 });
             });
             if (!info) {
-                // deleting exe file
-                // fs.unlinkSync(exeFile);
                 return {
                     message: 'fail',
                     totalTestcasesRan: results.length + 1,
@@ -133,7 +145,6 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
             console.log('Info = ', info);
 
         } catch (err) {
-
             return {
                 message: 'Error occured at Catch Block',
                 error: err
@@ -141,9 +152,7 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
         }
     }
 
-    // deleting exe file
-    // fs.unlinkSync(exeFile);
-
+    //console.log('res', results);
     let finalResults = {
         message: 'success',
         totalTestcasesRan: results.length,
@@ -153,4 +162,4 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
     return finalResults;
 };
 
-module.exports = testCodeCPP;
+module.exports = testCodeJava;
