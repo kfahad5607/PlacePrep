@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const solutionTester = require('./tester/solutionTesterC');
+const solutionTesterC = require('./tester/solutionTesterC');
 
 
 router.get('/', async (req, res) => {
@@ -12,13 +12,15 @@ router.get('/', async (req, res) => {
     res.send('Testing Routes');
 });
 
+let lang = 'c';
+let extension = 'c';
 // two-sum lcs reverse-string prime-no palindrome palindrome-in-range search-ele-in-linked-list p1 p2 p3
-let questionName = 'palindrome-in-range';
-let file = `./onlineJudge/questions/${questionName}/c/solution`;
+let questionName = 'search-ele-in-linked-list';
+let file = `./onlineJudge/questions/${questionName}/${lang}/solution.${extension}`;
 let testcaseFile = `./onlineJudge/questions/${questionName}/testcase.txt`;
 
 router.get('/run', async (req, res) => {
-    const data = await solutionTester(file, testcaseFile, 2);
+    const data = await solutionTesterC(file, testcaseFile, 2);
     res.json({
         data
     });

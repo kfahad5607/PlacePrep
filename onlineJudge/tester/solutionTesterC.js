@@ -8,11 +8,29 @@ const { remove_linebreaks,
     replace1QTo2Q } = require('../utils/helperFunctions');
 
 const testCodeC = async (file, testcaseFile, noOfInputs) => {
+
+    let exeFile = file.replace('.c', '.exe').replace(/[/]+/gm, '\\');
+    try {
+        await new Promise((resolve, reject) => {
+            exec(`g++ ${file} -o ${exeFile}`, (err, stdout, stderr) => {
+                if (err) {
+                    console.log('err in compiling', stderr, 'end');
+                    reject(stderr);
+                }
+                resolve();
+            });
+        });
+    } catch (err) {
+        return {
+            message: 'Error occured at Catch at compile time',
+            error: err
+        };
+    }
+
     let results = [];
     const data = fs.readFileSync(testcaseFile, { encoding: 'utf8', flag: 'r' });
     let testcases = data.split('\n');
-
-    let i, compiledFlag = false;
+    let i;
     for (i = 0; i < testcases.length; i = i + noOfInputs + 1) {
         let inputArr = [];
 
@@ -42,23 +60,8 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
         fs.writeFileSync('./onlineJudge/input.txt', inputStr);
 
         try {
-            console.log('Compiling started')
-            if (!compiledFlag) {
-                await new Promise((resolve, reject) => {
-                    exec(`g++ ${file}.c -o ${file}`, (err, stdout, stderr) => {
-                        if (err) {
-                            console.log('err in compiling', stderr, 'end');
-                            reject(stderr);
-                        }
-                        compiledFlag = true
-                        return resolve(stdout);
-                    });
-                });
-            }
-            let path = `./onlineJudge/questions/pallindrome/c`
-            console.log('executed compiling')
             const info = await new Promise((resolve, reject) => {
-                exec(`.\\onlineJudge\\questions\\palindrome-in-range\\c\\solution < ./onlineJudge/input.txt`, (err, stdout, stderr) => {
+                exec(`${exeFile} < ./onlineJudge/input.txt`, (err, stdout, stderr) => {
                     if (err) {
                         console.log('err1', stderr, 'end');
                         reject(stderr);
