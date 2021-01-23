@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     res.send('Testing Routes');
 });
 
-// two-sum lcs reverse-string prime-no palindrome palindrome-in-range search-ele-in-linked-list p1 p2 p3
+// clcs reverse-string prime-no palindrome palindrome-in-range search-ele-in-linked-list p1 p2 p3
 let questionName = 'search-ele-in-linked-list';
 // let file = `./onlineJudge/questions/${questionName}/python/solution.py`;
 let file = `./onlineJudge/questions/${questionName}/java/solution.java`;
