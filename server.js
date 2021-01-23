@@ -20,13 +20,14 @@ app.get('/', (req, res) => {
 app.use('/api', routes);
 
 app.get('/run1', (req, res) => {
-    exec('python ./routes/trial/solution.py < ./routes/trial/input.txt', (err, stdout, stderr) => {
+    exec('g++ ./main1.cpp -o main', (err, stdout, stderr) => {
         if (err) {
             console.log(err);
         } else {
             console.log('output', stdout);
         }
     });
+
     res.json({
         data: 'running...'
     });
@@ -34,17 +35,13 @@ app.get('/run1', (req, res) => {
 
 
 app.get('/run2', (req, res) => {
-    const child = spawn('python', ['./sol.py'], { shell: true });
-    child.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-    });
 
-    child.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-    });
-
-    child.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
+    exec('.\\main.exe < ./onlineJudge/input.txt ', (err, stdout, stderr) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('output', stdout);
+        }
     });
 
     res.json({
