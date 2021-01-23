@@ -15,8 +15,8 @@ router.get('/', async (req, res) => {
 });
 
 // c cpp py java
-let lang = 'cpp';
-let extension = 'cpp';
+let lang = 'java';
+let extension = 'java';
 
 // two-sum lcs reverse-string prime-no palindrome palindrome-in-range search-ele-in-linked-list p1 p2 p3
 let questionName = 'prime-no';
@@ -26,8 +26,8 @@ let testcaseFile = `./onlineJudge/questions/${questionName}/testcase.txt`;
 
 router.get('/run', async (req, res) => {
     // const data = await solutionTesterPython(file, testcaseFile, 2);
-    // const data = await solutionTesterJava(file, testcaseFile, 2);
-    const data = await solutionTesterCPP(file, testcaseFile, 1);
+    const data = await solutionTesterJava(file, testcaseFile, 1);
+    // const data = await solutionTesterCPP(file, testcaseFile, 1);
 
     res.json({
         data

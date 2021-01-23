@@ -26,13 +26,11 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
         };
 
     }
-
     let results = [];
     const data = fs.readFileSync(testcaseFile, { encoding: 'utf8', flag: 'r' });
     let testcases = data.split('\n');
     // console.log('tt', typeof testcases[0]);
     // console.log('tt1', testcases);
-   
 
     // console.log("ERROR K BADDD");
     let i;
@@ -74,8 +72,9 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
         fs.writeFileSync('./onlineJudge/input.txt', inputStr);
 
         try {
+            let classPath = file.replace('solution.java', '');
             const info = await new Promise((resolve, reject) => {
-                exec(`java ${file}  < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
+                exec(`java -cp ${classPath} solution < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
                     if (err) {
                         //console.log('err1', stderr, 'end');
                         reject(stderr);
