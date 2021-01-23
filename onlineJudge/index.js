@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const solutionTesterC = require('./tester/solutionTesterC');
 const solutionTesterPython = require('./tester/solutionTesterPython');
 const solutionTesterCPP = require('./tester/solutionTesterCPP');
 const solutionTesterJava = require('./tester/solutionTesterJava');
-
 
 router.get('/', async (req, res) => {
 
@@ -15,19 +15,19 @@ router.get('/', async (req, res) => {
 });
 
 // c cpp py java
-let lang = 'java';
-let extension = 'java';
-
+let lang = 'cpp';
+let extension = 'cpp';
 // two-sum lcs reverse-string prime-no palindrome palindrome-in-range search-ele-in-linked-list p1 p2 p3
-let questionName = 'prime-no';
+let questionName = 'palindrome-in-range';
 
 let file = `./onlineJudge/questions/${questionName}/${lang}/solution.${extension}`;
 let testcaseFile = `./onlineJudge/questions/${questionName}/testcase.txt`;
 
 router.get('/run', async (req, res) => {
+    // const data = await solutionTesterC(file, testcaseFile, 1);
     // const data = await solutionTesterPython(file, testcaseFile, 2);
-    const data = await solutionTesterJava(file, testcaseFile, 1);
-    // const data = await solutionTesterCPP(file, testcaseFile, 1);
+    // const data = await solutionTesterJava(file, testcaseFile, 1);
+    const data = await solutionTesterCPP(file, testcaseFile, 2);
 
     res.json({
         data
