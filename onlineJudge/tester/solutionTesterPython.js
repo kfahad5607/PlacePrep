@@ -5,7 +5,7 @@ const { remove_linebreaks,
     arraysEqual,
     isJSON,
     is2dArray,
-    replace1QTo2Q } = require('../utils/helperFunctions');
+    replace1QTo2Q } = require('../../utils/helperFunctions');
 
 const testCodePython = async (file, testcaseFile, noOfInputs) => {
     let results = [];
@@ -75,7 +75,7 @@ const testCodePython = async (file, testcaseFile, noOfInputs) => {
                                         let oneDArrTestcaseOutput = from2dTo1dArr(strToArrTestcaseOutput);
                                         // console.log('std 2d array', oneDArrStdout);
                                         // console.log('test 2d array', oneDArrTestcaseOutput);
-                                        console.log('test ', arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
+                                       //  console.log('test ', arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                         resolve(arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                     }
                                     else {
@@ -83,9 +83,9 @@ const testCodePython = async (file, testcaseFile, noOfInputs) => {
                                     }
                                 }
                                 else {
-                                    console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                                    console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
-                                    console.log(`output and testcase arraya -> `, strToArrStdout, ' and ', strToArrTestcaseOutput);
+                                   //  console.log(`Output no. ${i} -> ${trimmedStdout} `);
+                                   //  console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
+                                  //   console.log(`output and testcase arraya -> `, strToArrStdout, ' and ', strToArrTestcaseOutput);
                                     // console.log('array equals', arraysEqual(strToArrStdout, strToArrTestcaseOutput));
                                     resolve(arraysEqual(strToArrStdout, strToArrTestcaseOutput));
                                 }
@@ -97,8 +97,8 @@ const testCodePython = async (file, testcaseFile, noOfInputs) => {
                         else {
                             // Old code
                             //results.push(trimmedStdout == trimmedTestcaseOutput);
-                            console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                            console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
+                           //  console.log(`Output no. ${i} -> ${trimmedStdout} `);
+                            // console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
                             // console.log(`Result no. ${i} -> ${trimmedStdout == trimmedTestcaseOutput} `);
                             // console.log(`Result no. ${i} -> `, temp);
                             resolve(trimmedStdout == trimmedTestcaseOutput);

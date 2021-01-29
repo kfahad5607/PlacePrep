@@ -5,7 +5,7 @@ const { remove_linebreaks,
     arraysEqual,
     isJSON,
     is2dArray,
-    replace1QTo2Q } = require('../utils/helperFunctions');
+    replace1QTo2Q } = require('../../utils/helperFunctions');
 
 const testCodeC = async (file, testcaseFile, noOfInputs) => {
 
@@ -14,7 +14,7 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
         await new Promise((resolve, reject) => {
             exec(`g++ ${file} -o ${exeFile}`, (err, stdout, stderr) => {
                 if (err) {
-                    console.log('err in compiling', stderr, 'end');
+                    //  console.log('err in compiling', stderr, 'end');
                     reject(stderr);
                 }
                 resolve();
@@ -63,11 +63,11 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
             const info = await new Promise((resolve, reject) => {
                 exec(`${exeFile} < ./onlineJudge/input.txt`, (err, stdout, stderr) => {
                     if (err) {
-                        console.log('err1', stderr, 'end');
+                       //  console.log('err1', stderr, 'end');
                         reject(stderr);
                     }
                     else if (stdout) {
-                        console.log(stdout)
+                       //  console.log(stdout);
                         let trimmedStdout = remove_linebreaks(stdout);
                         let trimmedTestcaseOutput = remove_linebreaks(testcases[i + noOfInputs]);
                         // Checking if the std output is an array
@@ -81,7 +81,7 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
                                     if (is2dArray(strToArrTestcaseOutput)) {
                                         let oneDArrStdout = from2dTo1dArr(strToArrStdout);
                                         let oneDArrTestcaseOutput = from2dTo1dArr(strToArrTestcaseOutput);
-                                        console.log('test ', arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
+                                        //   console.log('test ', arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                         resolve(arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                     }
                                     else {
@@ -89,9 +89,9 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
                                     }
                                 }
                                 else {
-                                    console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                                    console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
-                                    console.log(`output and testcase arraya -> `, strToArrStdout, ' and ', strToArrTestcaseOutput);
+                                    //  console.log(`Output no. ${i} -> ${trimmedStdout} `);
+                                    //  console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
+                                    //  console.log(`output and testcase arraya -> `, strToArrStdout, ' and ', strToArrTestcaseOutput);
                                     resolve(arraysEqual(strToArrStdout, strToArrTestcaseOutput));
                                 }
                             }
@@ -100,14 +100,14 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
                             }
                         }
                         else {
-                            console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                            console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
+                            //  console.log(`Output no. ${i} -> ${trimmedStdout} `);
+                            //  console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
                             resolve(trimmedStdout == trimmedTestcaseOutput);
 
                         }
                     }
                     else {
-                        console.log(`No Output  `);
+                        // console.log(`No Output  `);
                         reject('Neither err nor sdterr');
                     }
                 });
@@ -122,7 +122,7 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
                 };
             }
             results.push(info);
-            console.log('Info = ', info);
+            //  console.log('Info = ', info);
 
         } catch (err) {
             return {
