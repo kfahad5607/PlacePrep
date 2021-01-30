@@ -1,13 +1,17 @@
 const express = require('express');
 const routes = require('./onlineJudge/index');
-const path = require('path');
-const { exec, spawn } = require('child_process');
+const questionRouter = require('./routes/questionRoutes');
+const aptiQuestionRouter = require('./routes/aptiQuestionRoutes');
+const { exec } = require('child_process');
 
 const app = express();
 
 // Parsing the data into body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/v1/questions', questionRouter )
+app.use('/api/v1/aptiquestions', aptiQuestionRouter )
 
 app.get('/', (req, res) => {
 
@@ -48,7 +52,5 @@ app.get('/run2', (req, res) => {
         data: 'running...'
     });
 });
-
-
 
 module.exports = app;

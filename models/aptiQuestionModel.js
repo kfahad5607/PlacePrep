@@ -10,7 +10,13 @@ const aptiQuestionSchema = new mongoose.Schema({
     // answers: [String],
     answers: {
         type: [String],
-        required: [true, "Each question must have options"]
+        required: [true, "Each question must have options"],
+        validate: {
+            validator: function(ans) {
+              return ans.length == 4
+            },
+            message: "Options should be four"
+        }
     },
     correctAnswer: {
         type: String,
