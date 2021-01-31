@@ -25,14 +25,30 @@ exports.createQuiz = catchAsync(async (req, res, next) => {
 });
 
 exports.updateQuiz = catchAsync(async (req, res, next) => {
-    const quiz = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
+    let quizQuestions;
+    let updateObj;
+
+    if (req.body.questions) {
+        quizQuestions = req.body.questions;
+        // Here updateObj will have all the properties of req.body
+        // except for questions property
+        let { questions, ...copyObj } = req.body;
+        updateObj = { ...copyObj };
+    }
+
+    console.log('quizques', req.body, updateObj);
+
+    const quiz = await Quiz.findByIdAndUpdate(req.params.id, updateObj, {
         new: true,
         runValidators: true
     });
-
     if (!quiz) {
         return next(new AppError('No quiz found with that ID.', 404));
     }
+
+    quizQuestions.map(async (qq) => {
+        await QuizQuestion.findByIdAndUpdate(qq._id, qq);
+    });
 
     res.status(200).json({
         status: 'success',
