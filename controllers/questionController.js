@@ -1,6 +1,8 @@
 const Question = require('../models/questionModel');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
-exports.createQuestion = async (req, res) => {
+exports.createQuestion = catchAsync(async (req, res) => {
     const question = await Question.create(req.body);
 
     res.status(201).json({
@@ -9,19 +11,16 @@ exports.createQuestion = async (req, res) => {
             data: question
         }
     });
-};
+});
 
-exports.updateQuestion = async (req, res) => {
+exports.updateQuestion = catchAsync(async (req, res) => {
     const question = await Question.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
     });
 
     if (!question) {
-        return res.status(404).json({
-            status: 'fail',
-            error: 'question not found'
-        });
+        return next(new AppError('No coding question found with that ID.', 404))
     }
 
     res.status(201).json({
@@ -30,16 +29,13 @@ exports.updateQuestion = async (req, res) => {
             data: question
         }
     });
-};
+});
 
-exports.getQuestion = async (req, res) => {
+exports.getQuestion = catchAsync(async (req, res) => {
     const question = await Question.findById(req.params.id);
 
     if (!question) {
-        return res.status(404).json({
-            status: 'fail',
-            error: 'question not found'
-        });
+        return next(new AppError('No coding question found with that ID.', 404))
     }
 
     res.status(200).json({
@@ -48,9 +44,9 @@ exports.getQuestion = async (req, res) => {
             data: question
         }
     });
-};
+});
 
-exports.getAllQuestions = async (req, res) => {
+exports.getAllQuestions = catchAsync(async (req, res) => {
     const questions = await Question.find({});
 
     res.status(200).json({
@@ -60,21 +56,18 @@ exports.getAllQuestions = async (req, res) => {
             questions
         }
     });
-}
+});
 
 
-exports.deleteQuestion = async (req, res) => {
+exports.deleteQuestion = catchAsync(async (req, res) => {
     const question = await Question.findByIdAndDelete(req.params.id);
 
     if (!question) {
-        return res.status(404).json({
-            status: 'fail',
-            error: 'No question found with that id'
-        })
+        return next(new AppError('No coding question found with that ID.', 404))
     }
 
     res.status(204).json({
         status: 'success',
         data: null
     });
-}
+});
