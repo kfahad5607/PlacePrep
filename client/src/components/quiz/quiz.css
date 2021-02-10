@@ -325,12 +325,12 @@ label {
 
 /********************************************By Salman*************************************************/
 /* Styles for CreateQuiz and CreateQuizQuestion */
-.container {
+.container-quiz {
   margin-top: 20px;
   margin-bottom: 20px;
   background-color: white;
   padding: 0px !important;
-  width: 900px !important;
+  /* width: 900px; */
   border-radius: 7px !important;
   box-shadow: 1px 1px 1px 1px rgb(151, 148, 148);
 }
@@ -370,14 +370,13 @@ h3 {
 
 /* chrome */
 
-.quizDuration::-webkit-outer-spin-button,
-.quizDuration::-webkit-inner-spin-button {
+.quizDuration::-webkit-outer-spin-button, .quizDuration::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 .quiz-inputFiled {
-  width: 99.5% !important;
+  width: 100% !important;
   background-color: #f1effa !important;
   border: none !important;
   box-shadow: 1px 1px 0px 0px rgb(204, 196, 196);
@@ -409,50 +408,33 @@ h3 {
   margin-top: 35px;
 }
 
-.deletebtn:focus,
-.deletebtn:active {
+@media (max-width:575px) {
+  .deletebtn {
+      margin-top: 15px;
+  }
+}
+
+.deletebtn:focus, .deletebtn:active {
   box-shadow: 0 2px 1px #412e85 inset, 0 0 8px white !important;
   background-color: #412e85 !important;
   outline: 0 none;
 }
 
-.createquiz,
-.addquestbtn {
+.createquiz, .addquestbtn {
   background-color: #775ecf !important;
   font-size: 15px !important;
   border-radius: 7px !important;
-  width: 350px;
+  width: 100%;
 }
 
-@media (max-width: 992px) and (min-width: 768px) {
-  .addquestbtn,
-  .createquiz {
-    width: 300px;
-  }
-}
-
-@media (max-width: 768px) and (min-width: 576px) {
-  .addquestbtn,
-  .createquiz {
-    width: 200px;
-  }
-}
-
-.createquiz {
-  float: right;
-}
-
-.createquiz:focus,
-.createquiz:active,
-.addquestbtn:focus,
-.addquestbtn:active {
+.createquiz:focus, .createquiz:active, .addquestbtn:focus, .addquestbtn:active {
   box-shadow: 0 2px 1px #412e85 inset, 0 0 8px white !important;
   background-color: #412e85 !important;
   outline: 0 none;
 }
 
-@media (max-width: 767px) and (min-width: 576px) {
+@media (max-width: 767px) and (min-width:576px) {
   .responsivelabel {
-    margin-top: 24px !important;
+      margin-top: 24px !important;
   }
 }

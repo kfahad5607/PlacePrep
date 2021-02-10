@@ -39,7 +39,7 @@ function CreateCodeQuestion() {
     };
 
     return (
-        <Container >
+        <Container className="container-createCodeQuest" >
             <h3 className="text-center  mb-2 pt-4 "> Create Coding Question</h3>
             <div className="title-border mb-4">
                 <span></span>
