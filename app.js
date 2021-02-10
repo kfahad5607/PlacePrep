@@ -1,6 +1,7 @@
 const express = require('express');
 const onlineJudgeroutes = require('./routes/onlineJudgeRoutes');
 const questionRouter = require('./routes/questionRoutes');
+const aptiQuestionRouter = require('./routes/aptiQuestionRoutes');
 const quizQuestionRouter = require('./routes/quizQuestionRoutes');
 const quizRouter = require('./routes/quizRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -13,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/api/v1/aptiquestions', aptiQuestionRouter )
 app.use('/api/v1/questions', questionRouter);
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/quizQuestions', quizQuestionRouter);
