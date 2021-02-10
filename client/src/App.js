@@ -2,9 +2,9 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './Auth.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Login from './component/auth/Login';
-import Register from './component/auth/Register';
-import Coding from './component/coding/Coding';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import Coding from './components/coding/Coding';
 
 const App = () => {
   return (

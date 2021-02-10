@@ -8,7 +8,7 @@ const MessagePanel = ({content}) => {
     const {title, message, btnLink, btnName} = content
 
     return (
-        <div className="panel left-panel">
+        <div className={"panel " + (btnName=== "Sign up" ? "left-panel" : "right-panel")}>
             <div className="content">
                 <h3>{title}</h3>
                 <p>{message}</p>
