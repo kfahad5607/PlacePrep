@@ -126,14 +126,17 @@ form {
 .btn-login:hover {
     background-color: #4d84e2;
     color: #fff;
+    text-decoration: none;
 }
 
 .left-panel {
-    padding: 3rem 17% 2rem 12%;
+    text-align: center;
+    padding: 3rem 13% 2rem 8%;
 }
 
 .right-panel {
-    padding: 3rem 12% 2rem 17%;
+    text-align: center;
+    padding: 3rem 10% 2rem 13%;
 }
 
 .panel .content {
