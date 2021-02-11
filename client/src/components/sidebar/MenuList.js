@@ -9,12 +9,17 @@ const MenuList = () => {
     const [subMenus, setSubMenus] = useState({});
 
     useLayoutEffect(() => {
-        const path = window.location.pathname;
+        let path = window.location.pathname;
+        if (path !== '/') {
+            path = path.endsWith('/') ? path.replace(/\/$/, "") : path;
+        }
         const parts = path.split('/');
 
-        if (path !== '/' && parts[1].charAt(0).toUpperCase() !== menuItems[0].name) {
-            const selectedItem = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
-            setSelected(selectedItem);
+        if (parts.length !== 3) {
+            const selectedItem = menuItems.filter((ele) => {
+                return ele.to === path;
+            })[0];
+            setSelected(selectedItem?.name);
         }
     }, []);
 
@@ -30,15 +35,34 @@ const MenuList = () => {
                 newSubMenus[index]['selectedSubMenu'] = null;
             }
 
-            const path = window.location.pathname;
+            let path = window.location.pathname;
+            path = path.endsWith('/') ? path.replace(/\/$/, "") : path;
             const parts = path.split('/');
 
+            let selectedItemIndex;
+            let selectedSubItemIndex;
             if (parts.length === 3) {
-                const selectedItem = parts[1].toLowerCase();
-                const subSelectedItem = parts[2].toLowerCase();
-                const selectedItemIndex = menuItems.findIndex(item => item.name.toLowerCase() === selectedItem);
-                const selectedSubItemIndex = menuItems[selectedItemIndex] && menuItems[selectedItemIndex].subMenuItems.findIndex(subItem => subItem.name.toLowerCase() === subSelectedItem);
+                const selectedItem = menuItems.filter((ele, index) => {
+                    if (ele.to === '/' + parts[1]) {
+                        selectedItemIndex = index;
+                    }
+                    return ele.to === '/' + parts[1];
+                })[0];
 
+                // const selectedItem = parts[1].toLowerCase();
+
+                selectedItem.subMenuItems.filter((subEle, index) => {
+                    if (subEle.to === '/' + parts[2]) {
+                        selectedSubItemIndex = index;
+                    }
+                    return subEle.to === '/' + parts[2];
+                });
+
+                // const subSelectedItem = parts[2].toLowerCase();
+                // const selectedItemIndex = menuItems.findIndex(item => item.name.toLowerCase() === selectedItem);
+                // const selectedSubItemIndex = menuItems[selectedItemIndex] && menuItems[selectedItemIndex].subMenuItems.findIndex(subItem => subItem.name.toLowerCase() === subSelectedItem);
+
+                setSelected(selectedItem.name);
                 if (selectedItemIndex !== -1) {
                     newSubMenus[selectedItemIndex] = {};
                     newSubMenus[selectedItemIndex]['isOpen'] = true;
@@ -48,7 +72,6 @@ const MenuList = () => {
                 }
             }
 
-
             setSubMenus(newSubMenus);
         });
     }, []);
@@ -56,7 +79,6 @@ const MenuList = () => {
     const handleMenuItemClick = (name, index) => {
         setSelected(name);
 
-        console.log('sub', subMenus.hasOwnProperty(index), subMenus);
         if (subMenus.hasOwnProperty(index)) {
             const subMenusCopy = { ...subMenus };
 

@@ -38,7 +38,7 @@ const Register = () => {
                 <Col className="form-container">
                     <div className="sign-up-form">
                         <form
-                            className="sign-up-form"
+                            className="sign-up-form auth-form"
                             onSubmit={handleOnSubmit}
                         >
                             <h2 className="title">Sign up</h2>

@@ -1,21 +1,16 @@
 import React from 'react';
 import './UserProfile.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Form } from 'react-bootstrap';
 
 
 function UserProfile() {
     return (
         <Container className="container-user">
-
-            <img src="/profileCover.jpg" className="imgCover" alt=""></img>
             <h3 className="text-center mt-5 mb-3 ">YOUR ACCOUNT SETTINGS</h3>
             <div className="title-border mb-4">
                 <span></span>
             </div>
-
-
-            <div className=" userform">
+            <div className="userform">
                 <Form className="">
                     <Form.Group controlId="Name" >
                         <Form.Label><b>Name</b></Form.Label>

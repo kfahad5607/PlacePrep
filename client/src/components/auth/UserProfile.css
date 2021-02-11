@@ -42,10 +42,6 @@
     outline: 0 none;
 }
 
-@media (max-width: 767px) and (min-width:576px) {
-    .savesetting {}
-}
-
 .userform {
     margin-left: 100px;
     margin-right: 100px;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-// import './quiz.css';
+import './quiz.css';
 import { Button, Container, Form } from 'react-bootstrap';
 import QuizQuestion from './CreateQuizQuestion';
 
@@ -49,7 +49,7 @@ function CreateQuiz() {
     };
 
     return (
-        <Container>
+        <Container className="container-quiz">
             <h3 className="text-center  mb-2 pt-4 ">QUIZ DETAILS</h3>
             <div className="title-border mb-4">
                 <span></span>
@@ -57,28 +57,28 @@ function CreateQuiz() {
             <div className="createquizform pb-1">
                 <Form >
                     <div className="row mb-2">
-                        <div className="col-6">
+                        <div className="col-sm-6">
                             <Form.Group controlId="quiztitle" >
                                 <Form.Label><b>Quiz title</b></Form.Label>
                                 <Form.Control className="quiz-inputFiled" type="" placeholder="Enter Title" />
                             </Form.Group>
                         </div>
-                        <div className="col-6">
+                        <div className="col-sm-6">
                             <Form.Group controlId="category" >
                                 <Form.Label><b>Quiz Category</b></Form.Label>
                                 <Form.Control className="quiz-inputFiled" type="" placeholder="Quantitative/ Logical/ Other" />
                             </Form.Group>
                         </div>
                     </div>
-                    <div className="row mb-4">
-                        <div className="col-6 responsivelabel">
+                    <div className="row mb-2">
+                        <div className="col-sm-6 responsivelabel">
                             <Form.Group controlId="topics" >
                                 <Form.Label><b>Quiz topics</b></Form.Label>
                                 <Form.Control className="quiz-inputFiled " type="email" placeholder="Example: Probability, Trains..." />
                             </Form.Group>
 
                         </div>
-                        <div className="col-6 responsivelabel">
+                        <div className="col-sm-6 responsivelabel">
                             <Form.Group controlId="duration" >
                                 <Form.Label><b >Duration</b></Form.Label>
                                 <Form.Control className="quiz-inputFiled quizDuration " type="number" placeholder="Minutes only" />
@@ -102,10 +102,10 @@ function CreateQuiz() {
                     )}
 
                     <div className="row">
-                        <div className="col-6">
-                            <Button className="addquestbtn mb-4" onClick={handleAddQuesClick} > Add Next Question  </Button>
+                        <div className="col-sm-6">
+                            <Button className="addquestbtn mb-2" onClick={handleAddQuesClick} > Add Next Question  </Button>
                         </div>
-                        <div className="col-6 text-center">
+                        <div className="col-sm-6 text-center">
                             <Button className="createquiz mb-4" > Create Quiz</Button>
                         </div>
                     </div>

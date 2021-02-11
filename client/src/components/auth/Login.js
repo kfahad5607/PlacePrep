@@ -36,7 +36,7 @@ const Login = () => {
                 </Col>
                 <Col className="form-container">
                     <div className="sign-in-form">
-                        <form className="sign-in-form" onSubmit={handleOnSubmit}>
+                        <form className="sign-in-form auth-form" onSubmit={handleOnSubmit}>
                             <h2 className="title">Sign in</h2>
                             <div className="input-field">
                                 <i className="fa fa-user"></i>

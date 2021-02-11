@@ -140,7 +140,7 @@
 .CodeMirror {
     height: 60vh !important;
     width: auto;
-    max-width: 691px;
+    /* max-width: 691px; */
     border: 1px solid #eeeeee;
 }
 .CodeMirror-linenumbers {
