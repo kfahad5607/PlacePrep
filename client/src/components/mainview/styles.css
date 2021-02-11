@@ -1,0 +1,14 @@
+.mainview-container{
+    background-color: blue;
+    width: 100%;
+    margin-left: 280px;
+}
+
+
+@media (max-width: 768px) {
+    .mainview-container{
+        background-color: red;
+        width: 100%;
+        margin-left: 0;
+    }
+}  

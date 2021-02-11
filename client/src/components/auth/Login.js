@@ -36,10 +36,10 @@ const Login = () => {
                 </Col>
                 <Col className="form-container">
                     <div className="sign-in-form">
-                        <form className="sign-in-form" onSubmit={handleOnSubmit}>
+                        <form className="sign-in-form auth-form" onSubmit={handleOnSubmit}>
                             <h2 className="title">Sign in</h2>
                             <div className="input-field">
-                                <i className="fas fa-user"></i>
+                                <i className="fa fa-user"></i>
                                 <input
                                     type="text"
                                     placeholder="Email"
@@ -49,7 +49,7 @@ const Login = () => {
                                 />
                             </div>
                             <div className="input-field">
-                                <i className="fas fa-lock"></i>
+                                <i className="fa fa-lock"></i>
                                 <input
                                     type="password"
                                     placeholder="Password"

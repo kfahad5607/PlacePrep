@@ -38,12 +38,12 @@ const Register = () => {
                 <Col className="form-container">
                     <div className="sign-up-form">
                         <form
-                            className="sign-up-form"
+                            className="sign-up-form auth-form"
                             onSubmit={handleOnSubmit}
                         >
                             <h2 className="title">Sign up</h2>
                             <div className="input-field">
-                                <i className="fas fa-user"></i>
+                                <i className="fa fa-user"></i>
                                 <input
                                     type="text"
                                     placeholder="Name"
@@ -53,7 +53,7 @@ const Register = () => {
                                 />
                             </div>
                             <div className="input-field">
-                                <i className="fas fa-envelope"></i>
+                                <i className="fa fa-envelope"></i>
                                 <input
                                     type="text"
                                     placeholder="Email"
@@ -63,7 +63,7 @@ const Register = () => {
                                 />
                             </div>
                             <div className="input-field">
-                                <i className="fas fa-lock"></i>
+                                <i className="fa fa-lock"></i>
                                 <input
                                     type="password"
                                     placeholder="Password"
@@ -73,7 +73,7 @@ const Register = () => {
                                 />
                             </div>
                             <div className="input-field">
-                                <i className="fas fa-lock"></i>
+                                <i className="fa fa-lock"></i>
                                 <input
                                     type="password"
                                     placeholder="Confirm Password"
