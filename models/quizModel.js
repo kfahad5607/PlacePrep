@@ -6,6 +6,10 @@ const quizSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User'
     },
+    topic: {
+        type: String,
+        required: [true, "Each question must belong to particular topic"]
+    },
     category: {
         type: String,
         enum: ['quants', 'logical', 'other'],

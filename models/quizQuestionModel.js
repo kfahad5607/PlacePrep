@@ -18,10 +18,26 @@ const quizQuestionSchema = new mongoose.Schema({
             message: 'Exactly four options are allowed.'
         }
     },
+    topic: {
+        type: String,
+        required: [true, "Each question must belong to particular topic"]
+    },
     correctAnswer: {
         type: String,
         select: false
         // required: [true, 'Correct option is required.']
+    },
+    category: {
+        type: String,
+        // default: 'Quants',
+        enum: {
+            values: ['Quants', 'Logical','Verbal', 'other'],
+            message: 'category is either: Quants, Logical or Verbal'
+        }
+    },
+    explanation: {
+        type: String,
+        default: 'No answer description available for this question'
     },
     createdAt: {
         type: Date,

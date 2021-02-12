@@ -6,7 +6,7 @@ import { Button, Container, Form } from 'react-bootstrap';
 function UserProfile() {
     return (
         <Container className="container-user">
-            <h3 className="text-center mt-5 mb-3 ">YOUR ACCOUNT SETTINGS</h3>
+            <h3 className="text-center mb-3 pt-4 ">YOUR ACCOUNT SETTINGS</h3>
             <div className="title-border mb-4">
                 <span></span>
             </div>

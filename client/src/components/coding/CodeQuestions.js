@@ -126,9 +126,8 @@ function CodeQuestions() {
 
                         </Form>
                     </div>
-                    <div className="col-4 mt-2 ">
-                        <span className="labelRowsPerPg ">rows per page.</span>
-                    </div>
+                    <span className="labelRowsPerPg mt-2 col-4">rows per page.</span>
+
                     <div className=" paginatt ">
                         <nav aria-label="Page navigation example" >
                             <ul className="pagination nav2">

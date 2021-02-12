@@ -6,24 +6,29 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import SideBar from './components/sidebar/SideBar';
 import MainView from './components/mainview/MainView';
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
 
 const App = () => {
+  const store = configureStore();
   {/* <div style={{ display: 'flex', height: '100vh' }}> */ }
 
   {/* </div> */ }
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <>
-          <div style={{ display: 'flex', height: '100vh' }} >
-            <SideBar />
-            <MainView />
-          </div>
-        </>
-      </Switch>
-    </Router>
+    <Provider store={store} >
+      <Router>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <>
+            <div style={{ display: 'flex', height: '100vh' }} >
+              <SideBar />
+              <MainView />
+            </div>
+          </>
+        </Switch>
+      </Router>
+    </Provider>
   );
 };
 

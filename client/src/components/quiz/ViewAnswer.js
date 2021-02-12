@@ -9,7 +9,7 @@ const ViewAnswer = (props) => {
     return (
         <Fragment>
             <Accordion.Toggle as={Button} active="true" variant="" eventKey={props.eKey}>
-                <Alert.Link>View Answer</Alert.Link>
+                <Alert.Link style={{ color: '#775ecf' }}>View Answer</Alert.Link>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={props.eKey} >
                 <Card.Body className='explanation_area' >The Correct Answer is: <strong>{ props.correctOption}</strong></Card.Body>

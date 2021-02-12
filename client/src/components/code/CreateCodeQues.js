@@ -97,11 +97,27 @@ function CreateCodeQuestion() {
                     }
 
                     {/* samples end here */}
-
                     <div className=" text-center">
                         <Button className=" addsample mt-3" onClick={handleAddSampleClick} > Add More Samples  </Button>
                     </div>
                     <hr></hr>
+
+                    <h3 className="text-center  mb-2 pt-1 ">Add TestCases</h3>
+                    <div className="title-border mb-4">
+                        <span></span>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-12">
+                            <Form.Group controlId="quiztitle" >
+                                <TextareaAutosize className="createC-inputFiled questiontextarea " minRows="2" placeholder="" name='testCases'  ></TextareaAutosize>
+                            </Form.Group>
+
+                        </div>
+                    </div>
+                    <hr className="mt-2"></hr>
+
+
 
                     <div className="row pt-2 pb-3">
                         <div className="col-sm-6">

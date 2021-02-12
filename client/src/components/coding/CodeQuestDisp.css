@@ -3,7 +3,7 @@
     margin-bottom: 20px;
     background-color: white;
     padding: 0px !important;
-    width: 900px !important;
+    width: 1140px;
     border-radius: 7px !important;
     box-shadow: 1px 1px 1px 1px rgb(151, 148, 148);
 }
@@ -73,18 +73,18 @@ h3 {
 }
 
 .paginatt {
-    margin-left: 265px;
+    margin-left: 425px;
 }
 
-@media (max-width:991px) and (min-width:767px) {
+@media (max-width:1200px) and (min-width:991px) {
     .paginatt {
-        margin-left: 145px;
+        margin-left: 306px;
     }
 }
 
-@media (max-width:767px) and (min-width:576px) {
+@media (max-width:991px) and (min-width:576px) {
     .paginatt {
-        margin-left: 37px;
+        margin-left: 150px;
     }
 }
 

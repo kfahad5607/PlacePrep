@@ -9,7 +9,8 @@ body {
 }
 
 .quiz_header {
-  background-color: white;
+  background-color: #775ecf;
+  color: white;
   font-size: 20px;
   position: sticky;
   top: 0;
@@ -25,8 +26,8 @@ button:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: aliceblue;
-  border: 1px solid #84c5fe;
+  background-color: #f1effa;
+  border: 1px solid #f1effa;
   transition: all 0.3s ease;
 }
 
@@ -42,8 +43,8 @@ button:focus {
 
 .option:hover {
   color: #004085;
-  background-color: #cce5ff;
-  border-color: #b8daff;
+  background-color: #d8d5df;
+  border-color: #e1dee9;
 }
 
 .option.correct {
@@ -89,12 +90,12 @@ button:focus {
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
-  width: 40rem;
+  width: 900px;
   border-radius: 10px 10px 0px 0px;
 }
 
 .start_quiz_btn {
-  margin-left: 200px;
+  /* margin-left: 200px; */
   width: 200px;
   background-color: #775ecf;
   border-color: #775ecf;
@@ -103,8 +104,8 @@ button:focus {
 }
 
 .start_quiz_btn:active, .start_quiz_btn:focus {
-  background-color: #775ecf !important;
-  border-color: #775ecf;
+  background-color: #412e85 !important;
+  border-color: #412e85;
   box-shadow: none !important;
 }
 
@@ -120,8 +121,8 @@ button:focus {
 
 .start_quiz_btn:hover {
   color: #fff;
-  background-color: #775ecf;
-  border-color: #775ecf;
+  background-color: #412e85;
+  border-color: #412e85;
 }
 
 .quiz_card_header {
@@ -155,7 +156,7 @@ button:focus {
 }
 
 .quiz_card_table thead {
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid rgb(194, 187, 187);
 }
 
 .quiz_card_table td {
@@ -166,6 +167,24 @@ button:focus {
   font-size: 15px;
   color: #aba9b8;
   font-weight: 400;
+}
+
+@media (max-width:1200px) and (min-width:1080px) {
+  .quiz_card {
+    width: 800px;
+  }
+}
+
+@media (max-width:1080px) and (min-width:991px) {
+  .quiz_card {
+    width: 700px;
+  }
+}
+
+@media (max-width:991px) and (min-width:0px) {
+  .quiz_card {
+    width: 600px;
+  }
 }
 
 .timer {
@@ -182,8 +201,8 @@ button:focus {
 }
 
 .time_sec {
-  border: 1px solid #b8daff;
-  background-color: #cce5ff;
+  border: 1px solid #f1effa !important;
+  background-color: #f1effa !important;
   color: #343a40;
   border-radius: 5px;
   margin-left: 8px;
@@ -194,12 +213,12 @@ button:focus {
   display: flex;
   align-items: center;
   font-size: 29px;
-  font-weight: 800;
+  font-weight: 500;
   text-align: center;
 }
 
 .explanation_area {
-  background-color: #dedbdb;
+  background-color: #d8d5df;
   border-radius: 10px;
 }
 
@@ -425,4 +444,8 @@ h3 {
   .responsivelabel {
     margin-top: 24px !important;
   }
+}
+
+.btn, .btn-primary {
+  border: none !important;
 }

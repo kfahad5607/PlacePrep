@@ -1,12 +1,13 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import QuizQues from './QuizQues';
 
 const QuizPage = () => {
     return (
-        <>
+        <Container>
             <Card.Header className='quiz_header'>
                 <Row >
                     <Col lg={9} md={8} sm={7} xs={8} className='quiz_title_col' >
@@ -21,7 +22,7 @@ const QuizPage = () => {
                 </Row>
             </Card.Header>
             <QuizQues />
-        </>
+        </Container>
     );
 };
 
