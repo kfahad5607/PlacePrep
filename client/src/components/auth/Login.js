@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import MessagePanel from "./MessagePanel";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -57,6 +58,9 @@ const Login = () => {
                                     value={password}
                                     onChange={handleOnChange}
                                 />
+                            </div>
+                            <div className="forgot-password">
+                            <Link to="/forgotpassword">Forgot Password?</Link>
                             </div>
                             <input
                                 type="submit"

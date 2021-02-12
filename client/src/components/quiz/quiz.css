@@ -413,6 +413,7 @@ h3 {
   font-size: 15px !important;
   border-radius: 7px !important;
   width: 100%;
+  border: none !important;
 }
 
 .createquiz:focus, .createquiz:active, .addquestbtn:focus, .addquestbtn:active {
@@ -425,4 +426,8 @@ h3 {
   .responsivelabel {
     margin-top: 24px !important;
   }
+}
+
+.btn, .btn-primary{
+  border: none !important;
 }
