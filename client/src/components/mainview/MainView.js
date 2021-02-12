@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './styles.css';
 import { Route } from 'react-router-dom';
 import UserProfile from '../auth/UserProfile';
@@ -8,11 +8,13 @@ import CodeQuestions from '../coding/CodeQuestions';
 import CreateCodeQuestion from '../code/CreateCodeQues';
 import QuizCard from '../quiz/QuizCard';
 import QuizPage from '../quiz/QuizPage';
+import Navbar from '../layout/Navbar';
 
 
 const MainView = () => {
     return (
         <div className='mainview-container'>
+            <Navbar />
             <Route exact path="/me" component={UserProfile} />
             <Route exact path="/createQuiz" component={CreateQuiz} />
             <Route exact path="/code" component={Coding} />
@@ -20,7 +22,6 @@ const MainView = () => {
             <Route exact path="/createCodeQuestion" component={CreateCodeQuestion} />
             <Route exact path="/quizzes" component={QuizCard} />
             <Route exact path="/quiz" component={QuizPage} />
-            
         </div>
     );
 };
