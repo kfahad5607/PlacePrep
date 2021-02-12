@@ -108,6 +108,16 @@ input {
     font-weight: 500;
 }
 
+.forgot-password {
+    margin-left: auto;
+    margin-right: 0.5rem;
+}
+
+.forgot-password a {
+    text-decoration: none;
+    color: #444;
+}
+
 .btn-login {
     width: 150px;
     background-color: #5995fd;
@@ -179,6 +189,20 @@ input {
     transition-delay: 0.4s;
 }
 
+/* Navbar css */
+.navbar-text a {
+    margin: 0.5rem;
+}
+.navbar-text a:hover {
+    text-decoration: none;
+}
+
+.nav__user-img {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
 @media (max-width: 870px) {
     .login-container {
         flex-direction: column;

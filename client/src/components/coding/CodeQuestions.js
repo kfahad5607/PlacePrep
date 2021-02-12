@@ -43,25 +43,25 @@ function CodeQuestions() {
                             <td>53.4 %</td>
                             <td>
                                 <span>
-                                    < a className="fa fa-pencil-square operation-E mr-3 " aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-pencil-square operation-E mr-3 " aria-hidden="true" href="#"></a>
                                 </span>
                                 <span>
-                                    < a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
                                 </span>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" >2</th>
-                            <td ><a className="questTitle" href="/code">Add Two Numbers</a></td>
+                            <td ><a className="questTitle" href="/code" >Add Two Numbers</a></td>
                             <td className=""><span><a className="fa fa-book questSol" aria-hidden="true" href="#"></a></span></td>
                             <td className=""><span className=" diffEasy badge bg-success ">Easy</span></td>
                             <td>75.7 %</td>
                             <td>
                                 <span>
-                                    < a className="fa fa-pencil-square operation-E  mr-3" aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-pencil-square operation-E  mr-3" aria-hidden="true" href="#"></a>
                                 </span>
                                 <span>
-                                    < a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
                                 </span>
                             </td>
                         </tr>
@@ -73,10 +73,10 @@ function CodeQuestions() {
                             <td>50.7 %</td>
                             <td>
                                 <span>
-                                    < a className="fa fa-pencil-square operation-E mr-3 " aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-pencil-square operation-E mr-3 " aria-hidden="true" href="#"></a>
                                 </span>
                                 <span>
-                                    < a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
                                 </span>
                             </td>
                         </tr>
@@ -88,10 +88,10 @@ function CodeQuestions() {
                             <td>40.1 %</td>
                             <td>
                                 <span>
-                                    < a className="fa fa-pencil-square operation-E mr-3  " aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-pencil-square operation-E mr-3  " aria-hidden="true" href="#"></a>
                                 </span>
                                 <span>
-                                    < a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
                                 </span>
                             </td>
                         </tr>
@@ -103,10 +103,10 @@ function CodeQuestions() {
                             <td>34.7 %</td>
                             <td>
                                 <span>
-                                    < a className="fa fa-pencil-square operation-E  mr-3 " aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-pencil-square operation-E  mr-3 " aria-hidden="true" href="#"></a>
                                 </span>
                                 <span>
-                                    < a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
+                                    <a className="fa fa-trash operation-D" aria-hidden="true" href="#"></a>
                                 </span>
                             </td>
                         </tr>
@@ -154,7 +154,7 @@ function CodeQuestions() {
             </div>
 
         </Container>
-    )
+    );
 
 }
 

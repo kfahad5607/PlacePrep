@@ -12,10 +12,10 @@ const Coding = () => {
         <Row className="coding-container">
             <Col>
                 <Tabs className='navTabs' activeKey={key} onSelect={(e) => setKey(e)}>
-                    <Tab eventKey="description" title={<span><i class="fa fa-list-alt" aria-hidden="true"></i>Description</span>}>
+                    <Tab eventKey="description" title={<span><i className="fa fa-list-alt" aria-hidden="true"></i>Description</span>}>
                         <CodeDescription />
                     </Tab>
-                    <Tab eventKey="solution" title={<span><i class="fa fa-flask" aria-hidden="true"></i>Solution</span>}>
+                    <Tab eventKey="solution" title={<span><i className="fa fa-flask" aria-hidden="true"></i>Solution</span>}>
                         <CodingSolution />
                     </Tab>
                 </Tabs>

@@ -8,7 +8,7 @@ function QuizQuestion(props) {
     const [toggle, setToggle] = useState(false);
 
     return (
-        <div className="mb-5">
+        <div className="mb-4">
 
             <Accordion>
                 {/* <Accordion.Toggle as={Row} eventKey="0" style={{ cursor: 'pointer', backgroundColor: 'rgb(164, 166, 179)'}}> */}
@@ -19,7 +19,7 @@ function QuizQuestion(props) {
                             <Accordion.Toggle as={Alert.Link}
                                 onClick={() => setToggle(!toggle)}
                                 eventKey="0"
-                                style={{ float: 'right', paddingRight: '20px' }}
+                                style={{ float: 'right', paddingRight: '20px', color: "#775ecf" }}
                             >
                                 {toggle ? 'Collapse' : 'Expand'}
                             </Accordion.Toggle>
@@ -38,13 +38,13 @@ function QuizQuestion(props) {
                 <Accordion.Collapse eventKey="0">
                     <>
                         <div className="row ">
-                            <div className="col-6">
+                            <div className="col-sm-6">
                                 <Form.Group controlId="optionA" >
                                     <Form.Label><b>Option A</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled" onChange={props.onChangeFunc} value={props.quesObj.optA} name="optionA" placeholder="" />
                                 </Form.Group>
                             </div>
-                            <div className="col-6">
+                            <div className="col-sm-6">
                                 <Form.Group controlId="optionB" >
                                     <Form.Label><b>Option B</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.optB} name="optionB" placeholder="" />
@@ -52,13 +52,13 @@ function QuizQuestion(props) {
                             </div>
                         </div>
                         <div className="row ">
-                            <div className="col-6">
+                            <div className="col-sm-6">
                                 <Form.Group controlId="optionC" >
                                     <Form.Label><b>Option C</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.optC} name="optionC" placeholder="" />
                                 </Form.Group>
                             </div>
-                            <div className="col-6">
+                            <div className="col-sm-6">
                                 <Form.Group controlId="optionD" >
                                     <Form.Label><b>Option D</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.optD} name="optionD" placeholder="" />
@@ -67,20 +67,20 @@ function QuizQuestion(props) {
                         </div>
 
                         <div className="row ">
-                            <div className="col-6">
+                            <div className="col-sm-6">
                                 <Form.Group controlId="correctOption" >
                                     <Form.Label><b>Correct option</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.correctOpt} name="correctOption" placeholder="Enter answer/text" />
                                 </Form.Group>
                             </div>
-                            <div className="col-6">
+                            <div className="col-sm-6">
                                 <Button className="deletebtn" onClick={props.onDeleteFunc} >Delete question</Button>
                             </div>
                         </div>
                     </>
                 </Accordion.Collapse>
             </Accordion>
-            <hr className="mt-5 "></hr>
+            <hr className="mt-3 "></hr>
         </div>
     );
 
