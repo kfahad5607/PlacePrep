@@ -1,16 +1,31 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import MessagePanel from "./MessagePanel";
+import { connect } from "react-redux";
+import { register } from "../../store/actions/authActions";
 
-const Register = () => {
+const Register = (props) => {
+    const { register } = props;
+    const { error, isAuthenticated } = props.auth;
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            props.history.push('/')
+        }
+        if (error) {
+            console.log(error)
+        }
+        // eslint-disable-next-line
+     }, [isAuthenticated, props.history])
+
     const [user, setUser] = useState({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
+        name: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
     });
 
-    const { name, email, password, confirmPassword } = user;
+    const { name, email, password, passwordConfirm } = user;
 
     const messageContent = {
         title: "One of us ?",
@@ -29,7 +44,23 @@ const Register = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        console.log(user);
+        if (
+            name === "" ||
+            email === "" ||
+            password === "" ||
+            passwordConfirm === ""
+        ) {
+            console.log("Please enter all fields", "danger");
+        } else if (password !== passwordConfirm) {
+            console.log("Password do not match", "danger");
+        } else {
+            register({
+                name,
+                email,
+                password,
+                passwordConfirm,
+            });
+        }
     };
 
     return (
@@ -77,8 +108,8 @@ const Register = () => {
                                 <input
                                     type="password"
                                     placeholder="Confirm Password"
-                                    name="confirmPassword"
-                                    value={confirmPassword}
+                                    name="passwordConfirm"
+                                    value={passwordConfirm}
                                     onChange={handleOnChange}
                                 />
                             </div>
@@ -98,4 +129,8 @@ const Register = () => {
     );
 };
 
-export default Register;
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+});
+
+export default connect(mapStateToProps, { register })(Register);

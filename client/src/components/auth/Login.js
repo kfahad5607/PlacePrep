@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import MessagePanel from "./MessagePanel";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { login, loadUser } from "../../store/actions/authActions";
 
-const Login = () => {
+const Login = (props) => {
+    const { login, loadUser } = props;
+    const { error, isAuthenticated } = props.auth;
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            props.history.push("/");
+        }
+        if (error) {
+            console.log(error);
+        }
+        // eslint-disable-next-line
+    }, [isAuthenticated, props.history]);
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -18,17 +32,25 @@ const Login = () => {
         btnName: "Sign up",
     };
 
-    const handleOnChange = e => {
+    const handleOnChange = (e) => {
         setUser({
             ...user,
             [e.target.name]: e.target.value,
         });
     };
 
-    const handleOnSubmit = e => {
+    const handleOnSubmit = (e) => {
         e.preventDefault();
-        console.log(user)
-    }
+        if (email === "" || password === "") {
+            console.log("Please enter all fields", "danger");
+        } else {
+            login({
+                email,
+                password,
+            });
+            // loadUser()
+        }
+    };
     return (
         <div className="credentials-section">
             <Row className="login-container">
@@ -37,7 +59,10 @@ const Login = () => {
                 </Col>
                 <Col className="form-container">
                     <div className="sign-in-form">
-                        <form className="sign-in-form auth-form" onSubmit={handleOnSubmit}>
+                        <form
+                            className="sign-in-form auth-form"
+                            onSubmit={handleOnSubmit}
+                        >
                             <h2 className="title">Sign in</h2>
                             <div className="input-field">
                                 <i className="fa fa-user"></i>
@@ -60,7 +85,9 @@ const Login = () => {
                                 />
                             </div>
                             <div className="forgot-password">
-                            <Link to="/forgotpassword">Forgot Password?</Link>
+                                <Link to="/forgotpassword">
+                                    Forgot Password?
+                                </Link>
                             </div>
                             <input
                                 type="submit"
@@ -75,4 +102,8 @@ const Login = () => {
     );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+});
+
+export default connect(mapStateToProps, { login, loadUser })(Login);
