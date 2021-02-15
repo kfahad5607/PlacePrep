@@ -66,6 +66,15 @@ exports.login = catchAsync(async (req, res, next) => {
     createSendToken(user, 200, res);
 });
 
+exports.logout = (req, res) => {
+    res.cookie('jwt', 'LoggedOut', {
+        expires: new Date(Date.now() + 0 * 1000),
+        httpOnly: true
+    })
+    res.status(200).json({
+        status: 'success'
+    })
+}
 
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -74,9 +83,9 @@ exports.protect = catchAsync(async (req, res, next) => {
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
     }
-    // else if (req.cookies.jwt) {
-    //     token = req.cookies.jwt;
-    // }
+    else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
+    }
 
     if (!token) {
         return next(
