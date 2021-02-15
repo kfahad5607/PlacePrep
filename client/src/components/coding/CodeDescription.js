@@ -12,7 +12,7 @@ const CodeDescription = () => {
                     <span className="difficulty">Medium</span>
                 </div>
             </div>
-            <div className="content">
+            <div className="code-content">
                 <p>
                     Given an array of integers nums and an integer target,
                     return indices of the two numbers such that they add up to

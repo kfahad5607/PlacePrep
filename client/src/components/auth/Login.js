@@ -3,10 +3,10 @@ import { Row, Col } from "react-bootstrap";
 import MessagePanel from "./MessagePanel";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { login, loadUser } from "../../store/actions/authActions";
+import { login } from "../../store/actions/authActions";
 
 const Login = (props) => {
-    const { login, loadUser } = props;
+    const { login } = props;
     const { error, isAuthenticated } = props.auth;
 
     useEffect(() => {
@@ -48,7 +48,6 @@ const Login = (props) => {
                 email,
                 password,
             });
-            // loadUser()
         }
     };
     return (
@@ -84,16 +83,16 @@ const Login = (props) => {
                                     onChange={handleOnChange}
                                 />
                             </div>
-                            <div className="forgot-password">
-                                <Link to="/forgotpassword">
-                                    Forgot Password?
-                                </Link>
-                            </div>
                             <input
                                 type="submit"
                                 value="Login"
                                 className="btn-login solid"
                             />
+                            <div className="forgot-password">
+                                <Link to="/forgotpassword">
+                                    Forgot Password?
+                                </Link>
+                            </div>
                         </form>
                     </div>
                 </Col>
@@ -106,4 +105,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { login, loadUser })(Login);
+export default connect(mapStateToProps, { login })(Login);

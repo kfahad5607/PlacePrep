@@ -10,7 +10,6 @@ import { connect } from "react-redux";
 import { loadUser } from "./store/actions/authActions";
 
 const App = (props) => {
-    // console.log(Cookies.get())
     const { loadUser } = props;
     loadUser(false, true);
     {
