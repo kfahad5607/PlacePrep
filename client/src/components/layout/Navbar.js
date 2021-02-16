@@ -43,7 +43,7 @@ const Navbars = (props) => {
             <div id='sidebar-btn' onClick={toggleSidebarBtn} >
                 <i className='fas fa-bars menu-icon' ></i>
             </div>
-            <Navbar.Brand>
+            <Navbar.Brand className="brand-name">
                 <img
                     alt=""
                     src="./assets/img/logo.png"

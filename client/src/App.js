@@ -6,6 +6,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import SideBar from "./components/sidebar/SideBar";
 import MainView from "./components/mainview/MainView";
+import Navbar from "./components/layout/Navbar"
 import { connect } from "react-redux";
 import { loadUser } from "./store/actions/authActions";
 
@@ -25,6 +26,7 @@ const App = (props) => {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
                 <>
+                    <Navbar />
                     <div style={{ display: "flex", height: "100vh" }}>
                         <SideBar />
                         <MainView />

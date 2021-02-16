@@ -8,13 +8,11 @@ import CodeQuestions from '../coding/CodeQuestions';
 import CreateCodeQuestion from '../code/CreateCodeQues';
 import QuizCard from '../quiz/QuizCard';
 import QuizPage from '../quiz/QuizPage';
-import Navbar from '../layout/Navbar';
 import PrivateRoute from '../routing/PrivateRoute'
 
 const MainView = () => {
     return (
         <div className='mainview-container'>
-            <Navbar />
             <PrivateRoute exact path="/me" component={UserProfile} />
             <PrivateRoute exact path="/createQuiz" component={CreateQuiz} />
             <PrivateRoute exact path="/code" component={Coding} />
