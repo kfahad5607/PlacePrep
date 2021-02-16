@@ -30,7 +30,7 @@ const Register = (props) => {
     const messageContent = {
         title: "One of us ?",
         message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum laboriosam ad.",
+            "Stop roaming around, login here and get quality content for your campus drives managed by your own staff.",
         btnLink: "/login",
         btnName: "Sign in",
     };

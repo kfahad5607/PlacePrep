@@ -7,7 +7,7 @@ import {
     USER_LOADED,
     USER_LOADED_JWT,
     AUTH_ERROR,
-    CLEAR_ERRORS,
+    // CLEAR_ERRORS,
 } from "../actions/actionTypes";
 import axios from "axios";
 

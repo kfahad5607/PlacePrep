@@ -27,7 +27,7 @@ const Login = (props) => {
     const messageContent = {
         title: "New here ?",
         message:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,ex ratione. Aliquid!",
+            "SignUp and start your journey of campus placements preparations with your own campus faculties.",
         btnLink: "/register",
         btnName: "Sign up",
     };
