@@ -185,20 +185,6 @@ input {
     transition-delay: 0.4s;
 }
 
-/* Navbar css */
-.navbar-text a {
-    margin: 0.5rem;
-}
-.navbar-text a:hover {
-    text-decoration: none;
-}
-
-.nav__user-img {
-    height: 2.5rem;
-    width: 2.5rem;
-    border-radius: 50%;
-    margin-right: 0.5rem;
-}
 @media (max-width: 870px) {
     .login-container {
         flex-direction: column;
@@ -309,4 +295,28 @@ input {
     .sign-up-form {
         margin: 5px 20px;
     }
+}
+
+
+/* Navbar css */
+.navbar-text a {
+    margin: 0.5rem;
+}
+.navbar-text a:hover {
+    text-decoration: none;
+}
+
+.nav__user-img {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.brand-name{
+    margin-left: 1rem;
+}
+
+.brand-name img{
+    margin-right: 0.5rem;
 }
