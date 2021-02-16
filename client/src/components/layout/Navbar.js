@@ -39,7 +39,7 @@ const Navbars = (props) => {
         </Fragment>
     );
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" sticky="top">
             <div id='sidebar-btn' onClick={toggleSidebarBtn} >
                 <i className='fas fa-bars menu-icon' ></i>
             </div>
