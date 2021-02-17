@@ -80,7 +80,7 @@ export const register = (formdata) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
     try {
-        const res = await axios.get("/api/v1/user/logout");
+        await axios.get("/api/v1/user/logout");
         dispatch({
             type: LOGOUT,
         });

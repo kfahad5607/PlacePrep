@@ -1,24 +1,23 @@
 import React from "react";
 
-const CodeDescription = () => {
+const CodeDescription = (props) => {
+    
+    const { title, difficulty, description } = props.current;
+
     return (
         <div className="description">
             <div className="head">
                 <div className="question-title">
                     <span className="question-id">102. </span>
-                    <p className="question">Two Sum</p>
+                    <p className="question">{title}</p>
                 </div>
                 <div className="question-details">
-                    <span className="difficulty">Medium</span>
+                    <span className="difficulty">{difficulty}</span>
                 </div>
             </div>
             <div className="code-content">
                 <p>
-                    Given an array of integers nums and an integer target,
-                    return indices of the two numbers such that they add up to
-                    target.<br /> You may assume that each input would have exactly
-                    one solution, and you may not use the same element twice.
-                    You can return the answer in any order.
+                    {description}
                 </p>
             </div>
             <div className="sample-inputs">
@@ -33,5 +32,7 @@ const CodeDescription = () => {
         </div>
     );
 };
+
+
 
 export default CodeDescription;

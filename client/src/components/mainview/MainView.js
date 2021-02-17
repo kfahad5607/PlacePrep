@@ -15,7 +15,7 @@ const MainView = () => {
         <div className='mainview-container'>
             <PrivateRoute exact path="/me" component={UserProfile} />
             <PrivateRoute exact path="/createQuiz" component={CreateQuiz} />
-            <PrivateRoute exact path="/code" component={Coding} />
+            <PrivateRoute exact path="/code/:id" component={Coding} />
             <PrivateRoute exact path="/codeQuestions" component={CodeQuestions} />
             <PrivateRoute exact path="/createCodeQuestion" component={CreateCodeQuestion} />
             <PrivateRoute exact path="/quizzes" component={QuizCard} />
