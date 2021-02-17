@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const QuizQuestion = require('../models/quizQuestionModel');
+const slugify = require('slugify');
 
 const quizSchema = new mongoose.Schema({
     author: {
@@ -8,7 +9,7 @@ const quizSchema = new mongoose.Schema({
     },
     topic: {
         type: String,
-        required: [true, "Each question must belong to particular topic"]
+        required: [true, "Each quiz must belong to particular topic"]
     },
     category: {
         type: String,
@@ -46,32 +47,37 @@ const quizSchema = new mongoose.Schema({
         default: true
         // select: false
     },
+    slug: String,
     createdAt: {
         type: Date,
         default: Date.now(),
-        select: false
+        set: () => Date.now()
+        // select: false
     }
 });
 
 quizSchema.post('findOneAndDelete', async function (doc) {
-   await QuizQuestion.deleteMany({
-           _id: {
-               $in: doc.questions
-          }
-      })
+    await QuizQuestion.deleteMany({
+        _id: {
+            $in: doc.questions
+        }
+    });
 });
 
 
-// quizSchema.pre(/^find/, function (next) {
-//     this.populate({
-//         path: 'questions',
-//         select: '-__v'
-//     });
+quizSchema.pre('save', function (next) {
+    this.slug = slugify(this.title, { lower: true });
+    next();
+});
 
-//     next();
-// });
+quizSchema.pre('findOneAndUpdate', function (next) {
+    this.populate({
+        path: 'questions',
+        select: '-__v'
+    });
 
-
+    next();
+});
 
 const Quiz = mongoose.model('Quiz', quizSchema);
 

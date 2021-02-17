@@ -1,4 +1,5 @@
 const Quiz = require('../models/quizModel');
+const slugify = require('slugify');
 const QuizQuestion = require('../models/quizQuestionModel');
 const QuizSubmission = require('../models/quizSubmissionModel');
 const User = require('../models/userModel');
@@ -12,7 +13,7 @@ exports.createQuiz = catchAsync(async (req, res, next) => {
     req.body.questions = quizQuestions.map(qq => qq._id);
 
     // Adding author
-    req.body.author = req.user;
+    // req.body.author = req.user;
     const quiz = await Quiz.create(req.body);
     // console.log('reeq', req.body)
 
@@ -25,8 +26,9 @@ exports.createQuiz = catchAsync(async (req, res, next) => {
 });
 
 exports.updateQuiz = catchAsync(async (req, res, next) => {
+    let newQuizQuestions;
     let quizQuestions;
-    let updateObj;
+    let updateObj = req.body;
 
     if (req.body.questions) {
         quizQuestions = req.body.questions;
@@ -36,19 +38,45 @@ exports.updateQuiz = catchAsync(async (req, res, next) => {
         updateObj = { ...copyObj };
     }
 
-    console.log('quizques', req.body, updateObj);
+    // console.log('quizques', req.body, updateObj);
+
+    if (updateObj.title) {
+        updateObj.slug = slugify(updateObj.title, { lower: true });
+    }
+
+    if (quizQuestions) {
+        // Filtering any new questions
+        newQuizQuestions = quizQuestions.filter((qq) => {
+            if (!qq._id) {
+                return qq;
+            }
+        });
+        // Inserting any new questions
+        newQuizQuestions = await QuizQuestion.insertMany(newQuizQuestions);
+
+        // Adding new questions ID's to existing ID's array
+        updateObj.questions = [];
+        // Filter is used to check if ele._id exists and 
+        // Map is used to return only ele._id instead of ele
+        updateObj.questions = [...quizQuestions.filter(ele => ele._id).map(ele => ele._id), ...newQuizQuestions.map(ele => ele._id)
+        ];
+
+        // Updating any old questions
+        quizQuestions.forEach(async (qq) => {
+            if (qq._id) {
+                await QuizQuestion.findByIdAndUpdate(qq._id, qq);
+            }
+        });
+    }
 
     const quiz = await Quiz.findByIdAndUpdate(req.params.id, updateObj, {
         new: true,
         runValidators: true
     });
+
     if (!quiz) {
         return next(new AppError('No quiz found with that ID.', 404));
     }
-
-    quizQuestions.map(async (qq) => {
-        await QuizQuestion.findByIdAndUpdate(qq._id, qq);
-    });
 
     res.status(200).json({
         status: 'success',
@@ -59,13 +87,31 @@ exports.updateQuiz = catchAsync(async (req, res, next) => {
 });
 
 exports.getQuiz = catchAsync(async (req, res, next) => {
-    const quiz = await Quiz.findById(req.params.id);
+    // const quiz = await Quiz.findById(req.params.id);
+    // temporarily setting user
+    req.user = {
+        photo: 'default.jpg',
+        role: 'faculty',
+        _id: '60112456a1ed7015dc7b38a2',
+        name: 'Monica',
+        email: 'monica@example.com',
+        __v: 0,
+        testStartedAt: '2021-01-28T10:21:45.521Z',
+        testWillEndAt: '2021-01-28T10:22:55.521Z',
+        currentTest: '6011a949ad410828fc6971cf'
+    };
+
+    const quiz = await Quiz.findOne({ slug: req.params.slug }).populate({
+        path: 'questions',
+        select: '-__v +correctAnswer'
+    });
 
     if (!quiz) {
         return next(new AppError('No quiz found with that ID.', 404));
     }
 
-    if (quiz.active) {
+    // if (quiz.active) {
+    if ((req.user.role === 'faculty' || req.user.role === 'admin') || quiz.active) {
         return res.status(200).json({
             status: 'success',
             data: {
@@ -76,40 +122,10 @@ exports.getQuiz = catchAsync(async (req, res, next) => {
     else if (!quiz.active) {
         return res.status(200).json({
             status: 'success',
-            message: 'Quiz has been stopped.'
+            message: 'Quiz is deactivated'
         });
     }
-    // else if (quiz.active == 'null') {
-    //     if (currentTime < quiz.startTime) {
-    //         return res.status(200).json({
-    //             status: 'success',
-    //             message: 'quiz has not started.'
-    //         });
-    //     }
-    //     else if (currentTime > quiz.endTime) {
-    //         return res.status(200).json({
-    //             status: 'success',
-    //             message: 'quiz has ended.'
-    //         });
-    //     }
-    //     res.status(200).json({
-    //         status: 'success',
-    //         data: {
-    //             data: quiz
-    //         }
-    //     });
-    // }
-    // console.log('c1', Date(quiz.endTime));
-    // console.log('c2', quiz.startTime > currentTime);
-    // console.log('c3', currentTime > quiz.endTime);
 
-
-    // res.status(200).json({
-    //     status: 'success',
-    //     data: {
-    //         data: quiz
-    //     }
-    // });
 });
 
 exports.getAllQuizzes = catchAsync(async (req, res, next) => {
@@ -138,6 +154,19 @@ exports.deleteQuiz = catchAsync(async (req, res, next) => {
 });
 
 exports.submitQuiz = catchAsync(async (req, res, next) => {
+    // temporarily setting user
+    req.user = {
+        photo: 'default.jpg',
+        role: 'faculty',
+        _id: '60112456a1ed7015dc7b38a2',
+        name: 'Monica',
+        email: 'monica@example.com',
+        __v: 0,
+        testStartedAt: '2021-02-17T12:35:00.463+00:00',
+        testWillEndAt: '2021-02-17T10:57:54.619+00:00',
+        currentTest: '6011a949ad410828fc6971cf'
+    };
+
     // req.body.userAnswers req.body.quizId
     // console.log('req', req.user);
     const quiz = await Quiz.findById(req.params.id)
@@ -157,7 +186,7 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
     let score = 0;
 
     const data = userAnswers.map((ans, i) => {
-        if (ans.correctAnswer == quizQuesWCorrectAns[i].correctAnswer) {
+        if (ans.selectedAnswer == quizQuesWCorrectAns[i].correctAnswer) {
             score = score + quiz.questionWeightage;
             return true;
         }
@@ -171,13 +200,32 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
         user: req.user
     };
 
+    // console.log('validation', Date.now() - new Date(req.user.testWillEndAt) > 1000, Date.now() - new Date(req.user.testWillEndAt));
     // Checking if quiz submission time has passed 
     // if ((Date.now() - req.user.testStartedAt) / 1000 > (quiz.duration * 60 + 10)) {
-    if (Date.now() - req.user.testWillEndAt > 1000) {
+    if (Date.now() - new Date(req.user.testWillEndAt) > 1000) {
         submissionObj.valid = false;
     }
+    let durInSec = Math.round((new Date().getTime() - new Date(req.user.testStartedAt).getTime()) / 1000);
+    let durMin = Math.floor(durInSec / 60);
+    let durSec = durInSec % 60;
+
+    submissionObj.timeTaken = {};
+    submissionObj.timeTaken.minutes = durMin;
+    submissionObj.timeTaken.seconds = durSec;
 
     await QuizSubmission.create(submissionObj);
+
+
+    const user = await User.findByIdAndUpdate(req.user._id, {
+        testStartedAt: null,
+        currentTest: null,
+        testWillEndAt: null
+    }, {
+        new: true,
+        // runValidators: true
+    });
+
 
     // setting testStartedAt, testWillEndAt, currentTest to null
     // const user =  await User
@@ -192,11 +240,26 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         message: 'Quiz has been submitted.',
-        score
+        data: {
+            score: score
+        }
     });
 });
 
 exports.startQuiz = catchAsync(async (req, res, next) => {
+
+    // temporarily setting user
+    req.user = {
+        photo: 'default.jpg',
+        role: 'faculty',
+        _id: '60112456a1ed7015dc7b38a2',
+        name: 'Monica',
+        email: 'monica@example.com',
+        __v: 0,
+        testStartedAt: '2021-01-28T10:21:45.521Z',
+        testWillEndAt: '2021-01-28T10:22:55.521Z',
+        currentTest: '6011a949ad410828fc6971cf'
+    };
     // let currentTime = new Date(Date.now() + 6000000) 
 
     // console.log('curr', new Date(Date.now() + 6000000).toLocaleString('en-IN',
@@ -215,9 +278,9 @@ exports.startQuiz = catchAsync(async (req, res, next) => {
     }
 
     const user = await User.findByIdAndUpdate(req.user._id, {
-        testStartedAt: Date.now() + 10000,
+        testStartedAt: Date.now() + 2000,
         currentTest: req.params.id,
-        testWillEndAt: Date.now() + (quiz.duration * 60000) + (20000)
+        testWillEndAt: Date.now() + (quiz.duration * 60000) + (10000)
     }, {
         new: true,
         runValidators: true
@@ -237,6 +300,8 @@ exports.startQuiz = catchAsync(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         message: 'Quiz started',
-        quiz
+        data: {
+            data: quiz
+        }
     });
 });

@@ -20,11 +20,11 @@ const quizQuestionSchema = new mongoose.Schema({
     },
     topic: {
         type: String,
-        required: [true, "Each question must belong to particular topic"]
+        // required: [true, "Each question must belong to particular topic"]
     },
     correctAnswer: {
         type: String,
-        select: false
+        // select: false
         // required: [true, 'Correct option is required.']
     },
     category: {

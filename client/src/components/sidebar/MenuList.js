@@ -51,7 +51,7 @@ const MenuList = () => {
 
                 // const selectedItem = parts[1].toLowerCase();
 
-                selectedItem.subMenuItems.filter((subEle, index) => {
+                selectedItem?.subMenuItems.filter((subEle, index) => {
                     if (subEle.to === '/' + parts[2]) {
                         selectedSubItemIndex = index;
                     }
@@ -62,7 +62,7 @@ const MenuList = () => {
                 // const selectedItemIndex = menuItems.findIndex(item => item.name.toLowerCase() === selectedItem);
                 // const selectedSubItemIndex = menuItems[selectedItemIndex] && menuItems[selectedItemIndex].subMenuItems.findIndex(subItem => subItem.name.toLowerCase() === subSelectedItem);
 
-                setSelected(selectedItem.name);
+                setSelected(selectedItem?.name);
                 if (selectedItemIndex !== -1) {
                     newSubMenus[selectedItemIndex] = {};
                     newSubMenus[selectedItemIndex]['isOpen'] = true;

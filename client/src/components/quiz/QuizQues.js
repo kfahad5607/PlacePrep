@@ -1,90 +1,76 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import QuizOption from './QuizOption';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ViewAnswer from './ViewAnswer';
 import './quiz.css';
+import { connect } from 'react-redux';
+import { submitQuiz } from '../../store/actions/quizActions';
 
-const QuizQues = () => {
-    const temp = [{
-        question: 'What does HTML stand for?',
-        optionA: 'Hyper Text Preprocessor',
-        optionB: 'Hyper Text Markup Language',
-        optionC: 'Hyper Text Multiple Language',
-        optionD: 'Hyper Text Multi Language',
-        correctOption: 'Hyper Text Markup Language'
-    },
-    {
-        question: 'Who is making the Web standards?',
-        optionA: 'The World Wide Web Consortium',
-        optionB: 'Google',
-        optionC: 'Mozilla',
-        optionD: 'Firefox',
-        correctOption: 'The World Wide Web Consortium'
-    },
-    {
-        question: 'Choose the correct HTML element for the largest heading:',
-        optionA: '<head>',
-        optionB: '<heading>',
-        optionC: '<h1>',
-        optionD: '<h6>',
-        correctOption: '<h1>'
-    },
-    {
-        question: 'Choose the correct HTML element to define important text',
-        optionA: '<strong>',
-        optionB: '<i>',
-        optionC: '<important>',
-        optionD: '<b>',
-        correctOption: '<strong>'
-    }
+const QuizQues = (props) => {
+    const { submitQuiz } = props;
 
-    ];
+    let tempUserAnswers;
+    useEffect(() => {
+        tempUserAnswers = props.questions.map((ele) => {
+            return {
+                questionId: ele._id,
+                selectedAnswer: ''
+            };
+        });
+        setUserAnswers(tempUserAnswers);
+    }, [tempUserAnswers]);
 
+    const [userAnswers, setUserAnswers] = useState(null);
 
+    const handleOptClick = (index, ans) => {
+        console.log('clcic', index);
+        let tempArr = [...userAnswers];
+        tempArr[index] = { ...tempArr[index], selectedAnswer: ans };
+        setUserAnswers(tempArr);
+    };
 
-    return temp.map((ele, index) => {
-        return (
-            <Fragment key={index}>
-                <Accordion className='my-2'>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>
-                                {`${index + 1}.`} {ele.question}
-                            </Card.Title>
-                            <QuizOption key={1} text={ele.optionA} isCorrect={ele.optionA === ele.correctOption ? true : false} />
-                            <QuizOption key={2} text={ele.optionB} isCorrect={ele.optionB === ele.correctOption ? true : false} />
-                            <QuizOption key={3} text={ele.optionC} isCorrect={ele.optionC === ele.correctOption ? true : false} />
-                            <QuizOption key={4} text={ele.optionD} isCorrect={ele.optionD === ele.correctOption ? true : false} />
-                            <ViewAnswer eKey='0' correctOption={ele.correctOption} />
-                        </Card.Body>
-                    </Card>
-                </Accordion>
-            </Fragment>
-        );
-    });
+    const handleOnClick = () => {
 
-    // return (
-    //     <Fragment>
-    //         <Accordion className='my-2'>
-    //             <Card>
-    //                 <Card.Body>
-    //                     <Card.Title>
-    //                         1. What does HTML stand for?
-    //             </Card.Title>
-    //                     <QuizOption text='Hyper Text Preprocessor' eKey='1' />
-    //                     <QuizOption text='Hyper Text Markup Language' eKey='2' />
-    //                     <QuizOption text='Hyper Text Multiple Language' eKey='3' />
-    //                     <QuizOption text='Hyper Text Multi Language' eKey='4' />
-    //                     <ViewAnswer eKey='2' />
-    //                 </Card.Body>
-    //             </Card>
-    //         </Accordion>
-    //     </Fragment>
-    // );
+        submitQuiz(props.quizId, { userAnswers: userAnswers });
+        tempUserAnswers = props.questions.map((ele) => {
+            return {
+                questionId: ele._id,
+                selectedAnswer: ''
+            };
+        });
+        setUserAnswers(tempUserAnswers);
+    };
+
+    return (
+        <>
+            { props.questions.map((ele, index) => (
+                userAnswers ? (
+                    <Accordion key={index} className='my-2'>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title>
+                                    {`${index + 1}.`} {ele.question}
+                                </Card.Title>
+                                {ele.answers.map((ansEle, ansIdx) => <QuizOption
+                                    key={ansIdx}
+                                    onClickFunc={() => handleOptClick(index, ansEle)}
+                                    isClicked={ansEle === userAnswers[index].selectedAnswer}
+                                    text={ansEle} />)}
+                            </Card.Body>
+                        </Card>
+                    </Accordion>) :
+                    <h3 key={index}>Loading...</h3>)
+            )}
+            <div className="text-center" onClick={handleOnClick} style={{ width: '200px', margin: 'auto' }}>
+                <Button className="createquiz mb-4"  >Submit Quiz</Button>
+            </div>
+        </>
+    );
 };
 
-export default QuizQues;
+const mapStateToProps = (state) => ({
+    quiz: state.quiz
+});
+
+export default connect(mapStateToProps, { submitQuiz })(QuizQues);

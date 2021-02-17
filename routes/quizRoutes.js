@@ -4,7 +4,7 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.use(authController.protect);
+// router.use(authController.protect);
 
 router
     .route('/submit/:id')
@@ -18,6 +18,13 @@ router
     .route('/')
     .post(quizController.createQuiz)
     .get(quizController.getAllQuizzes);
+
+
+router
+    .route('/:slug')
+    .get(quizController.getQuiz)
+    // .patch(quizController.updateQuiz)
+    // .delete(quizController.deleteQuiz);
 
 router
     .route('/:id')
