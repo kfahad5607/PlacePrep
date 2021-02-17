@@ -7,10 +7,15 @@ const quizRouter = require('./routes/quizRoutes');
 const userRouter = require('./routes/userRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
 
 const app = express();
 
 // Parsing the data into body
+// app.use(cors())
+// app.options('*', cors())
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
