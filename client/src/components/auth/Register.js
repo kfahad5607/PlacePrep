@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import MessagePanel from "./MessagePanel";
-import { connect } from "react-redux";
-import { register } from "../../store/actions/authActions";
+import { connect } from 'react-redux'
+import { register } from '../../store/actions/authActions'
 
 const Register = (props) => {
     const { register } = props;
@@ -58,8 +58,8 @@ const Register = (props) => {
                 name,
                 email,
                 password,
-                passwordConfirm,
-            });
+                passwordConfirm
+            })
         }
     };
 
@@ -130,7 +130,7 @@ const Register = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { register })(Register);

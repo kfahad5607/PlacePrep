@@ -28,11 +28,11 @@ const reducer = (state = initialState, action) => {
                 isAuthenticated: true,
                 user: action.payload.user,
                 loading: false,
+                error: null
             };
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case AUTH_ERROR:
-        case LOGOUT:
             return {
                 ...state,
                 token: null,
@@ -45,6 +45,15 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: true,
+                loading: false,
+                error: null
+            };
+            case LOGOUT:
+            return {
+                ...state,
+                isAuthenticated: false,
+                loading: false,
+                error: null
             };
         default:
             return state;

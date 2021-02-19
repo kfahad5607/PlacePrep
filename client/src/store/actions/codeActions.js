@@ -68,10 +68,9 @@ export const updateQuestion = (question) => async (dispatch) => {
     };
     try {
         const res = await axios.patch(`/api/v1/questions/${question._id}`,question, config);
-        console.log(res.data)
         dispatch({
             type: UPDATE_CODE_QUESTION,
-            payload : res.data.data.question
+            payload : res.data.data.data
         });
     } catch (err) {
         dispatch({

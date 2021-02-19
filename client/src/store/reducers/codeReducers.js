@@ -45,6 +45,7 @@ const reducer = (state = initialState, action) => {
                 questions: state.questions.map((qsn) =>
                     qsn._id === action.payload._id ? action.payload : qsn
                 ),
+                current: action.payload,
                 loading: false,
             };
         case DELETE_CODE_QUESTION:

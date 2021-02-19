@@ -4,6 +4,7 @@ import { Container, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { getQuestions } from "../../store/actions/codeActions";
 import CodeTableRow from "./codeTableRow";
+import Spinner from '../layout/Spinner'
 
 const CodeQuestions = (props) => {
     const { getQuestions } = props;
@@ -155,7 +156,7 @@ const CodeQuestions = (props) => {
                     </div>
                 </Container>
             ) : (
-                <h1>Loading..</h1>
+                <Spinner />
             )}
         </Fragment>
     );

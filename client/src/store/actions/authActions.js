@@ -55,28 +55,28 @@ export const login = (formdata) => async (dispatch) => {
             payload: err.response.data.message,
         });
     }
-};
+}
 
-export const register = (formdata) => async (dispatch) => {
+export const register = formdata => async dispatch => {
     const config = {
         headers: {
             "Content-Type": "application/json",
         },
     };
     try {
-        const res = await axios.post("/api/v1/user/signup", formdata, config);
+        const res = await axios.post("/api/v1/user/signup", formdata, config)
         dispatch({
             type: REGISTER_SUCCESS,
-            payload: res.data.data,
-        });
+            payload: res.data.data
+        })
         loadUser(true);
     } catch (err) {
         dispatch({
             type: REGISTER_FAIL,
-            payload: err.response.data.message,
-        });
+            payload: err.response.data.message
+        })
     }
-};
+}
 
 export const logout = () => async (dispatch) => {
     try {

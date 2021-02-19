@@ -13,13 +13,13 @@ import PrivateRoute from '../routing/PrivateRoute'
 const MainView = () => {
     return (
         <div className='mainview-container'>
-            <PrivateRoute exact path="/me" component={UserProfile} />
-            <PrivateRoute exact path="/createQuiz" component={CreateQuiz} />
-            <PrivateRoute exact path="/code/:id" component={Coding} />
-            <PrivateRoute exact path="/codeQuestions" component={CodeQuestions} />
-            <PrivateRoute exact path="/createCodeQuestion" component={CreateCodeQuestion} />
-            <PrivateRoute exact path="/quizzes" component={QuizCard} />
-            <PrivateRoute exact path="/quiz" component={QuizPage} />
+            <Route exact path="/me" component={UserProfile} />
+            <Route exact path="/createQuiz" component={CreateQuiz} />
+            <Route exact path="/code/:id" component={Coding} />
+            <Route exact path="/codeQuestions" component={CodeQuestions} />
+            <Route exact path="/createCodeQuestion" component={CreateCodeQuestion} />
+            <Route exact path="/quizzes" component={QuizCard} />
+            <Route exact path="/quiz" component={QuizPage} />
         </div>
     );
 };

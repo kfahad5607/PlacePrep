@@ -7,6 +7,7 @@ import CodeEditor from "./CodeEditor";
 import {useParams} from "react-router-dom"
 import { connect } from "react-redux";
 import { getQuestion } from "../../store/actions/codeActions";
+import Spinner from '../layout/Spinner'
 
 const Coding = (props) => {
 
@@ -37,7 +38,7 @@ const Coding = (props) => {
             <Col className="editor-container">
                 <CodeEditor/>
             </Col>
-        </Row> : <h1>Loading</h1> }
+        </Row> : <Spinner /> }
         </Fragment>
     );
 };

@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./createCode.css";
 import { Button, Container, Form } from "react-bootstrap";
 import TextareaAutosize from "react-textarea-autosize";
 import { connect } from "react-redux";
-import { addQuestion } from "../../store/actions/codeActions";
+import {
+    addQuestion,
+    getQuestion,
+    updateQuestion,
+} from "../../store/actions/codeActions";
 
 const CreateCodeQuestion = (props) => {
-    const { addQuestion } = props
+    const { addQuestion, getQuestion, updateQuestion } = props;
+    const { current } = props.code;
     const [codeQuestion, setCodeQuestion] = useState({
         title: "",
         difficulty: "easy",
@@ -23,6 +28,26 @@ const CreateCodeQuestion = (props) => {
             sampleOutput: "",
         },
     ]);
+
+    useEffect(() => {
+        if (props.match.path.includes("editCodeQuestion")) {
+            getQuestion(props.match.params.id);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (current !== null) {
+            setCodeQuestion(current);
+        } else {
+            setCodeQuestion({
+                title: "",
+                difficulty: "easy",
+                description: "",
+                testcases: "",
+                sampleInput: [],
+            });
+        }
+    }, [current]);
 
     const handleAddSampleClick = () => {
         const newSampleObj = {
@@ -59,11 +84,17 @@ const CreateCodeQuestion = (props) => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        if (codeQuestion.title === "" || codeQuestion.description === "" || codeQuestion.testcases === "") {
+        if (
+            codeQuestion.title === "" ||
+            codeQuestion.description === "" ||
+            codeQuestion.testcases === ""
+        ) {
             console.log("Please enter all fields", "danger");
-        }else{
+        } else {
             setCodeQuestion({ ...codeQuestion, sampleInput: sampleArray });
-            addQuestion(codeQuestion)
+            current !== null
+                ? updateQuestion(codeQuestion)
+                : addQuestion(codeQuestion);
         }
     };
 
@@ -260,15 +291,26 @@ const CreateCodeQuestion = (props) => {
                     </div>
 
                     <div className=" text-center">
-                        <Button className="createquestbtn mb-4" onClick={handleOnSubmit}>
-                            {" "}
-                            Create Question{" "}
+                        <Button
+                            className="createquestbtn mb-4"
+                            onClick={handleOnSubmit}
+                        >
+                            {current !== null ? ' Edit Question ' : ' Create Question '}
+                            
                         </Button>
                     </div>
                 </Form>
             </div>
         </Container>
     );
-}
+};
 
-export default connect(null, { addQuestion})(CreateCodeQuestion);
+const mapStateToProps = (state) => ({
+    code: state.code,
+});
+
+export default connect(mapStateToProps, {
+    addQuestion,
+    getQuestion,
+    updateQuestion,
+})(CreateCodeQuestion);
