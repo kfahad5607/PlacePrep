@@ -311,6 +311,7 @@ input {
     width: 2.5rem;
     border-radius: 50%;
     margin-right: 0.5rem;
+    cursor: pointer;
 }
 
 .brand-name{
@@ -319,4 +320,25 @@ input {
 
 .brand-name img{
     margin-right: 0.5rem;
+}
+
+@media (max-width: 570px) {
+    .logout-div{
+        display: none;
+    }
+
+    .nav__user-img {
+        height: 2.2rem;
+        width: 2.2rem;
+    }
+
+    .brand-name{
+        font-size: 1.15rem;
+    }
+
+    .brand-name img{
+        /* height: 27px;
+        width: 27px; */
+        display: none !important;
+    }
 }
