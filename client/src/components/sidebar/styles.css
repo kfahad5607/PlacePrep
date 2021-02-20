@@ -19,9 +19,9 @@ SVG Icons - svgicons.sparkk.fr
 
 /* Sidebar other components */
 #sidebar-btn {
-  position: absolute;
+  /* position: absolute;
   top: 40px;
-  left: 30px;
+  left: 30px; */
   cursor: pointer;
   z-index: 19;
 }
@@ -209,9 +209,9 @@ SVG Icons - svgicons.sparkk.fr
   color: rgb(221 226 255);
 }
 
-/* .sidebar-close {
+.sidebar-close {
   transform: translate3d(-100%, 0px, 0px);
-} */
+}
 /* Sidebar Footer */
 
 /* Responsive Design */

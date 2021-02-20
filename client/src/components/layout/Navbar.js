@@ -17,9 +17,9 @@ const Navbars = (props) => {
         <Fragment>
             <span>
                 <img className="nav__user-img" src="/profile.jpg" />
-                <span className='user-name'>Hello {user && user.name}</span>
+                <span className='user-name'>Hello {user && user.name.split(' ')[0]}</span>
             </span>
-            <span>
+            <span className="logout-div">
                 <a href="#" onClick={onlogout}>
                     <i className="fa fa-sign-out" aria-hidden="true"></i>
                     <span className="hide-sm"> Logout</span>

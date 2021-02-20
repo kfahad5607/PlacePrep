@@ -13,7 +13,7 @@ import QuizPage from "../quiz/QuizPage";
 import { Route, Switch } from "react-router-dom";
 
 const Home = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
 
     const toggleSidebarBtn = () => {
         setSidebarOpen(!sidebarOpen);
@@ -24,7 +24,7 @@ const Home = () => {
             <Navbar onClick={ () => toggleSidebarBtn()}/>
             <div style={{ display: "flex", height: "100vh" }}>
                 <SideBar sidebarOpen={sidebarOpen} onClick={ () => toggleSidebarBtn()}/>
-                <div className="mainview-container">
+                <div className={"mainview-container " + (!sidebarOpen && 'remove-margin') }>
                     <Switch>
                         <Route path="/me" component={UserProfile} />
                         <Route path="/createQuiz" component={CreateQuiz} />
