@@ -8,17 +8,18 @@ import {
     addQuestion,
     getQuestion,
     updateQuestion,
+    clearCurrent
 } from "../../store/actions/codeActions";
 
 const CreateCodeQuestion = (props) => {
-    const { addQuestion, getQuestion, updateQuestion } = props;
+    const { addQuestion, getQuestion, updateQuestion, clearCurrent } = props;
     const { current } = props.code;
     const [codeQuestion, setCodeQuestion] = useState({
         title: "",
         difficulty: "easy",
         description: "",
         testcases: "",
-        sampleInput: [],
+        sampleInputs: [],
     });
     const [lastId, setLastId] = useState(0);
     const [sampleArray, setSampleArray] = useState([
@@ -36,15 +37,21 @@ const CreateCodeQuestion = (props) => {
     }, []);
 
     useEffect(() => {
-        if (current !== null) {
+        if (current !== null && props.match.path.includes("editCodeQuestion")) {
             setCodeQuestion(current);
+            if (current.sampleInputs){
+                const newArray = current.sampleInputs.map(curr => ({...curr}));
+                setSampleArray(newArray)
+                setLastId(current.sampleInputs.length-1)
+            }
         } else {
+            clearCurrent()
             setCodeQuestion({
                 title: "",
                 difficulty: "easy",
                 description: "",
                 testcases: "",
-                sampleInput: [],
+                sampleInputs: [],
             });
         }
     }, [current]);
@@ -91,7 +98,7 @@ const CreateCodeQuestion = (props) => {
         ) {
             console.log("Please enter all fields", "danger");
         } else {
-            setCodeQuestion({ ...codeQuestion, sampleInput: sampleArray });
+            setCodeQuestion({ ...codeQuestion, sampleInputs: sampleArray });
             current !== null
                 ? updateQuestion(codeQuestion)
                 : addQuestion(codeQuestion);
@@ -313,4 +320,5 @@ export default connect(mapStateToProps, {
     addQuestion,
     getQuestion,
     updateQuestion,
+    clearCurrent
 })(CreateCodeQuestion);

@@ -23,26 +23,32 @@ const questionSchema = new mongoose.Schema({
             message: 'Difficulty is either: easy, medium, hard'
         }
     },
+    sampleInputs: [{
+        id: Number,
+        sampleInput: String,
+        sampleOutput: String
+    }],
+    testcases: String,
     solution: { type: [String] },
     hint: {
         type: [String]
     },
-    javaMain: {
-        type: String,
-        default: 'java psvm'
-    },
-    cMain: {
-        type: String,
-        default: 'C int main'
-    },
-    cppMain: {
-        type: String,
-        default: 'Cpp int main'
-    },
-    pythonMain: {
-        type: String,
-        default: 'python main'
-    }
+    // javaMain: {
+    //     type: String,
+    //     default: 'java psvm'
+    // },
+    // cMain: {
+    //     type: String,
+    //     default: 'C int main'
+    // },
+    // cppMain: {
+    //     type: String,
+    //     default: 'Cpp int main'
+    // },
+    // pythonMain: {
+    //     type: String,
+    //     default: 'python main'
+    // }
 
 });
 

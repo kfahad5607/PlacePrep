@@ -5,6 +5,9 @@ import {
     DELETE_CODE_QUESTION,
     UPDATE_CODE_QUESTION,
     CODE_QUESTION_ERROR,
+    FILTER_CODE_QUESTIONS,
+    CLEAR_FILTER,
+    CLEAR_CURRENT_CODE_QUESTION
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -61,6 +64,24 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
             };
+        case FILTER_CODE_QUESTIONS:
+            return {
+                ...state,
+                filtered: state.questions.filter(qsn => {
+                    const regex = new RegExp(`${action.payload}`, 'gi');
+                    return qsn.title.match(regex)
+                })
+            }
+        case CLEAR_FILTER:
+            return {
+                ...state,
+                filtered: null
+            }
+        case CLEAR_CURRENT_CODE_QUESTION:
+            return {
+                ...state,
+                current: null
+            }
         default:
             return state;
     }

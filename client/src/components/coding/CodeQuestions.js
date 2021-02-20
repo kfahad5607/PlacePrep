@@ -1,21 +1,43 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useRef } from "react";
 import "./CodeQuestDisp.css";
 import { Container, Form } from "react-bootstrap";
 import { connect } from "react-redux";
-import { getQuestions } from "../../store/actions/codeActions";
+import {
+    getQuestions,
+    filterQuestions,
+    clearFilter,
+} from "../../store/actions/codeActions";
 import CodeTableRow from "./codeTableRow";
-import Spinner from '../layout/Spinner'
+import Spinner from "../layout/Spinner";
 
 const CodeQuestions = (props) => {
-    const { getQuestions } = props;
+    const { getQuestions, filterQuestions, clearFilter } = props;
     const { user } = props.auth;
-    const { questions } = props.code;
+    const { questions, filtered } = props.code;
+
+    const text = useRef("");
+
     useEffect(() => {
         setTimeout(() => {
             getQuestions();
         }, 2000);
         //     eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if (filtered === null) {
+            text.current = "";
+            clearFilter()
+        }
+    }, [filtered])
+
+    const onchange = (e) => {
+        if (text.current.value !== "") {
+            filterQuestions(e.target.value);
+        } else {
+            clearFilter();
+        }
+    };
 
     if (questions !== null && questions.length === 0) {
         return <h4>Currently There are No Question Available</h4>;
@@ -37,8 +59,10 @@ const CodeQuestions = (props) => {
                                     <Form.Group controlId="codingquestionSearch">
                                         <Form.Control
                                             className=" codingQuestSearch"
-                                            type=""
+                                            type="text"
+                                            ref={text}
                                             placeholder="Search question titles, descriptions or ID"
+                                            onChange={onchange}
                                         />
                                     </Form.Group>
                                 </Form>
@@ -56,14 +80,23 @@ const CodeQuestions = (props) => {
                                 </tr>
                             </thead>
                             <tbody className="tbodyCode">
-                                {questions.map((question, index) => (
-                                    <CodeTableRow
-                                        question={question}
-                                        key={index}
-                                        id={index}
-                                        user={user}
-                                    />
-                                ))}
+                                {filtered !== null
+                                    ? filtered.map((question, index) => (
+                                          <CodeTableRow
+                                              question={question}
+                                              key={index}
+                                              id={index}
+                                              user={user}
+                                          />
+                                      ))
+                                    : questions.map((question, index) => (
+                                          <CodeTableRow
+                                              question={question}
+                                              key={index}
+                                              id={index}
+                                              user={user}
+                                          />
+                                      ))}
                             </tbody>
                         </table>
                         <div className="row">
@@ -166,4 +199,8 @@ const mapStateToProps = (state) => ({
     code: state.code,
 });
 
-export default connect(mapStateToProps, { getQuestions })(CodeQuestions);
+export default connect(mapStateToProps, {
+    getQuestions,
+    filterQuestions,
+    clearFilter,
+})(CodeQuestions);

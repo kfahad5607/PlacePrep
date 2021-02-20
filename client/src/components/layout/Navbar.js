@@ -5,14 +5,9 @@ import { connect } from "react-redux";
 import { logout } from "../../store/actions/authActions";
 
 const Navbars = (props) => {
-
-    const { logout } = props;
+    const { logout, onClick } = props;
     const {isAuthenticated, user } = props.auth;
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    const toggleSidebarBtn = () => {
-        setSidebarOpen(!sidebarOpen);
-    };
+    
 
     const onlogout = () => {
         logout();
@@ -40,7 +35,7 @@ const Navbars = (props) => {
     );
     return (
         <Navbar bg="dark" variant="dark" sticky="top">
-            <div id='sidebar-btn' onClick={toggleSidebarBtn} >
+            <div id='sidebar-btn' onClick={onClick} >
                 <i className='fas fa-bars menu-icon' ></i>
             </div>
             <Navbar.Brand className="brand-name">

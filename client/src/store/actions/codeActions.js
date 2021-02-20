@@ -4,7 +4,10 @@ import {
     ADD_CODE_QUESTION,
     DELETE_CODE_QUESTION,
     UPDATE_CODE_QUESTION,
-    CODE_QUESTION_ERROR
+    CODE_QUESTION_ERROR,
+    FILTER_CODE_QUESTIONS,
+    CLEAR_FILTER,
+    CLEAR_CURRENT_CODE_QUESTION,
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -94,3 +97,11 @@ export const deleteQuestion = (id) => async (dispatch) => {
         });
     }
 };
+
+export const clearCurrent = () => ({ type: CLEAR_CURRENT_CODE_QUESTION })
+
+export const filterQuestions = questions => async dispatch => {
+    dispatch({ type: FILTER_CODE_QUESTIONS, payload: questions });
+};
+
+export const clearFilter = () => ({ type: CLEAR_FILTER })

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 import "../mainview/styles.css";
 import SideBar from "../sidebar/SideBar";
@@ -13,11 +13,17 @@ import QuizPage from "../quiz/QuizPage";
 import { Route, Switch } from "react-router-dom";
 
 const Home = () => {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const toggleSidebarBtn = () => {
+        setSidebarOpen(!sidebarOpen);
+    };
+
     return (
         <>
-            <Navbar />
+            <Navbar onClick={ () => toggleSidebarBtn()}/>
             <div style={{ display: "flex", height: "100vh" }}>
-                <SideBar />
+                <SideBar sidebarOpen={sidebarOpen} onClick={ () => toggleSidebarBtn()}/>
                 <div className="mainview-container">
                     <Switch>
                         <Route path="/me" component={UserProfile} />
