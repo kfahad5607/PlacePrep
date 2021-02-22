@@ -7,11 +7,12 @@ import {
     USER_LOADED,
     USER_LOADED_JWT,
     AUTH_ERROR,
+    UPDATE_ME,
+    UPDATE_ERROR,
     // CLEAR_ERRORS,
 } from "../actions/actionTypes";
 
 const initialState = {
-    token: "getFromCookies",
     isAuthenticated: null,
     user: null,
     error: null,
@@ -23,19 +24,19 @@ const reducer = (state = initialState, action) => {
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
         case USER_LOADED_JWT:
+        case UPDATE_ME:
             return {
                 ...state,
                 isAuthenticated: true,
                 user: action.payload.user,
                 loading: false,
+                error: null,
             };
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case AUTH_ERROR:
-        case LOGOUT:
             return {
                 ...state,
-                token: null,
                 isAuthenticated: false,
                 loading: false,
                 user: null,
@@ -45,7 +46,22 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: true,
+                loading: false,
+                error: null,
             };
+        case LOGOUT:
+            return {
+                ...state,
+                isAuthenticated: false,
+                loading: false,
+                error: null,
+            };
+        case UPDATE_ERROR:
+            return{
+                ...state,
+                error: action.payload,
+                loading: false,
+            }
         default:
             return state;
     }

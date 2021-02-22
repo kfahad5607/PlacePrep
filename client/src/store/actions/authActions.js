@@ -7,6 +7,8 @@ import {
     USER_LOADED,
     USER_LOADED_JWT,
     AUTH_ERROR,
+    UPDATE_ME,
+    UPDATE_ERROR
     // CLEAR_ERRORS,
 } from "../actions/actionTypes";
 import axios from "axios";
@@ -55,28 +57,28 @@ export const login = (formdata) => async (dispatch) => {
             payload: err.response.data.message,
         });
     }
-};
+}
 
-export const register = (formdata) => async (dispatch) => {
+export const register = formdata => async dispatch => {
     const config = {
         headers: {
             "Content-Type": "application/json",
         },
     };
     try {
-        const res = await axios.post("/api/v1/user/signup", formdata, config);
+        const res = await axios.post("/api/v1/user/signup", formdata, config)
         dispatch({
             type: REGISTER_SUCCESS,
-            payload: res.data.data,
-        });
+            payload: res.data.data
+        })
         loadUser(true);
     } catch (err) {
         dispatch({
             type: REGISTER_FAIL,
-            payload: err.response.data.message,
-        });
+            payload: err.response.data.message
+        })
     }
-};
+}
 
 export const logout = () => async (dispatch) => {
     try {
@@ -91,3 +93,25 @@ export const logout = () => async (dispatch) => {
         });
     }
 };
+
+
+export const updateMe = (data, type) => async dispatch => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        const url = type === 'password' ? '/api/v1/user/updateMyPassword' : '/api/v1/user/updateMe'
+        const res = await axios.patch(url, data, config)
+        dispatch({
+            type: UPDATE_ME,
+            payload: res.data.data
+        })
+    } catch (err) {
+        dispatch({
+            type: UPDATE_ERROR,
+            payload: err.response.data.message
+        })
+    }
+}

@@ -68,6 +68,10 @@ h3 {
     border-bottom: 1px solid #333;
 }
 
+thead th {
+    cursor: pointer;
+}
+
 .rowsPerPg {
     width: 90px !important;
 }
@@ -119,10 +123,9 @@ h3 {
 }
 
 .diffMod {
-    background-color: #f19469;
     font-size: 16px !important;
     color: white;
-    width: 75px;
+    width: 80px;
     font-weight: 500 !important;
 }
 
@@ -139,4 +142,15 @@ h3 {
 .operation-E:hover, .operation-E:focus, .operation-D:hover, .operation-D:focus {
     color: #270f7e !important;
     text-decoration: none !important;
+}
+
+
+.badgeSuccess{
+    background-color: #5cb85c;
+}
+.badgeDanger{
+    background-color: #d9534f;
+}
+.badgeWarning{
+    background-color: #f0ad4e;
 }

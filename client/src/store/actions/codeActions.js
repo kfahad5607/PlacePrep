@@ -4,7 +4,13 @@ import {
     ADD_CODE_QUESTION,
     DELETE_CODE_QUESTION,
     UPDATE_CODE_QUESTION,
-    CODE_QUESTION_ERROR
+    CODE_QUESTION_ERROR,
+    FILTER_CODE_QUESTIONS,
+    CLEAR_FILTER,
+    CLEAR_CURRENT_CODE_QUESTION,
+    RUN_CODE,
+    SUBMIT_CODE,
+    RESET_CODE,
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -68,10 +74,9 @@ export const updateQuestion = (question) => async (dispatch) => {
     };
     try {
         const res = await axios.patch(`/api/v1/questions/${question._id}`,question, config);
-        console.log(res.data)
         dispatch({
             type: UPDATE_CODE_QUESTION,
-            payload : res.data.data.question
+            payload : res.data.data.data
         });
     } catch (err) {
         dispatch({
@@ -95,3 +100,52 @@ export const deleteQuestion = (id) => async (dispatch) => {
         });
     }
 };
+
+export const runCode = (code) => async (dispatch) => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        // const res = await axios.patch(`/api/v1/questions/`,code, config);
+        // dispatch({
+        //     type: RUN_CODE,
+        //     payload : res.data.data.data
+        // });
+    } catch (err) {
+        dispatch({
+            type: CODE_QUESTION_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+export const submitCode = (code) => async (dispatch) => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        // const res = await axios.patch(`/api/v1/questions/`,code, config);
+        // dispatch({
+        //     type: SUBMIT_CODE,
+        //     payload : res.data.data.data
+        // });
+    } catch (err) {
+        dispatch({
+            type: CODE_QUESTION_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+
+export const resetCode = () => ({ type: RESET_CODE })
+
+export const clearCurrent = () => ({ type: CLEAR_CURRENT_CODE_QUESTION })
+
+export const filterQuestions = questions => async dispatch => {
+    dispatch({ type: FILTER_CODE_QUESTIONS, payload: questions });
+};
+
+export const clearFilter = () => ({ type: CLEAR_FILTER })

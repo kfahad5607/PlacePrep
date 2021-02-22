@@ -11,9 +11,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.REGISTER_SUCCESS:
-            return [...state];
-
         default:
             return state;
     }

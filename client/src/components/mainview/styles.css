@@ -3,6 +3,10 @@
     margin-left: 280px;
 }
 
+.remove-margin{
+    margin-left: 0px;
+}
+
 
 @media (max-width: 768px) {
     .mainview-container{
