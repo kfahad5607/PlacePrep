@@ -4,11 +4,18 @@ import { connect } from 'react-redux';
 import { getQuizzes } from '../../store/actions/quizActions';
 
 const QuizCardPage = (props) => {
-    const { quiz: {quizzes},  getQuizzes } = props;
+    const {
+        auth: { user },
+        quiz: { quizzes }, getQuizzes } = props;
 
     useEffect(() => {
-        getQuizzes();
-    }, []);
+        if (user?.role === 'faculty') {
+            getQuizzes(user._id);
+        }
+        else if (user?.role === 'student') {
+            getQuizzes();
+        }
+    }, [user]);
 
     return (
         <>
@@ -20,7 +27,8 @@ const QuizCardPage = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    quiz: state.quiz
+    quiz: state.quiz,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { getQuizzes })(QuizCardPage);

@@ -4,18 +4,18 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-// router.use(authController.protect);
+router.use(authController.protect);
 
 router
     .route('/')
     // .post(quizQuestionController.createQuizQuestion)
-    .post(quizQuestionController.createManyQuizQuestions)
+    .post(authController.restrictTo('faculty', 'admin'), quizQuestionController.createManyQuizQuestions)
     .get(quizQuestionController.getAllQuizQuestions);
 
 router
     .route('/:id')
     .get(quizQuestionController.getQuizQuestion)
-    .patch(quizQuestionController.updateQuizQuestion)
-    .delete(quizQuestionController.deleteQuizQuestion);
+    .patch(authController.restrictTo('faculty', 'admin'), quizQuestionController.updateQuizQuestion)
+    .delete(authController.restrictTo('faculty', 'admin'), quizQuestionController.deleteQuizQuestion);
 
 module.exports = router;

@@ -38,7 +38,6 @@ SVG Icons - svgicons.sparkk.fr
     background-color: rgba(221, 226, 255, 0.08);
   } */
 
-
 /* Sidebar Container */
 .sidebar-container {
   position: fixed;
@@ -53,6 +52,7 @@ SVG Icons - svgicons.sparkk.fr
   margin: 0; /* testing */
   z-index: 30;
   transition: all 0.5s ease 0s;
+  padding-bottom: 50px;
 }
 
 /* width */
@@ -199,13 +199,13 @@ SVG Icons - svgicons.sparkk.fr
   color: rgb(221 226 255);
 }
 
-.sidebar-menu .menu-item .dropdown-icon{
+.sidebar-menu .menu-item .dropdown-icon {
   float: right;
   margin-right: 10px;
   color: rgb(164, 166, 179);
 }
 
-.sidebar-menu .menu-item.active .dropdown-icon{
+.sidebar-menu .menu-item.active .dropdown-icon {
   color: rgb(221 226 255);
 }
 

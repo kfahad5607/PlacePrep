@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import './quiz.css';
+import '../quiz/quiz.css';
 
 const ViewAnswer = (props) => {
     return (
@@ -12,7 +12,7 @@ const ViewAnswer = (props) => {
                 <Alert.Link style={{ color: '#775ecf' }}>View Answer</Alert.Link>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={props.eKey} >
-                <Card.Body className='explanation_area' >The Correct Answer is: <strong>{ props.correctOption}</strong></Card.Body>
+                <Card.Body className='explanation_area' >The Correct Answer is: <strong>{props.correctOption}</strong></Card.Body>
             </Accordion.Collapse>
         </Fragment>
     );

@@ -63,6 +63,19 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.getMe = (req, res, next) => {
+    req.params.id = req.user.id
+    if(req.query.check) {
+        return res.status(200).json({
+            status: 'success',
+            data: {
+                user : req.user
+            }
+        })
+    }
+    next()
+}
+
 exports.getUser = catchAsync(async (req, res, next) => {
 
     let query = User.findById(req.params.id);

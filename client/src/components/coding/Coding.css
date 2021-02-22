@@ -59,7 +59,7 @@
 
 .solution-description p,
 .sample-inputs p,
-.content p {
+.code-content p {
     font-size: 1rem;
     margin-bottom: 0.2rem;
     margin-left: 0.2rem;
@@ -70,7 +70,7 @@
     margin-left: 0.4rem;
 }
 
-.content {
+.code-content {
     margin: 1rem 0;
 }
 

@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const aptiQuestionSchema = new mongoose.Schema({
+    author: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    },
     question: {
         type: String,
         required: [true, "A Question must have a question"],
-        unique: true,
         trim: true
     },
     // answers: [String],
@@ -12,8 +16,8 @@ const aptiQuestionSchema = new mongoose.Schema({
         type: [String],
         required: [true, "Each question must have options"],
         validate: {
-            validator: function(ans) {
-              return ans.length == 4
+            validator: function (ans) {
+                return ans.length == 4;
             },
             message: "Options should be four"
         }
@@ -28,18 +32,25 @@ const aptiQuestionSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        // default: 'Quants',
+        default: 'quantitative analysis',
         enum: {
-            values: ['Quants', 'Logical','Verbal', 'other'],
-            message: 'category is either: Quants, Logical or Verbal'
+            values: ['quantitative analysis', 'logical reasoning', 'verbal ability', 'other topics'],
+            message: 'category is either: quantitative analysis, logical reasoning, verbal ability or other topics'
         }
     },
+    slug: String,
     explanation: {
         type: String,
         default: 'No answer description available for this question'
     }
-})
+});
+
+// aptiQuestionSchema.pre('save', function (next) {
+//     console.log('presave')
+//     this.slug = slugify(this.topic, { lower: true });
+//     next();
+// });
 
 // company type questions?
-const AptiQuestion = mongoose.model('aptiQuestion', aptiQuestionSchema)
-module.exports = AptiQuestion
+const AptiQuestion = mongoose.model('aptiQuestion', aptiQuestionSchema);
+module.exports = AptiQuestion;

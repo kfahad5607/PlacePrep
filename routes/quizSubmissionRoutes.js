@@ -4,7 +4,7 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-// router.use(authController.protect);
+router.use(authController.protect);
 
 router
     .route('/')
@@ -13,8 +13,8 @@ router
 router
     .route('/:id')
     .get(quizSubmissionController.getQuizSubmission)
-    .patch(quizSubmissionController.updateQuizSubmission)
-    .delete(quizSubmissionController.deleteQuizSubmission);
+    .patch(authController.restrictTo('faculty', 'admin'), quizSubmissionController.updateQuizSubmission)
+    .delete(authController.restrictTo('faculty', 'admin'), quizSubmissionController.deleteQuizSubmission);
 
 
 module.exports = router;

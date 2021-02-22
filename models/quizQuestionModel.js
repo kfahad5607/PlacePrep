@@ -4,8 +4,7 @@ const quizQuestionSchema = new mongoose.Schema({
     question: {
         type: String,
         required: [true, 'Question is required.'],
-        trim: true,
-        unique: true
+        trim: true
     },
     answers: {
         type: [String],
@@ -31,7 +30,7 @@ const quizQuestionSchema = new mongoose.Schema({
         type: String,
         // default: 'Quants',
         enum: {
-            values: ['Quants', 'Logical','Verbal', 'other'],
+            values: ['quants', 'logical', 'verbal', 'others'],
             message: 'category is either: Quants, Logical or Verbal'
         }
     },

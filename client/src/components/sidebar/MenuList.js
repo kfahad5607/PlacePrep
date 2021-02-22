@@ -1,10 +1,31 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import menuItems from './MenuItemData';
+import * as menuItemArrays from './MenuItemData';
+import { connect } from 'react-redux';
+
+const MenuList = (props) => {
+    const { auth: { user } } = props;
+
+    useEffect(() => {
+        if (user !== null) {
+            if (user.role === 'faculty') {
+                setMenuItems(menuItemArrays.faculty);
+            }
+            else if (user.role === 'admin') {
+                setMenuItems(menuItemArrays.admin);
+            }
+            else {
+                setMenuItems(menuItemArrays.student);
+            }
+        } else {
+            setMenuItems(menuItemArrays.student);
+        }
+    }, [user]);
+
+    let [menuItems, setMenuItems] = useState(menuItemArrays.student);
 
 
-const MenuList = () => {
     const [selected, setSelected] = useState(menuItems[0].name);
     const [subMenus, setSubMenus] = useState({});
 
@@ -106,7 +127,7 @@ const MenuList = () => {
     };
 
     return (
-        <ul className='menu-list'>
+        user ? <ul className='menu-list'>
             {menuItems.map((ele, index) => {
                 const isItemSelected = selected === ele.name;
                 const hasSubMenus = !!ele.subMenuItems.length;
@@ -162,8 +183,13 @@ const MenuList = () => {
             }
 
             )}
-        </ul>
+        </ul> : <h3>Loading...</h3>
     );
 };
 
-export default MenuList;
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, null)(MenuList);

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
-import './quiz.css';
+import '../quiz/quiz.css';
 
 const PracticeQuizOption = (props) => {
     const [ansClicked, setAnsClicked] = useState(false);

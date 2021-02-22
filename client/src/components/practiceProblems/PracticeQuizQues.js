@@ -3,50 +3,27 @@ import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import PracticeQuizOption from './PracticeQuizOption';
 import ViewAnswer from './ViewAnswer';
-import './quiz.css';
+import { Link } from 'react-router-dom';
+import '../quiz/quiz.css';
+import { connect } from 'react-redux';
+import { deletePracticeProblem } from '../../store/actions/practiceProblemActions';
 
 const PracticeQuizQues = (props) => {
-    const temp = [{
-        question: 'What does HTML stand for?',
-        optionA: 'Hyper Text Preprocessor',
-        optionB: 'Hyper Text Markup Language',
-        optionC: 'Hyper Text Multiple Language',
-        optionD: 'Hyper Text Multi Language',
-        correctOption: 'Hyper Text Markup Language'
-    },
-    {
-        question: 'Who is making the Web standards?',
-        optionA: 'The World Wide Web Consortium',
-        optionB: 'Google',
-        optionC: 'Mozilla',
-        optionD: 'Firefox',
-        correctOption: 'The World Wide Web Consortium'
-    },
-    {
-        question: 'Choose the correct HTML element for the largest heading:',
-        optionA: '<head>',
-        optionB: '<heading>',
-        optionC: '<h1>',
-        optionD: '<h6>',
-        correctOption: '<h1>'
-    },
-    {
-        question: 'Choose the correct HTML element to define important text',
-        optionA: '<strong>',
-        optionB: '<i>',
-        optionC: '<important>',
-        optionD: '<b>',
-        correctOption: '<strong>'
-    }
-
-    ];
-
+    const { deletePracticeProblem } = props;
 
     return props.questions.map((ele, index) => {
         return (
             <Fragment key={index}>
                 <Accordion className='my-2'>
                     <Card>
+                        <div style={{ margin: 'auto' }} >
+                            <Link to={`/editpracticeproblem/${ele._id}`}>
+                                <i className="fa fa-pencil-square operation-E mr-3 op" aria-hidden="true" ></i>
+                            </Link>
+                            <span onClick={() => deletePracticeProblem(ele._id)} style={{ cursor: 'pointer' }} >
+                                <i className="fa fa-trash operation-D mr-3 mt-1 op" aria-hidden="true" ></i>
+                            </span>
+                        </div>
                         <Card.Body>
                             <Card.Title>
                                 {`${index + 1}.`} {ele.question}
@@ -55,7 +32,7 @@ const PracticeQuizQues = (props) => {
                                 key={ansIdx}
                                 text={ansEle}
                                 isCorrect={ansEle === ele.correctAnswer ? true : false} />)}
-                           
+
                             <ViewAnswer eKey='0' correctOption={ele.correctAnswer} />
                         </Card.Body>
                     </Card>
@@ -66,4 +43,8 @@ const PracticeQuizQues = (props) => {
 
 };
 
-export default PracticeQuizQues;
+const mapstateToProps = state => ({
+    practiceProblem: state.practiceProblem
+});
+
+export default connect(mapstateToProps, { deletePracticeProblem })(PracticeQuizQues);

@@ -4,10 +4,8 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.createManyQuizQuestions = catchAsync(async (req, res, next) => {
-    console.log('qqq', req.body.quizQuestions);
     const quizQuestions = await QuizQuestion.insertMany(req.body.quizQuestions);
 
-    console.log('qqq', quizQuestions.map(qq => qq._id));
     res.status(201).json({
         status: 'success',
         data: {
@@ -100,8 +98,8 @@ exports.deleteQuizQuestion = catchAsync(async (req, res, next) => {
         }
     });
 
-        res.status(204).json({
-            status: 'success',
-            data: null
-        });
+    res.status(204).json({
+        status: 'success',
+        data: null
+    });
 });

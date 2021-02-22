@@ -2,9 +2,9 @@ import axios from 'axios';
 import * as actionTypes from '../actions/actionTypes';
 
 // Load user
-export const getQuizzes = () => async (dispatch) => {
+export const getQuizzes = (queryVal = '') => async (dispatch) => {
     try {
-        const res = await axios.get('/api/v1/quizzes');
+        const res = await axios.get(`/api/v1/quizzes?author=${queryVal}`);
         console.log('res', res);
         dispatch({
             type: actionTypes.GET_QUIZZES,
@@ -136,8 +136,12 @@ export const startQuiz = (id) => async (dispatch) => {
         const res = await axios.get(`/api/v1/quizzes/start/${id}`);
 
         dispatch({
+            type: actionTypes.SET_USER_FROM_START_QUIZ,
+            payload: res.data.data.user
+        });
+        dispatch({
             type: actionTypes.START_QUIZ,
-            payload: res.data.data.data
+            payload: res.data.data.quiz
         });
 
     } catch (err) {
@@ -156,12 +160,12 @@ export const submitQuiz = (id, userQuiz) => async (dispatch) => {
         }
     };
     try {
-        const res = await axios.post(`/api/v1/quizzes/submit/${id}`, userQuiz, config)
-        
+        const res = await axios.post(`/api/v1/quizzes/submit/${id}`, userQuiz, config);
+
         dispatch({
             type: actionTypes.SUBMIT_QUIZ,
-            payload: res.data.data.score
-        })
+            payload: res.data.data.quizSubmission
+        });
     } catch (err) {
         console.log('err', err.response);
         dispatch({
@@ -169,4 +173,61 @@ export const submitQuiz = (id, userQuiz) => async (dispatch) => {
             payload: err.response.data.message
         });
     }
-}
+};
+
+export const getQuizSubmissions = (queryObj) => async (dispatch) => {
+    try {
+        let queryKey = '';
+        let queryVal = '';
+        if (queryObj) {
+            queryKey = queryObj.user ? 'user' : 'quiz';
+            queryVal = queryObj.user ? queryObj.user : queryObj.quiz;
+        }
+        const res = await axios.get(`/api/v1/quizSubmissions?${queryKey}=${queryVal}`);
+
+        dispatch({
+            type: actionTypes.GET_QUIZ_SUBMISSIONS,
+            payload: res.data.data.quizSubmissions
+        });
+    } catch (err) {
+        console.log('err', err.response);
+        dispatch({
+            type: actionTypes.QUIZ_ERROR,
+            payload: err.response.data.message
+        });
+    }
+};
+
+export const getQuizSubmission = (id) => async (dispatch) => {
+    try {
+        const res = await axios.get(`/api/v1/quizSubmissions/${id}`);
+
+        dispatch({
+            type: actionTypes.GET_QUIZ_SUBMISSION,
+            payload: res.data.data.data
+        });
+    } catch (err) {
+        console.log('err', err.response);
+        dispatch({
+            type: actionTypes.QUIZ_ERROR,
+            payload: err.response.data.message
+        });
+    }
+};
+
+export const deleteQuizSubmission = (id) => async (dispatch) => {
+    try {
+        await axios.delete(`/api/v1/quizSubmissions/${id}`);
+
+        dispatch({
+            type: actionTypes.DELETE_QUIZ_SUBMISSION,
+            payload: id
+        });
+    } catch (err) {
+        console.log('err', err.response);
+        dispatch({
+            type: actionTypes.QUIZ_ERROR,
+            payload: err.response.data.message
+        });
+    };
+};

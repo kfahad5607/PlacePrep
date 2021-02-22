@@ -13,8 +13,11 @@ const quizSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['quants', 'logical', 'other'],
-        default: 'quants'
+        enum: {
+            values: ['quantitative analysis', 'logical reasoning', 'verbal ability', 'other topics'],
+            message: 'category is either: quantitative analysis, logical reasoning, verbal ability or other topics'
+        },
+        default: 'quantitative analysis'
     },
     title: {
         type: String,
@@ -26,14 +29,6 @@ const quizSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'QuizQuestion'
     }],
-    // startTime: {
-    //     type: Date,
-    //     default: '2021-01-26T17:25',
-    // },
-    // endTime: {
-    //     type: Date,
-    //     default: '2021-01-26T17:30',
-    // },
     duration: {
         type: Number, // minutes
         default: 3

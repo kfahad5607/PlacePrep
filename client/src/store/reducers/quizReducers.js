@@ -2,6 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     quizzes: [],
+    submissions: [],
+    currentSubmission: null,
     current: null,
     filtered: null,
     error: null,
@@ -68,7 +70,27 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 current: action.payload
-            }
+            };
+        case actionTypes.SUBMIT_QUIZ:
+            return {
+                ...state,
+                currentSubmission: action.payload
+            };
+        case actionTypes.GET_QUIZ_SUBMISSIONS:
+            return {
+                ...state,
+                submissions: action.payload
+            };
+        case actionTypes.GET_QUIZ_SUBMISSION:
+            return {
+                ...state,
+                currentSubmission: action.payload
+            };
+        case actionTypes.DELETE_QUIZ_SUBMISSION:
+            return {
+                ...state,
+                submissions: state.submissions.filter(ele => ele._id !== action.payload)
+            };
         default:
             return state;
     }

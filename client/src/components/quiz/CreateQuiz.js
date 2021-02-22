@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import './quiz.css';
 import { Button, Container, Form } from 'react-bootstrap';
@@ -7,13 +7,12 @@ import { connect } from 'react-redux';
 import { addQuiz } from '../../store/actions/quizActions';
 
 function CreateQuiz(props) {
-    const { addQuiz } = props;
-    useEffect(() => {
-    }, []);
+    const { auth: { user }, addQuiz } = props;
 
     const [quiz, setQuiz] = useState({
+        author: '',
         title: '',
-        category: '',
+        category: 'quants',
         topic: '',
         duration: '',
         questions: [{
@@ -44,7 +43,7 @@ function CreateQuiz(props) {
 
     };
 
-    const handleOnChange = (e, index) => {
+    const handleOnChange = (e) => {
         setQuiz({
             ...quiz,
             [e.target.name]: e.target.value
@@ -92,7 +91,12 @@ function CreateQuiz(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        addQuiz(quiz);
+
+        let tempQuiz = JSON.parse(JSON.stringify(quiz));
+        tempQuiz.author = user._id;
+        console.log('quiz', tempQuiz);
+        addQuiz(tempQuiz);
+
         setQuiz({
             title: '',
             category: '',
@@ -124,8 +128,15 @@ function CreateQuiz(props) {
                         </div>
                         <div className="col-sm-6">
                             <Form.Group controlId="category" >
-                                <Form.Label><b>Quiz Category</b></Form.Label>
-                                <Form.Control className="quiz-inputFiled" name="category" value={quiz.category} onChange={handleOnChange} type="" placeholder="Quantitative/ Logical/ Other" />
+                                <Form.Label><b>Select Category</b></Form.Label>
+                                <Form.Group controlId="SelectRowsPerpage">
+                                    <Form.Control as="select" className="quiz-inputFiled" name='category' onChange={handleOnChange} >
+                                        <option className="optionSelect" value='quants' >Quantitative Analysis</option>
+                                        <option className="optionSelect" value='logical' >Logical Reasoning</option>
+                                        <option className="optionSelect" value='verbal' >Verbal Ability</option>
+                                        <option className="optionSelect" value='others' >Other</option>
+                                    </Form.Control>
+                                </Form.Group>
                             </Form.Group>
                         </div>
                     </div>
@@ -149,7 +160,6 @@ function CreateQuiz(props) {
                     <div className="title-border mb-3">
                         <span></span>
                     </div>
-
 
                     {quiz.questions.map((ele, index) => <QuizQuestion
                         key={ele.id}
@@ -176,7 +186,8 @@ function CreateQuiz(props) {
 
 const mapStateToProps = (state) => {
     return ({
-        quiz: state.quiz
+        quiz: state.quiz,
+        auth: state.auth
     });
 };
 

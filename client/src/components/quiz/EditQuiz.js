@@ -33,7 +33,6 @@ const EditQuiz = (props) => {
             setQuizLocal(tempDeepCopy)
         }
         else {
-            console.log('d3')
             setQuizLocal({
                 title: '',
                 category: '',
