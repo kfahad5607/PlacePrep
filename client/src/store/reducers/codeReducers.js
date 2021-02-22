@@ -7,7 +7,10 @@ import {
     CODE_QUESTION_ERROR,
     FILTER_CODE_QUESTIONS,
     CLEAR_FILTER,
-    CLEAR_CURRENT_CODE_QUESTION
+    CLEAR_CURRENT_CODE_QUESTION,
+    RUN_CODE,
+    SUBMIT_CODE,
+    RESET_CODE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -59,6 +62,19 @@ const reducer = (state = initialState, action) => {
                 ),
                 loading: false,
             };
+        case RUN_CODE:
+        case SUBMIT_CODE:
+            return{
+                ...state,
+                userCode: action.payload,
+                loading: false
+            }
+        case RESET_CODE:
+            return{
+                ...state,
+                userCode: '',
+                loading: false
+            }
         case CODE_QUESTION_ERROR:
             return {
                 ...state,

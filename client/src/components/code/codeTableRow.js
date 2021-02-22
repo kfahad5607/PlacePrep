@@ -9,7 +9,7 @@ const codeTableRow = ({ question, id, user, deleteQuestion }) => {
     }
     return (
         <tr>
-            <th scope="row">{id + 1}</th>
+            <th scope="row">{id}</th>
             <td>
                 <Link className="questTitle" to={`/code/${question._id}`}>
                 {capitalize(question.title)}

@@ -8,6 +8,9 @@ import {
     FILTER_CODE_QUESTIONS,
     CLEAR_FILTER,
     CLEAR_CURRENT_CODE_QUESTION,
+    RUN_CODE,
+    SUBMIT_CODE,
+    RESET_CODE,
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -97,6 +100,47 @@ export const deleteQuestion = (id) => async (dispatch) => {
         });
     }
 };
+
+export const runCode = (code) => async (dispatch) => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        // const res = await axios.patch(`/api/v1/questions/`,code, config);
+        // dispatch({
+        //     type: RUN_CODE,
+        //     payload : res.data.data.data
+        // });
+    } catch (err) {
+        dispatch({
+            type: CODE_QUESTION_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+export const submitCode = (code) => async (dispatch) => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        // const res = await axios.patch(`/api/v1/questions/`,code, config);
+        // dispatch({
+        //     type: SUBMIT_CODE,
+        //     payload : res.data.data.data
+        // });
+    } catch (err) {
+        dispatch({
+            type: CODE_QUESTION_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+
+export const resetCode = () => ({ type: RESET_CODE })
 
 export const clearCurrent = () => ({ type: CLEAR_CURRENT_CODE_QUESTION })
 

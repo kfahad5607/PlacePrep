@@ -30,6 +30,7 @@ const Coding = (props) => {
                     <Tab eventKey="description" title={<span><i className="fa fa-list-alt" aria-hidden="true"></i>Description</span>}>
                         <CodeDescription current={current}/>
                     </Tab>
+                    {/* {current.solution &&} */}
                     <Tab eventKey="solution" title={<span><i className="fa fa-flask" aria-hidden="true"></i>Solution</span>}>
                         <CodingSolution current={current}/>
                     </Tab>

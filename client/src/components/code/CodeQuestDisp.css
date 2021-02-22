@@ -68,6 +68,10 @@ h3 {
     border-bottom: 1px solid #333;
 }
 
+thead th {
+    cursor: pointer;
+}
+
 .rowsPerPg {
     width: 90px !important;
 }

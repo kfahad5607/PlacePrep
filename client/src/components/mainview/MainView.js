@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import UserProfile from '../auth/UserProfile';
 import CreateQuiz from '../quiz/CreateQuiz';
 import Coding from '../coding/Coding';
-import CodeQuestions from '../coding/CodeQuestions';
+import CodeQuestions from '../code/CodeQuestions';
 import CreateCodeQuestion from '../code/CreateCodeQues';
 import QuizCard from '../quiz/QuizCard';
 import QuizPage from '../quiz/QuizPage';
