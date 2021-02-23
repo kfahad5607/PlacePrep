@@ -10,7 +10,8 @@ import {
     CLEAR_CURRENT_CODE_QUESTION,
     RUN_CODE,
     SUBMIT_CODE,
-    RESET_CODE
+    RESET_CODE,
+    CODE_LOADING
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -64,17 +65,17 @@ const reducer = (state = initialState, action) => {
             };
         case RUN_CODE:
         case SUBMIT_CODE:
-            return{
+            return {
                 ...state,
                 userCode: action.payload,
-                loading: false
-            }
+                loading: false,
+            };
         case RESET_CODE:
-            return{
+            return {
                 ...state,
-                userCode: '',
-                loading: false
-            }
+                userCode: "",
+                loading: false,
+            };
         case CODE_QUESTION_ERROR:
             return {
                 ...state,
@@ -83,21 +84,26 @@ const reducer = (state = initialState, action) => {
         case FILTER_CODE_QUESTIONS:
             return {
                 ...state,
-                filtered: state.questions.filter(qsn => {
-                    const regex = new RegExp(`${action.payload}`, 'gi');
-                    return qsn.title.match(regex)
-                })
-            }
+                filtered: state.questions.filter((qsn) => {
+                    const regex = new RegExp(`${action.payload}`, "gi");
+                    return qsn.title.match(regex);
+                }),
+            };
         case CLEAR_FILTER:
             return {
                 ...state,
-                filtered: null
-            }
+                filtered: null,
+            };
         case CLEAR_CURRENT_CODE_QUESTION:
             return {
                 ...state,
-                current: null
-            }
+                current: null,
+            };
+        case CODE_LOADING:
+            return {
+                ...state,
+                loading: true,
+            };
         default:
             return state;
     }

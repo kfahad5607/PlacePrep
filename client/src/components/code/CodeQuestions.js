@@ -7,7 +7,7 @@ import {
     filterQuestions,
     clearFilter,
 } from "../../store/actions/codeActions";
-import CodeTableRow from "./codeTableRow";
+import CodeTableRow from "./CodeTableRow";
 import Spinner from "../layout/Spinner";
 import Pagination from "./Pagination";
 import paginate from "./paginate";
@@ -16,7 +16,7 @@ import _ from "lodash";
 const CodeQuestions = (props) => {
     const { getQuestions, filterQuestions, clearFilter } = props;
     const { user } = props.auth;
-    const { questions, filtered } = props.code;
+    const { questions, filtered, loading } = props.code;
 
     const [pageDetails, setPageDetails] = useState({
         pageSize: 10,
@@ -27,9 +27,7 @@ const CodeQuestions = (props) => {
     const text = useRef("");
 
     useEffect(() => {
-        setTimeout(() => {
-            getQuestions();
-        }, 2000);
+        getQuestions();
         //     eslint-disable-next-line
     }, []);
 
@@ -75,15 +73,20 @@ const CodeQuestions = (props) => {
 
     const sortedQsn = _.orderBy(
         filteredQsn,
-        [sortColumn.path],
+        [
+            function (item) {
+                if (sortColumn.path === "difficulty") return item.difficulty;
+                else return item.title.toLowerCase();
+            },
+        ],
         [sortColumn.order]
     );
 
     const newQuestions = paginate(sortedQsn, currentPage, pageSize);
-    const qsnNumber = _.range(1, newQuestions.length + 1 );
+    const qsnNumber = _.range(1, newQuestions.length + 1);
     return (
         <Fragment>
-            {questions !== null ? (
+            {questions !== null && !loading ? (
                 <Container className="container-codeQuest">
                     <h3 className="text-center  mb-2 pt-4 ">
                         Coding Questions

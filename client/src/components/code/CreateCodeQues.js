@@ -16,7 +16,7 @@ const CreateCodeQuestion = (props) => {
     const { current } = props.code;
     const [codeQuestion, setCodeQuestion] = useState({
         title: "",
-        difficulty: "easy",
+        difficulty: "10",
         description: "",
         testcases: "",
         sampleInputs: [],
@@ -32,7 +32,8 @@ const CreateCodeQuestion = (props) => {
 
     useEffect(() => {
         if (props.match.path.includes("editCodeQuestion")) {
-            getQuestion(props.match.params.id);
+            console.log(props.match.params.slug)
+            getQuestion(props.match.params.slug);
         }
     }, []);
 
@@ -48,7 +49,7 @@ const CreateCodeQuestion = (props) => {
             clearCurrent()
             setCodeQuestion({
                 title: "",
-                difficulty: "easy",
+                difficulty: "10",
                 description: "",
                 testcases: "",
                 sampleInputs: [],
@@ -83,6 +84,7 @@ const CreateCodeQuestion = (props) => {
     };
 
     const handleOnChange = (e) => {
+        console.log(e.target.value)
         setCodeQuestion({
             ...codeQuestion,
             [e.target.name]: e.target.value,
@@ -275,19 +277,19 @@ const CreateCodeQuestion = (props) => {
                                     onChange={handleOnChange}
                                 >
                                     <option
-                                        value="easy"
+                                        value={"10"}
                                         className="optionSelect"
                                     >
                                         Easy
                                     </option>
                                     <option
-                                        value="medium"
+                                        value={"20"}
                                         className="optionSelect"
                                     >
                                         Medium
                                     </option>
                                     <option
-                                        value="hard"
+                                        value={"30"}
                                         className="optionSelect"
                                     >
                                         Hard

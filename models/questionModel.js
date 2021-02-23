@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const questionSchema = new mongoose.Schema({
     title: {
@@ -9,6 +10,7 @@ const questionSchema = new mongoose.Schema({
         maxlength: [40, 'A question name must have less or equal than 40 characters'],
         minlength: [5, 'A question name must have more or equal than 5 characters']
     },
+    slug: String,
     description: {
         type: String,
         required: true,
@@ -19,8 +21,8 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: [true, 'A question must have a difficulty'],
         enum: {
-            values: ['easy', 'medium', 'hard'],
-            message: 'Difficulty is either: easy, medium, hard'
+            values: ['10', '20', '30'],
+            message: 'Difficulty is either: 10, 20, 30'
         }
     },
     sampleInputs: [{
@@ -50,6 +52,11 @@ const questionSchema = new mongoose.Schema({
     //     default: 'python main'
     // }
 
+});
+
+questionSchema.pre('save', function(next) {
+    this.slug = slugify(this.title, { lower: true });
+    next();
 });
 
 const Question = mongoose.model('Question', questionSchema);
