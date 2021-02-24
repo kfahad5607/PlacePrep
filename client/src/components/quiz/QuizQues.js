@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
@@ -8,6 +9,7 @@ import { connect } from 'react-redux';
 import { submitQuiz } from '../../store/actions/quizActions';
 
 const QuizQues = (props) => {
+    let history = useHistory();
     const { submitQuiz } = props;
 
     let tempUserAnswers;
@@ -32,6 +34,7 @@ const QuizQues = (props) => {
 
     const handleOnClick = () => {
 
+        console.log('Submitting');
         submitQuiz(props.quizId, { userAnswers: userAnswers });
         tempUserAnswers = props.questions.map((ele) => {
             return {
@@ -40,6 +43,10 @@ const QuizQues = (props) => {
             };
         });
         setUserAnswers(tempUserAnswers);
+        window.alert('Quiz Submitted successfully!. Redirectng to /quizzes after 2 sec');
+        setTimeout(() => {
+            history.push('/quizzes');
+        }, 2000);
     };
 
     return (
@@ -62,8 +69,8 @@ const QuizQues = (props) => {
                     </Accordion>) :
                     <h3 key={index}>Loading...</h3>)
             )}
-            <div className="text-center" onClick={handleOnClick} style={{ width: '200px', margin: 'auto' }}>
-                <Button className="createquiz mb-4"  >Submit Quiz</Button>
+            <div className="text-center" style={{ width: '200px', margin: 'auto' }}>
+                <Button className="createquiz mb-4" ref={props.refProp} onClick={handleOnClick}  >Submit Quiz</Button>
             </div>
         </>
     );

@@ -3,14 +3,41 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import "./practiceProblem.css";
 import slugify from 'slugify';
-import { Container, Button, Form, Accordion, Card, Alert } from 'react-bootstrap';
+import MyModal from '../layout/MyModal';
+import { Container, Button, Form, Accordion, Alert } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { deletePracProbByTopic } from '../../store/actions/practiceProblemActions';
 
 const AptiTopicsTemplate = (props) => {
-    const { topics, title } = props;
+    // deletePracProbByTopic(title, ele)
+
+    const [modalShow, setModalShow] = useState(false);
+    const {
+        auth: { user },
+        topics, title } = props;
+
+    const [titleTopic, setTitleTopic] = useState({
+        title: '',
+        topic: ''
+    });
+    const handleOnClick = (title, topic) => {
+        setTitleTopic({
+            title,
+            topic
+        });
+        setModalShow(true);
+    };
 
     return (
 
         <Container className="container-problems">
+            {/* modal starts here */}
+            <MyModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                titleAndTopic={titleTopic}
+            />
+            {/* Modal ends here */}
             <Accordion>
                 <Accordion.Toggle
                     as={Alert.Link}
@@ -30,7 +57,7 @@ const AptiTopicsTemplate = (props) => {
                             <div className="col-12 ">
                                 <Form>
                                     <Form.Group controlId="codingquestionSearch" >
-                                        <Form.Control className=" searchField" type="" placeholder="Search Topics" />
+                                        <Form.Control className="searchField" type="" placeholder="Search Topics" />
                                     </Form.Group>
                                 </Form>
                             </div>
@@ -47,10 +74,11 @@ const AptiTopicsTemplate = (props) => {
                                     </div>
                                     <div className="col-sm-6 ">
                                         <div className="topic-right">
-                                            <span>
-                                                <i className="fa fa-trash operation-D mr-3 mt-1 op" aria-hidden="true" ></i>
-                                            </span>
-                                            <Link to={`/practiceproblems/${slugify(ele, { lower: true })}`} >
+                                            {(user.role === 'faculty' || user.role === 'admin') &&
+                                                <span onClick={() => handleOnClick(title, ele)} style={{ cursor: 'pointer' }} >
+                                                    <i className="fa fa-trash operation-D mr-3 mt-1 op" aria-hidden="true" ></i>
+                                                </span>}
+                                            <Link to={`/practiceproblems/${slugify(title, { lower: true })}/${slugify(ele, { lower: true })}`} >
                                                 <span>
                                                     <i className="fa fa-chevron-circle-right operation-D mr-3 mt-1 op" aria-hidden="true" ></i>
                                                 </span>
@@ -61,9 +89,9 @@ const AptiTopicsTemplate = (props) => {
                             )}
                             {/* Topics component ends here */}
 
-                            <div className="text-center">
+                            {(user.role === 'faculty' || user.role === 'admin') && <div className="text-center">
                                 <Link to="/addtopic"><Button className="Addmore-btn mt-2" >Add More Topics</Button></Link>
-                            </div>
+                            </div>}
                         </div>
                     </>
                 </Accordion.Collapse>
@@ -71,4 +99,10 @@ const AptiTopicsTemplate = (props) => {
         </Container >
     );
 };
-export default AptiTopicsTemplate;
+
+const mapStateToProps = state => ({
+    practiceProblem: state.practiceProblem,
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, { deletePracProbByTopic })(AptiTopicsTemplate);

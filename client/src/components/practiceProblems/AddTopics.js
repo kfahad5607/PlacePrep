@@ -129,18 +129,18 @@ const AddTopics = (props) => {
                         <div className="col-sm-6">
                             <Form.Group controlId="topic" >
                                 <Form.Label><b>Enter Topic</b></Form.Label>
-                                <Form.Control className="quiz-inputFiled" name="topic" value={apti.topic} onChange={handleOnChange} placeholder="Enter Topic" />
+                                <Form.Control className="quiz-inputFiled" name="topic" value={aptiInfo.topic} onChange={handleOnChange} placeholder="Enter Topic" />
                             </Form.Group>
                         </div>
                         <div className="col-sm-6">
                             <Form.Group controlId="category" >
                                 <Form.Label><b>Select Category</b></Form.Label>
                                 <Form.Group controlId="SelectRowsPerpage">
-                                    <Form.Control as="select" className="quiz-inputFiled" name='category' onChange={handleOnChange}  >
+                                    <Form.Control as="select" className="quiz-inputFiled" name='category' value={aptiInfo.category} onChange={handleOnChange}  >
                                         <option className="optionSelect" value='quantitative analysis' >Quantitative Analysis</option>
                                         <option className="optionSelect" value='logical reasoning' >Logical Reasoning</option>
                                         <option className="optionSelect" value='verbal ability' >Verbal Ability</option>
-                                        <option className="optionSelect" value='other topics' >Other</option>
+                                        <option className="optionSelect" value='other topics' >Other Topics</option>
                                     </Form.Control>
                                 </Form.Group>
                             </Form.Group>

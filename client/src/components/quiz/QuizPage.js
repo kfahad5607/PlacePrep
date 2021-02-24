@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import QuizQues from './QuizQues';
 import QuizTimer from './QuizTimer';
+import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { getQuiz, submitQuiz } from '../../store/actions/quizActions';
-import { loadUser } from '../../store/actions/authActions';
+import { loadUser, setUserNull } from '../../store/actions/authActions';
 
 const QuizPage = (props) => {
+    const quizQuesRef = useRef(null);
+
     const {
         quiz: { current },
         auth: { user },
@@ -35,17 +38,17 @@ const QuizPage = (props) => {
                         </Col>
                         <Col lg={3} md={4} sm={5} xs={4} className='quiz_timer_col' >
                             {/* <span className='time_sec float-right mt-1 pr-1' >{timer.minutes}:{timer.seconds}</span> */}
-                            {user && <QuizTimer endAt={user.testWillEndAt} />}
+                            {user && <QuizTimer endAt={user.testWillEndAt} triggerSubmit={() => quizQuesRef.current.click()} />}
                         </Col>
                     </Row>
                 </Card.Header>
-                <QuizQues key={current._id} questions={current.questions} quizId={current._id} />
+                <QuizQues key={current._id} questions={current.questions} refProp={quizQuesRef} quizId={current._id} />
                 {/* <div className="text-center" style={{ width: '200px', margin: 'auto' }}>
                     <Button className="createquiz mb-4" type="submit"  >Submit Quiz</Button>
                 </div> */}
             </Container>)
             :
-            <h3>Quiz Not Found</h3>
+            <Spinner />
     );
 };
 

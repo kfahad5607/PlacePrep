@@ -4,7 +4,7 @@ import UserProfile from '../auth/UserProfile';
 import CreateQuiz from '../quiz/CreateQuiz';
 import EditQuiz from '../quiz/EditQuiz';
 import Coding from '../coding/Coding';
-import CodeQuestions from '../coding/CodeQuestions';
+import CodeQuestions from '../code/CodeQuestions';
 import CreateCodeQuestion from '../code/CreateCodeQues';
 import QuizPage from '../quiz/QuizPage';
 import QuizPageSub from '../quiz/quizSubmission/QuizPageSub';
@@ -35,8 +35,6 @@ const MainView = () => {
             <PrivateRoute exact path="/editpracticeProblem/:id" component={EditPracticeProblem} />
             <PrivateRoute exact path="/practiceProblems/:slug" component={PracticeQuizPage} />
             <PrivateRoute exact path="/addTopic" component={AddTopics} />
-
-
         </div>
     );
 };

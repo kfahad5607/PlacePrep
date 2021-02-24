@@ -5,6 +5,12 @@ import {
     DELETE_CODE_QUESTION,
     UPDATE_CODE_QUESTION,
     CODE_QUESTION_ERROR,
+    FILTER_CODE_QUESTIONS,
+    CLEAR_FILTER,
+    CLEAR_CURRENT_CODE_QUESTION,
+    RUN_CODE,
+    SUBMIT_CODE,
+    RESET_CODE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -45,6 +51,7 @@ const reducer = (state = initialState, action) => {
                 questions: state.questions.map((qsn) =>
                     qsn._id === action.payload._id ? action.payload : qsn
                 ),
+                current: action.payload,
                 loading: false,
             };
         case DELETE_CODE_QUESTION:
@@ -55,11 +62,42 @@ const reducer = (state = initialState, action) => {
                 ),
                 loading: false,
             };
+        case RUN_CODE:
+        case SUBMIT_CODE:
+            return{
+                ...state,
+                userCode: action.payload,
+                loading: false
+            }
+        case RESET_CODE:
+            return{
+                ...state,
+                userCode: '',
+                loading: false
+            }
         case CODE_QUESTION_ERROR:
             return {
                 ...state,
                 error: action.payload,
             };
+        case FILTER_CODE_QUESTIONS:
+            return {
+                ...state,
+                filtered: state.questions.filter(qsn => {
+                    const regex = new RegExp(`${action.payload}`, 'gi');
+                    return qsn.title.match(regex)
+                })
+            }
+        case CLEAR_FILTER:
+            return {
+                ...state,
+                filtered: null
+            }
+        case CLEAR_CURRENT_CODE_QUESTION:
+            return {
+                ...state,
+                current: null
+            }
         default:
             return state;
     }

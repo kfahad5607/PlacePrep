@@ -16,7 +16,7 @@ const QuizSubTabRow = (props) => {
                 <td ><Link className="questTitle" to={`/quizSubmission/${eleObj._id}`}>{eleObj.quiz.title}</Link></td>
             }
             <td ><span>{new Date(eleObj.createdAt).toLocaleString('en-us', { day: '2-digit', month: 'short', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</span></td>
-            <td ><span className=" diffMod badge  ">{eleObj.timeTaken.minutes < 10 ? `0${eleObj.timeTaken.minutes}` : eleObj.timeTaken.minutes}:{eleObj.timeTaken.seconds < 10 ? `0${eleObj.timeTaken.seconds}` : eleObj.timeTaken.seconds}</span></td>
+            <td ><span className="diffMod badge badge-success">{eleObj.timeTaken.minutes < 10 ? `0${eleObj.timeTaken.minutes}` : eleObj.timeTaken.minutes}:{eleObj.timeTaken.seconds < 10 ? `0${eleObj.timeTaken.seconds}` : eleObj.timeTaken.seconds}</span></td>
             <td>{eleObj.score}</td>
             {(user.role === 'faculty' || user.role === 'admin') && <td >
                 <span className='pl-4' style={{ cursor: 'pointer' }} onClick={() => deleteQuizSubmission(eleObj._id)} >

@@ -155,14 +155,30 @@ exports.getQuiz = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllQuizzes = catchAsync(async (req, res, next) => {
+    let currentUserSubs;
     let filterObj = {};
-    if (req.query.author) {
-        filterObj.author = req.query.author;
+    let quizzes;
+
+    if (req.user.role === 'student') {
+        let temp = await QuizSubmission.find({ user: req.user._id }).select('quiz -_id');
+        currentUserSubs = temp.map(ele => ele.quiz);
+
+        quizzes = await Quiz.find({
+            _id: {
+                $nin: currentUserSubs
+            }
+        }).populate({
+            path: 'author',
+            select: '+name'
+        });
     }
-    const quizzes = await Quiz.find(filterObj).populate({
-        path: 'author',
-        select: '+name'
-    });
+    else if (req.user.role === 'faculty' || req.user.role === 'admin') {
+        filterObj.author = req.user._id;
+        quizzes = await Quiz.find(filterObj).populate({
+            path: 'author',
+            select: '+name'
+        });
+    }
 
     res.status(200).json({
         status: 'success',
@@ -174,11 +190,14 @@ exports.getAllQuizzes = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteQuiz = catchAsync(async (req, res, next) => {
+
     const quiz = await Quiz.findByIdAndDelete(req.params.id);
 
     if (!quiz) {
         return next(new AppError('No quiz found with that ID.', 404));
     }
+
+    await QuizSubmission.deleteMany({ quiz: req.params.id });
 
     res.status(204).json({
         status: 'success',
@@ -222,8 +241,8 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
     // console.log('validation', Date.now() - new Date(req.user.testWillEndAt) > 1000, Date.now() - new Date(req.user.testWillEndAt));
     // Checking if quiz submission time has passed 
     // if ((Date.now() - req.user.testStartedAt) / 1000 > (quiz.duration * 60 + 10)) {
-    console.log('timeup', Date.now(), new Date(req.user.testWillEndAt).getTime(), Date.now() - new Date(req.user.testWillEndAt).getTime());
-    console.log('timeup1', Date.now() - new Date(req.user.testWillEndAt).getTime() > 1000);
+    // console.log('timeup', Date.now(), new Date(req.user.testWillEndAt).getTime(), Date.now() - new Date(req.user.testWillEndAt).getTime());
+    // console.log('timeup1', Date.now() - new Date(req.user.testWillEndAt).getTime() > 1000);
     if (Date.now() - new Date(req.user.testWillEndAt).getTime() > 1000) {
         submissionObj.valid = false;
     }

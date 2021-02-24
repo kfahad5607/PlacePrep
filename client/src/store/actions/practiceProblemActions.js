@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const getPracticeProblems = (topic) => async (dispatch) => {
+export const getPracticeProblems = (categorySlug, topicSlug) => async (dispatch) => {
     try {
-        const res = await axios.get(`/api/v1/aptiquestions?slug=${topic}`);
+        const res = await axios.get(`/api/v1/aptiquestions?categorySlug=${categorySlug}&topicSlug=${topicSlug}`);
         console.log('res', res);
 
         dispatch({
@@ -84,7 +84,6 @@ export const updatePracticeProblem = (pracProb) => async (dispatch) => {
     }
 };
 
-
 export const deletePracticeProblem = (id) => async (dispatch) => {
     try {
         await axios.delete(`/api/v1/aptiquestions/${id}`);
@@ -92,6 +91,26 @@ export const deletePracticeProblem = (id) => async (dispatch) => {
         dispatch({
             type: actionTypes.DELETE_PRACTICE_PROBLEM,
             payload: id
+        });
+    } catch (err) {
+        console.log('err', err);
+        dispatch({
+            type: actionTypes.PRACTICE_PROBLEM_ERROR,
+            payload: err.response.data.message
+        });
+    }
+};
+
+export const deletePracProbByTopic = (category, topic) => async (dispatch) => {
+    try {
+        await axios.delete(`/api/v1/aptiquestions/deletemany?category=${category}&topic=${topic}`);
+        console.log('catopic', category, topic);
+        dispatch({
+            type: actionTypes.DELETE_PRAC_PROB_BY_TOPIC,
+            payload: {
+                category,
+                topic
+            }
         });
     } catch (err) {
         console.log('err', err);

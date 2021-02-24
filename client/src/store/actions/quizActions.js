@@ -1,10 +1,19 @@
 import axios from 'axios';
 import * as actionTypes from '../actions/actionTypes';
 
+export const setLoadingQuiz = () => (dispatch) => {
+    dispatch({
+        type: actionTypes.SET_LOADING_QUIZ
+    });
+};
+
 // Load user
-export const getQuizzes = (queryVal = '') => async (dispatch) => {
+export const getQuizzes = () => async (dispatch) => {
+    dispatch({
+        type: actionTypes.SET_LOADING_QUIZ
+    });
     try {
-        const res = await axios.get(`/api/v1/quizzes?author=${queryVal}`);
+        const res = await axios.get(`/api/v1/quizzes`);
         console.log('res', res);
         dispatch({
             type: actionTypes.GET_QUIZZES,
@@ -13,11 +22,18 @@ export const getQuizzes = (queryVal = '') => async (dispatch) => {
     }
     catch (err) {
         console.log('err', err.response);
+        dispatch({
+            type: actionTypes.QUIZ_ERROR,
+            payload: err.response.data.message
+        });
     }
 };
 
 export const getQuiz = (slug) => async (dispatch) => {
     try {
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         const res = await axios.get(`/api/v1/quizzes/${slug}`);
         if (res.data.message === 'Quiz is deactivated') {
             console.log('hera');
@@ -47,6 +63,9 @@ export const addQuiz = (quiz) => async (dispatch) => {
         }
     };
     try {
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         const res = await axios.post('/api/v1/quizzes', quiz, config);
         console.log('res', res);
         dispatch({
@@ -64,13 +83,15 @@ export const addQuiz = (quiz) => async (dispatch) => {
 };
 
 export const updateQuiz = (quiz) => async (dispatch) => {
-    console.log('quiz', quiz);
     const config = {
         headers: {
             "Content-Type": "application/json"
         }
     };
     try {
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         const res = await axios.patch(`/api/v1/quizzes/${quiz._id}`, quiz, config);
         console.log('res', res.data.data);
 
@@ -90,6 +111,9 @@ export const updateQuiz = (quiz) => async (dispatch) => {
 
 export const deleteQuiz = (id) => async (dispatch) => {
     try {
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         await axios.delete(`/api/v1/quizzes/${id}`);
 
         dispatch({
@@ -108,6 +132,9 @@ export const deleteQuiz = (id) => async (dispatch) => {
 
 export const deleteQuizQuestion = (id) => async (dispatch) => {
     try {
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         await axios.delete(`/api/v1/quizQuestions/${id}`);
 
         dispatch({
@@ -133,6 +160,9 @@ export const setCurrentQuiz = (quiz) => async (dispatch) => {
 
 export const startQuiz = (id) => async (dispatch) => {
     try {
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         const res = await axios.get(`/api/v1/quizzes/start/${id}`);
 
         dispatch({
@@ -160,6 +190,9 @@ export const submitQuiz = (id, userQuiz) => async (dispatch) => {
         }
     };
     try {
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         const res = await axios.post(`/api/v1/quizzes/submit/${id}`, userQuiz, config);
 
         dispatch({
@@ -183,6 +216,9 @@ export const getQuizSubmissions = (queryObj) => async (dispatch) => {
             queryKey = queryObj.user ? 'user' : 'quiz';
             queryVal = queryObj.user ? queryObj.user : queryObj.quiz;
         }
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         const res = await axios.get(`/api/v1/quizSubmissions?${queryKey}=${queryVal}`);
 
         dispatch({
@@ -200,6 +236,9 @@ export const getQuizSubmissions = (queryObj) => async (dispatch) => {
 
 export const getQuizSubmission = (id) => async (dispatch) => {
     try {
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         const res = await axios.get(`/api/v1/quizSubmissions/${id}`);
 
         dispatch({
@@ -217,6 +256,9 @@ export const getQuizSubmission = (id) => async (dispatch) => {
 
 export const deleteQuizSubmission = (id) => async (dispatch) => {
     try {
+        dispatch({
+            type: actionTypes.SET_LOADING_QUIZ
+        });
         await axios.delete(`/api/v1/quizSubmissions/${id}`);
 
         dispatch({

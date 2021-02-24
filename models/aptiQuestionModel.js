@@ -38,7 +38,8 @@ const aptiQuestionSchema = new mongoose.Schema({
             message: 'category is either: quantitative analysis, logical reasoning, verbal ability or other topics'
         }
     },
-    slug: String,
+    topicSlug: String,
+    categorySlug: String,
     explanation: {
         type: String,
         default: 'No answer description available for this question'

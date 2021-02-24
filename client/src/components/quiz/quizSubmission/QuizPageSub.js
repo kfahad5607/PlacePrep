@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import QuizQuesSub from './QuizQuesSub';
+import Spinner from '../../layout/Spinner';
 import { connect } from 'react-redux';
 import { getQuizSubmission } from '../../../store/actions/quizActions';
 
@@ -16,7 +17,8 @@ const QuizPageSub = (props) => {
     const quizSubId = match.params.id;
 
     useEffect(() => {
-        getQuizSubmission(quizSubId);
+            getQuizSubmission(quizSubId);
+
     }, []);
 
 
@@ -37,7 +39,7 @@ const QuizPageSub = (props) => {
                 <QuizQuesSub key={currentSubmission._id} userAns={currentSubmission.userAnswers} questions={currentSubmission.quiz.questions} quizId={currentSubmission.quiz._id} />
             </Container>)
             :
-            <h3>Loading...</h3>
+            <Spinner />
     );
 };
 

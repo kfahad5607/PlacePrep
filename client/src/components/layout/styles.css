@@ -1,0 +1,15 @@
+.mainview-container {
+  width: 100%;
+  margin-left: 280px;
+}
+
+.remove-margin {
+  margin-left: 0px;
+}
+
+@media (max-width: 768px) {
+  .mainview-container {
+    width: 100%;
+    margin-left: 0;
+  }
+}

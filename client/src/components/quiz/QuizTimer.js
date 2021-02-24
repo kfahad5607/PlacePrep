@@ -21,6 +21,9 @@ const QuizTimer = (props) => {
 
     const setNewTime = () => {
         if (timer.seconds <= 0 && timer.minutes <= 0) {
+            if(timer.seconds > -6 && timer.minutes > -2){
+                props.triggerSubmit();
+            }
             return clearInterval(myInterval);
         }
         else if (countdownDate) {
@@ -35,7 +38,6 @@ const QuizTimer = (props) => {
             setTimer({ minutes, seconds });
         }
     };
-
 
     return (
         (timer.minutes <= 0 && timer.seconds <= 0) ?

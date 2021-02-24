@@ -7,6 +7,7 @@ import CodeEditor from "./CodeEditor";
 import {useParams} from "react-router-dom"
 import { connect } from "react-redux";
 import { getQuestion } from "../../store/actions/codeActions";
+import Spinner from '../layout/Spinner'
 
 const Coding = (props) => {
 
@@ -29,6 +30,7 @@ const Coding = (props) => {
                     <Tab eventKey="description" title={<span><i className="fa fa-list-alt" aria-hidden="true"></i>Description</span>}>
                         <CodeDescription current={current}/>
                     </Tab>
+                    {/* {current.solution &&} */}
                     <Tab eventKey="solution" title={<span><i className="fa fa-flask" aria-hidden="true"></i>Solution</span>}>
                         <CodingSolution current={current}/>
                     </Tab>
@@ -37,7 +39,7 @@ const Coding = (props) => {
             <Col className="editor-container">
                 <CodeEditor/>
             </Col>
-        </Row> : <h1>Loading</h1> }
+        </Row> : <Spinner /> }
         </Fragment>
     );
 };

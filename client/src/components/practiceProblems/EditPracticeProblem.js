@@ -122,7 +122,7 @@ const EditPracticeProblem = (props) => {
                                         <option className="optionSelect" value='quantitative analysis'  >Quantitative Analysis</option>
                                         <option className="optionSelect" value='logical reasoning'  >Logical Reasoning</option>
                                         <option className="optionSelect" value='verbal ability' >Verbal Ability</option>
-                                        <option className="optionSelect" value='other topics' >Other</option>
+                                        <option className="optionSelect" value='other topics' >Other Topics</option>
                                     </Form.Control>
                                 </Form.Group>
                             </Form.Group>

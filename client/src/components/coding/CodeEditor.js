@@ -6,17 +6,25 @@ import "codemirror/theme/eclipse.css";
 import "codemirror/theme/material.css";
 import "codemirror/theme/blackboard.css";
 import "codemirror/theme/base16-light.css";
-import "codemirror/theme/ayu-mirage.css"
+import "codemirror/theme/ayu-mirage.css";
 import "codemirror/addon/edit/matchbrackets";
 import "codemirror/addon/edit/closebrackets";
-import "codemirror/addon/scroll/simplescrollbars.css"
-import "codemirror/addon/scroll/simplescrollbars"
+import "codemirror/addon/scroll/simplescrollbars.css";
+import "codemirror/addon/scroll/simplescrollbars";
 import "codemirror/mode/clike/clike";
 import "codemirror/mode/python/python";
+import { connect } from "react-redux";
+import {
+    runCode,
+    submitCode,
+    resetCode,
+} from "../../store/actions/codeActions";
 
 // require("codemirror/addon/scroll/simplescrollbars.js");
 
-const CodeEditor = () => {
+const CodeEditor = (props) => {
+    const { runCode, submitCode, resetCode } = props;
+
     const [editorSelect, setEditorSelect] = useState({
         lang: "text/x-csrc",
         theme: "material",
@@ -42,7 +50,7 @@ const CodeEditor = () => {
         lineWrapping: true,
         matchBrackets: true,
         autoCloseBrackets: true,
-        scrollbarStyle: 'overlay'
+        scrollbarStyle: "overlay",
     };
 
     // const handleOnBeforeChangeCode = (editor, data, value) => {
@@ -115,22 +123,26 @@ const CodeEditor = () => {
                     </Button>
                 </div>
                 <div className="editor-actions">
-                    <Button className="button run-code-btn">
+                    <Button className="button run-code-btn" onClick={() => runCode(code)}>
                         <i className="fa fa-play" aria-hidden="true"></i>
                         <span>Run Code</span>
                     </Button>
-                    <Button className="button submit-code-btn">Submit</Button>
+                    <Button className="button submit-code-btn" onClick={() => submitCode(code)}>Submit</Button>
                 </div>
             </div>
             <div className="console-container">
                 <pre>
-                    <Alert variant='success'>
-                        Run Code Result: Success!
-                    </Alert>
+                    <Alert variant="success">Run Code Result: Success!</Alert>
                 </pre>
             </div>
         </Fragment>
     );
 };
 
-export default CodeEditor;
+const mapStateToProps = (state) => ({
+    code: state.code,
+});
+
+export default connect(mapStateToProps, { runCode, submitCode, resetCode })(
+    CodeEditor
+);

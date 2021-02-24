@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    questions: [],
+    questions: null,
     catAndTopic: null,
     current: null,
     filtered: null,
@@ -38,6 +38,19 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 questions: state.questions.filter(ele => ele._id !== action.payload)
+            };
+        case actionTypes.DELETE_PRAC_PROB_BY_TOPIC:
+            let index = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
+            console.log('inx', index);
+            return {
+                ...state,
+                catAndTopic: {
+                    ...state.catAndTopic,
+                    distinctTopicByCat: state
+                        .catAndTopic
+                        .distinctTopicByCat
+                        .map((ele, idx) => idx === index ? (state.catAndTopic.distinctTopicByCat[index].filter(ele => ele !== action.payload.topic)) : ele)
+                }
             };
         case actionTypes.UPDATE_PRACTICE_PROBLEM_TOPIC:
             return {

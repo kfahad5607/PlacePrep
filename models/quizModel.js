@@ -45,7 +45,7 @@ const quizSchema = new mongoose.Schema({
     slug: String,
     createdAt: {
         type: Date,
-        default: Date.now(),
+        default: Date.now,
         set: () => Date.now()
         // select: false
     }

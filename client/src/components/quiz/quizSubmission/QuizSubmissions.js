@@ -1,8 +1,9 @@
 import React, { useEffect, Fragment } from 'react';
-import "../../coding/CodeQuestDisp.css";
+import "../../code/CodeQuestDisp.css";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import QuizSubTabRow from './QuizSubTabRow';
+import Spinner from '../../layout/Spinner';
 import { connect } from 'react-redux';
 import { getQuizSubmissions, getQuizSubmission } from '../../../store/actions/quizActions';
 
@@ -152,7 +153,7 @@ const QuizSubmissions = (props) => {
                 </div>
             </Container>) :
                 (
-                    <h1>Loading..</h1>
+                    <Spinner />
                 )
             }
         </Fragment>

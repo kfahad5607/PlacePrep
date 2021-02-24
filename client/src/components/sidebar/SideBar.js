@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './styles.css';
 import MenuList from './MenuList';
 
-const SideBar = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    const toggleSidebarBtn = () => {
-        setSidebarOpen(!sidebarOpen);
-    };
-
+const SideBar = ({ sidebarOpen, onClick }) => {
     return (
         <>
             {/* Will be visible on mobile */}
-            <div className={sidebarOpen ? 'overlay sidebar-open' : 'overlay sidebar-close'} onClick={toggleSidebarBtn} ></div>
+            <div className={sidebarOpen ? 'overlay sidebar-open' : 'overlay sidebar-close'} onClick={onClick} ></div>
             <div className={`sidebar-container ${sidebarOpen ? 'sidebar-open' : 'sidebar-close'}`} >
                 <div className='sidebar-header'>
                     <div className='logo'>
@@ -123,9 +117,9 @@ const SideBar = () => {
 
                 </div> */}
             </div>
-            <div id='sidebar-btn' onClick={toggleSidebarBtn} >
+            {/* <div id='sidebar-btn' onClick={toggleSidebarBtn} >
                 <i className='fas fa-bars menu-icon' ></i>
-            </div>
+            </div> */}
         </>
     );
 };

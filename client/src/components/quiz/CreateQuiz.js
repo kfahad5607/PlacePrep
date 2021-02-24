@@ -130,11 +130,11 @@ function CreateQuiz(props) {
                             <Form.Group controlId="category" >
                                 <Form.Label><b>Select Category</b></Form.Label>
                                 <Form.Group controlId="SelectRowsPerpage">
-                                    <Form.Control as="select" className="quiz-inputFiled" name='category' onChange={handleOnChange} >
-                                        <option className="optionSelect" value='quants' >Quantitative Analysis</option>
-                                        <option className="optionSelect" value='logical' >Logical Reasoning</option>
-                                        <option className="optionSelect" value='verbal' >Verbal Ability</option>
-                                        <option className="optionSelect" value='others' >Other</option>
+                                    <Form.Control as="select" className="quiz-inputFiled" name='category' value={quiz.category} onChange={handleOnChange} >
+                                        <option className="optionSelect" value='quantitative analysis' >Quantitative Analysis</option>
+                                        <option className="optionSelect" value='logical reasoning' >Logical Reasoning</option>
+                                        <option className="optionSelect" value='verbal ability' >Verbal Ability</option>
+                                        <option className="optionSelect" value='other topics' >Others</option>
                                     </Form.Control>
                                 </Form.Group>
                             </Form.Group>
@@ -175,7 +175,7 @@ function CreateQuiz(props) {
                             <Button className="addquestbtn mb-2" onClick={handleAddQuesClick} > Add Next Question  </Button>
                         </div>
                         <div className="col-sm-6 text-center">
-                            <Button className="createquiz mb-4" type="submit" > Create Quiz</Button>
+                            <Button className="createquiz mb-4" type="submit" >Create Quiz</Button>
                         </div>
                     </div>
                 </Form>

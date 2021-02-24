@@ -8,6 +8,7 @@ router.use(authController.protect);
 
 router.get('/getdistinctval', aptiQuestionController.getAllDistinctVal);
 router.patch('/updatetopic', aptiQuestionController.updateTopic);
+router.delete('/deletemany', aptiQuestionController.deleteManyQuestions)
 
 router
     .route("/")

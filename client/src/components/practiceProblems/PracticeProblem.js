@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import AptiTopicsTemplate from './AptiTopicsTemplate';
+import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { getCategoryAndTopic } from '../../store/actions/practiceProblemActions';
 
@@ -18,10 +19,10 @@ const PracticeProblem = (props) => {
                     { catAndTopic.distinctCategory.map((ele, index) => <AptiTopicsTemplate
                         key={index}
                         title={ele}
-                        topics= {catAndTopic.distinctTopicByCat[index]}
+                        topics={catAndTopic.distinctTopicByCat[index]}
                     />)}
                 </>
-                : <h3>Loading...</h3>}
+                : <Spinner />}
         </div>
     );
 };

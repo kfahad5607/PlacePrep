@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './quiz.css';
 import { Button, Container, Form } from 'react-bootstrap';
 import QuizQuestion from './CreateQuizQuestion';
+import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import {
     getQuiz,
@@ -21,7 +22,7 @@ const EditQuiz = (props) => {
     const slug = match.params.slug;
     useEffect(() => {
         getQuiz(slug);
-    }, [])
+    }, []);
 
     useEffect(() => {
         if (current !== null) {
@@ -30,7 +31,7 @@ const EditQuiz = (props) => {
             props.history.replace({ pathname: `/editQuiz/${current.slug}` });
 
             let tempDeepCopy = JSON.parse(JSON.stringify(current));
-            setQuizLocal(tempDeepCopy)
+            setQuizLocal(tempDeepCopy);
         }
         else {
             setQuizLocal({
@@ -44,7 +45,7 @@ const EditQuiz = (props) => {
                     answers: ['', '', '', ''],
                     correctAnswer: ''
                 }]
-            })
+            });
         }
     }, [current]);
 
@@ -125,7 +126,7 @@ const EditQuiz = (props) => {
         });
 
         if (isNaN(eleId)) {
-            deleteQuizQuestion(eleId)
+            deleteQuizQuestion(eleId);
         }
 
         setQuizLocal({
@@ -158,8 +159,15 @@ const EditQuiz = (props) => {
                             </div>
                             <div className="col-sm-6">
                                 <Form.Group controlId="category" >
-                                    <Form.Label><b>Quiz Category</b></Form.Label>
-                                    <Form.Control className="quiz-inputFiled" name="category" value={quizLocal.category} onChange={handleOnChange} type="" placeholder="Quantitative/ Logical/ Other" />
+                                    <Form.Label><b>Select Category</b></Form.Label>
+                                    <Form.Group controlId="SelectRowsPerpage">
+                                        <Form.Control as="select" className="quiz-inputFiled" name='category' value={quizLocal.category} onChange={handleOnChange} >
+                                            <option className="optionSelect" value='quantitative analysis' >Quantitative Analysis</option>
+                                            <option className="optionSelect" value='logical reasoning' >Logical Reasoning</option>
+                                            <option className="optionSelect" value='verbal ability' >Verbal Ability</option>
+                                            <option className="optionSelect" value='other topics' >Others</option>
+                                        </Form.Control>
+                                    </Form.Group>
                                 </Form.Group>
                             </div>
                         </div>
@@ -204,7 +212,7 @@ const EditQuiz = (props) => {
                         </div>
                     </Form>
                 </div>
-            </Container>) : <h3>Loading..</h3>
+            </Container>) : <Spinner />
             }
         </>
     );

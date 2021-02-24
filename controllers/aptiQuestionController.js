@@ -19,7 +19,7 @@ exports.getQuestion = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllQuestions = catchAsync(async (req, res, next) => {
-    const questions = await AptiQuestion.find({ slug: req.query.slug });
+    const questions = await AptiQuestion.find({ categorySlug: req.query.categorySlug, topicSlug: req.query.topicSlug });
 
     res.status(200).json({
         status: "success",
@@ -31,9 +31,9 @@ exports.getAllQuestions = catchAsync(async (req, res, next) => {
 });
 
 exports.createManyQuestions = catchAsync(async (req, res, next) => {
-    console.log('qqq', req.body.aptiQuestions);
     req.body.aptiQuestions = req.body.aptiQuestions.map(ele => {
-        ele.slug = slugify(ele.topic, { lower: true });
+        ele.topicSlug = slugify(ele.topic, { lower: true });
+        ele.categorySlug = slugify(ele.category, { lower: true });
         return ele;
     });
     const aptiQuestions = await AptiQuestion.insertMany(req.body.aptiQuestions);
@@ -58,7 +58,8 @@ exports.createQuestion = catchAsync(async (req, res, next) => {
 });
 
 exports.updateQuestion = catchAsync(async (req, res, next) => {
-    req.body.slug = slugify(req.body.topic, { lower: true });
+    req.body.topicSlug = slugify(req.body.topic, { lower: true });
+    req.body.categorySlug = slugify(req.body.category, { lower: true });
     const question = await AptiQuestion.findByIdAndUpdate(
         req.params.id,
         req.body,
@@ -104,10 +105,21 @@ exports.deleteQuestion = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.deleteManyQuestions = catchAsync(async (req, res, next) => {
+    await AptiQuestion.deleteMany({ category: req.query.category, topic: req.query.topic });
+
+    res.status(204).json({
+        status: 'success',
+        data: null
+    });
+});
+
 exports.getAllDistinctVal = catchAsync(async (req, res, next) => {
     let distinctCategory = await AptiQuestion.distinct('category');
-    distinctCategory = distinctCategory.filter(ele => ele !== 'other topics');
-    distinctCategory.push('other topics');
+    if (distinctCategory.includes('other topics')) {
+        distinctCategory = distinctCategory.filter(ele => ele !== 'other topics');
+        distinctCategory.push('other topics');
+    }
     const promises = distinctCategory.map(async (ele) => await AptiQuestion.distinct('topic', { category: ele }));
 
     const distinctTopicByCat = await Promise.all(promises);
