@@ -42,7 +42,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_QUIZ:
             return {
                 ...state,
-                quizzes: state.quizzes.map((ele) => ele._id === action.payload._id ? action.payload : ele),
+                quizzes: state.quizzes?.map((ele) => ele._id === action.payload._id ? action.payload : ele),
                 current: action.payload,
                 loading: false
             };

@@ -34,12 +34,9 @@ const Home = () => {
                     <Switch>
                         <Route path="/me" component={UserProfile} />
                         <Route path="/createQuiz" component={CreateQuiz} />
-                        <Route path="/code/:id" component={Coding} />
                         <Route path="/codeQuestions" component={CodeQuestions} />
                         <Route path="/createCodeQuestion" component={CreateCodeQuestion} />
-                        <Route path="/editCodeQuestion/:id" component={CreateCodeQuestion} />
                         <Route path="/quizzes" component={QuizCardPage} />
-                        {/* <Route path="/quiz" component={QuizPage} /> */}
                         <Route exact path="/editQuiz/:slug" component={EditQuiz} />
                         <Route exact path="/quiz/:slug" component={QuizPage} />
                         <Route exact path="/quizSubmissions" component={QuizSubmissions} />
@@ -49,6 +46,11 @@ const Home = () => {
                         <Route exact path="/editpracticeProblem/:id" component={EditPracticeProblem} />
                         <Route exact path="/practiceProblems/:categorySlug/:topicSlug" component={PracticeQuizPage} />
                         <Route exact path="/addTopic" component={AddTopics} />
+                        <Route path="/code/:slug" component={Coding} />
+                        <Route
+                            path="/editCodeQuestion/:slug"
+                            component={CreateCodeQuestion}
+                        />
                     </Switch>
                 </div>
             </div>

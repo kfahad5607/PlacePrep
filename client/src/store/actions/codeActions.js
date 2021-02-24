@@ -11,15 +11,17 @@ import {
     RUN_CODE,
     SUBMIT_CODE,
     RESET_CODE,
+    CODE_LOADING
 } from "../actions/actionTypes";
 import axios from "axios";
 
 export const getQuestions = () => async (dispatch) => {
     try {
+        dispatch({ type: CODE_LOADING });
         const res = await axios.get("/api/v1/questions");
         dispatch({
             type: GET_CODE_QUESTIONS,
-            payload : res.data.data.questions
+            payload: res.data.data.questions
         });
     } catch (err) {
         dispatch({
@@ -29,12 +31,12 @@ export const getQuestions = () => async (dispatch) => {
     }
 };
 
-export const getQuestion = (id) => async (dispatch) => {
+export const getQuestion = (slug) => async (dispatch) => {
     try {
-        const res = await axios.get(`/api/v1/questions/${id}`);
+        const res = await axios.get(`/api/v1/questions/${slug}`);
         dispatch({
             type: GET_CODE_QUESTION,
-            payload : res.data.data.data
+            payload: res.data.data.data
         });
     } catch (err) {
         dispatch({
@@ -51,14 +53,14 @@ export const addQuestion = (question) => async (dispatch) => {
         },
     };
     try {
-        const res = await axios.post(`/api/v1/questions`,question, config);
-        console.log(res.data)
+        const res = await axios.post(`/api/v1/questions`, question, config);
+        console.log(res.data);
         dispatch({
             type: ADD_CODE_QUESTION,
-            payload : res.data.data.data
+            payload: res.data.data.data
         });
     } catch (err) {
-        console.log(err.response)
+        console.log(err.response);
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,
@@ -73,12 +75,14 @@ export const updateQuestion = (question) => async (dispatch) => {
         },
     };
     try {
-        const res = await axios.patch(`/api/v1/questions/${question._id}`,question, config);
+        const res = await axios.patch(`/api/v1/questions/${question._id}`, question, config);
+        console.log('res', res);
         dispatch({
             type: UPDATE_CODE_QUESTION,
-            payload : res.data.data.data
+            payload: res.data.data.data
         });
     } catch (err) {
+        console.log('res', err);
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,
@@ -91,7 +95,7 @@ export const deleteQuestion = (id) => async (dispatch) => {
         await axios.delete(`/api/v1/questions/${id}`);
         dispatch({
             type: DELETE_CODE_QUESTION,
-            payload : id
+            payload: id
         });
     } catch (err) {
         dispatch({
@@ -140,12 +144,12 @@ export const submitCode = (code) => async (dispatch) => {
     }
 };
 
-export const resetCode = () => ({ type: RESET_CODE })
+export const resetCode = () => ({ type: RESET_CODE });
 
-export const clearCurrent = () => ({ type: CLEAR_CURRENT_CODE_QUESTION })
+export const clearCurrent = () => ({ type: CLEAR_CURRENT_CODE_QUESTION });
 
 export const filterQuestions = questions => async dispatch => {
     dispatch({ type: FILTER_CODE_QUESTIONS, payload: questions });
 };
 
-export const clearFilter = () => ({ type: CLEAR_FILTER })
+export const clearFilter = () => ({ type: CLEAR_FILTER });

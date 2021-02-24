@@ -11,6 +11,7 @@ import {
     SET_USER_FROM_START_QUIZ,
     UPDATE_ME,
     UPDATE_ERROR,
+    AUTH_LOADING
     // CLEAR_ERRORS,
 } from "../actions/actionTypes";
 

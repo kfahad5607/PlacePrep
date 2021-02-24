@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteQuestion } from "../../store/actions/codeActions";
 
-const codeTableRow = ({ question, id, user, deleteQuestion }) => {
+const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
     function capitalize(s) {
         return s[0].toUpperCase() + s.slice(1);
     }
@@ -11,8 +11,8 @@ const codeTableRow = ({ question, id, user, deleteQuestion }) => {
         <tr>
             <th scope="row">{id}</th>
             <td>
-                <Link className="questTitle" to={`/code/${question._id}`}>
-                {capitalize(question.title)}
+                <Link className="questTitle" to={`/code/${question.slug}`}>
+                    {capitalize(question.title)}
                 </Link>
             </td>
             <td className="">
@@ -25,30 +25,31 @@ const codeTableRow = ({ question, id, user, deleteQuestion }) => {
                 </span>
             </td>
             <td className="">
-                {question.difficulty === "easy" && (
+                {question.difficulty === "10" && (
                     <span className=" diffMod badge badgeSuccess ">
-                        {capitalize(question.difficulty)}
+                        Easy
                     </span>
                 )}
-                {question.difficulty === "medium" && (
+                {question.difficulty === "20" && (
                     <span className=" diffMod badge badgeWarning ">
-                        {capitalize(question.difficulty)}
+                        Medium
                     </span>
                 )}
-                {question.difficulty === "hard" && (
+                {question.difficulty === "30" && (
                     <span className=" diffMod badge badgeDanger ">
-                        {capitalize(question.difficulty)}
+                        Hard
                     </span>
                 )}
             </td>
             <td>53.4 %</td>
             {/* {user.role === 'faculty' &&  */}
-            <td>
+
+            {(user.role === 'faculty' || user.role === 'admin') && <td>
                 <span>
                     <Link
                         className="fa fa-pencil-square operation-E mr-3 "
                         aria-hidden="true"
-                        to={`/editCodeQuestion/${question._id}`}
+                        to={`/editCodeQuestion/${question.slug}`}
                     ></Link>
                 </span>
                 <span>
@@ -59,10 +60,14 @@ const codeTableRow = ({ question, id, user, deleteQuestion }) => {
                         onClick={() => deleteQuestion(question._id)}
                     ></a>
                 </span>
-            </td>
+            </td>}
             {/* } */}
         </tr>
     );
 };
 
-export default connect(null, { deleteQuestion })(codeTableRow);
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, { deleteQuestion })(CodeTableRow);

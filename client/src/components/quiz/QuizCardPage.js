@@ -28,23 +28,7 @@ const QuizCardPage = (props) => {
     // }, [user]);
 
     if (quizzes !== null && quizzes.length === 0) {
-        return <Container className="container-quiz">
-            <div style={{
-                width: '50%', margin: 'auto',
-                display: 'block'
-            }}>
-                {user?.role === 'student' ? (<h3 className="text-center  mb-2 pt-4 ">No quizzes available.</h3>)
-                    : (<div>
-                        <Link to='/createQuiz' ><h3 className="text-center  mb-2 pt-4 ">Please add a quiz.</h3></Link>
-                        <div className="row">
-                            <div className="col-sm-4 text-center" style={{ margin: 'auto' }}>
-                                <Button className="createquiz mb-4" type='submit' >Add</Button>
-                            </div>
-                        </div>
-                    </div>)}
-            </div>
-        </Container>;
-
+        return <h4>Currently There are No Quizzes Available</h4>;
     }
 
     return (
