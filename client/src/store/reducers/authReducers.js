@@ -9,6 +9,7 @@ import {
     AUTH_ERROR,
     UPDATE_ME,
     UPDATE_ERROR,
+    AUTH_LOADING
     // CLEAR_ERRORS,
 } from "../actions/actionTypes";
 

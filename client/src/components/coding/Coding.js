@@ -13,10 +13,10 @@ const Coding = (props) => {
 
     const { getQuestion } = props;
     const { current } = props.code
-    const {id} = useParams()
+    const {slug} = useParams()
 
     useEffect(() => {
-        getQuestion(id)
+        getQuestion(slug)
     }, [])
 
     const [key, setKey] = useState("description");

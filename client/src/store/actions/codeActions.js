@@ -11,11 +11,13 @@ import {
     RUN_CODE,
     SUBMIT_CODE,
     RESET_CODE,
+    CODE_LOADING
 } from "../actions/actionTypes";
 import axios from "axios";
 
 export const getQuestions = () => async (dispatch) => {
     try {
+        dispatch({ type: CODE_LOADING })
         const res = await axios.get("/api/v1/questions");
         dispatch({
             type: GET_CODE_QUESTIONS,
@@ -29,9 +31,9 @@ export const getQuestions = () => async (dispatch) => {
     }
 };
 
-export const getQuestion = (id) => async (dispatch) => {
+export const getQuestion = (slug) => async (dispatch) => {
     try {
-        const res = await axios.get(`/api/v1/questions/${id}`);
+        const res = await axios.get(`/api/v1/questions/${slug}`);
         dispatch({
             type: GET_CODE_QUESTION,
             payload : res.data.data.data

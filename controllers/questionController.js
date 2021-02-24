@@ -13,7 +13,7 @@ exports.createQuestion = catchAsync(async (req, res) => {
     });
 });
 
-exports.updateQuestion = catchAsync(async (req, res) => {
+exports.updateQuestion = catchAsync(async (req, res, next) => {
     const question = await Question.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
@@ -31,8 +31,8 @@ exports.updateQuestion = catchAsync(async (req, res) => {
     });
 });
 
-exports.getQuestion = catchAsync(async (req, res) => {
-    const question = await Question.findById(req.params.id);
+exports.getQuestion = catchAsync(async (req, res, next) => {
+    const question = await Question.findOne({ slug: req.params.slug });
 
     if (!question) {
         return next(new AppError('No coding question found with that ID.', 404))
@@ -59,7 +59,7 @@ exports.getAllQuestions = catchAsync(async (req, res) => {
 });
 
 
-exports.deleteQuestion = catchAsync(async (req, res) => {
+exports.deleteQuestion = catchAsync(async (req, res, next) => {
     const question = await Question.findByIdAndDelete(req.params.id);
 
     if (!question) {

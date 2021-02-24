@@ -28,7 +28,7 @@ const Home = () => {
                     <Switch>
                         <Route path="/me" component={UserProfile} />
                         <Route path="/createQuiz" component={CreateQuiz} />
-                        <Route path="/code/:id" component={Coding} />
+                        <Route path="/code/:slug" component={Coding} />
                         <Route
                             path="/codeQuestions"
                             component={CodeQuestions}
@@ -38,7 +38,7 @@ const Home = () => {
                             component={CreateCodeQuestion}
                         />
                         <Route
-                            path="/editCodeQuestion/:id"
+                            path="/editCodeQuestion/:slug"
                             component={CreateCodeQuestion}
                         />
                         <Route path="/quizzes" component={QuizCard} />
