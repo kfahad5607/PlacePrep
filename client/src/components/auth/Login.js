@@ -4,8 +4,13 @@ import MessagePanel from "./MessagePanel";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../store/actions/authActions";
+import ResPassModal from './ResPassModal';
 
 const Login = (props) => {
+    const [modalShow, setModalShow] = useState(false);
+
+
+
     const { login } = props;
     const { error, isAuthenticated } = props.auth;
 
@@ -52,6 +57,8 @@ const Login = (props) => {
     };
     return (
         <div className="credentials-section">
+            <ResPassModal show={modalShow} onHide={() => setModalShow(false)} />
+
             <Row className="login-container">
                 <Col className="panel-container">
                     <MessagePanel content={messageContent} />
@@ -89,9 +96,9 @@ const Login = (props) => {
                                 className="btn-login solid"
                             />
                             <div className="forgot-password">
-                                <Link to="/forgotpassword">
+                                <p  onClick={() => setModalShow(true)}>
                                     Forgot Password?
-                                </Link>
+                                </p>
                             </div>
                         </form>
                     </div>

@@ -29,7 +29,7 @@ const QuizSubmissions = (props) => {
 
             {submissions !== null ? (<Container className="container-codeQuest">
                 <h3 className="text-center  mb-2 pt-4 ">
-                    Coding Questions
+                    Quiz Submissions
         </h3>
                 <div className="title-border mb-4">
                     <span></span>

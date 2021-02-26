@@ -3,7 +3,7 @@
     margin-bottom: 20px;
     background-color: white;
     padding: 0px !important;
-    width: 1140px;
+    /* width: 1140px; */
     border-radius: 7px !important;
     box-shadow: 1px 1px 1px 1px rgb(151, 148, 148);
 }
@@ -144,13 +144,18 @@ thead th {
     text-decoration: none !important;
 }
 
-
-.badgeSuccess{
+.badgeSuccess {
     background-color: #5cb85c;
 }
-.badgeDanger{
+
+.badgeDanger {
     background-color: #d9534f;
 }
-.badgeWarning{
+
+.badgeWarning {
     background-color: #f0ad4e;
+}
+
+.form-control {
+    color: black;
 }

@@ -16,6 +16,7 @@ import PracticeQuizPage from '../practiceProblems/PracticeQuizPage';
 import AddTopics from '../practiceProblems/AddTopics';
 import EditPracticeProblem from '../practiceProblems/EditPracticeProblem';
 
+
 const MainView = () => {
     return (
         <div className='mainview-container'>
@@ -35,6 +36,7 @@ const MainView = () => {
             <PrivateRoute exact path="/editpracticeProblem/:id" component={EditPracticeProblem} />
             <PrivateRoute exact path="/practiceProblems/:slug" component={PracticeQuizPage} />
             <PrivateRoute exact path="/addTopic" component={AddTopics} />
+
         </div>
     );
 };

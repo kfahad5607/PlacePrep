@@ -17,6 +17,7 @@ import PracticeQuizPage from '../practiceProblems/PracticeQuizPage';
 import AddTopics from '../practiceProblems/AddTopics';
 import EditPracticeProblem from '../practiceProblems/EditPracticeProblem';
 import { Route, Switch } from "react-router-dom";
+import ResetPassword from "../auth/Resetpassword";
 
 const Home = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -51,6 +52,7 @@ const Home = () => {
                             path="/editCodeQuestion/:slug"
                             component={CreateCodeQuestion}
                         />
+                     
                     </Switch>
                 </div>
             </div>

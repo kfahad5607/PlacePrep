@@ -33,6 +33,7 @@ h3 {
 .createC-inputFiled {
   width: 100% !important;
   background-color: #f1effa !important;
+  color: black;
   border: none !important;
   box-shadow: 1px 1px 0px 0px rgb(204, 196, 196);
   /* font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
@@ -73,12 +74,12 @@ h3 {
   cursor: pointer;
 }
 
-.Sfile:focus + .filelabel {
+.Sfile:focus+.filelabel {
   outline: 3px solid #775ecf;
   outline-offset: 3px;
 }
 
-.Sfile + .filelabel {
+.Sfile+.filelabel {
   color: #775ecf;
   display: inline-block;
   text-decoration: none;
@@ -106,8 +107,7 @@ h3 {
   float: right !important;
 }
 
-.createquestbtn,
-.addsample {
+.createquestbtn, .addsample {
   background-color: #775ecf !important;
   font-size: 15px !important;
   border-radius: 7px !important;
@@ -123,25 +123,18 @@ h3 {
 }
 
 @media (max-width: 992px) and (min-width: 768px) {
-  .addsample,
-  .createquestbtn {
+  .addsample, .createquestbtn {
     width: 300px;
   }
 }
 
 @media (max-width: 768px) and (min-width: 300px) {
-  .addsample,
-  .createquestbtn {
+  .addsample, .createquestbtn {
     width: 200px;
   }
 }
 
-.createquestbtn:focus,
-.createquestbtn:active,
-.addsample:focus,
-.addsample:active,
-.delsamplebtn:active,
-.delsamplebtn:focus {
+.createquestbtn:focus, .createquestbtn:active, .addsample:focus, .addsample:active, .delsamplebtn:active, .delsamplebtn:focus {
   box-shadow: 0 2px 1px #412e85 inset, 0 0 8px white !important;
   background-color: #412e85 !important;
   outline: 0 none;
