@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import MessagePanel from "./MessagePanel";
-import { connect } from 'react-redux'
-import { register } from '../../store/actions/authActions'
+import { connect } from "react-redux";
+import { register, clearErrors } from "../../store/actions/authActions";
+import { setAlert } from "../../store/actions/alertActions";
 
 const Register = (props) => {
-    const { register } = props;
+    const { register, setAlert, clearErrors } = props;
     const { error, isAuthenticated } = props.auth;
 
     useEffect(() => {
         if (isAuthenticated) {
-            props.history.push('/')
+            props.history.push("/");
         }
         if (error) {
-            console.log(error)
+            setAlert(error, "danger");
+            clearErrors();
         }
         // eslint-disable-next-line
-     }, [isAuthenticated, props.history])
+    }, [error, isAuthenticated, props.history]);
 
     const [user, setUser] = useState({
         name: "",
@@ -50,16 +52,16 @@ const Register = (props) => {
             password === "" ||
             passwordConfirm === ""
         ) {
-            console.log("Please enter all fields", "danger");
+            setAlert("Please enter all fields", "danger");
         } else if (password !== passwordConfirm) {
-            console.log("Password do not match", "danger");
+            setAlert("Password do not match", "danger");
         } else {
             register({
                 name,
                 email,
                 password,
-                passwordConfirm
-            })
+                passwordConfirm,
+            });
         }
     };
 
@@ -130,7 +132,9 @@ const Register = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+    auth: state.auth,
 });
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, setAlert, clearErrors })(
+    Register
+);

@@ -1,8 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 // import './quiz.css';
-import { Button, Form, Alert, Row, Accordion } from 'react-bootstrap';
-import TextareaAutosize from 'react-textarea-autosize';
-
+import { Button, Form, Alert, Row, Accordion } from "react-bootstrap";
+import TextareaAutosize from "react-textarea-autosize";
 
 function QuizQuestion(props) {
     const [toggle, setToggle] = useState(false);
@@ -16,20 +15,27 @@ function QuizQuestion(props) {
 
     return (
         <div className="mb-4">
-
             <Accordion>
                 {/* <Accordion.Toggle as={Row} eventKey="0" style={{ cursor: 'pointer', backgroundColor: 'rgb(164, 166, 179)'}}> */}
                 <div className="row ">
                     <div className="col-12">
-                        <Form.Group controlId="exampleForm.ControlTextarea1" >
-                            <Form.Label> <b>Question {props.index + 1}</b></Form.Label>
-                            <Accordion.Toggle as={Alert.Link}
+                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>
+                                {" "}
+                                <b>Question {props.index + 1}</b>
+                            </Form.Label>
+                            <Accordion.Toggle
+                                as={Alert.Link}
                                 ref={inpRef}
                                 onClick={() => setToggle(!toggle)}
                                 eventKey="0"
-                                style={{ float: 'right', paddingRight: '20px', color: "#775ecf" }}
+                                style={{
+                                    float: "right",
+                                    paddingRight: "20px",
+                                    color: "#775ecf",
+                                }}
                             >
-                                {toggle ? 'Collapse' : 'Expand'}
+                                {toggle ? "Collapse" : "Expand"}
                             </Accordion.Toggle>
                             <TextareaAutosize
                                 className="quiz-inputFiled questiontextarea"
@@ -37,9 +43,9 @@ function QuizQuestion(props) {
                                 onFocus={handleOnFocus}
                                 onChange={props.onChangeFunc}
                                 value={props.quesObj.question}
-                                placeholder="Type question here..">
-
-                            </TextareaAutosize>
+                                placeholder="Type question here.."
+                                required
+                            ></TextareaAutosize>
                         </Form.Group>
                     </div>
                 </div>
@@ -48,42 +54,102 @@ function QuizQuestion(props) {
                     <>
                         <div className="row ">
                             <div className="col-sm-6">
-                                <Form.Group controlId={`optionA-${props.quesObj._id}`} >
-                                    <Form.Label><b>Option A</b></Form.Label>
-                                    <Form.Control className="quiz-inputFiled" onChange={props.onChangeFunc} value={props.quesObj.answers[0]} name="optionA" placeholder="" />
+                                <Form.Group
+                                    controlId={`optionA-${props.quesObj._id}`}
+                                >
+                                    <Form.Label>
+                                        <b>Option A</b>
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="quiz-inputFiled"
+                                        onChange={props.onChangeFunc}
+                                        value={props.quesObj.answers[0]}
+                                        name="optionA"
+                                        placeholder=""
+                                        required
+                                    />
                                 </Form.Group>
                             </div>
                             <div className="col-sm-6">
-                                <Form.Group controlId={`optionB-${props.quesObj._id}`} >
-                                    <Form.Label><b>Option B</b></Form.Label>
-                                    <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.answers[1]} name="optionB" placeholder="" />
+                                <Form.Group
+                                    controlId={`optionB-${props.quesObj._id}`}
+                                >
+                                    <Form.Label>
+                                        <b>Option B</b>
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="quiz-inputFiled "
+                                        onChange={props.onChangeFunc}
+                                        value={props.quesObj.answers[1]}
+                                        name="optionB"
+                                        placeholder=""
+                                        required
+                                    />
                                 </Form.Group>
                             </div>
                         </div>
                         <div className="row ">
                             <div className="col-sm-6">
-                                <Form.Group controlId={`optionC-${props.quesObj._id}`} >
-                                    <Form.Label><b>Option C</b></Form.Label>
-                                    <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.answers[2]} name="optionC" placeholder="" />
+                                <Form.Group
+                                    controlId={`optionC-${props.quesObj._id}`}
+                                >
+                                    <Form.Label>
+                                        <b>Option C</b>
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="quiz-inputFiled "
+                                        onChange={props.onChangeFunc}
+                                        value={props.quesObj.answers[2]}
+                                        name="optionC"
+                                        placeholder=""
+                                        required
+                                    />
                                 </Form.Group>
                             </div>
                             <div className="col-sm-6">
-                                <Form.Group controlId={`optionD-${props.quesObj._id}`} >
-                                    <Form.Label><b>Option D</b></Form.Label>
-                                    <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.answers[3]} name="optionD" placeholder="" />
+                                <Form.Group
+                                    controlId={`optionD-${props.quesObj._id}`}
+                                >
+                                    <Form.Label>
+                                        <b>Option D</b>
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="quiz-inputFiled "
+                                        onChange={props.onChangeFunc}
+                                        value={props.quesObj.answers[3]}
+                                        name="optionD"
+                                        placeholder=""
+                                        required
+                                    />
                                 </Form.Group>
                             </div>
                         </div>
 
                         <div className="row ">
                             <div className="col-sm-6">
-                                <Form.Group controlId={`correctOption-${props.quesObj._id}`} >
-                                    <Form.Label><b>Correct option</b></Form.Label>
-                                    <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.correctAnswer} name="correctAnswer" placeholder="Enter answer/text" />
+                                <Form.Group
+                                    controlId={`correctOption-${props.quesObj._id}`}
+                                >
+                                    <Form.Label>
+                                        <b>Correct option</b>
+                                    </Form.Label>
+                                    <Form.Control
+                                        className="quiz-inputFiled "
+                                        onChange={props.onChangeFunc}
+                                        value={props.quesObj.correctAnswer}
+                                        name="correctAnswer"
+                                        placeholder="Enter answer/text"
+                                        required
+                                    />
                                 </Form.Group>
                             </div>
                             <div className="col-sm-6">
-                                <Button className="deletebtn" onClick={props.onDeleteFunc} >Delete question</Button>
+                                <Button
+                                    className="deletebtn"
+                                    onClick={props.onDeleteFunc}
+                                >
+                                    Delete question
+                                </Button>
                             </div>
                         </div>
                     </>
@@ -92,7 +158,6 @@ function QuizQuestion(props) {
             <hr className="mt-3 "></hr>
         </div>
     );
-
 }
 
 export default QuizQuestion;

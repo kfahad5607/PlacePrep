@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./createCode.css";
 import { Button, Container, Form } from "react-bootstrap";
 import TextareaAutosize from "react-textarea-autosize";
@@ -8,12 +7,21 @@ import {
     addQuestion,
     getQuestion,
     updateQuestion,
-    clearCurrent
+    clearCurrent,
+    clearCodeErrors,
 } from "../../store/actions/codeActions";
+import { setAlert } from "../../store/actions/alertActions";
 
 const CreateCodeQuestion = (props) => {
-    const { addQuestion, getQuestion, updateQuestion, clearCurrent } = props;
-    const { current } = props.code;
+    const {
+        addQuestion,
+        getQuestion,
+        updateQuestion,
+        clearCurrent,
+        clearCodeErrors,
+        setAlert,
+    } = props;
+    const { current, error } = props.code;
     const [codeQuestion, setCodeQuestion] = useState({
         title: "",
         difficulty: "10",
@@ -22,6 +30,7 @@ const CreateCodeQuestion = (props) => {
         sampleInputs: [],
     });
     const [lastId, setLastId] = useState(0);
+    const [clickSubmit, setClickSubmit] = useState(false);
     const [sampleArray, setSampleArray] = useState([
         {
             id: 0,
@@ -32,31 +41,48 @@ const CreateCodeQuestion = (props) => {
 
     useEffect(() => {
         if (props.match.path.includes("editCodeQuestion")) {
-            console.log(props.match.params.slug);
             getQuestion(props.match.params.slug);
         }
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
+        if (error) {
+            setAlert(error, "danger");
+            clearCodeErrors();
+        }
         if (current !== null && props.match.path.includes("editCodeQuestion")) {
-            props.history.replace({ pathname: `/editCodeQuestion/${current.slug}` });
+            props.history.replace({
+                pathname: `/editCodeQuestion/${current.slug}`,
+            });
             setCodeQuestion(current);
             if (current.sampleInputs) {
-                const newArray = current.sampleInputs.map(curr => ({ ...curr }));
+                const newArray = current.sampleInputs.map((curr) => ({
+                    ...curr,
+                }));
                 setSampleArray(newArray);
                 setLastId(current.sampleInputs.length - 1);
             }
         } else {
             clearCurrent();
-            setCodeQuestion({
-                title: "",
-                difficulty: "10",
-                description: "",
-                testcases: "",
-                sampleInputs: [],
-            });
+            if (
+                props.match.path.includes("createCodeQuestion") &&
+                codeQuestion.title !== "" &&
+                current === null &&
+                !clickSubmit
+            ) {
+                console.log("object");
+                setCodeQuestion({
+                    title: "",
+                    difficulty: "10",
+                    description: "",
+                    testcases: "",
+                    sampleInputs: [],
+                });
+            }
         }
-    }, [current]);
+        // eslint-disable-next-line
+    }, [current, error, props.match.path]);
 
     const handleAddSampleClick = () => {
         const newSampleObj = {
@@ -85,7 +111,6 @@ const CreateCodeQuestion = (props) => {
     };
 
     const handleOnChange = (e) => {
-        console.log(e.target.value);
         setCodeQuestion({
             ...codeQuestion,
             [e.target.name]: e.target.value,
@@ -94,17 +119,19 @@ const CreateCodeQuestion = (props) => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        setClickSubmit(true);
         if (
             codeQuestion.title === "" ||
             codeQuestion.description === "" ||
             codeQuestion.testcases === ""
         ) {
-            console.log("Please enter all fields", "danger");
+            setAlert("Please enter all fields", "danger");
         } else {
             setCodeQuestion({ ...codeQuestion, sampleInputs: sampleArray });
-            current !== null
+            const res = current !== null
                 ? updateQuestion(codeQuestion)
                 : addQuestion(codeQuestion);
+                console.log(res)
         }
     };
 
@@ -305,8 +332,9 @@ const CreateCodeQuestion = (props) => {
                             className="createquestbtn mb-4"
                             onClick={handleOnSubmit}
                         >
-                            {current !== null ? ' Edit Question ' : ' Create Question '}
-
+                            {current !== null
+                                ? " Edit Question "
+                                : " Create Question "}
                         </Button>
                     </div>
                 </Form>
@@ -323,5 +351,7 @@ export default connect(mapStateToProps, {
     addQuestion,
     getQuestion,
     updateQuestion,
-    clearCurrent
+    clearCurrent,
+    clearCodeErrors,
+    setAlert,
 })(CreateCodeQuestion);

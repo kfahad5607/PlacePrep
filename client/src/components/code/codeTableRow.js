@@ -42,8 +42,6 @@ const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
                 )}
             </td>
             <td>53.4 %</td>
-            {/* {user.role === 'faculty' &&  */}
-
             {(user.role === 'faculty' || user.role === 'admin') && <td>
                 <span>
                     <Link
@@ -61,7 +59,6 @@ const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
                     ></a>
                 </span>
             </td>}
-            {/* } */}
         </tr>
     );
 };

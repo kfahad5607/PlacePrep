@@ -11,7 +11,8 @@ import {
     RUN_CODE,
     SUBMIT_CODE,
     RESET_CODE,
-    CODE_LOADING
+    CODE_LOADING,
+    CLEAR_CODE_ERRORS
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -103,6 +104,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
+            };
+        case CLEAR_CODE_ERRORS:
+            return {
+                ...state,
+                error: null,
             };
         default:
             return state;

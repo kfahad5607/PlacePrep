@@ -3,15 +3,16 @@ import "./UserProfile.css";
 import { Button, Container, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { updateMe } from "../../store/actions/authActions";
+import { setAlert } from "../../store/actions/alertActions";
 
 const UserProfile = (props) => {
-    const { updateMe } = props;
+    const { updateMe, setAlert } = props;
     const { user, isAuthenticated } = props.auth;
 
     const [userDetails, setUserDetails] = useState({
         name: "",
         email: "",
-        photo: ""
+        photo: "",
     });
     const [userPasswordDetails, setUserPasswordDetails] = useState({
         passwordCurrent: "",
@@ -24,10 +25,10 @@ const UserProfile = (props) => {
             setUserDetails({
                 name: user.name,
                 email: user.email,
-                photo: ""
-            })
+                photo: "",
+            });
         }
-    }, [])
+    }, []);
 
     const handleOnChange = (e) => {
         setUserDetails({
@@ -51,9 +52,9 @@ const UserProfile = (props) => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (userDetails.name === "" || userDetails.email === "") {
-            console.log("Please enter all fields", "danger");
+            setAlert("Please enter all fields", "danger");
         } else {
-            updateMe(userDetails,'data')
+            updateMe(userDetails, "data");
         }
     };
 
@@ -64,20 +65,20 @@ const UserProfile = (props) => {
             userPasswordDetails.password === "" ||
             userPasswordDetails.passwordConfirm === ""
         ) {
-            console.log("Please enter all fields", "danger");
+            setAlert("Please enter all fields", "danger");
         } else if (
             userPasswordDetails.password !== userPasswordDetails.passwordConfirm
         ) {
-            console.log("Password do not match", "danger");
+            setAlert("Password do not match", "danger");
         } else {
-            updateMe(userPasswordDetails,'password')
+            updateMe(userPasswordDetails, "password");
         }
         setTimeout(() => {
             setUserPasswordDetails({
                 passwordCurrent: "",
                 password: "",
                 passwordConfirm: "",
-            })
+            });
         }, 2000);
     };
 
@@ -207,4 +208,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { updateMe})(UserProfile);
+export default connect(mapStateToProps, { updateMe, setAlert })(UserProfile);

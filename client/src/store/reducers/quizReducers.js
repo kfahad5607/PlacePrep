@@ -108,6 +108,11 @@ const reducer = (state = initialState, action) => {
                 submissions: state.submissions.filter(ele => ele._id !== action.payload),
                 loading: false
             };
+        case actionTypes.CLEAR_QUIZ_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
         default:
             return state;
     }

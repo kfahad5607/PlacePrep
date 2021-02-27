@@ -1,36 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import './quiz.css';
-import { Button, Container, Form } from 'react-bootstrap';
-import QuizQuestion from './CreateQuizQuestion';
-import { connect } from 'react-redux';
-import { addQuiz } from '../../store/actions/quizActions';
+import "./quiz.css";
+import { Button, Container, Form } from "react-bootstrap";
+import QuizQuestion from "./CreateQuizQuestion";
+import { connect } from "react-redux";
+import { addQuiz, clearQuizErrors } from "../../store/actions/quizActions";
+import { setAlert } from "../../store/actions/alertActions";
 
 function CreateQuiz(props) {
-    const { auth: { user }, addQuiz } = props;
+    const {
+        auth: { user },
+        quiz: { error },
+        addQuiz,
+        clearQuizErrors,
+        setAlert,
+    } = props;
 
     const [quiz, setQuiz] = useState({
-        author: '',
-        title: '',
-        category: 'quants',
-        topic: '',
-        duration: '',
-        questions: [{
-            id: 0,
-            question: '',
-            answers: ['', '', '', ''],
-            correctAnswer: ''
-        }]
+        author: "",
+        title: "",
+        category: "quants",
+        topic: "",
+        duration: "",
+        questions: [
+            {
+                id: 0,
+                question: "",
+                answers: ["", "", "", ""],
+                correctAnswer: "",
+            },
+        ],
     });
 
     const [lastId, setLastId] = useState(0);
 
+    useEffect(() => {
+        if (error) {
+            setAlert(error, "danger");
+            clearQuizErrors();
+        }
+    }, [error]);
+
     const handleAddQuesClick = () => {
         const newQuesObj = {
             id: lastId + 1,
-            question: '',
-            answers: ['', '', '', ''],
-            correctAnswer: ''
+            question: "",
+            answers: ["", "", "", ""],
+            correctAnswer: "",
         };
 
         setLastId(lastId + 1);
@@ -38,45 +54,40 @@ function CreateQuiz(props) {
         const newQuesArray = [...quiz.questions, newQuesObj];
         setQuiz({
             ...quiz,
-            questions: newQuesArray
+            questions: newQuesArray,
         });
-
     };
 
     const handleOnChange = (e) => {
         setQuiz({
             ...quiz,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     };
 
     const handleOnChangeQues = (e, index) => {
         const quesArray = [...quiz.questions];
-        if (e.target.name === 'question' || e.target.name === 'correctAnswer') {
+        if (e.target.name === "question" || e.target.name === "correctAnswer") {
             quesArray[index][e.target.name] = e.target.value;
             setQuiz({
                 ...quiz,
-                questions: quesArray
+                questions: quesArray,
             });
-        }
-        else {
+        } else {
             let optIndex = 0;
-            if (e.target.name === 'optionB') {
+            if (e.target.name === "optionB") {
                 optIndex = 1;
-            }
-            else if (e.target.name === 'optionC') {
+            } else if (e.target.name === "optionC") {
                 optIndex = 2;
-            }
-            else if (e.target.name === 'optionD') {
+            } else if (e.target.name === "optionD") {
                 optIndex = 3;
             }
             quesArray[index].answers[optIndex] = e.target.value;
             setQuiz({
                 ...quiz,
-                questions: quesArray
+                questions: quesArray,
             });
         }
-
     };
 
     const handleOnDelete = (eleId) => {
@@ -85,30 +96,36 @@ function CreateQuiz(props) {
         });
         setQuiz({
             ...quiz,
-            questions: newQuesArray
+            questions: newQuesArray,
         });
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
 
-        let tempQuiz = JSON.parse(JSON.stringify(quiz));
-        tempQuiz.author = user._id;
-        console.log('quiz', tempQuiz);
-        addQuiz(tempQuiz);
+        if (quiz.title === "" || quiz.topic === "" || quiz.duration === "") {
+            setAlert("Please enter all fields", "danger");
+        } else {
+            let tempQuiz = JSON.parse(JSON.stringify(quiz));
+            tempQuiz.author = user._id;
+            console.log("quiz", tempQuiz);
+            addQuiz(tempQuiz);
 
-        setQuiz({
-            title: '',
-            category: '',
-            topic: '',
-            duration: '',
-            questions: [{
-                id: 0,
-                question: '',
-                answers: ['', '', '', ''],
-                correctAnswer: ''
-            }]
-        });
+            setQuiz({
+                title: "",
+                category: "",
+                topic: "",
+                duration: "",
+                questions: [
+                    {
+                        id: 0,
+                        question: "",
+                        answers: ["", "", "", ""],
+                        correctAnswer: "",
+                    },
+                ],
+            });
+        }
     };
 
     return (
@@ -118,23 +135,60 @@ function CreateQuiz(props) {
                 <span></span>
             </div>
             <div className="createquizform pb-1">
-                <Form onSubmit={onSubmit} >
+                <Form onSubmit={onSubmit}>
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <Form.Group controlId="quiztitle" >
-                                <Form.Label><b>Quiz title</b></Form.Label>
-                                <Form.Control className="quiz-inputFiled" name="title" value={quiz.title} onChange={handleOnChange} type="" placeholder="Enter Title" />
+                            <Form.Group controlId="quiztitle">
+                                <Form.Label>
+                                    <b>Quiz title</b>
+                                </Form.Label>
+                                <Form.Control
+                                    className="quiz-inputFiled"
+                                    name="title"
+                                    value={quiz.title}
+                                    onChange={handleOnChange}
+                                    type=""
+                                    placeholder="Enter Title"
+                                />
                             </Form.Group>
                         </div>
                         <div className="col-sm-6">
-                            <Form.Group controlId="category" >
-                                <Form.Label><b>Select Category</b></Form.Label>
+                            <Form.Group controlId="category">
+                                <Form.Label>
+                                    <b>Select Category</b>
+                                </Form.Label>
                                 <Form.Group controlId="SelectRowsPerpage">
-                                    <Form.Control as="select" className="quiz-inputFiled" name='category' value={quiz.category} onChange={handleOnChange} >
-                                        <option className="optionSelect" value='quantitative analysis' >Quantitative Analysis</option>
-                                        <option className="optionSelect" value='logical reasoning' >Logical Reasoning</option>
-                                        <option className="optionSelect" value='verbal ability' >Verbal Ability</option>
-                                        <option className="optionSelect" value='other topics' >Others</option>
+                                    <Form.Control
+                                        as="select"
+                                        className="quiz-inputFiled"
+                                        name="category"
+                                        value={quiz.category}
+                                        onChange={handleOnChange}
+                                    >
+                                        <option
+                                            className="optionSelect"
+                                            value="quantitative analysis"
+                                        >
+                                            Quantitative Analysis
+                                        </option>
+                                        <option
+                                            className="optionSelect"
+                                            value="logical reasoning"
+                                        >
+                                            Logical Reasoning
+                                        </option>
+                                        <option
+                                            className="optionSelect"
+                                            value="verbal ability"
+                                        >
+                                            Verbal Ability
+                                        </option>
+                                        <option
+                                            className="optionSelect"
+                                            value="other topics"
+                                        >
+                                            Others
+                                        </option>
                                     </Form.Control>
                                 </Form.Group>
                             </Form.Group>
@@ -142,16 +196,33 @@ function CreateQuiz(props) {
                     </div>
                     <div className="row mb-2">
                         <div className="col-sm-6 responsivelabel">
-                            <Form.Group controlId="topics" >
-                                <Form.Label><b>Quiz topics</b></Form.Label>
-                                <Form.Control className="quiz-inputFiled " name="topic" value={quiz.topic} onChange={handleOnChange} type="" placeholder="Example: Probability, Trains..." />
+                            <Form.Group controlId="topics">
+                                <Form.Label>
+                                    <b>Quiz topics</b>
+                                </Form.Label>
+                                <Form.Control
+                                    className="quiz-inputFiled "
+                                    name="topic"
+                                    value={quiz.topic}
+                                    onChange={handleOnChange}
+                                    type=""
+                                    placeholder="Example: Probability, Trains..."
+                                />
                             </Form.Group>
-
                         </div>
                         <div className="col-sm-6 responsivelabel">
-                            <Form.Group controlId="duration" >
-                                <Form.Label><b >Duration</b></Form.Label>
-                                <Form.Control className="quiz-inputFiled quizDuration " name="duration" value={quiz.duration} onChange={handleOnChange} type="number" placeholder="Minutes only" />
+                            <Form.Group controlId="duration">
+                                <Form.Label>
+                                    <b>Duration</b>
+                                </Form.Label>
+                                <Form.Control
+                                    className="quiz-inputFiled quizDuration "
+                                    name="duration"
+                                    value={quiz.duration}
+                                    onChange={handleOnChange}
+                                    type="number"
+                                    placeholder="Minutes only"
+                                />
                             </Form.Group>
                         </div>
                     </div>
@@ -161,21 +232,30 @@ function CreateQuiz(props) {
                         <span></span>
                     </div>
 
-                    {quiz.questions.map((ele, index) => <QuizQuestion
-                        key={ele.id}
-                        index={index}
-                        onDeleteFunc={() => handleOnDelete(ele.id)}
-                        onChangeFunc={(e) => handleOnChangeQues(e, index)}
-                        quesObj={ele}
-                    />
-                    )}
+                    {quiz.questions.map((ele, index) => (
+                        <QuizQuestion
+                            key={ele.id}
+                            index={index}
+                            onDeleteFunc={() => handleOnDelete(ele.id)}
+                            onChangeFunc={(e) => handleOnChangeQues(e, index)}
+                            quesObj={ele}
+                        />
+                    ))}
 
                     <div className="row">
                         <div className="col-sm-6">
-                            <Button className="addquestbtn mb-2" onClick={handleAddQuesClick} > Add Next Question  </Button>
+                            <Button
+                                className="addquestbtn mb-2"
+                                onClick={handleAddQuesClick}
+                            >
+                                {" "}
+                                Add Next Question{" "}
+                            </Button>
                         </div>
                         <div className="col-sm-6 text-center">
-                            <Button className="createquiz mb-4" type="submit" >Create Quiz</Button>
+                            <Button className="createquiz mb-4" type="submit">
+                                Create Quiz
+                            </Button>
                         </div>
                     </div>
                 </Form>
@@ -185,10 +265,10 @@ function CreateQuiz(props) {
 }
 
 const mapStateToProps = (state) => {
-    return ({
+    return {
         quiz: state.quiz,
-        auth: state.auth
-    });
+        auth: state.auth,
+    };
 };
 
-export default connect(mapStateToProps, { addQuiz })(CreateQuiz);
+export default connect(mapStateToProps, { addQuiz, clearQuizErrors, setAlert })(CreateQuiz);

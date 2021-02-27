@@ -108,7 +108,6 @@ input {
     font-weight: 500;
 }
 
-
 .forgot-password a {
     text-decoration: none;
     color: #444;
@@ -216,7 +215,7 @@ input {
     .input-field {
         height: 50px !important;
     }
-    .btn-login{
+    .btn-login {
         height: 45px;
     }
     .image {
@@ -225,7 +224,8 @@ input {
         transition-delay: 0.6s;
         margin-top: 0 !important;
     }
-    .panel-container, .form-container {
+    .panel-container,
+    .form-container {
         flex-basis: auto;
         flex-grow: 0;
     }
@@ -269,11 +269,12 @@ input {
     .image {
         display: none;
     }
-    .panel-container, .form-container {
+    .panel-container,
+    .form-container {
         flex-basis: auto;
         flex-grow: 0;
     }
-    .panel{
+    .panel {
         padding: 1rem 8%;
     }
     .panel .content {
@@ -297,8 +298,7 @@ input {
     }
 }
 
-
-/* Navbar css */
+/* Navbar and alert css */
 .navbar-text a {
     margin: 0.5rem;
 }
@@ -314,16 +314,48 @@ input {
     cursor: pointer;
 }
 
-.brand-name{
+.brand-name {
     margin-left: 1rem;
 }
 
-.brand-name img{
+.brand-name img {
     margin-right: 0.5rem;
 }
 
+.alert {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    z-index: 9999;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 400;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 0.6rem 1rem;
+    -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+}
+.alert--success {
+    background-color: #20bf6b;
+}
+.alert--danger {
+    background-color: #eb4d4b;
+}
+
+@media (max-width: 870px) {
+    .alert {
+        font-size: 1.2rem;
+        padding: 0.6rem 1rem;
+        justify-content: center;
+    }
+}
+
 @media (max-width: 570px) {
-    .logout-div .hide-sm{
+    .logout-div .hide-sm {
         display: none;
     }
 
@@ -332,13 +364,18 @@ input {
         width: 2.1rem;
     }
 
-    .brand-name{
+    .brand-name {
         font-size: 1.15rem;
     }
 
-    .brand-name img{
+    .brand-name img {
         /* height: 27px;
         width: 27px; */
         display: none !important;
+    }
+    .alert {
+        font-size: 1.1rem;
+        padding: 0.4rem;
+        justify-content: center;
     }
 }

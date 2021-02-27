@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import '../quiz/quiz.css';
 import { Button, Container, Form } from 'react-bootstrap';
-import TextareaAutosize from 'react-textarea-autosize';
 import CreateAptiQuestion from './CreateAptiQuestion';
 import { connect } from 'react-redux';
-import { updatePracticeProblem, getPracticeProblem } from '../../store/actions/practiceProblemActions';
+import { updatePracticeProblem, getPracticeProblem, clearPracticeProblemErrors } from '../../store/actions/practiceProblemActions';
+import { setAlert } from "../../store/actions/alertActions";
 
 const EditPracticeProblem = (props) => {
     const { auth: { user },
-        practiceProblem: { current },
+        practiceProblem: { current, error },
         updatePracticeProblem,
         getPracticeProblem,
+        clearPracticeProblemErrors,
+        setAlert,
         match
     } = props;
     const id = match.params.id;
@@ -20,6 +22,10 @@ const EditPracticeProblem = (props) => {
     }, []);
 
     useEffect(() => {
+        if (error) {
+            setAlert(error, "danger");
+            clearPracticeProblemErrors();
+        }
         if (current !== null) {
             let tempDeepCopy = JSON.parse(JSON.stringify(current));
 
@@ -35,7 +41,7 @@ const EditPracticeProblem = (props) => {
                 explanation: ''
             });
         }
-    }, [current]);
+    }, [current, error]);
 
     const [apti, setApti] = useState({
         author: '',
@@ -161,4 +167,4 @@ const mapStateToProps = (state) => {
     });
 };
 
-export default connect(mapStateToProps, { updatePracticeProblem, getPracticeProblem })(EditPracticeProblem);
+export default connect(mapStateToProps, { updatePracticeProblem, getPracticeProblem, setAlert, clearPracticeProblemErrors })(EditPracticeProblem);

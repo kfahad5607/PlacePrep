@@ -66,6 +66,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 catAndTopic: action.payload
             };
+        case actionTypes.CLEAR_PRACTICE_PROBLEM_ERROR:
+            return {
+                ...state,
+                error: null,
+            };
         default:
             return state;
     }

@@ -273,3 +273,5 @@ export const deleteQuizSubmission = (id) => async (dispatch) => {
         });
     };
 };
+
+export const clearQuizErrors = () => ({ type: actionTypes.CLEAR_QUIZ_ERRORS});

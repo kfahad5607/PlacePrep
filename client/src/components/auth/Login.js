@@ -3,10 +3,11 @@ import { Row, Col } from "react-bootstrap";
 import MessagePanel from "./MessagePanel";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { login } from "../../store/actions/authActions";
+import { login, clearErrors } from "../../store/actions/authActions";
+import { setAlert } from "../../store/actions/alertActions";
 
 const Login = (props) => {
-    const { login } = props;
+    const { login, setAlert, clearErrors } = props;
     const { error, isAuthenticated } = props.auth;
 
     useEffect(() => {
@@ -14,10 +15,11 @@ const Login = (props) => {
             props.history.push("/");
         }
         if (error) {
-            console.log(error);
+            setAlert(error, "danger");
+            clearErrors();
         }
         // eslint-disable-next-line
-    }, [isAuthenticated, props.history]);
+    }, [error, isAuthenticated, props.history]);
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -42,7 +44,7 @@ const Login = (props) => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (email === "" || password === "") {
-            console.log("Please enter all fields", "danger");
+            setAlert("Please enter all fields", "danger");
         } else {
             login({
                 email,
@@ -105,4 +107,6 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, setAlert, clearErrors })(
+    Login
+);

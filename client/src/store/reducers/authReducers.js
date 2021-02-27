@@ -11,8 +11,7 @@ import {
     SET_USER_FROM_START_QUIZ,
     UPDATE_ME,
     UPDATE_ERROR,
-    AUTH_LOADING
-    // CLEAR_ERRORS,
+    CLEAR_AUTH_ERRORS,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -55,12 +54,12 @@ const reducer = (state = initialState, action) => {
         case SET_USER_NULL:
             return {
                 ...state,
-                user: null
+                user: null,
             };
         case SET_USER_FROM_START_QUIZ:
             return {
                 ...state,
-                user: action.payload
+                user: action.payload,
             };
         case LOGOUT:
             return {
@@ -74,6 +73,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false,
+            };
+
+        case CLEAR_AUTH_ERRORS:
+            return {
+                ...state,
+                error: null,
             };
         default:
             return state;
