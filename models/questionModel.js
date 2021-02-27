@@ -31,6 +31,7 @@ const questionSchema = new mongoose.Schema({
         sampleOutput: String
     }],
     testcases: String,
+    noOfInputs: Number,
     solution: { type: [String] },
     hint: {
         type: [String]
