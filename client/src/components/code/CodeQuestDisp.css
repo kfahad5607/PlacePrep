@@ -92,6 +92,14 @@ thead th {
     }
 }
 
+@media (max-width:576px) and (min-width:300px) {
+    .paginatt {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+}
+
 .pagntColor {
     color: #775ecf !important;
 }

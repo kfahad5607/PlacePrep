@@ -17,7 +17,7 @@ import PracticeQuizPage from '../practiceProblems/PracticeQuizPage';
 import AddTopics from '../practiceProblems/AddTopics';
 import EditPracticeProblem from '../practiceProblems/EditPracticeProblem';
 import { Route, Switch } from "react-router-dom";
-import ResetPassword from "../auth/Resetpassword";
+import Dashboard from '../dashboard/Dashboard';
 
 const Home = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -33,6 +33,7 @@ const Home = () => {
                 <SideBar sidebarOpen={sidebarOpen} onClick={() => toggleSidebarBtn()} />
                 <div className={"mainview-container " + (!sidebarOpen && 'remove-margin')}>
                     <Switch>
+                        <Route exact path="/" component={Dashboard} />
                         <Route path="/me" component={UserProfile} />
                         <Route path="/createQuiz" component={CreateQuiz} />
                         <Route path="/codeQuestions" component={CodeQuestions} />
@@ -52,7 +53,8 @@ const Home = () => {
                             path="/editCodeQuestion/:slug"
                             component={CreateCodeQuestion}
                         />
-                     
+
+
                     </Switch>
                 </div>
             </div>

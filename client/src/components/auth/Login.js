@@ -96,7 +96,7 @@ const Login = (props) => {
                                 className="btn-login solid"
                             />
                             <div className="forgot-password">
-                                <p  onClick={() => setModalShow(true)}>
+                                <p onClick={() => setModalShow(true)}>
                                     Forgot Password?
                                 </p>
                             </div>
