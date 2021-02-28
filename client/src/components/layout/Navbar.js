@@ -6,8 +6,8 @@ import { logout } from "../../store/actions/authActions";
 
 const Navbars = (props) => {
     const { logout, onClick } = props;
-    const {isAuthenticated, user } = props.auth;
-    
+    const { isAuthenticated, user } = props.auth;
+
 
     const onlogout = () => {
         logout();
@@ -16,7 +16,7 @@ const Navbars = (props) => {
     const authLinks = (
         <Fragment>
             <span>
-                <img className="nav__user-img" src="/profile.jpg" />
+                <img className="nav__user-img" src={`/img/users/${user.photo}`} />
                 <span className='user-name'>Hello {user && user.name.split(' ')[0]}</span>
             </span>
             <span className="logout-div">
@@ -50,7 +50,7 @@ const Navbars = (props) => {
             </Navbar.Brand>
             <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                    { isAuthenticated ? authLinks: guestLinks}
+                    {isAuthenticated ? authLinks : guestLinks}
                 </Navbar.Text>
             </Navbar.Collapse>
         </Navbar>
@@ -61,4 +61,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logout})(Navbars);
+export default connect(mapStateToProps, { logout })(Navbars);

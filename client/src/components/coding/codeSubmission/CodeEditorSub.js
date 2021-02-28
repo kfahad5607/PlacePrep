@@ -26,7 +26,7 @@ import SubmitCodeSuccess from '../SubmitCodeSuccess';
 // require("codemirror/addon/scroll/simplescrollbars.js");
 
 const CodeEditor = (props) => {
-    let { code: { userCode, runSubmit },
+    let { auth: { user }, code: { userCode, runSubmit },
         runCode,
         submitCode,
         resetCode,
@@ -160,7 +160,7 @@ const CodeEditor = (props) => {
                         <i className="fa fa-play" aria-hidden="true"></i>
                         <span>Run Code</span>
                     </Button>
-                    <Button className="button submit-code-btn" onClick={handleOnSubmit}>Submit</Button>
+                    {user?.role === 'student' && <Button className="button submit-code-btn" onClick={handleOnSubmit}>Submit</Button>}
                 </div>
             </div>
             <div className="console-container" style={{ display: `${showConsole ? 'block' : 'none'}` }}>
@@ -186,6 +186,7 @@ const CodeEditor = (props) => {
 
 const mapStateToProps = (state) => ({
     code: state.code,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { runCode, submitCode, resetCode })(

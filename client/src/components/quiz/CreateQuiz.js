@@ -12,7 +12,7 @@ function CreateQuiz(props) {
     const [quiz, setQuiz] = useState({
         author: '',
         title: '',
-        category: 'quants',
+        category: 'quantitative analysis',
         topic: '',
         duration: '',
         questionWeightage: '',
@@ -160,6 +160,7 @@ function CreateQuiz(props) {
                             <Form.Group controlId="weightage" >
                                 <Form.Label><b >Weightage</b></Form.Label>
                                 <Form.Control className="quiz-inputFiled quizDuration " name="questionWeightage" value={quiz.questionWeightage} onChange={handleOnChange} type="number" placeholder="Marks" />
+
                             </Form.Group>
                         </div>
                     </div>

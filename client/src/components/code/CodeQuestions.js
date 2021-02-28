@@ -110,8 +110,10 @@ const CodeQuestions = (props) => {
                                 </Form>
                             </div>
                         </div>
+
                         <div className='table-responsive' >
                             <table className="table">
+
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>

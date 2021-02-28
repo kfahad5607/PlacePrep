@@ -121,13 +121,17 @@ exports.submitCode = catchAsync(async (req, res, next) => {
         submissionObj.status = data.errorType;
     }
 
-    const codeSubmission = await CodeSubmission.findOneAndUpdate({
+    let codeSubmission = await CodeSubmission.findOneAndUpdate({
         question: submissionObj.question,
         user: submissionObj.user
     }, submissionObj, {
         runValidators: true,
         new: true
     });
+
+    if (!codeSubmission) {
+        codeSubmission = await CodeSubmission.create(submissionObj);
+    }
 
     console.log('data', data);
 

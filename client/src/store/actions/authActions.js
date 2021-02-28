@@ -123,3 +123,32 @@ export const updateMe = (data, type) => async dispatch => {
         });
     }
 };
+
+export const forgotPassword = (email) => async dispatch => {
+    try {
+        const res = await axios.post(`/api/v1/user/forgotPassword`, { email });
+        console.log(res);
+
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message
+        });
+
+    }
+}
+export const resetPassword = (passwords, token) => async dispatch => {
+    try {
+        const res = await axios.patch(`/api/v1/user/resetPassword/${token}`, passwords);
+        console.log(res);
+
+    } catch (err) {
+        console.log(err?.response);
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message
+        });
+
+    }
+}
+

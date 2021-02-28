@@ -44,8 +44,8 @@
 }
 
 .userform {
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .user-inputFiled {
@@ -130,20 +130,20 @@ input[type="file"]::-webkit-file-upload-button {
     margin-top: 10px !important;
     display: flex;
   }
-}
 
-.title-border {
-  width: 200px;
-  height: 1px;
-  margin: 0px auto 30px;
-  background-color: #e1e1e1;
-  display: block;
-}
+  .title-border {
+    width: 200px;
+    height: 1px;
+    margin: 0px auto 30px;
+    background-color: #e1e1e1;
+    display: block;
+  }
 
-.title-border span {
-  width: 100px;
-  height: 2px;
-  margin: auto;
-  background-color: #775ecf;
-  display: block;
+  .title-border span {
+    width: 100px;
+    height: 2px;
+    margin: auto;
+    background-color: #775ecf;
+    display: block;
+  }
 }

@@ -81,14 +81,14 @@ exports.getAllQuestions = catchAsync(async (req, res, next) => {
             _id: {
                 $nin: currentUserSubs
             }
-        }).populate({
+        }).select('-description -testcases -solution -noOfInputs -hint').populate({
             path: 'author',
             select: '-photo -email -currentTest -testWillEndAt -testStartedAt -__v'
         });
     }
     else if (req.user.role === 'faculty' || req.user.role === 'admin') {
         filterObj.author = req.user._id;
-        questions = await Question.find(filterObj).populate({
+        questions = await Question.find(filterObj).select('-description -testcases -solution -noOfInputs -hint').populate({
             path: 'author',
             select: '-photo -email -currentTest -testWillEndAt -testStartedAt -__v'
         });

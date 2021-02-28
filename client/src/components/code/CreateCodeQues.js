@@ -126,7 +126,7 @@ const CreateCodeQuestion = (props) => {
                         <div className="col-12">
                             <Form.Group controlId="quiztitle">
                                 <Form.Label>
-                                    <b>Question Tiltle</b>
+                                    <b>Title</b>
                                 </Form.Label>
                                 <Form.Control
                                     className="createC-inputFiled"
@@ -143,7 +143,7 @@ const CreateCodeQuestion = (props) => {
                         <div className="col-12">
                             <Form.Group controlId="quiztitle">
                                 <Form.Label>
-                                    <b>Question Description</b>
+                                    <b>Description</b>
                                 </Form.Label>
                                 <TextareaAutosize
                                     className="createC-inputFiled questiontextarea"
