@@ -93,7 +93,7 @@ const CreateAptiQuestion = (props) => {
                     </>
                 </Accordion.Collapse>
             </Accordion>
-            <hr className="mt-3 "></hr>
+            
         </div>
     );
 

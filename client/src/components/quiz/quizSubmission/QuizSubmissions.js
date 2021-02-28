@@ -29,7 +29,7 @@ const QuizSubmissions = (props) => {
 
             {submissions !== null ? (<Container className="container-codeQuest">
                 <h3 className="text-center  mb-2 pt-4 ">
-                    Coding Questions
+                    Quiz Submissions
         </h3>
                 <div className="title-border mb-4">
                     <span></span>
@@ -48,21 +48,23 @@ const QuizSubmissions = (props) => {
                             </Form>
                         </div>
                     </div>
-                    <table className="table  ">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">{user?.role === 'student' ? 'Title' : 'Name'}</th>
-                                <th scope="col">Submitted At</th>
-                                <th scope="col">Time Taken</th>
-                                <th scope="col">Score</th>
-                                {(user?.role === 'faculty' || user?.role === 'admin') && <th scope="col">Operation</th>}
-                            </tr>
-                        </thead>
-                        <tbody className="tbodyCode">
-                            {submissions.map((ele, index) => <QuizSubTabRow key={ele._id} name={ele.user.name} eleObj={ele} idx={index} />)}
-                        </tbody>
-                    </table>
+                    <div className="table-responsive">
+                        <table className="table  ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">{user?.role === 'student' ? 'Title' : 'Name'}</th>
+                                    <th scope="col">Submitted At</th>
+                                    <th scope="col">Time Taken</th>
+                                    <th scope="col">Score</th>
+                                    {(user?.role === 'faculty' || user?.role === 'admin') && <th scope="col">Operation</th>}
+                                </tr>
+                            </thead>
+                            <tbody className="tbodyCode">
+                                {submissions.map((ele, index) => <QuizSubTabRow key={ele._id} name={ele.user.name} eleObj={ele} idx={index} />)}
+                            </tbody>
+                        </table>
+                    </div>
                     <div className="row">
                         <div className="ml-3 ">
                             <Form>
@@ -89,7 +91,7 @@ const QuizSubmissions = (props) => {
                         </div>
                         <span className="labelRowsPerPg mt-2 col-4">
                             rows per page.
-                </span>
+                        </span>
 
                         <div className=" paginatt ">
                             <nav aria-label="Page navigation example">

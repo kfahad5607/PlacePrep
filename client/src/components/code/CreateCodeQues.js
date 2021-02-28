@@ -85,7 +85,7 @@ const CreateCodeQuestion = (props) => {
     };
 
     const handleOnChange = (e) => {
-        console.log(e.target.value);
+
         setCodeQuestion({
             ...codeQuestion,
             [e.target.name]: e.target.value,
@@ -101,10 +101,14 @@ const CreateCodeQuestion = (props) => {
         ) {
             console.log("Please enter all fields", "danger");
         } else {
+            let temp = JSON.parse(JSON.stringify(codeQuestion));
+            temp.sampleInputs = sampleArray;
             setCodeQuestion({ ...codeQuestion, sampleInputs: sampleArray });
+            // console.log(codeQuestion);
+            console.log(temp);
             current !== null
-                ? updateQuestion(codeQuestion)
-                : addQuestion(codeQuestion);
+                ? updateQuestion(temp)
+                : addQuestion(temp);
         }
     };
 
@@ -120,7 +124,7 @@ const CreateCodeQuestion = (props) => {
                         <div className="col-12">
                             <Form.Group controlId="quiztitle">
                                 <Form.Label>
-                                    <b>Question Tiltle</b>
+                                    <b>Title</b>
                                 </Form.Label>
                                 <Form.Control
                                     className="createC-inputFiled"
@@ -137,7 +141,7 @@ const CreateCodeQuestion = (props) => {
                         <div className="col-12">
                             <Form.Group controlId="quiztitle">
                                 <Form.Label>
-                                    <b>Question Description</b>
+                                    <b>Description</b>
                                 </Form.Label>
                                 <TextareaAutosize
                                     className="createC-inputFiled questiontextarea"

@@ -56,11 +56,11 @@ const userSchema = new mongoose.Schema({
     },
     testStartedAt: {
         type: Date,
-        
+
     },
     testWillEndAt: {
         type: Date,
-        
+
     }
 });
 

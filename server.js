@@ -20,7 +20,7 @@ mongoose
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false,
-        useUnifiedTopology: true 
+        useUnifiedTopology: true
     }).then(() => console.log("Connection Successful!"));
 // console.log(process.env);
 

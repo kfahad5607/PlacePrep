@@ -53,7 +53,11 @@ const UserProfile = (props) => {
         if (userDetails.name === "" || userDetails.email === "") {
             console.log("Please enter all fields", "danger");
         } else {
-            updateMe(userDetails,'data')
+            const form = new FormData();
+            form.append('name', userDetails.name);
+            form.append('email', userDetails.email);
+            form.append('photo', userDetails.photo);
+            updateMe(form, 'data');
         }
     };
 
@@ -70,7 +74,7 @@ const UserProfile = (props) => {
         ) {
             console.log("Password do not match", "danger");
         } else {
-            updateMe(userPasswordDetails,'password')
+            updateMe(userPasswordDetails, 'password')
         }
         setTimeout(() => {
             setUserPasswordDetails({
@@ -83,7 +87,7 @@ const UserProfile = (props) => {
 
     return (
         <Container className="container-user">
-            <h3 className="text-center mb-3 pt-4 ">YOUR ACCOUNT SETTINGS</h3>
+            <h3 className="text-center mb-3 pt-4 ">ACCOUNT SETTINGS</h3>
             <div className="title-border mb-4">
                 <span></span>
             </div>
@@ -119,14 +123,14 @@ const UserProfile = (props) => {
                     <div className="row">
                         <div className="col-6">
                             <img
-                                src="/profile.jpg"
+                                src={`/img/users/${user.photo}`}
                                 className="profilephoto"
                                 alt=""
                             ></img>
                             <input
                                 type="file"
                                 name="photo"
-                                className="photo  "
+                                className="photo"
                                 accept="image/*"
                                 onChange={handleOnImageChange}
                             ></input>
@@ -207,4 +211,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { updateMe})(UserProfile);
+export default connect(mapStateToProps, { updateMe })(UserProfile);

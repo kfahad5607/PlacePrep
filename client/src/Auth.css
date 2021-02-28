@@ -1,13 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
 
-body,
-input {
+body, input {
     font-family: "Poppins", sans-serif;
 }
 
@@ -31,6 +29,7 @@ input {
     margin: 0 !important;
     padding: 0;
 }
+
 .login-container::before {
     content: "";
     position: absolute;
@@ -108,10 +107,10 @@ input {
     font-weight: 500;
 }
 
-
-.forgot-password a {
+.forgot-password p {
     text-decoration: none;
     color: #444;
+    cursor: pointer;
 }
 
 .btn-login {
@@ -201,12 +200,10 @@ input {
         top: initial;
         transition: 2s ease-in-out;
     }
-
     .login-container.sign-up::before {
         background: linear-gradient(-10deg, #04befe, #4481eb);
         transform: translate(-52%, 116%);
     }
-
     .form-container {
         margin: 1rem auto;
     }
@@ -216,7 +213,7 @@ input {
     .input-field {
         height: 50px !important;
     }
-    .btn-login{
+    .btn-login {
         height: 45px;
     }
     .image {
@@ -249,7 +246,6 @@ input {
         font-size: 0.9rem;
         padding: 0.5rem 0;
     }
-
     .btn-login.transparent {
         width: 110px;
         height: 35px;
@@ -273,14 +269,13 @@ input {
         flex-basis: auto;
         flex-grow: 0;
     }
-    .panel{
+    .panel {
         padding: 1rem 8%;
     }
     .panel .content {
         padding: 0.5rem 1rem;
     }
-    .input-field,
-    .btn-login {
+    .input-field, .btn-login {
         height: 45px;
     }
     .input-field i {
@@ -297,11 +292,12 @@ input {
     }
 }
 
-
 /* Navbar css */
+
 .navbar-text a {
     margin: 0.5rem;
 }
+
 .navbar-text a:hover {
     text-decoration: none;
 }
@@ -314,29 +310,26 @@ input {
     cursor: pointer;
 }
 
-.brand-name{
+.brand-name {
     margin-left: 1rem;
 }
 
-.brand-name img{
+.brand-name img {
     margin-right: 0.5rem;
 }
 
 @media (max-width: 570px) {
-    .logout-div .hide-sm{
+    .logout-div .hide-sm {
         display: none;
     }
-
     .nav__user-img {
         height: 2.1rem;
         width: 2.1rem;
     }
-
-    .brand-name{
+    .brand-name {
         font-size: 1.15rem;
     }
-
-    .brand-name img{
+    .brand-name img {
         /* height: 27px;
         width: 27px; */
         display: none !important;
