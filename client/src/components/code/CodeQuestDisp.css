@@ -129,6 +129,12 @@ thead th {
     font-weight: 500 !important;
 }
 
+.subStatus{
+    font-size: 16px !important;
+    color: white;
+    font-weight: 500 !important;
+}
+
 .operation-E {
     font-size: 26px !important;
     color: #775ecf !important;

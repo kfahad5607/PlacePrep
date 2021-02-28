@@ -2,26 +2,24 @@ import React, { useEffect, Fragment, useState, useRef } from 'react';
 import "../../code/CodeQuestDisp.css";
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import QuizSubTabRow from './QuizSubTabRow';
+import CodeSubTabRow from './CodeSubTabRow';
 import Spinner from '../../layout/Spinner';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Pagination from '../../code/Pagination';
 import paginate from '../../code/paginate';
 import {
-    getQuizSubmissions,
-    getQuizSubmission,
-    filterQuizSubmissions,
-    clearFilterQuizSub
-} from '../../../store/actions/quizActions';
+    getCodeSubmissions,
+    filterCodeSubmissions,
+    clearFilterCodeSub,
+} from '../../../store/actions/codeActions';
 
-const QuizSubmissions = (props) => {
+const CodeSubmissions = (props) => {
     const { auth: { user },
-        quiz: { submissions, filteredSubmissions },
-        getQuizSubmissions,
-        getQuizSubmission,
-        filterQuizSubmissions,
-        clearFilterQuizSub,
+        code: { submissions, filteredSubmissions },
+        getCodeSubmissions,
+        filterCodeSubmissions,
+        clearFilterCodeSub,
         match } = props;
 
     const text = useRef('');
@@ -34,28 +32,28 @@ const QuizSubmissions = (props) => {
     const { pageSize, currentPage, sortColumn } = pageDetails;
 
 
-    const { quizId } = match.params;
+    const { codeId } = match.params;
 
     useEffect(() => {
         if (user?.role === 'student') {
-            getQuizSubmissions({ user: user._id });
+            getCodeSubmissions({ user: user._id });
         }
         else if (user?.role === 'faculty') {
-            getQuizSubmissions({ quiz: quizId });
+            getCodeSubmissions({ code: codeId });
         }
         return () => {
         };
     }, [user]);
 
     if (submissions !== null && submissions.length === 0) {
-        return <h4>Currently There are No Quiz Submissions.</h4>;
+        return <h4>Currently There are No Code Submissions.</h4>;
     }
 
     const handleFilterChange = (e) => {
         if (text.current.value !== "") {
-            filterQuizSubmissions(e.target.value, user?.role === 'student' ? true : false);
+            filterCodeSubmissions(e.target.value, user?.role === 'student' ? true : false);
         } else {
-            clearFilterQuizSub();
+            clearFilterCodeSub();
         }
     };
 
@@ -84,8 +82,8 @@ const QuizSubmissions = (props) => {
         filteredSub,
         [
             function (item) {
-                if (sortColumn.path === "score") {
-                    return item.score;
+                if (sortColumn.path === "status") {
+                    return item.status;
                 }
                 else if (sortColumn.path === 'name') {
                     return item.user.name;
@@ -93,14 +91,11 @@ const QuizSubmissions = (props) => {
                 else if (sortColumn.path === 'submittedAt') {
                     return new Date(item.createdAt).getTime();
                 }
-                else if (sortColumn.path === 'timeTaken') {
-                    let min = item.timeTaken.minutes;
-                    let sec = item.timeTaken.seconds;
-                    let totTimeInSec = (min * 60) + sec;
-                    return totTimeInSec;
+                else if (sortColumn.path === 'language') {
+                    return item.language;
                 }
                 else if (sortColumn.path === 'title') {
-                    return item.quiz.title;
+                    return item.question.title;
                 }
                 else {
                     return item.user.name.toLowerCase();
@@ -120,7 +115,7 @@ const QuizSubmissions = (props) => {
 
             {submissions !== null ? (<Container className="container-codeQuest">
                 <h3 className="text-center  mb-2 pt-4 ">
-                    Quiz Submissions
+                    Code Submissions
         </h3>
                 <div className="title-border mb-4">
                     <span></span>
@@ -142,20 +137,20 @@ const QuizSubmissions = (props) => {
                         </div>
                     </div>
                     <div className='table-responsive' >
-                        <table className="table">
+                        <table className="table  ">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col" onClick={() => handleSort(`${user?.role === 'student' ? 'title' : 'name'}`)}>{user?.role === 'student' ? 'Title' : 'Name'}</th>
                                     <th scope="col" onClick={() => handleSort("submittedAt")} >Submitted At</th>
-                                    <th scope="col" onClick={() => handleSort("timeTaken")} >Time Taken</th>
-                                    <th scope="col" onClick={() => handleSort("score")} >Score</th>
-                                    {(user?.role === 'faculty' || user?.role === 'admin') && <th scope="col">Operation</th>}
+                                    <th scope="col" onClick={() => handleSort("language")} >Language</th>
+                                    <th scope="col" onClick={() => handleSort("status")} >Status</th>
+                                    {user?.role === 'student' && <th scope="col">Operation</th>}
                                 </tr>
                             </thead>
                             <tbody className="tbodyCode">
                                 {/* {submissions.map((ele, index) => <QuizSubTabRow key={ele._id} name={ele.user.name} eleObj={ele} idx={index} />)} */}
-                                {newSubmissions.map((ele, index) => <QuizSubTabRow key={ele._id} name={ele.user.name} eleObj={ele} idx={index} />)}
+                                {newSubmissions.map((ele, index) => <CodeSubTabRow key={ele._id} name={ele.user.name} eleObj={ele} idx={index} />)}
                             </tbody>
                         </table>
                     </div>
@@ -206,13 +201,12 @@ const QuizSubmissions = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    quiz: state.quiz,
+    code: state.code,
     auth: state.auth
 });
 
 export default connect(mapStateToProps, {
-    getQuizSubmissions,
-    getQuizSubmission,
-    filterQuizSubmissions,
-    clearFilterQuizSub,
-})(QuizSubmissions);
+    getCodeSubmissions,
+    filterCodeSubmissions,
+    clearFilterCodeSub
+})(CodeSubmissions);

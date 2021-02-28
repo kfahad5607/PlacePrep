@@ -5,11 +5,12 @@ const aptiQuestionRouter = require('./routes/aptiQuestionRoutes');
 const quizQuestionRouter = require('./routes/quizQuestionRoutes');
 const quizRouter = require('./routes/quizRoutes');
 const quizSubmissionRouter = require('./routes/quizSubmissionRoutes');
+const codeSubmissionRouter = require('./routes/codeSubmissionRoutes');
 const userRouter = require('./routes/userRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
-const cors = require('cors')
-const cookieParser = require('cookie-parser')
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/api/v1/user', userRouter);
 app.use('/api/v1/quizQuestions', quizQuestionRouter);
 app.use('/api/v1/quizzes', quizRouter);
 app.use('/api/v1/quizSubmissions', quizSubmissionRouter);
+app.use('/api/v1/codeSubmissions', codeSubmissionRouter);
 app.use('/api/v1/onlineJudge', onlineJudgeroutes);
 
 

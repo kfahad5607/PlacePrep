@@ -39,6 +39,7 @@ const EditQuiz = (props) => {
                 category: '',
                 topic: '',
                 duration: '',
+                questionWeightage: '',
                 questions: [{
                     id: 0,
                     question: '',
@@ -55,6 +56,7 @@ const EditQuiz = (props) => {
         category: '',
         topic: '',
         duration: '',
+        questionWeightage: '',
         questions: [{
             id: 0,
             question: '',
@@ -179,10 +181,16 @@ const EditQuiz = (props) => {
                                 </Form.Group>
 
                             </div>
-                            <div className="col-sm-6 responsivelabel">
+                            <div className="col-sm-3 responsivelabel">
                                 <Form.Group controlId="duration" >
                                     <Form.Label><b >Duration</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled quizDuration " name="duration" value={quizLocal.duration} onChange={handleOnChange} type="number" placeholder="Minutes only" />
+                                </Form.Group>
+                            </div>
+                            <div className="col-sm-3 responsivelabel">
+                                <Form.Group controlId="weightage" >
+                                    <Form.Label><b >Weightage</b></Form.Label>
+                                    <Form.Control className="quiz-inputFiled quizDuration " name="questionWeightage" value={quizLocal.questionWeightage} onChange={handleOnChange} type="number" placeholder="Marks" />
                                 </Form.Group>
                             </div>
                         </div>

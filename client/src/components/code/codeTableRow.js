@@ -41,8 +41,14 @@ const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
                     </span>
                 )}
             </td>
-            <td>53.4 %</td>
-            {/* {user.role === 'faculty' &&  */}
+            {user?.role === 'student' && <td>{question.author?.name}</td>}
+            {(user.role === 'faculty' || user.role === 'admin') &&
+                <td>
+                    <Link to={`/codeSubmissions/${question._id}`} className='alert-link' style={{ color: '#775ecf' }} >
+                        <i className="fa fa-chevron-circle-right operation-D ml-5 mt-1" aria-hidden="true" ></i>
+                    </Link>
+                </td>
+            }
 
             {(user.role === 'faculty' || user.role === 'admin') && <td>
                 <span>

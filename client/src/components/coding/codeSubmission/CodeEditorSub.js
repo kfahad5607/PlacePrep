@@ -18,24 +18,41 @@ import {
     runCode,
     submitCode,
     resetCode,
-} from "../../store/actions/codeActions";
-import RunCodeSuccess from './RunCodeSuccess';
-import RunCodeFail from './RunCodeFail';
-import SubmitCodeSuccess from './SubmitCodeSuccess';
+} from "../../../store/actions/codeActions";
+import RunCodeSuccess from '../RunCodeSuccess';
+import RunCodeFail from '../RunCodeFail';
+import SubmitCodeSuccess from '../SubmitCodeSuccess';
 
 // require("codemirror/addon/scroll/simplescrollbars.js");
 
 const CodeEditor = (props) => {
-    const { code: { userCode, runSubmit }, runCode, submitCode, resetCode } = props;
+    let { code: { userCode, runSubmit },
+        runCode,
+        submitCode,
+        resetCode,
+        userSolution, language } = props;
+
+    if (language === 'C') {
+        language = 'text/x-csrc';
+    }
+    else if (language === 'C++') {
+        language = 'text/x-c++src';
+    }
+    else if (language === 'Java') {
+        language = 'text/x-java';
+    }
+    else if (language === 'Python') {
+        language = 'text/x-python';
+    }
 
     const [editorSelect, setEditorSelect] = useState({
-        lang: "text/x-csrc",
+        lang: language,
         theme: "material",
         mime: "text/x-csrc",
     });
 
     const [showConsole, setShowConsole] = useState(false);
-    const [code, setCode] = useState("");
+    const [code, setCode] = useState(userSolution);
     const handleOnChange = (e) => {
         let selectedMime = e.target.selectedOptions[0].getAttribute(
             "data-mime"
@@ -89,6 +106,7 @@ const CodeEditor = (props) => {
                     <Form.Control
                         as="select"
                         name="lang"
+                        value={editorSelect.lang}
                         className="mr-sm-2 editor-select"
                         onChange={handleOnChange}
                     >

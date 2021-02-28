@@ -20,6 +20,8 @@ const CreateCodeQuestion = (props) => {
         description: "",
         testcases: "",
         sampleInputs: [],
+        solution: "",
+        noOfInputs: ""
     });
     const [lastId, setLastId] = useState(0);
     const [sampleArray, setSampleArray] = useState([
@@ -32,7 +34,6 @@ const CreateCodeQuestion = (props) => {
 
     useEffect(() => {
         if (props.match.path.includes("editCodeQuestion")) {
-            console.log(props.match.params.slug);
             getQuestion(props.match.params.slug);
         }
     }, []);
@@ -54,6 +55,8 @@ const CreateCodeQuestion = (props) => {
                 description: "",
                 testcases: "",
                 sampleInputs: [],
+                solution: "",
+                noOfInputs: ""
             });
         }
     }, [current]);
@@ -85,7 +88,6 @@ const CreateCodeQuestion = (props) => {
     };
 
     const handleOnChange = (e) => {
-        console.log(e.target.value);
         setCodeQuestion({
             ...codeQuestion,
             [e.target.name]: e.target.value,
@@ -101,10 +103,14 @@ const CreateCodeQuestion = (props) => {
         ) {
             console.log("Please enter all fields", "danger");
         } else {
+            let temp = JSON.parse(JSON.stringify(codeQuestion));
+            temp.sampleInputs = sampleArray;
+
             setCodeQuestion({ ...codeQuestion, sampleInputs: sampleArray });
+
             current !== null
-                ? updateQuestion(codeQuestion)
-                : addQuestion(codeQuestion);
+                ? updateQuestion(temp)
+                : addQuestion(temp);
         }
     };
 
@@ -115,7 +121,7 @@ const CreateCodeQuestion = (props) => {
                 <span></span>
             </div>
             <div className="codequestForm ">
-                <Form>
+                <Form encType="multipart/form-data">
                     <div className="row">
                         <div className="col-12">
                             <Form.Group controlId="quiztitle">
@@ -250,18 +256,31 @@ const CreateCodeQuestion = (props) => {
                     <hr className="mt-2"></hr>
 
                     <div className="row pt-2 pb-3">
-                        <div className="col-sm-6">
+                        <div className="col-sm-12">
                             <Form.Label>
                                 <b className="mr-2">Solution </b>
                             </Form.Label>
-                            <input
-                                type="file"
-                                className="Sfile "
-                                accept=""
-                            ></input>
-                            <label className="filelabel ">
-                                Upload Solution
-                            </label>
+                            <TextareaAutosize
+                                className="createC-inputFiled questiontextarea "
+                                minRows="2"
+                                placeholder=""
+                                name="solution"
+                                value={codeQuestion.solution}
+                                onChange={handleOnChange}
+                            ></TextareaAutosize>
+                        </div>
+
+                    </div>
+                    <div className="row pt-2 pb-3">
+                        <div className="col-sm-2 pt-1 difflabel">
+                            <Form.Label>
+                                <b className="">No. of inputs</b>
+                            </Form.Label>
+                        </div>
+                        <div className="col-sm-4">
+                            <Form.Group controlId="noOfInputs" >
+                                <Form.Control className="quiz-inputFiled quizDuration" name="noOfInputs" value={codeQuestion.noOfInputs} onChange={handleOnChange} type="number" placeholder="Minutes only" />
+                            </Form.Group>
                         </div>
                         <div className="col-sm-2 pt-1 difflabel">
                             <Form.Label>
@@ -299,7 +318,6 @@ const CreateCodeQuestion = (props) => {
                             </Form.Group>
                         </div>
                     </div>
-
                     <div className=" text-center">
                         <Button
                             className="createquestbtn mb-4"

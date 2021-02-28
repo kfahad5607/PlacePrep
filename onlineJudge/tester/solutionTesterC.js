@@ -14,16 +14,18 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
         await new Promise((resolve, reject) => {
             exec(`g++ ${file} -o ${exeFile}`, (err, stdout, stderr) => {
                 if (err) {
-                    //  console.log('err in compiling', stderr, 'end');
-                    reject(stderr);
+                    let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
+
+                    reject(newStderr);
                 }
                 resolve();
             });
         });
     } catch (err) {
         return {
-            message: 'Error occured at Catch at compile time',
-            error: err
+            message: 'code error',
+            error: err,
+            errorType: 'Compile-time Error'
         };
     }
 
@@ -63,14 +65,14 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
             const info = await new Promise((resolve, reject) => {
                 exec(`${exeFile} < ./onlineJudge/input.txt`, (err, stdout, stderr) => {
                     if (err) {
-                       //  console.log('err1', stderr, 'end');
-                        reject(stderr);
+                        let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
+
+                        reject(newStderr);
                     }
                     else if (stdout) {
-                       //  console.log(stdout);
                         let trimmedStdout = remove_linebreaks(stdout);
                         let trimmedTestcaseOutput = remove_linebreaks(testcases[i + noOfInputs]);
-                        // Checking if the std output is an array
+
                         if (isJSON(replace1QTo2Q(trimmedStdout)) && JSON.parse(replace1QTo2Q(trimmedStdout)).constructor === Array) {
 
                             if (isJSON(replace1QTo2Q(trimmedTestcaseOutput)) && JSON.parse(replace1QTo2Q(trimmedTestcaseOutput)).constructor === Array) {
@@ -81,7 +83,7 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
                                     if (is2dArray(strToArrTestcaseOutput)) {
                                         let oneDArrStdout = from2dTo1dArr(strToArrStdout);
                                         let oneDArrTestcaseOutput = from2dTo1dArr(strToArrTestcaseOutput);
-                                        //   console.log('test ', arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
+
                                         resolve(arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                     }
                                     else {
@@ -89,9 +91,6 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
                                     }
                                 }
                                 else {
-                                    //  console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                                    //  console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
-                                    //  console.log(`output and testcase arraya -> `, strToArrStdout, ' and ', strToArrTestcaseOutput);
                                     resolve(arraysEqual(strToArrStdout, strToArrTestcaseOutput));
                                 }
                             }
@@ -100,14 +99,11 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
                             }
                         }
                         else {
-                            //  console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                            //  console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
                             resolve(trimmedStdout == trimmedTestcaseOutput);
 
                         }
                     }
                     else {
-                        // console.log(`No Output  `);
                         reject('Neither err nor sdterr');
                     }
                 });
@@ -122,12 +118,12 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
                 };
             }
             results.push(info);
-            //  console.log('Info = ', info);
 
         } catch (err) {
             return {
-                message: 'Error occured at Catch Block',
-                error: err
+                message: 'code error',
+                error: err,
+                errorType: 'Runtime Error'
             };
         }
     }

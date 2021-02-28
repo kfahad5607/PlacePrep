@@ -11,7 +11,13 @@ import {
     RUN_CODE,
     SUBMIT_CODE,
     RESET_CODE,
-    CODE_LOADING
+    CODE_LOADING,
+    SET_USER_CODE_NULL,
+    GET_CODE_SUBMISSIONS,
+    GET_CODE_SUBMISSION,
+    DELETE_CODE_SUBMISSION,
+    FILTER_CODE_SUBMISSIONS,
+    CLEAR_FILTER_CODE_SUBMISSIONS
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -39,6 +45,7 @@ export const getQuestion = (slug) => async (dispatch) => {
             payload: res.data.data.data
         });
     } catch (err) {
+        console.log('err', err?.response);
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,
@@ -82,7 +89,7 @@ export const updateQuestion = (question) => async (dispatch) => {
             payload: res.data.data.data
         });
     } catch (err) {
-        console.log('res', err);
+        console.log('err', err?.response);
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,
@@ -105,38 +112,39 @@ export const deleteQuestion = (id) => async (dispatch) => {
     }
 };
 
-export const runCode = (code) => async (dispatch) => {
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    };
+export const submitCode = (runObj, id) => async (dispatch) => {
+    dispatch({
+        type: SET_USER_CODE_NULL
+    });
     try {
-        // const res = await axios.patch(`/api/v1/questions/`,code, config);
-        // dispatch({
-        //     type: RUN_CODE,
-        //     payload : res.data.data.data
-        // });
+        const res = await axios.post(`/api/v1/onlineJudge/submitcode/${id}`, runObj);
+        console.log('res sub', res);
+        dispatch({
+            type: SUBMIT_CODE,
+            payload: res.data.data
+        });
     } catch (err) {
+        console.log('err', err?.response);
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,
         });
     }
 };
-export const submitCode = (code) => async (dispatch) => {
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    };
+
+export const runCode = (runObj) => async (dispatch) => {
+    dispatch({
+        type: SET_USER_CODE_NULL
+    });
     try {
-        // const res = await axios.patch(`/api/v1/questions/`,code, config);
-        // dispatch({
-        //     type: SUBMIT_CODE,
-        //     payload : res.data.data.data
-        // });
+        const res = await axios.post(`/api/v1/onlineJudge/runcode`, runObj);
+        console.log('res run', res);
+        dispatch({
+            type: RUN_CODE,
+            payload: res.data.data
+        });
     } catch (err) {
+        console.log('err', err);
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,
@@ -153,3 +161,78 @@ export const filterQuestions = questions => async dispatch => {
 };
 
 export const clearFilter = () => ({ type: CLEAR_FILTER });
+
+export const filterCodeSubmissions = (query, isStudent) => (dispatch) => {
+    dispatch({
+        type: FILTER_CODE_SUBMISSIONS,
+        payload: {
+            query,
+            isStudent
+        }
+    });
+};
+
+export const clearFilterCodeSub = () => (dispatch) => {
+    dispatch({
+        type: CLEAR_FILTER_CODE_SUBMISSIONS
+    });
+};
+
+export const getCodeSubmissions = (queryObj) => async (dispatch) => {
+    try {
+        let queryKey = '';
+        let queryVal = '';
+        if (queryObj) {
+            queryKey = queryObj.user ? 'user' : 'code';
+            queryVal = queryObj.user ? queryObj.user : queryObj.code;
+        }
+        const res = await axios.get(`/api/v1/codeSubmissions?${queryKey}=${queryVal}`);
+        console.log('res', res);
+        dispatch({
+            type: GET_CODE_SUBMISSIONS,
+            payload: res.data.data.codeSubmissions
+        });
+
+    } catch (err) {
+        console.log('err', err);
+        dispatch({
+            type: CODE_QUESTION_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+
+export const getCodeSubmission = (id) => async (dispatch) => {
+    try {
+        const res = await axios.get(`/api/v1/codeSubmissions/${id}`);
+        console.log('res', res);
+
+        dispatch({
+            type: GET_CODE_SUBMISSION,
+            payload: res.data.data.data
+        });
+    } catch (err) {
+        console.log('err', err.response);
+        dispatch({
+            type: CODE_QUESTION_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+
+export const deleteCodeSubmission = (id) => async (dispatch) => {
+    try {
+        await axios.delete(`/api/v1/codeSubmissions/${id}`);
+
+        dispatch({
+            type: DELETE_CODE_SUBMISSION,
+            payload: id
+        });
+    } catch (err) {
+        console.log('err', err.response);
+        dispatch({
+            type: CODE_QUESTION_ERROR,
+            payload: err.response.data.message || err.response.data.error
+        });
+    }
+};

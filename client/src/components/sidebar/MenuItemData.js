@@ -27,6 +27,7 @@ export const student = [
     { name: 'Coding Questions', to: '/codeQuestions', icon: 'fa fa-ticket', subMenuItems: [] },
     { name: 'See all quizzes', to: '/quizzes', icon: 'fa fa-ticket', subMenuItems: [] },
     { name: 'Quiz Submissions', to: '/quizSubmissions', icon: 'fa fa-pie-chart', subMenuItems: [] },
+    { name: 'Code Submissions', to: '/codeSubmissions', icon: 'fa fa-pie-chart', subMenuItems: [] },
     { name: 'Practice Problems', to: '/practiceProblems', icon: 'fa fa-pie-chart', subMenuItems: [] },
 ];
 

@@ -115,17 +115,6 @@ exports.updateQuiz = async (req, res, next) => {
 exports.getQuiz = catchAsync(async (req, res, next) => {
     // const quiz = await Quiz.findById(req.params.id);
     // temporarily setting user
-    req.user = {
-        photo: 'default.jpg',
-        role: 'faculty',
-        _id: '60112456a1ed7015dc7b38a2',
-        name: 'Monica',
-        email: 'monica@example.com',
-        __v: 0,
-        testStartedAt: '2021-01-28T10:21:45.521Z',
-        testWillEndAt: '2021-01-28T10:22:55.521Z',
-        currentTest: '6011a949ad410828fc6971cf'
-    };
 
     const quiz = await Quiz.findOne({ slug: req.params.slug }).populate({
         path: 'questions',
@@ -246,7 +235,7 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
     if (Date.now() - new Date(req.user.testWillEndAt).getTime() > 1000) {
         submissionObj.valid = false;
     }
-    let durInSec = Math.round((new Date().getTime() - new Date(req.user.testStartedAt).getTime()) / 1000);
+    let durInSec = Math.round((Date.now() - new Date(req.user.testStartedAt).getTime()) / 1000);
     let durMin = Math.floor(durInSec / 60);
     let durSec = durInSec % 60;
 

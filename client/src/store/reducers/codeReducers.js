@@ -11,16 +11,27 @@ import {
     RUN_CODE,
     SUBMIT_CODE,
     RESET_CODE,
-    CODE_LOADING
+    CODE_LOADING,
+    SET_USER_CODE_NULL,
+    GET_CODE_SUBMISSIONS,
+    GET_CODE_SUBMISSION,
+    DELETE_CODE_SUBMISSION,
+    FILTER_CODE_SUBMISSIONS,
+    CLEAR_FILTER_CODE_SUBMISSIONS
+
 } from "../actions/actionTypes";
 
 const initialState = {
     questions: null,
     current: null,
+    submissions: null,
+    currentSubmission: null,
     filtered: null,
+    filteredSubmissions: null,
     error: null,
     loading: true,
     userCode: null,
+    runSubmit: 'submit'
 };
 
 const reducer = (state = initialState, action) => {
@@ -64,10 +75,18 @@ const reducer = (state = initialState, action) => {
                 loading: false,
             };
         case RUN_CODE:
-        case SUBMIT_CODE:
             return {
                 ...state,
                 userCode: action.payload,
+                runSubmit: 'run',
+                loading: false,
+            };
+        case SUBMIT_CODE:
+            return {
+                ...state,
+                userCode: action.payload.data,
+                // currentSubmission: action.payload.codeSubmission,
+                runSubmit: 'submit',
                 loading: false,
             };
         case RESET_CODE:
@@ -103,6 +122,49 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
+            };
+        case SET_USER_CODE_NULL:
+            return {
+                ...state,
+                userCode: null,
+            };
+        case GET_CODE_SUBMISSIONS:
+            return {
+                ...state,
+                submissions: action.payload,
+                loading: false
+            };
+        case GET_CODE_SUBMISSION:
+            return {
+                ...state,
+                currentSubmission: action.payload,
+                loading: false
+            };
+        case DELETE_CODE_SUBMISSION:
+            return {
+                ...state,
+                submissions: state.submissions.filter(ele => ele._id !== action.payload),
+                loading: false
+            };
+        case FILTER_CODE_SUBMISSIONS:
+            return {
+                ...state,
+                filteredSubmissions: state.submissions.filter(ele => {
+                    const regex = new RegExp(`${action.payload.query}`, "gi");
+                    if (action.payload.isStudent) {
+                        return ele.question.title.match(regex);
+                    }
+                    else {
+                        return ele.user.name.match(regex);
+                    }
+                }),
+                loading: false
+            };
+        case CLEAR_FILTER_CODE_SUBMISSIONS:
+            return {
+                ...state,
+                filteredSubmissions: null,
+                loading: false
             };
         default:
             return state;

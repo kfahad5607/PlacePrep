@@ -7,13 +7,17 @@ const { remove_linebreaks,
     is2dArray,
     replace1QTo2Q } = require('../../utils/helperFunctions');
 
-const testCodeJava = async (file, testcaseFile, noOfInputs) => {
+const testCodeC = async (file, testcaseFile, noOfInputs) => {
+    let givenInput = '';
+    let expectedOutput;
+    let userOutput;
+
+    let exeFile = file.replace('.c', '.exe').replace(/[/]+/gm, '\\');
     try {
         await new Promise((resolve, reject) => {
-
-            exec(`javac ${file}`, function (err, stdout, stderr) {
+            exec(`g++ ${file} -o ${exeFile}`, (err, stdout, stderr) => {
                 if (err) {
-                    let newStderr = stderr.replace(/onlineJudge\\temp\\user-.*\\solution/gm, 'main');
+                    let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
 
                     reject(newStderr);
                 }
@@ -26,27 +30,21 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
             error: err,
             errorType: 'Compile-time Error'
         };
-
     }
+
     let results = [];
     const data = fs.readFileSync(testcaseFile, { encoding: 'utf8', flag: 'r' });
     let testcases = data.split('\n');
-
     let i;
-    for (i = 0; i < testcases.length; i = i + noOfInputs + 1) {
+    for (i = 0; i < 1; i = i + noOfInputs + 1) {
         let inputArr = [];
 
-        // Old code to handle array inputs
         for (let j = i; j < noOfInputs + i; j++) {
             let trimmedTestcaseInput = remove_linebreaks(testcases[j]);
-            // Old way to check if the input string is an array
-            // if (remove_linebreaks(testcases[j]).startsWith('[') && remove_linebreaks(testcases[j]).endsWith(']')) {
-            // New way to check if the input string is an array
-            if (isJSON(trimmedTestcaseInput) && JSON.parse(trimmedTestcaseInput).constructor === Array) {
-                // Old way to convert input string to an array
-                // let strToArrInput = stringArrayToArray(testcases[j]);
+            givenInput = givenInput + trimmedTestcaseInput + '\n';
 
-                // New way to convert input string to an array
+            if (isJSON(trimmedTestcaseInput) && JSON.parse(trimmedTestcaseInput).constructor === Array) {
+
                 let strToArrInput = JSON.parse(trimmedTestcaseInput);
                 if (is2dArray(strToArrInput)) {
                     inputArr.push(strToArrInput.length);
@@ -68,21 +66,21 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
         fs.writeFileSync('./onlineJudge/input.txt', inputStr);
 
         try {
-            let classPath = file.replace('solution.java', '');
             const info = await new Promise((resolve, reject) => {
-                exec(`java -cp ${classPath} solution < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
+                exec(`${exeFile} < ./onlineJudge/input.txt`, (err, stdout, stderr) => {
                     if (err) {
-                        let newStderr = stderr.replace(/onlineJudge\\temp\\user-.*\\solution/gm, 'main');
+                        let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
 
                         reject(newStderr);
                     }
                     else if (stdout) {
                         let trimmedStdout = remove_linebreaks(stdout);
                         let trimmedTestcaseOutput = remove_linebreaks(testcases[i + noOfInputs]);
+                        userOutput = trimmedStdout;
+                        expectedOutput = trimmedTestcaseOutput;
                         // Checking if the std output is an array
                         if (isJSON(replace1QTo2Q(trimmedStdout)) && JSON.parse(replace1QTo2Q(trimmedStdout)).constructor === Array) {
-                            // let strToArrStdout = stringArrayToArray(stdout);
-                            // let strToArrTestcaseOutput = stringArrayToArray(testcases[i + noOfInputs]);
+
                             if (isJSON(replace1QTo2Q(trimmedTestcaseOutput)) && JSON.parse(replace1QTo2Q(trimmedTestcaseOutput)).constructor === Array) {
                                 let strToArrStdout = JSON.parse(replace1QTo2Q(trimmedStdout));
                                 let strToArrTestcaseOutput = JSON.parse(replace1QTo2Q(trimmedTestcaseOutput));
@@ -91,7 +89,6 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
                                     if (is2dArray(strToArrTestcaseOutput)) {
                                         let oneDArrStdout = from2dTo1dArr(strToArrStdout);
                                         let oneDArrTestcaseOutput = from2dTo1dArr(strToArrTestcaseOutput);
-
                                         resolve(arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                     }
                                     else {
@@ -107,7 +104,6 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
                             }
                         }
                         else {
-                            // Old code
                             resolve(trimmedStdout == trimmedTestcaseOutput);
 
                         }
@@ -123,10 +119,14 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
                     totalTestcasesRan: results.length + 1,
                     passed: results.length,
                     failedAt: results.length + 1,
-                    failed: 1
+                    failed: 1,
+                    input: givenInput,
+                    output: userOutput,
+                    expected: expectedOutput
                 };
             }
             results.push(info);
+
         } catch (err) {
             return {
                 message: 'code error',
@@ -136,13 +136,17 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
         }
     }
 
+    //console.log('res', results);
     let finalResults = {
         message: 'success',
         totalTestcasesRan: results.length,
         passed: results.length,
-        failed: 0
+        failed: 0,
+        input: givenInput,
+        output: userOutput,
+        expected: expectedOutput
     };
     return finalResults;
 };
 
-module.exports = testCodeJava;
+module.exports = testCodeC;

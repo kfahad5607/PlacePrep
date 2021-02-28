@@ -15,6 +15,7 @@ function CreateQuiz(props) {
         category: 'quants',
         topic: '',
         duration: '',
+        questionWeightage: '',
         questions: [{
             id: 0,
             question: '',
@@ -102,6 +103,7 @@ function CreateQuiz(props) {
             category: '',
             topic: '',
             duration: '',
+            questionWeightage: '',
             questions: [{
                 id: 0,
                 question: '',
@@ -148,10 +150,16 @@ function CreateQuiz(props) {
                             </Form.Group>
 
                         </div>
-                        <div className="col-sm-6 responsivelabel">
+                        <div className="col-sm-3 responsivelabel">
                             <Form.Group controlId="duration" >
                                 <Form.Label><b >Duration</b></Form.Label>
                                 <Form.Control className="quiz-inputFiled quizDuration " name="duration" value={quiz.duration} onChange={handleOnChange} type="number" placeholder="Minutes only" />
+                            </Form.Group>
+                        </div>
+                        <div className="col-sm-3 responsivelabel">
+                            <Form.Group controlId="weightage" >
+                                <Form.Label><b >Weightage</b></Form.Label>
+                                <Form.Control className="quiz-inputFiled quizDuration " name="questionWeightage" value={quiz.questionWeightage} onChange={handleOnChange} type="number" placeholder="Marks" />
                             </Form.Group>
                         </div>
                     </div>
