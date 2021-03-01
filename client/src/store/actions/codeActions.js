@@ -12,6 +12,7 @@ import {
     SUBMIT_CODE,
     RESET_CODE,
     CODE_LOADING,
+    CLEAR_CODE_ERRORS,
     SET_USER_CODE_NULL,
     GET_CODE_SUBMISSIONS,
     GET_CODE_SUBMISSION,
@@ -61,13 +62,11 @@ export const addQuestion = (question) => async (dispatch) => {
     };
     try {
         const res = await axios.post(`/api/v1/questions`, question, config);
-        console.log(res.data);
         dispatch({
             type: ADD_CODE_QUESTION,
             payload: res.data.data.data
         });
     } catch (err) {
-        console.log(err.response);
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,
@@ -83,11 +82,11 @@ export const updateQuestion = (question) => async (dispatch) => {
     };
     try {
         const res = await axios.patch(`/api/v1/questions/${question._id}`, question, config);
-        console.log('res', res);
         dispatch({
             type: UPDATE_CODE_QUESTION,
             payload: res.data.data.data
-        });
+        })
+        return res;
     } catch (err) {
         console.log('err', err?.response);
         dispatch({
@@ -161,6 +160,8 @@ export const filterQuestions = questions => async dispatch => {
 };
 
 export const clearFilter = () => ({ type: CLEAR_FILTER });
+
+export const clearCodeErrors = () => ({ type: CLEAR_CODE_ERRORS});
 
 export const filterCodeSubmissions = (query, isStudent) => (dispatch) => {
     dispatch({

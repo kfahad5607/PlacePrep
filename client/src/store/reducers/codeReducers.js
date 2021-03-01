@@ -12,6 +12,7 @@ import {
     SUBMIT_CODE,
     RESET_CODE,
     CODE_LOADING,
+    CLEAR_CODE_ERRORS,
     SET_USER_CODE_NULL,
     GET_CODE_SUBMISSIONS,
     GET_CODE_SUBMISSION,
@@ -123,6 +124,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: true,
             };
+        case CLEAR_CODE_ERRORS:
+            return {
+                ...state,
+                error: null,
+            }
         case SET_USER_CODE_NULL:
             return {
                 ...state,

@@ -274,6 +274,8 @@ export const deleteQuizSubmission = (id) => async (dispatch) => {
     };
 };
 
+export const clearQuizErrors = () => ({ type: actionTypes.CLEAR_QUIZ_ERRORS});
+
 export const filterQuizSubmissions = (query, isStudent) => (dispatch) => {
     console.log('iss', isStudent);
     dispatch({

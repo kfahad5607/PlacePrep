@@ -158,3 +158,5 @@ export const updatePracProbTopic = (topicObj) => async (dispatch) => {
         });
     }
 };
+
+export const clearPracticeProblemErrors = () => ({ type: actionTypes.CLEAR_PRACTICE_PROBLEM_ERROR});

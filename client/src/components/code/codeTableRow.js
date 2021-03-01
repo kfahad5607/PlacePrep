@@ -67,7 +67,6 @@ const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
                     ></a>
                 </span>
             </td>}
-            {/* } */}
         </tr>
     );
 };

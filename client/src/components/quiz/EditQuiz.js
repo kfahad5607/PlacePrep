@@ -1,23 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import './quiz.css';
-import { Button, Container, Form } from 'react-bootstrap';
-import QuizQuestion from './CreateQuizQuestion';
-import Spinner from '../layout/Spinner';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import "./quiz.css";
+import { Button, Container, Form } from "react-bootstrap";
+import QuizQuestion from "./CreateQuizQuestion";
+import Spinner from "../layout/Spinner";
+import { connect } from "react-redux";
 import {
     getQuiz,
     updateQuiz,
     deleteQuizQuestion,
-    setCurrentQuiz
-} from '../../store/actions/quizActions';
+    setCurrentQuiz,
+    clearQuizErrors
+} from "../../store/actions/quizActions";
+import { setAlert } from "../../store/actions/alertActions";
 
 const EditQuiz = (props) => {
-    const { quiz: { current },
+    const {
+        quiz: { current, error },
         getQuiz,
         updateQuiz,
         deleteQuizQuestion,
         setCurrentQuiz,
-        match } = props;
+        clearQuizErrors,
+        setAlert,
+        match,
+    } = props;
 
     const slug = match.params.slug;
     useEffect(() => {
@@ -25,6 +31,10 @@ const EditQuiz = (props) => {
     }, []);
 
     useEffect(() => {
+        if (error) {
+            setAlert(error, "danger");
+            clearQuizErrors();
+        }
         if (current !== null) {
             // if User updates Quiz title then slug also updates
             // Hence updating slug in the url
@@ -32,8 +42,7 @@ const EditQuiz = (props) => {
 
             let tempDeepCopy = JSON.parse(JSON.stringify(current));
             setQuizLocal(tempDeepCopy);
-        }
-        else {
+        } else {
             setQuizLocal({
                 title: '',
                 category: '',
@@ -48,7 +57,7 @@ const EditQuiz = (props) => {
                 }]
             });
         }
-    }, [current]);
+    }, [current, error]);
 
     // let tempDeepCopy = JSON.parse(JSON.stringify(current));
     const [quizLocal, setQuizLocal] = useState({
@@ -70,9 +79,9 @@ const EditQuiz = (props) => {
     const handleAddQuesClick = () => {
         const newQuesObj = {
             id: lastId + 1,
-            question: '',
-            answers: ['', '', '', ''],
-            correctAnswer: ''
+            question: "",
+            answers: ["", "", "", ""],
+            correctAnswer: "",
         };
 
         setLastId(lastId + 1);
@@ -80,45 +89,40 @@ const EditQuiz = (props) => {
         const newQuesArray = [...quizLocal.questions, newQuesObj];
         setQuizLocal({
             ...quizLocal,
-            questions: newQuesArray
+            questions: newQuesArray,
         });
-
     };
 
     const handleOnChange = (e) => {
         setQuizLocal({
             ...quizLocal,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     };
 
     const handleOnChangeQues = (e, index) => {
         const quesArray = [...quizLocal.questions];
-        if (e.target.name === 'question' || e.target.name === 'correctAnswer') {
+        if (e.target.name === "question" || e.target.name === "correctAnswer") {
             quesArray[index][e.target.name] = e.target.value;
             setQuizLocal({
                 ...quizLocal,
-                questions: quesArray
+                questions: quesArray,
             });
-        }
-        else {
+        } else {
             let optIndex = 0;
-            if (e.target.name === 'optionB') {
+            if (e.target.name === "optionB") {
                 optIndex = 1;
-            }
-            else if (e.target.name === 'optionC') {
+            } else if (e.target.name === "optionC") {
                 optIndex = 2;
-            }
-            else if (e.target.name === 'optionD') {
+            } else if (e.target.name === "optionD") {
                 optIndex = 3;
             }
             quesArray[index].answers[optIndex] = e.target.value;
             setQuizLocal({
                 ...quizLocal,
-                questions: quesArray
+                questions: quesArray,
             });
         }
-
     };
 
     const handleOnDelete = (eleId) => {
@@ -133,14 +137,22 @@ const EditQuiz = (props) => {
 
         setQuizLocal({
             ...quizLocal,
-            questions: newQuesArray
+            questions: newQuesArray,
         });
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        updateQuiz(quizLocal);
-        setCurrentQuiz(quizLocal);
+        if (
+            quizLocal.title === "" ||
+            quizLocal.topic === "" ||
+            quizLocal.duration === ""
+        ) {
+            setAlert("Please enter all fields", "danger");
+        } else {
+            updateQuiz(quizLocal);
+            setCurrentQuiz(quizLocal);
+        }
     };
 
     return (
@@ -227,14 +239,16 @@ const EditQuiz = (props) => {
 };
 
 const mapStateToProps = (state) => {
-    return ({
-        quiz: state.quiz
-    });
+    return {
+        quiz: state.quiz,
+    };
 };
 
 export default connect(mapStateToProps, {
     getQuiz,
     updateQuiz,
     deleteQuizQuestion,
-    setCurrentQuiz
+    setCurrentQuiz,
+    clearQuizErrors,
+    setAlert,
 })(EditQuiz);
