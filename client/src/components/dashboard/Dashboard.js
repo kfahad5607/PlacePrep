@@ -5,6 +5,7 @@ import DashboardCard from "./DashboardCard";
 import { connect } from "react-redux";
 import { getQuizzes } from "../../store/actions/quizActions";
 import { getQuestions } from "../../store/actions/codeActions";
+import { getDetailsAndUsers } from "../../store/actions/authActions";
 
 const Dashboard = (props) => {
     const {
@@ -13,11 +14,13 @@ const Dashboard = (props) => {
         code: { questions },
         getQuizzes,
         getQuestions,
+        getDetailsAndUsers
     } = props;
 
     useEffect(() => {
-        getQuizzes();
-        getQuestions();
+        // getQuizzes();
+        // getQuestions();
+        getDetailsAndUsers(user?.role === 'student' ? true : false);
         //eslint-disable-next-line
     }, []);
     return (
@@ -288,6 +291,6 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getQuizzes, getQuestions })(
+export default connect(mapStateToProps, { getQuizzes, getQuestions, getDetailsAndUsers })(
     Dashboard
 );

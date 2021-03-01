@@ -12,11 +12,15 @@ import {
     UPDATE_ME,
     UPDATE_ERROR,
     CLEAR_AUTH_ERRORS,
+    GET_DETAILS,
+    GET_ALL_USERS
 } from "../actions/actionTypes";
 
 const initialState = {
     isAuthenticated: null,
     user: null,
+    allUsers: null,
+    details: null,
     error: null,
     loading: true,
 };
@@ -79,6 +83,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
+            };
+        case GET_DETAILS:
+            return {
+                ...state,
+                details: action.payload,
+                loading: false
+            };
+        case GET_ALL_USERS:
+            return {
+                ...state,
+                allUsers: action.payload,
+                loading: false
             };
         default:
             return state;

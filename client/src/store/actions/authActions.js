@@ -11,6 +11,8 @@ import {
     UPDATE_ME,
     UPDATE_ERROR,
     CLEAR_AUTH_ERRORS,
+    GET_DETAILS,
+    GET_ALL_USERS
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -125,7 +127,7 @@ export const updateMe = (data, type) => async dispatch => {
 };
 
 
-export const clearErrors = () => ({ type: CLEAR_AUTH_ERRORS});
+export const clearErrors = () => ({ type: CLEAR_AUTH_ERRORS });
 
 export const forgotPassword = (email) => async dispatch => {
     try {
@@ -139,7 +141,7 @@ export const forgotPassword = (email) => async dispatch => {
         });
 
     }
-}
+};
 export const resetPassword = (passwords, token) => async dispatch => {
     try {
         const res = await axios.patch(`/api/v1/user/resetPassword/${token}`, passwords);
@@ -153,5 +155,31 @@ export const resetPassword = (passwords, token) => async dispatch => {
         });
 
     }
-}
+};
+export const getDetailsAndUsers = (isStudent) => async (dispatch) => {
+    try {
+        let resUsers;
+        const resDetails = await axios.get('/api/v1/user/getDetails');
+        if (!isStudent) {
+            resUsers = await axios.get('/api/v1/user/users');
+            dispatch({
+                type: GET_ALL_USERS,
+                payload: resUsers.data.data.users
+            });
+        }
+
+        dispatch({
+            type: GET_DETAILS,
+            payload: resDetails.data.data
+        });
+
+
+    } catch (err) {
+        console.log(err?.response);
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message
+        });
+    }
+};
 
