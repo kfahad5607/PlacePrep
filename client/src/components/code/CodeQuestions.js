@@ -110,38 +110,42 @@ const CodeQuestions = (props) => {
                                 </Form>
                             </div>
                         </div>
-                        <table className="table  ">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th
-                                        scope="col"
-                                        onClick={() => handleSort("title")}
-                                    >
-                                        Title
+
+                        <div className='table-responsive' >
+                            <table className="table">
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th
+                                            scope="col"
+                                            onClick={() => handleSort("title")}
+                                        >
+                                            Title
                                     </th>
-                                    <th scope="col">Solution</th>
-                                    <th
-                                        scope="col"
-                                        onClick={() => handleSort("difficulty")}
-                                    >
-                                        Difficulty
+                                        <th scope="col">Solution</th>
+                                        <th
+                                            scope="col"
+                                            onClick={() => handleSort("difficulty")}
+                                        >
+                                            Difficulty
                                     </th>
-                                    <th scope="col">Acceptance</th>
-                                    {(user?.role === 'faculty' || user?.role === 'admin') && <th scope="col">Operations</th>}
-                                </tr>
-                            </thead>
-                            <tbody className="tbodyCode">
-                                {newQuestions.map((question, index) => (
-                                    <CodeTableRow
-                                        question={question}
-                                        key={index}
-                                        id={qsnNumber[index]}
-                                        user={user}
-                                    />
-                                ))}
-                            </tbody>
-                        </table>
+                                        <th scope="col">{user?.role === 'student' ? 'Author' : 'Submissions'}</th>
+                                        {(user?.role === 'faculty' || user?.role === 'admin') && <th scope="col">Operations</th>}
+                                    </tr>
+                                </thead>
+                                <tbody className="tbodyCode">
+                                    {newQuestions.map((question, index) => (
+                                        <CodeTableRow
+                                            question={question}
+                                            key={index}
+                                            id={qsnNumber[index]}
+                                            user={user}
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                         <div className="row">
                             <div className="ml-3 ">
                                 <Form>

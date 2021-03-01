@@ -16,15 +16,18 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
         await new Promise((resolve, reject) => {
             exec(`g++ ${file} -o ${exeFile}`, (err, stdout, stderr) => {
                 if (err) {
-                    reject(stderr);
+                    let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
+
+                    reject(newStderr);
                 }
                 resolve();
             });
         });
     } catch (err) {
         return {
-            message: 'Error occured at Catch at compile time',
-            error: err
+            message: 'code error',
+            error: err,
+            errorType: 'Compile-time Error'
         };
 
     }
@@ -49,7 +52,6 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                 // New way to convert input string to an array
                 let strToArrInput = JSON.parse(trimmedTestcaseInput);
                 if (is2dArray(strToArrInput)) {
-                    // console.log('2d array', strToArrInput);
                     inputArr.push(strToArrInput.length);
                     inputArr.push(strToArrInput[0].length);
                     strToArrInput.forEach(arr => {
@@ -59,7 +61,6 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                 else {
                     inputArr.push(strToArrInput.length);
                     inputArr = inputArr.concat(strToArrInput);
-                    // console.log('Its an array', inputArr, strToArrInput);
                 }
             }
             else {
@@ -73,7 +74,9 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
             const info = await new Promise((resolve, reject) => {
                 exec(`${exeFile} < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
                     if (err) {
-                        reject(stderr);
+                        let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
+
+                        reject(newStderr);
                     }
                     else if (stdout) {
                         let trimmedStdout = remove_linebreaks(stdout);
@@ -88,7 +91,7 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                                     if (is2dArray(strToArrTestcaseOutput)) {
                                         let oneDArrStdout = from2dTo1dArr(strToArrStdout);
                                         let oneDArrTestcaseOutput = from2dTo1dArr(strToArrTestcaseOutput);
-                                       //  console.log('test ', arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
+
                                         resolve(arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                     }
                                     else {
@@ -96,9 +99,6 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                                     }
                                 }
                                 else {
-                                   //  console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                                   //  console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
-                                   //  console.log(`output and testcase arraya -> `, strToArrStdout, ' and ', strToArrTestcaseOutput);
                                     resolve(arraysEqual(strToArrStdout, strToArrTestcaseOutput));
                                 }
                             }
@@ -107,8 +107,6 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                             }
                         }
                         else {
-                           //  console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                           //  console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
                             resolve(trimmedStdout == trimmedTestcaseOutput);
 
                         }
@@ -119,8 +117,6 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                 });
             });
             if (!info) {
-                // deleting exe file
-                // fs.unlinkSync(exeFile);
                 return {
                     message: 'fail',
                     totalTestcasesRan: results.length + 1,
@@ -130,19 +126,16 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
                 };
             }
             results.push(info);
-           //  console.log('Info = ', info);
 
         } catch (err) {
 
             return {
-                message: 'Error occured at Catch Block',
-                error: err
+                message: 'code error',
+                error: err,
+                errorType: 'Runtime Error'
             };
         }
     }
-
-    // deleting exe file
-    // fs.unlinkSync(exeFile);
 
     let finalResults = {
         message: 'success',

@@ -5,10 +5,14 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login, clearErrors } from "../../store/actions/authActions";
 import { setAlert } from "../../store/actions/alertActions";
+import ResPassModal from './ResPassModal';
 
 const Login = (props) => {
+    
     const { login, setAlert, clearErrors } = props;
     const { error, isAuthenticated } = props.auth;
+
+    const [modalShow, setModalShow] = useState(false);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -54,6 +58,8 @@ const Login = (props) => {
     };
     return (
         <div className="credentials-section">
+            <ResPassModal show={modalShow} onHide={() => setModalShow(false)} />
+
             <Row className="login-container">
                 <Col className="panel-container">
                     <MessagePanel content={messageContent} />
@@ -91,9 +97,9 @@ const Login = (props) => {
                                 className="btn-login solid"
                             />
                             <div className="forgot-password">
-                                <Link to="/forgotpassword">
+                                <p onClick={() => setModalShow(true)}>
                                     Forgot Password?
-                                </Link>
+                                </p>
                             </div>
                         </form>
                     </div>

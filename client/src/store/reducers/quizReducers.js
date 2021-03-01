@@ -6,6 +6,7 @@ const initialState = {
     currentSubmission: null,
     current: null,
     filtered: null,
+    filteredSubmissions: null,
     error: null,
     score: null,
     loading: false
@@ -35,7 +36,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_QUIZ:
             return {
                 ...state,
-                quizzes: [action.payload, ...state.quizzes],
+                quizzes: [action.payload, ...(state.quizzes ? state.quizzes : [])],
                 loading: false
             };
 
@@ -112,6 +113,26 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
+            }
+        case actionTypes.FILTER_QUIZ_SUBMISSIONS:
+            return {
+                ...state,
+                filteredSubmissions: state.submissions.filter(ele => {
+                    const regex = new RegExp(`${action.payload.query}`, "gi");
+                    if (action.payload.isStudent) {
+                        return ele.quiz.title.match(regex);
+                    }
+                    else {
+                        return ele.user.name.match(regex);
+                    }
+                }),
+                loading: false
+            };
+        case actionTypes.CLEAR_FILTER_QUIZ_SUBMISSIONS:
+            return {
+                ...state,
+                filteredSubmissions: null,
+                loading: false
             };
         default:
             return state;

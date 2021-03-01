@@ -9,6 +9,7 @@ import Alerts from "./components/layout/Alerts";
 import { connect } from "react-redux";
 import { loadUser } from "./store/actions/authActions";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import ResetPassword from './components/auth/Resetpassword';
 
 const App = (props) => {
     const { auth: { user }, loadUser } = props;
@@ -31,6 +32,7 @@ const App = (props) => {
             <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <Route exact path="/ResetPassword/:token" component={ResetPassword} />
                 {user && <PrivateRoute path="/" component={Home} />}
             </Switch>
         </Router>

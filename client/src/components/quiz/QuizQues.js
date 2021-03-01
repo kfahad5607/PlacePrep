@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import QuizOption from './QuizOption';
+import Spinner from '../layout/Spinner';
 import './quiz.css';
 import { connect } from 'react-redux';
 import { submitQuiz } from '../../store/actions/quizActions';
@@ -43,7 +44,7 @@ const QuizQues = (props) => {
             };
         });
         setUserAnswers(tempUserAnswers);
-        window.alert('Quiz Submitted successfully!. Redirectng to /quizzes after 2 sec');
+        // window.alert('Quiz Submitted successfully!. Redirectng to /quizzes after 2 sec');
         setTimeout(() => {
             history.push('/quizzes');
         }, 2000);
@@ -67,7 +68,7 @@ const QuizQues = (props) => {
                             </Card.Body>
                         </Card>
                     </Accordion>) :
-                    <h3 key={index}>Loading...</h3>)
+                    <Spinner key={index} />)
             )}
             <div className="text-center" style={{ width: '200px', margin: 'auto' }}>
                 <Button className="createquiz mb-4" ref={props.refProp} onClick={handleOnClick}  >Submit Quiz</Button>

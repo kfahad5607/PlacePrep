@@ -17,19 +17,18 @@ function CreateQuiz(props) {
     } = props;
 
     const [quiz, setQuiz] = useState({
-        author: "",
-        title: "",
-        category: "quants",
-        topic: "",
-        duration: "",
-        questions: [
-            {
-                id: 0,
-                question: "",
-                answers: ["", "", "", ""],
-                correctAnswer: "",
-            },
-        ],
+        author: '',
+        title: '',
+        category: 'quantitative analysis',
+        topic: '',
+        duration: '',
+        questionWeightage: '',
+        questions: [{
+            id: 0,
+            question: '',
+            answers: ['', '', '', ''],
+            correctAnswer: ''
+        }]
     });
 
     const [lastId, setLastId] = useState(0);
@@ -112,21 +111,20 @@ function CreateQuiz(props) {
             addQuiz(tempQuiz);
 
             setQuiz({
-                title: "",
-                category: "",
-                topic: "",
-                duration: "",
-                questions: [
-                    {
-                        id: 0,
-                        question: "",
-                        answers: ["", "", "", ""],
-                        correctAnswer: "",
-                    },
-                ],
+                title: '',
+                category: '',
+                topic: '',
+                duration: '',
+                questionWeightage: '',
+                questions: [{
+                    id: 0,
+                    question: '',
+                    answers: ['', '', '', ''],
+                    correctAnswer: ''
+                }]
             });
-        }
-    };
+        };
+    }
 
     return (
         <Container className="container-quiz">
@@ -210,19 +208,17 @@ function CreateQuiz(props) {
                                 />
                             </Form.Group>
                         </div>
-                        <div className="col-sm-6 responsivelabel">
-                            <Form.Group controlId="duration">
-                                <Form.Label>
-                                    <b>Duration</b>
-                                </Form.Label>
-                                <Form.Control
-                                    className="quiz-inputFiled quizDuration "
-                                    name="duration"
-                                    value={quiz.duration}
-                                    onChange={handleOnChange}
-                                    type="number"
-                                    placeholder="Minutes only"
-                                />
+                        <div className="col-sm-3 responsivelabel">
+                            <Form.Group controlId="duration" >
+                                <Form.Label><b >Duration</b></Form.Label>
+                                <Form.Control className="quiz-inputFiled quizDuration " name="duration" value={quiz.duration} onChange={handleOnChange} type="number" placeholder="Minutes only" />
+                            </Form.Group>
+                        </div>
+                        <div className="col-sm-3 responsivelabel">
+                            <Form.Group controlId="weightage" >
+                                <Form.Label><b >Weightage</b></Form.Label>
+                                <Form.Control className="quiz-inputFiled quizDuration " name="questionWeightage" value={quiz.questionWeightage} onChange={handleOnChange} type="number" placeholder="Marks" />
+
                             </Form.Group>
                         </div>
                     </div>
@@ -271,4 +267,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { addQuiz, clearQuizErrors, setAlert })(CreateQuiz);
+export default connect(mapStateToProps, { addQuiz, clearQuizErrors, setAlert })(CreateQuiz)

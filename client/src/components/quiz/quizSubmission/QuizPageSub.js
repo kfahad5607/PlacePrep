@@ -17,8 +17,7 @@ const QuizPageSub = (props) => {
     const quizSubId = match.params.id;
 
     useEffect(() => {
-            getQuizSubmission(quizSubId);
-
+        getQuizSubmission(quizSubId);
     }, []);
 
 

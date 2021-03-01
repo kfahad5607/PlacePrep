@@ -44,36 +44,34 @@ const EditQuiz = (props) => {
             setQuizLocal(tempDeepCopy);
         } else {
             setQuizLocal({
-                title: "",
-                category: "",
-                topic: "",
-                duration: "",
-                questions: [
-                    {
-                        id: 0,
-                        question: "",
-                        answers: ["", "", "", ""],
-                        correctAnswer: "",
-                    },
-                ],
+                title: '',
+                category: '',
+                topic: '',
+                duration: '',
+                questionWeightage: '',
+                questions: [{
+                    id: 0,
+                    question: '',
+                    answers: ['', '', '', ''],
+                    correctAnswer: ''
+                }]
             });
         }
     }, [current, error]);
 
     // let tempDeepCopy = JSON.parse(JSON.stringify(current));
     const [quizLocal, setQuizLocal] = useState({
-        title: "",
-        category: "",
-        topic: "",
-        duration: "",
-        questions: [
-            {
-                id: 0,
-                question: "",
-                answers: ["", "", "", ""],
-                correctAnswer: "",
-            },
-        ],
+        title: '',
+        category: '',
+        topic: '',
+        duration: '',
+        questionWeightage: '',
+        questions: [{
+            id: 0,
+            question: '',
+            answers: ['', '', '', ''],
+            correctAnswer: ''
+        }]
     });
 
     const [lastId, setLastId] = useState(0);
@@ -159,152 +157,83 @@ const EditQuiz = (props) => {
 
     return (
         <>
-            {current ? (
-                <Container className="container-quiz">
-                    <h3 className="text-center  mb-2 pt-4 ">QUIZ DETAILS</h3>
-                    <div className="title-border mb-4">
-                        <span></span>
-                    </div>
-                    <div className="createquizform pb-1">
-                        <Form onSubmit={onSubmit}>
-                            <div className="row mb-2">
-                                <div className="col-sm-6">
-                                    <Form.Group controlId="quiztitle">
-                                        <Form.Label>
-                                            <b>Quiz title</b>
-                                        </Form.Label>
-                                        <Form.Control
-                                            className="quiz-inputFiled"
-                                            name="title"
-                                            value={quizLocal.title}
-                                            onChange={handleOnChange}
-                                            type=""
-                                            placeholder="Enter Title"
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div className="col-sm-6">
-                                    <Form.Group controlId="category">
-                                        <Form.Label>
-                                            <b>Select Category</b>
-                                        </Form.Label>
-                                        <Form.Group controlId="SelectRowsPerpage">
-                                            <Form.Control
-                                                as="select"
-                                                className="quiz-inputFiled"
-                                                name="category"
-                                                value={quizLocal.category}
-                                                onChange={handleOnChange}
-                                            >
-                                                <option
-                                                    className="optionSelect"
-                                                    value="quantitative analysis"
-                                                >
-                                                    Quantitative Analysis
-                                                </option>
-                                                <option
-                                                    className="optionSelect"
-                                                    value="logical reasoning"
-                                                >
-                                                    Logical Reasoning
-                                                </option>
-                                                <option
-                                                    className="optionSelect"
-                                                    value="verbal ability"
-                                                >
-                                                    Verbal Ability
-                                                </option>
-                                                <option
-                                                    className="optionSelect"
-                                                    value="other topics"
-                                                >
-                                                    Others
-                                                </option>
-                                            </Form.Control>
-                                        </Form.Group>
-                                    </Form.Group>
-                                </div>
+            {current ? (<Container className="container-quiz">
+                <h3 className="text-center  mb-2 pt-4 ">QUIZ DETAILS</h3>
+                <div className="title-border mb-4">
+                    <span></span>
+                </div>
+                <div className="createquizform pb-1">
+                    <Form onSubmit={onSubmit} >
+                        <div className="row mb-2">
+                            <div className="col-sm-6">
+                                <Form.Group controlId="quiztitle" >
+                                    <Form.Label><b>Quiz title</b></Form.Label>
+                                    <Form.Control className="quiz-inputFiled" name="title" value={quizLocal.title} onChange={handleOnChange} type="" placeholder="Enter Title" />
+                                </Form.Group>
                             </div>
-                            <div className="row mb-2">
-                                <div className="col-sm-6 responsivelabel">
-                                    <Form.Group controlId="topics">
-                                        <Form.Label>
-                                            <b>Quiz topics</b>
-                                        </Form.Label>
-                                        <Form.Control
-                                            className="quiz-inputFiled "
-                                            name="topic"
-                                            value={quizLocal.topic}
-                                            onChange={handleOnChange}
-                                            type=""
-                                            placeholder="Example: Probability, Trains..."
-                                        />
+                            <div className="col-sm-6">
+                                <Form.Group controlId="category" >
+                                    <Form.Label><b>Select Category</b></Form.Label>
+                                    <Form.Group controlId="SelectRowsPerpage">
+                                        <Form.Control as="select" className="quiz-inputFiled" name='category' value={quizLocal.category} onChange={handleOnChange} >
+                                            <option className="optionSelect" value='quantitative analysis' >Quantitative Analysis</option>
+                                            <option className="optionSelect" value='logical reasoning' >Logical Reasoning</option>
+                                            <option className="optionSelect" value='verbal ability' >Verbal Ability</option>
+                                            <option className="optionSelect" value='other topics' >Others</option>
+                                        </Form.Control>
                                     </Form.Group>
-                                </div>
-                                <div className="col-sm-6 responsivelabel">
-                                    <Form.Group controlId="duration">
-                                        <Form.Label>
-                                            <b>Duration</b>
-                                        </Form.Label>
-                                        <Form.Control
-                                            className="quiz-inputFiled quizDuration "
-                                            name="duration"
-                                            value={quizLocal.duration}
-                                            onChange={handleOnChange}
-                                            type="number"
-                                            placeholder="Minutes only"
-                                        />
-                                    </Form.Group>
-                                </div>
+                                </Form.Group>
                             </div>
-                            <hr></hr>
-                            <h3 className="text-center  mb-2 pt-2 ">
-                                ADD QUESTIONS
-                            </h3>
-                            <div className="title-border mb-3">
-                                <span></span>
-                            </div>
+                        </div>
+                        <div className="row mb-2">
+                            <div className="col-sm-6 responsivelabel">
+                                <Form.Group controlId="topics" >
+                                    <Form.Label><b>Quiz topics</b></Form.Label>
+                                    <Form.Control className="quiz-inputFiled " name="topic" value={quizLocal.topic} onChange={handleOnChange} type="" placeholder="Example: Probability, Trains..." />
+                                </Form.Group>
 
-                            {quizLocal.questions.map((ele, index) => (
-                                <QuizQuestion
-                                    key={ele._id || ele.id}
-                                    index={index}
-                                    onDeleteFunc={() =>
-                                        handleOnDelete(ele.id || ele._id)
-                                    }
-                                    onChangeFunc={(e) =>
-                                        handleOnChangeQues(e, index)
-                                    }
-                                    quesObj={ele}
-                                />
-                            ))}
-
-                            <div className="row">
-                                <div className="col-sm-6">
-                                    <Button
-                                        className="addquestbtn mb-2"
-                                        onClick={handleAddQuesClick}
-                                    >
-                                        {" "}
-                                        Add Next Question{" "}
-                                    </Button>
-                                </div>
-                                <div className="col-sm-6 text-center">
-                                    <Button
-                                        className="createquiz mb-4"
-                                        type="submit"
-                                    >
-                                        {" "}
-                                        Update Quiz
-                                    </Button>
-                                </div>
                             </div>
-                        </Form>
-                    </div>
-                </Container>
-            ) : (
-                <Spinner />
-            )}
+                            <div className="col-sm-3 responsivelabel">
+                                <Form.Group controlId="duration" >
+                                    <Form.Label><b >Duration</b></Form.Label>
+                                    <Form.Control className="quiz-inputFiled quizDuration " name="duration" value={quizLocal.duration} onChange={handleOnChange} type="number" placeholder="Minutes only" />
+                                </Form.Group>
+                            </div>
+                            <div className="col-sm-3 responsivelabel">
+                                <Form.Group controlId="weightage" >
+                                    <Form.Label><b >Weightage</b></Form.Label>
+                                    <Form.Control className="quiz-inputFiled quizDuration " name="questionWeightage" value={quizLocal.questionWeightage} onChange={handleOnChange} type="number" placeholder="Marks" />
+                                </Form.Group>
+                            </div>
+                        </div>
+                        <hr></hr>
+                        <h3 className="text-center  mb-2 pt-2 ">ADD QUESTIONS</h3>
+                        <div className="title-border mb-3">
+                            <span></span>
+                        </div>
+
+
+                        {quizLocal.questions.map((ele, index) => <QuizQuestion
+                            key={ele._id || ele.id}
+                            index={index}
+                            onDeleteFunc={() => handleOnDelete(ele.id || ele._id)}
+                            onChangeFunc={(e) => handleOnChangeQues(e, index)}
+                            quesObj={ele}
+                        />
+                        )}
+
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <Button className="addquestbtn mb-2" onClick={handleAddQuesClick} > Add Next Question  </Button>
+                            </div>
+                            <div className="col-sm-6 text-center">
+                                <Button className="createquiz mb-4" type="submit" > Update Quiz</Button>
+                            </div>
+                        </div>
+                    </Form>
+                </div>
+            </Container>) : <Spinner />
+            }
         </>
     );
 };

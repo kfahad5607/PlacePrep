@@ -1,18 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const authController = require('../controllers/authController');
+const onlineJudgeController = require('../controllers/onlineJudgeController');
 const solutionTesterC = require('../onlineJudge/tester/solutionTesterC');
 const solutionTesterPython = require('../onlineJudge/tester/solutionTesterPython');
 const solutionTesterCPP = require('../onlineJudge/tester/solutionTesterCPP');
 const solutionTesterJava = require('../onlineJudge/tester/solutionTesterJava');
 
-router.get('/', async (req, res) => {
+router.use(authController.protect);
 
-    let ser = "['serv', 'serv2', 'srv3', 'serv5']";
-    let ser1 = '[ "[1,2,3]",   [5,6,5,"k",8], [78,87,   12,45,23]       ]';
+router
+    .route('/runcode')
+    .post(onlineJudgeController.runCode);
 
-    console.log(typeof { name: 'fahad', age: 21 } === typeof [1, 23]);
-    res.send('Testing Routes');
-});
+router
+    .route('/submitcode/:id')
+    .post(onlineJudgeController.submitCode);
+
 
 // c cpp python java
 let lang = 'python';
