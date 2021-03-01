@@ -11,13 +11,14 @@ const CodeSubmission = require('../models/codeSubmissionModel');
 exports.createQuestion = catchAsync(async (req, res, next) => {
     let slug = slugify(req.body.title, { lower: true });
 
-    fs.mkdirSync(`onlineJudge/codeQuestions/${slug}`);
-    fs.writeFileSync(`onlineJudge/codeQuestions/${slug}/testcase.txt`, remove_linebreaks(req.body.testcases));
-
     req.body.author = req.user._id;
     // Adding slug
     req.body.slug = slug;
     const question = await Question.create(req.body);
+
+    fs.mkdirSync(`onlineJudge/codeQuestions/${slug}`);
+    fs.writeFileSync(`onlineJudge/codeQuestions/${slug}/testcase.txt`, remove_linebreaks(req.body.testcases));
+
 
     res.status(201).json({
         status: 'success',

@@ -1,7 +1,7 @@
 import React from "react";
 
 const DashboardCard = (props) => {
-    const { title, text, imgSrc } = props;
+    const { title, text, imgSrc, btnType } = props;
     return (
         <div className="col-md-4 pb-4">
             <div className="card cardP">
@@ -14,7 +14,7 @@ const DashboardCard = (props) => {
                     <h5 className="card-title text-center">{title}</h5>
                     <p className="card-text text-center">{text}</p>
                     <div className="text-center">
-                        <a href="#" className="btn btn-primary setting pbtnQ ">
+                        <a href="#" className={`btn btn-primary setting ${btnType} `}>
                             Lets Practice
                         </a>
                     </div>
