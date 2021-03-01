@@ -33,13 +33,7 @@ const CreateCodeQuestion = (props) => {
     });
     const [lastId, setLastId] = useState(0);
     const [clickSubmit, setClickSubmit] = useState(false);
-    const [sampleArray, setSampleArray] = useState([
-        {
-            id: 0,
-            sampleInput: "",
-            sampleOutput: "",
-        },
-    ]);
+    const [sampleArray, setSampleArray] = useState([]);
 
     useEffect(() => {
         if (props.match.path.includes("editCodeQuestion")) {
@@ -125,7 +119,8 @@ const CreateCodeQuestion = (props) => {
         if (
             codeQuestion.title === "" ||
             codeQuestion.description === "" ||
-            codeQuestion.testcases === ""
+            codeQuestion.testcases === "" ||
+            codeQuestion.noOfInputs === ""
         ) {
             setAlert("Please enter all fields", "danger");
         } else {
@@ -255,7 +250,7 @@ const CreateCodeQuestion = (props) => {
                             onClick={handleAddSampleClick}
                         >
                             {" "}
-                            Add More Samples{" "}
+                            Add Examples{" "}
                         </Button>
                     </div>
                     <hr></hr>
@@ -305,7 +300,7 @@ const CreateCodeQuestion = (props) => {
                         </div>
                         <div className="col-sm-4">
                             <Form.Group controlId="noOfInputs" >
-                                <Form.Control className="quiz-inputFiled quizDuration" name="noOfInputs" value={codeQuestion.noOfInputs} onChange={handleOnChange} type="number" placeholder="Minutes only" />
+                                <Form.Control className="quiz-inputFiled quizDuration" name="noOfInputs" value={codeQuestion.noOfInputs} onChange={handleOnChange} type="number" placeholder="" />
                             </Form.Group>
                         </div>
                         <div className="col-sm-2 pt-1 difflabel">

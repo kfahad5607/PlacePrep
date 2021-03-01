@@ -1,7 +1,7 @@
 import React from "react";
 
 const DashboardCard = (props) => {
-    const { title, text, imgSrc, btnType } = props;
+    const { title, text, imgSrc, btnType,role } = props;
     return (
         <div className="col-md-4 pb-4">
             <div className="card cardP">
@@ -15,7 +15,7 @@ const DashboardCard = (props) => {
                     <p className="card-text text-center">{text}</p>
                     <div className="text-center">
                         <a href="#" className={`btn btn-primary setting ${btnType} `}>
-                            Lets Practice
+                            {role==="student" ? "Lets Practice" : "View Questions"}
                         </a>
                     </div>
                 </div>

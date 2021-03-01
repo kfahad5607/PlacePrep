@@ -14,6 +14,8 @@ router.get('/logout', authController.logout);
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
 
+router.route('/getDetails').get(authController.protect, userController.getDetails);
+
 router.get('/users', authController.protect, authController.restrictTo('admin', 'faculty'), userController.getAllUsers);
 router.get('/me', authController.protect, userController.getMe, userController.getUser);
 router.patch('/updateMe', authController.protect, userController.uploadUserPhoto, userController.resizeUserPhoto, userController.updateMe);
