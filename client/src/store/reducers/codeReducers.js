@@ -73,6 +73,9 @@ const reducer = (state = initialState, action) => {
                 questions: state.questions.filter(
                     (qsn) => qsn._id !== action.payload
                 ),
+                filtered: state.filtered.filter(
+                    (qsn) => qsn._id !== action.payload
+                ),
                 loading: false,
             };
         case RUN_CODE:

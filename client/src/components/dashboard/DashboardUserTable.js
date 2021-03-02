@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import Pagination from "../code/Pagination";
 import paginate from "../code/paginate";
 import _ from "lodash";
@@ -33,6 +33,7 @@ const DashboardUserTable = (props) => {
 			text.current = "";
 			clearUserFilter();
 		}
+		//eslint-disable-next-line
 	}, [filteredUsers]);
 
 	const onchange = (e) => {
@@ -99,7 +100,7 @@ const DashboardUserTable = (props) => {
 						<span></span>
 					</div>
 					<div className="row">
-						<div className="col-12 pb-2">
+						<div className="col-10 pb-2">
 							<Form>
 								<Form.Group controlId="codingquestionSearch">
 									<Form.Control
@@ -111,6 +112,9 @@ const DashboardUserTable = (props) => {
 									/>
 								</Form.Group>
 							</Form>
+						</div>
+						<div className="col-2 pb-2">
+							<Button>Create</Button>
 						</div>
 					</div>
 					<div className="table-responsive ">
@@ -140,55 +144,59 @@ const DashboardUserTable = (props) => {
 										</th>
 										<td className="pad-td">{currentUser.name}</td>
 										<td className="pad-td">{currentUser.email}</td>
-										<td>
-											<Form>
-												<Form.Group controlId="SelectRole">
-													<Form.Control
-														as="select"
-														name="pageSize"
-														className="roledrop"
-														value={currentUser.role}
-														onChange={(e) =>
-															handleOnChangeRole(
-																e,
-																currentUser._id
-															)
-														}
-													>
-														<option
-															value="student"
-															className="optionSelect"
+										{user.role === "admin" ? (
+											<td>
+												<Form>
+													<Form.Group controlId="SelectRole">
+														<Form.Control
+															as="select"
+															name="pageSize"
+															className="roledrop"
+															value={currentUser.role}
+															onChange={(e) =>
+																handleOnChangeRole(
+																	e,
+																	currentUser._id
+																)
+															}
 														>
-															Student{" "}
-														</option>
-														<option
-															value="faculty"
-															className="optionSelect"
-														>
-															{" "}
-															Faculty
-														</option>
-														<option
-															value="admin"
-															className="optionSelect"
-														>
-															Admin{" "}
-														</option>
-													</Form.Control>
-												</Form.Group>
-											</Form>
-										</td>
+															<option
+																value="student"
+																className="optionSelect"
+															>
+																Student{" "}
+															</option>
+															<option
+																value="faculty"
+																className="optionSelect"
+															>
+																{" "}
+																Faculty
+															</option>
+															<option
+																value="admin"
+																className="optionSelect"
+															>
+																Admin{" "}
+															</option>
+														</Form.Control>
+													</Form.Group>
+												</Form>
+											</td>
+										) : (
+											<td className="pad-td">{currentUser.role}</td>
+										)}
 										{user.role === "admin" && (
 											<td>
 												<span>
 													<a
 														className="fa fa-trash operation-D pt-2"
 														aria-hidden="true"
-														href="#"
+														href="#!"
 														onClick={() =>
 															deleteUser(currentUser._id)
 														}
-													></a>
+													> </a>
 												</span>
 											</td>
 										)}

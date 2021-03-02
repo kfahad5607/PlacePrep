@@ -120,12 +120,18 @@ const reducer = (state = initialState, action) => {
                 allUsers: state.allUsers?.map((User) =>
                     User._id === action.payload._id ? action.payload : User
                 ),
+                filteredUsers: state.filteredUsers?.map((User) =>
+                    User._id === action.payload._id ? action.payload : User
+                ),
                 loading: false,
             };
         case DELETE_USER:
             return {
                 ...state,
                 allUsers: state.allUsers.filter(
+                    (user) => user._id !== action.payload
+                ),
+                filteredUsers: state.filteredUsers.filter(
                     (user) => user._id !== action.payload
                 ),
                 loading: false,

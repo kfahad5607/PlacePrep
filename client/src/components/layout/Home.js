@@ -31,7 +31,7 @@ const Home = () => {
     return (
         <>
             <Navbar onClick={() => toggleSidebarBtn()} />
-            <div style={{ display: "flex", height: "100vh" }}>
+            <div style={{ display: "flex", position: "relative", top: "72px" }}>
                 <SideBar sidebarOpen={sidebarOpen} onClick={() => toggleSidebarBtn()} />
                 <div className={"mainview-container " + (!sidebarOpen && 'remove-margin')}>
                     <Switch>

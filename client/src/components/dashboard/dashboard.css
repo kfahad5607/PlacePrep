@@ -100,9 +100,10 @@ h6 {
 }
 
 .roledrop:focus {
-    border: none !important;
-    box-shadow: 0 -3px 0px #775ecf inset, 0px 0 0 white !important;
+    border: 1px solid #ced4da !important;
+    color: black;
     outline: 0 none;
+    box-shadow: none !important;
 }
 
 .pad-td {

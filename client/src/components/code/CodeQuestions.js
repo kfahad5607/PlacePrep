@@ -36,6 +36,7 @@ const CodeQuestions = (props) => {
             text.current = "";
             clearFilter();
         }
+        //eslint-disable-next-line
     }, [filtered]);
 
     const onchange = (e) => {
