@@ -126,6 +126,8 @@ exports.deleteQuestion = catchAsync(async (req, res, next) => {
         return next(new AppError('No coding question found with that ID.', 404));
     }
 
+    await CodeSubmission.deleteMany({ question: req.params.id})
+
     // Deletes the question folder
     rimraf.sync(`onlineJudge/codeQuestions/${question.slug}`);
 
