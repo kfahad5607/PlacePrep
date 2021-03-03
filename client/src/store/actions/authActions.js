@@ -9,8 +9,8 @@ import {
     AUTH_ERROR,
     SET_USER_NULL,
     UPDATE_ME,
-    UPDATE_ERROR
-    // CLEAR_ERRORS,
+    UPDATE_ERROR,
+    CLEAR_AUTH_ERRORS,
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -123,6 +123,9 @@ export const updateMe = (data, type) => async dispatch => {
         });
     }
 };
+
+
+export const clearErrors = () => ({ type: CLEAR_AUTH_ERRORS});
 
 export const forgotPassword = (email) => async dispatch => {
     try {

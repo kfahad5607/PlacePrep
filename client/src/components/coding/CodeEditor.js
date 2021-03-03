@@ -19,17 +19,22 @@ import {
     submitCode,
     resetCode,
 } from "../../store/actions/codeActions";
+import RunCodeSuccess from './RunCodeSuccess';
+import RunCodeFail from './RunCodeFail';
+import SubmitCodeSuccess from './SubmitCodeSuccess';
 
 // require("codemirror/addon/scroll/simplescrollbars.js");
 
 const CodeEditor = (props) => {
-    const { runCode, submitCode, resetCode } = props;
+    const { auth: { user }, code: { userCode, runSubmit }, runCode, submitCode, resetCode } = props;
 
     const [editorSelect, setEditorSelect] = useState({
         lang: "text/x-csrc",
         theme: "material",
         mime: "text/x-csrc",
     });
+
+    const [showConsole, setShowConsole] = useState(false);
     const [code, setCode] = useState("");
     const handleOnChange = (e) => {
         let selectedMime = e.target.selectedOptions[0].getAttribute(
@@ -57,6 +62,16 @@ const CodeEditor = (props) => {
     //     setCode(value)
 
     // }
+    const handleOnRun = () => {
+        setShowConsole(true);
+        runCode({ code, lang: editorSelect.lang, slug: props.slugProp, noOfInputs: props.inputs });
+    };
+
+
+    const handleOnSubmit = () => {
+        setShowConsole(true);
+        submitCode({ code, lang: editorSelect.lang, slug: props.slugProp, noOfInputs: props.inputs }, props.quesId);
+    };
 
     const handleOnChangeCode = (editor, data, newCode) => {
         setCode(newCode);
@@ -123,17 +138,29 @@ const CodeEditor = (props) => {
                     </Button>
                 </div>
                 <div className="editor-actions">
-                    <Button className="button run-code-btn" onClick={() => runCode(code)}>
+                    <Button className="button run-code-btn" onClick={handleOnRun}>
                         <i className="fa fa-play" aria-hidden="true"></i>
                         <span>Run Code</span>
                     </Button>
-                    <Button className="button submit-code-btn" onClick={() => submitCode(code)}>Submit</Button>
+                    {user?.role === 'student' && <Button className="button submit-code-btn" onClick={handleOnSubmit}>Submit</Button>}
                 </div>
             </div>
-            <div className="console-container">
-                <pre>
-                    <Alert variant="success">Run Code Result: Success!</Alert>
-                </pre>
+            <div className="console-container" style={{ display: `${showConsole ? 'block' : 'none'}` }}>
+                {userCode ? (
+                    <div style={{ padding: '20px', backgroundColor: 'aliceblue' }} >
+                        {userCode.error ? (
+                            <RunCodeFail userCodeObj={userCode} />
+                        )
+                            : (
+                                runSubmit === 'run' ? <RunCodeSuccess userCodeObj={userCode} />
+                                    : <SubmitCodeSuccess userCodeObj={userCode} />
+
+                            )
+                        }
+                    </div>
+
+                )
+                    : <h4>Processing...</h4>}
             </div>
         </Fragment>
     );
@@ -141,6 +168,7 @@ const CodeEditor = (props) => {
 
 const mapStateToProps = (state) => ({
     code: state.code,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { runCode, submitCode, resetCode })(

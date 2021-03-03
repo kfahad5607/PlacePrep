@@ -13,26 +13,25 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
 
             exec(`javac ${file}`, function (err, stdout, stderr) {
                 if (err) {
-                   //  console.log(err);
-                    reject(stderr);
+                    let newStderr = stderr.replace(/onlineJudge\\temp\\user-.*\\solution/gm, 'main');
+
+                    reject(newStderr);
                 }
                 resolve();
-            })
-        })
+            });
+        });
     } catch (err) {
         return {
-            message: 'Error occured at Catch at compile time',
-            error: err
+            message: 'code error',
+            error: err,
+            errorType: 'Compile-time Error'
         };
 
     }
     let results = [];
     const data = fs.readFileSync(testcaseFile, { encoding: 'utf8', flag: 'r' });
     let testcases = data.split('\n');
-    // console.log('tt', typeof testcases[0]);
-    // console.log('tt1', testcases);
 
-    // console.log("ERROR K BADDD");
     let i;
     for (i = 0; i < testcases.length; i = i + noOfInputs + 1) {
         let inputArr = [];
@@ -50,7 +49,6 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
                 // New way to convert input string to an array
                 let strToArrInput = JSON.parse(trimmedTestcaseInput);
                 if (is2dArray(strToArrInput)) {
-                    // console.log('2d array', strToArrInput);
                     inputArr.push(strToArrInput.length);
                     inputArr.push(strToArrInput[0].length);
                     strToArrInput.forEach(arr => {
@@ -60,7 +58,6 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
                 else {
                     inputArr.push(strToArrInput.length);
                     inputArr = inputArr.concat(strToArrInput);
-                    // console.log('Its an array', inputArr, strToArrInput);
                 }
             }
             else {
@@ -68,7 +65,6 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
             }
         }
         let inputStr = inputArr.join('\n');
-        //console.log('instrr', inputStr, ' end', inputArr);
         fs.writeFileSync('./onlineJudge/input.txt', inputStr);
 
         try {
@@ -76,8 +72,9 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
             const info = await new Promise((resolve, reject) => {
                 exec(`java -cp ${classPath} solution < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
                     if (err) {
-                        //console.log('err1', stderr, 'end');
-                        reject(stderr);
+                        let newStderr = stderr.replace(/onlineJudge\\temp\\user-.*\\solution/gm, 'main');
+
+                        reject(newStderr);
                     }
                     else if (stdout) {
                         let trimmedStdout = remove_linebreaks(stdout);
@@ -94,9 +91,7 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
                                     if (is2dArray(strToArrTestcaseOutput)) {
                                         let oneDArrStdout = from2dTo1dArr(strToArrStdout);
                                         let oneDArrTestcaseOutput = from2dTo1dArr(strToArrTestcaseOutput);
-                                        // console.log('std 2d array', oneDArrStdout);
-                                        // console.log('test 2d array', oneDArrTestcaseOutput);
-                                       //  console.log('test ', arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
+
                                         resolve(arraysEqual(oneDArrStdout, oneDArrTestcaseOutput));
                                     }
                                     else {
@@ -104,10 +99,6 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
                                     }
                                 }
                                 else {
-                                  //   console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                                   //  console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
-                                   //  console.log(`output and testcase arraya -> `, strToArrStdout, ' and ', strToArrTestcaseOutput);
-                                    // console.log('array equals', arraysEqual(strToArrStdout, strToArrTestcaseOutput));
                                     resolve(arraysEqual(strToArrStdout, strToArrTestcaseOutput));
                                 }
                             }
@@ -117,11 +108,6 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
                         }
                         else {
                             // Old code
-                            //results.push(trimmedStdout == trimmedTestcaseOutput);
-                           //  console.log(`Output no. ${i} -> ${trimmedStdout} `);
-                           //  console.log(`Testcase no. ${i} -> ${trimmedTestcaseOutput} `);
-                            // console.log(`Result no. ${i} -> ${trimmedStdout == trimmedTestcaseOutput} `);
-                            // console.log(`Result no. ${i} -> `, temp);
                             resolve(trimmedStdout == trimmedTestcaseOutput);
 
                         }
@@ -141,17 +127,15 @@ const testCodeJava = async (file, testcaseFile, noOfInputs) => {
                 };
             }
             results.push(info);
-           //  console.log('Info = ', info);
-
         } catch (err) {
             return {
-                message: 'Error occured at Catch Block',
-                error: err
+                message: 'code error',
+                error: err,
+                errorType: 'Runtime Error'
             };
         }
     }
 
-    //console.log('res', results);
     let finalResults = {
         message: 'success',
         totalTestcasesRan: results.length,

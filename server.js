@@ -13,7 +13,7 @@ const app = require("./app");
 
 // const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 const DB = process.env.DATABASE_LOCAL;
-
+console.log(process.env.DATABASE_LOCAL)
 mongoose
     .connect(process.env.DATABASE_LOCAL, {   //local database k liye 
     // .connect(DB, {

@@ -7,7 +7,7 @@ import {
     filterQuestions,
     clearFilter,
 } from "../../store/actions/codeActions";
-import CodeTableRow from "./CodeTableRow";
+import CodeTableRow from "./codeTableRow";
 import Spinner from "../layout/Spinner";
 import Pagination from "./Pagination";
 import paginate from "./paginate";
@@ -110,8 +110,10 @@ const CodeQuestions = (props) => {
                                 </Form>
                             </div>
                         </div>
-                        <div className="table-responsive">
-                            <table className="table ">
+
+                        <div className='table-responsive' >
+                            <table className="table">
+
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -128,7 +130,7 @@ const CodeQuestions = (props) => {
                                         >
                                             Difficulty
                                     </th>
-                                        <th scope="col">Acceptance</th>
+                                        <th scope="col">{user?.role === 'student' ? 'Author' : 'Submissions'}</th>
                                         {(user?.role === 'faculty' || user?.role === 'admin') && <th scope="col">Operations</th>}
                                     </tr>
                                 </thead>

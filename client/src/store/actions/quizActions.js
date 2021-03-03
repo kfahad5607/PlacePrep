@@ -24,7 +24,7 @@ export const getQuizzes = () => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -51,7 +51,7 @@ export const getQuiz = (slug) => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -74,10 +74,10 @@ export const addQuiz = (quiz) => async (dispatch) => {
         });
     }
     catch (err) {
-        console.log('err', err.response);
+        console.log('err', err?.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -104,7 +104,7 @@ export const updateQuiz = (quiz) => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -125,7 +125,7 @@ export const deleteQuiz = (id) => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -146,7 +146,7 @@ export const deleteQuizQuestion = (id) => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -178,7 +178,7 @@ export const startQuiz = (id) => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -203,7 +203,7 @@ export const submitQuiz = (id, userQuiz) => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -229,7 +229,7 @@ export const getQuizSubmissions = (queryObj) => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -249,7 +249,7 @@ export const getQuizSubmission = (id) => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     }
 };
@@ -269,7 +269,26 @@ export const deleteQuizSubmission = (id) => async (dispatch) => {
         console.log('err', err.response);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
-            payload: err.response.data.message
+            payload: err.response.data.message || err.response.data.error
         });
     };
+};
+
+export const clearQuizErrors = () => ({ type: actionTypes.CLEAR_QUIZ_ERRORS});
+
+export const filterQuizSubmissions = (query, isStudent) => (dispatch) => {
+    console.log('iss', isStudent);
+    dispatch({
+        type: actionTypes.FILTER_QUIZ_SUBMISSIONS,
+        payload: {
+            query,
+            isStudent
+        }
+    });
+};
+
+export const clearFilterQuizSub = () => (dispatch) => {
+    dispatch({
+        type: actionTypes.CLEAR_FILTER_QUIZ_SUBMISSIONS
+    });
 };

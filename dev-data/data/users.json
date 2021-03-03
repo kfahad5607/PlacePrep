@@ -1,0 +1,82 @@
+[
+    {
+        "name": "admin",
+        "email": "admin@gmail.com",
+        "role": "admin",
+        "active": true,
+        "photo": "user-1.jpg",
+        "password": "test1234"
+    },
+    {
+        "name": "Shaibaz Ansari",
+        "email": "shaibaz@gmail.com",
+        "role": "faculty",
+        "active": true,
+        "photo": "user-2.jpg",
+        "password": "test1234"
+    },
+    {
+        "name": "fahad Khan",
+        "email": "fahad@gmail.com",
+        "role": "faculty",
+        "active": true,
+        "photo": "user-3.jpg",
+        "password": "test1234"
+    },
+    {
+        "name": "Salman Khan",
+        "email": "salman@gmail.com",
+        "role": "faculty",
+        "active": true,
+        "photo": "user-4.jpg",
+        "password": "test1234"
+    },
+    {
+        "name": "Faiz Ansari",
+        "email": "faiz@gmail.com",
+        "role": "student",
+        "active": true,
+        "photo": "user-5.jpg",
+        "password": "test1234"
+    },
+    {
+        "name": "Gokul Nair",
+        "email": "gokul@gmail.com",
+        "role": "student",
+        "active": true,
+        "photo": "user-6.jpg",
+        "password": "test1234"
+    },
+    {
+        "name": "Maaz Nonsola",
+        "email": "maaz@gmail.com",
+        "role": "student",
+        "active": true,
+        "photo": "user-7.jpg",
+        "password": "test1234"
+    },
+    {
+        "name": "Nadeem Mansuri",
+        "email": "nadeem@gmail.com",
+        "role": "student",
+        "active": true,
+        "photo": "user-8.jpg",
+        "password": "test1234"
+    },
+    {
+        "name": "Ashish Panda",
+        "email": "ashish@gmail.com",
+        "role": "student",
+        "active": true,
+        "photo": "user-9.jpg",
+        "password": "test1234"
+    },
+    {
+        "name": "Ali Patel",
+        "email": "ali@gmail.com",
+        "role": "student",
+        "active": true,
+        "photo": "user-10.jpg",
+        "password": "test1234"
+    }
+]

@@ -1,3 +1,80 @@
+.cardPie {
+    border: none;
+    box-shadow: 1px 0px 2px 1px rgb(190, 195, 197);
+}
+
+.easyIndicator {
+    background-color: #5cb85c;
+    color: white;
+    width: 150px;
+}
+
+.mediumIndicator {
+    background-color: #f0ad4e;
+    color: white;
+    width: 150px;
+}
+
+.hardIndicator {
+    background-color: #d8091c;
+    color: white;
+    width: 150px;
+}
+
+.inlineParent {
+    padding-left: 50px;
+    padding-top: 80px;
+}
+
+.inline {
+    padding-right: 30px;
+    float: left;
+}
+
+@media (max-width: 1200px) and (min-width:991px) {
+    .easyIndicator, .mediumIndicator, .hardIndicator {
+        width: 130px;
+    }
+}
+
+@media (max-width: 991px) and (min-width:767px) {
+    /* .easyIndicator, .mediumIndicator, .hardIndicator { */
+    .inlineParent {
+        padding-left: 0px;
+        padding-top: 30px;
+    }
+    .inline {
+        float: none;
+        padding-top: 10px;
+        padding-right: 0px;
+    }
+    .easyIndicator, .mediumIndicator, .hardIndicator {
+        width: 200px;
+    }
+}
+
+@media (max-width :767px) and (min-width:375px) {
+    .inlineParent {
+        padding-top: 10px;
+        padding-left: 15px;
+    }
+    .inline {
+        float: none;
+        padding-top: 10px;
+        padding-right: 0px;
+    }
+    .easyIndicator, .mediumIndicator, .hardIndicator {
+        width: 200px;
+    }
+}
+
+@media (max-width:375px) and (min-width:300px) {
+    .inlineParent {
+        padding-top: 5px;
+        /* padding */
+    }
+}
+
 .cardHeader1 {
     background-color: #775ecf;
     border-bottom: none;

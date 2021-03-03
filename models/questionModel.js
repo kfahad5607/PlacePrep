@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const questionSchema = new mongoose.Schema({
+    author: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    },
     title: {
         type: String,
         required: true,
@@ -25,16 +29,23 @@ const questionSchema = new mongoose.Schema({
             message: 'Difficulty is either: 10, 20, 30'
         }
     },
-    sampleInputs: [{
-        id: Number,
-        sampleInput: String,
-        sampleOutput: String
-    }],
+    // sampleInputs: [{
+    //     id: Number,
+    //     sampleInput: String,
+    //     sampleOutput: String
+    // }],
+    sampleInputs: {
+        type: [Object]
+    },
     testcases: String,
-    solution: { type: [String] },
+    solution: { type: String },
     hint: {
         type: [String]
     },
+    noOfInputs: {
+        type: Number,
+        required: [true, 'A question must have number of inputs.'],
+    }
     // javaMain: {
     //     type: String,
     //     default: 'java psvm'
@@ -54,10 +65,10 @@ const questionSchema = new mongoose.Schema({
 
 });
 
-questionSchema.pre('save', function(next) {
-    this.slug = slugify(this.title, { lower: true });
-    next();
-});
+// questionSchema.pre('save', function (next) {
+//     this.slug = slugify(this.title, { lower: true });
+//     next();
+// });
 
 const Question = mongoose.model('Question', questionSchema);
 
