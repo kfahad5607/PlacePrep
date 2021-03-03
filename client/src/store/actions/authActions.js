@@ -35,6 +35,7 @@ export const loadUser = (verified = false, startCheck = false) => async (dispatc
                 payload: res.data.data,
             });
         } catch (err) {
+            console.log(err.response)
             if (!startCheck) {
                 dispatch({
                     type: AUTH_ERROR,

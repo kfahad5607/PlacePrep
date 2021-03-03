@@ -20,6 +20,7 @@ import AddTopics from '../practiceProblems/AddTopics';
 import EditPracticeProblem from '../practiceProblems/EditPracticeProblem';
 import { Route, Switch } from "react-router-dom";
 import Dashboard from '../dashboard/Dashboard';
+import UserTable from '../dashboard/UserTable';
 
 const Home = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -37,6 +38,7 @@ const Home = () => {
                     <Switch>
                         <Route exact path="/" component={Dashboard} />
                         <Route path="/me" component={UserProfile} />
+                        <Route path="/users" component={UserTable} />
                         <Route path="/createQuiz" component={CreateQuiz} />
                         <Route path="/codeQuestions" component={CodeQuestions} />
                         <Route path="/createCodeQuestion" component={CreateCodeQuestion} />

@@ -128,12 +128,12 @@ const reducer = (state = initialState, action) => {
         case DELETE_USER:
             return {
                 ...state,
-                allUsers: state.allUsers.filter(
+                allUsers: state.allUsers?.filter(
                     (user) => user._id !== action.payload
                 ),
-                filteredUsers: state.filteredUsers.filter(
+                filteredUsers: state.filteredUsers ? state.filteredUsers.filter(
                     (user) => user._id !== action.payload
-                ),
+                ) : null,
                 loading: false,
             };
         default:

@@ -20,7 +20,7 @@ const Navbars = (props) => {
                 <span className='user-name'>Hello {user && user.name.split(' ')[0]}</span>
             </span>
             <span className="logout-div">
-                <a href="!#" onClick={onlogout}>
+                <a href="#" onClick={onlogout}>
                     <i className="fa fa-sign-out" aria-hidden="true"></i>
                     <span className="hide-sm"> Logout</span>
                 </a>

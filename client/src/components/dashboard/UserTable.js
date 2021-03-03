@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import Pagination from "../code/Pagination";
 import paginate from "../code/paginate";
 import _ from "lodash";
@@ -11,7 +11,7 @@ import {
 	updateUser,
 } from "../../store/actions/authActions";
 
-const DashboardUserTable = (props) => {
+const UserTable = (props) => {
 	const {
 		auth: { user, allUsers, filteredUsers },
 		filterUsers,
@@ -94,7 +94,7 @@ const DashboardUserTable = (props) => {
 	return (
 		<Fragment>
 			{allUsers !== null && (
-				<>
+				<Container className="container-user">
 					<h3 className="text-center mb-2 pt-3 ">USERS</h3>
 					<div className="title-border mb-4">
 						<span></span>
@@ -145,7 +145,7 @@ const DashboardUserTable = (props) => {
 										<td className="pad-td">{currentUser.name}</td>
 										<td className="pad-td">{currentUser.email}</td>
 										{user.role === "admin" ? (
-											<td>
+											<td >
 												<Form>
 													<Form.Group controlId="SelectRole">
 														<Form.Control
@@ -196,7 +196,9 @@ const DashboardUserTable = (props) => {
 														onClick={() =>
 															deleteUser(currentUser._id)
 														}
-													> </a>
+													>
+														{" "}
+													</a>
 												</span>
 											</td>
 										)}
@@ -243,7 +245,7 @@ const DashboardUserTable = (props) => {
 							onPageChange={handlePageChange}
 						/>
 					</div>
-				</>
+				</Container>
 			)}
 		</Fragment>
 	);
@@ -258,4 +260,4 @@ export default connect(mapStateToProps, {
 	clearUserFilter,
 	updateUser,
 	deleteUser,
-})(DashboardUserTable);
+})(UserTable);

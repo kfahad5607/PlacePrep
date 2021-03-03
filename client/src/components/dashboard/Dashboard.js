@@ -36,14 +36,14 @@ const Dashboard = (props) => {
 									<div className="card-footer cardFooter ">
 										<span className="footerInfo ">
 											{user.role === "student" ? (
-												<span>
+												<b>
 													{" "}
 													Attempted : {
 														details.quizSubmissions
 													} / {details.quizzes}
-												</span>
+												</b>
 											) : (
-												<span> Total : {details.quizzes}</span>
+												<b> Total : {details.quizzes}</b>
 											)}
 										</span>
 										<button
@@ -65,14 +65,14 @@ const Dashboard = (props) => {
 									<div className="card-footer cardFooter ">
 										<span className="footerInfo ">
 											{user.role === "student" ? (
-												<span>
+												<b>
 													{" "}
 													Attempted : {
 														details.codeSubmissions
 													} / {details.questions}
-												</span>
+												</b>
 											) : (
-												<span> Total : {details.questions}</span>
+												<b> Total : {details.questions}</b>
 											)}
 										</span>
 										<button
@@ -110,11 +110,6 @@ const Dashboard = (props) => {
 								role={user.role}
 							/>
 						</div>
-
-						{/* tablestarts here */}
-						{(user.role === "faculty" || user.role === "admin") && (
-							<DashboardUserTable />
-						)}
 					</div>
 				</Container>
 			) : (

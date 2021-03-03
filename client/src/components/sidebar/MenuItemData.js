@@ -2,6 +2,7 @@
 export const admin = [
     { name: 'Dashboard', to: '/', icon: 'fa fa-tachometer', subMenuItems: [] },
     { name: 'My Profile', to: '/me', icon: 'fa fa-tachometer', subMenuItems: [] },
+    { name: 'Users', to: '/users', icon: 'fa fa-tachometer', subMenuItems: [] },
     { name: 'Create a quiz', to: '/createQuiz', icon: 'fa fa-ticket', subMenuItems: [] },
     { name: 'Coding Questions', to: '/codeQuestions', icon: 'fa fa-ticket', subMenuItems: [] },
     { name: 'Create code question', to: '/createCodeQuestion', icon: 'fa fa-ticket', subMenuItems: [] },
