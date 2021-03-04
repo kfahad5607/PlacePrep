@@ -94,13 +94,16 @@ const reducer = (state = initialState, action) => {
                 questions: state.questions?.map((qsn) =>
                     qsn._id === action.payload._id ? action.payload : qsn
                 ),
+                filtered: state.filtered ? state.filtered.map((qsn) =>
+                    qsn._id === action.payload._id ? action.payload : qsn
+                ) : null,
                 current: action.payload,
                 loading: false,
             };
         case DELETE_CODE_QUESTION:
             return {
                 ...state,
-                questions: state.questions.filter(
+                questions: state.questions?.filter(
                     (qsn) => qsn._id !== action.payload
                 ),
                 filtered: state.filtered ? state.filtered.filter(
@@ -183,6 +186,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 submissions: state.submissions.filter(ele => ele._id !== action.payload),
+                filteredSubmissions: state.filteredSubmissions?.filter(ele => ele._id !== action.payload),
                 loading: false
             };
         case FILTER_CODE_SUBMISSIONS:

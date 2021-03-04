@@ -28,8 +28,7 @@ const UserProfile = (props) => {
                 photo: "",
             });
         }
-
-        // eslint-disable-next-line
+        //eslint-disable-next-line
     }, []);
 
     const handleOnChange = (e) => {

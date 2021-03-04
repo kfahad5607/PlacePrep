@@ -70,6 +70,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 quizzes: state.quizzes?.map((ele) => ele._id === action.payload._id ? action.payload : ele),
+                filtered: state.filtered?.map((ele) => ele._id === action.payload._id ? action.payload : ele),
                 current: action.payload,
                 loading: false
             };
@@ -78,6 +79,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 quizzes: state.quizzes.filter(ele => ele._id !== action.payload),
+                filtered: state.filtered?.filter(ele => ele._id !== action.payload),
                 loading: false
             };
 
@@ -133,6 +135,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 submissions: state.submissions.filter(ele => ele._id !== action.payload),
+                filteredSubmissions: state.filteredSubmissions?.filter(ele => ele._id !== action.payload),
                 loading: false
             };
         case actionTypes.CLEAR_QUIZ_ERRORS:

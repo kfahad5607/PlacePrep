@@ -1,120 +1,214 @@
+.cardPie {
+	border: none;
+	box-shadow: 1px 0px 2px 1px rgb(190, 195, 197);
+}
+
+.pieHeader {
+	background-color: #ec8b8beb;
+	border-bottom: none;
+	padding: 0.89rem;
+}
+
+.easyIndicator {
+	background-color: #5cb85c;
+	color: white;
+	width: 150px;
+}
+
+.mediumIndicator {
+	background-color: #f0ad4e;
+	color: white;
+	width: 150px;
+}
+
+.hardIndicator {
+	background-color: #d8091c;
+	color: white;
+	width: 150px;
+}
+
+.inlineParent {
+	padding-left: 50px;
+	padding-top: 80px;
+}
+
+.inline {
+	padding-right: 30px;
+	float: left;
+}
+
+@media (max-width: 1200px) and (min-width: 991px) {
+	.easyIndicator,
+	.mediumIndicator,
+	.hardIndicator {
+		width: 130px;
+	}
+}
+
+@media (max-width: 991px) and (min-width: 767px) {
+	/* .easyIndicator, .mediumIndicator, .hardIndicator { */
+	.inlineParent {
+		padding-left: 0px;
+		padding-top: 30px;
+	}
+	.inline {
+		float: none;
+		padding-top: 10px;
+		padding-right: 0px;
+	}
+	.easyIndicator,
+	.mediumIndicator,
+	.hardIndicator {
+		width: 200px;
+	}
+}
+
+@media (max-width: 767px) and (min-width: 375px) {
+	.inlineParent {
+		padding-top: 10px;
+		padding-left: 15px;
+	}
+	.inline {
+		float: none;
+		padding-top: 10px;
+		padding-right: 0px;
+	}
+	.easyIndicator,
+	.mediumIndicator,
+	.hardIndicator {
+		width: 200px;
+	}
+}
+
+@media (max-width: 375px) and (min-width: 300px) {
+	.inlineParent {
+		padding-top: 5px;
+		/* padding */
+	}
+}
+
 .cardHeader1 {
-    background-color: #775ecf;
-    border-bottom: none;
+	background-color: #775ecf;
+	border-bottom: none;
 }
 
 .cardHeader2 {
-    background-color: #d47e2c;
-    border-bottom: none;
+	background-color: #d47e2c;
+	border-bottom: none;
 }
 
 .cardBtn1 {
-    background-color: #775ecf !important;
-    font-size: 15px !important;
-    float: right;
-    margin-left: 20px !important;
-    width: 100px;
+	background-color: #775ecf !important;
+	font-size: 15px !important;
+	float: right;
+	margin-left: 20px !important;
+	width: 100px;
 }
 
 .cardBtn2 {
-    background-color: #d47e2c !important;
-    font-size: 15px !important;
-    float: right;
-    margin-left: 20px !important;
-    width: 100px;
+	background-color: #d47e2c !important;
+	font-size: 15px !important;
+	float: right;
+	margin-left: 20px !important;
+	width: 100px;
 }
 
 .cardFooter {
-    background-color: white;
+	background-color: white;
 }
 
 .card1 {
-    background-color: #775ecf;
-    box-shadow: 1px 1px 2px 1px rgb(215, 217, 226);
-    border: none;
+	background-color: #775ecf;
+	box-shadow: 1px 1px 2px 1px rgb(215, 217, 226);
+	border: none;
 }
 
 .card2 {
-    background-color: #d47e2c;
-    box-shadow: 1px 1px 2px 1px rgb(215, 217, 226);
-    border: none;
+	background-color: #d47e2c;
+	box-shadow: 1px 1px 2px 1px rgb(215, 217, 226);
+	border: none;
 }
 
 h6 {
-    font-size: 20px;
-    font-weight: 500;
+	font-size: 20px;
+	font-weight: 500;
 }
 
 /* @media (max-width: 767px) and (min-width:576px) {
     .cardBtn1, .cardBtn2 {
         margin-left: 35px !important;
     }
-} */
+  } */
 
-@media (max-width: 393px) and (min-width:300px) {
-    .cardBtn1, .cardBtn2 {
-        margin-top: 10px;
-    }
+@media (max-width: 393px) and (min-width: 300px) {
+	.cardBtn1,
+	.cardBtn2 {
+		margin-top: 10px;
+	}
 }
 
 .cardP {
-    box-shadow: 1px 1px 2px 1px rgb(190, 195, 197);
-    border: none;
+	box-shadow: 1px 1px 2px 1px rgb(190, 195, 197);
+	border: none;
 }
 
 .footerInfo {
-    display: inline-block;
-    padding-top: 7px;
+	display: inline-block;
+	padding-top: 7px;
 }
 
 .pbtn {
-    background-color: #775ecf !important;
+	background-color: #775ecf !important;
 }
 
-.pbtnQ, .pbtnQ:hover {
-    background-color: #f3ce38;
+.pbtnQ,
+.pbtnQ:hover {
+	background-color: #f3ce38;
 }
 
-.pbtnL, .pbtnL:hover {
-    background-color: #47c6f3;
+.pbtnL,
+.pbtnL:hover {
+	background-color: #47c6f3;
 }
 
-.pbtnV, .pbtnV:hover {
-    background-color: #79a1ab;
+.pbtnV,
+.pbtnV:hover {
+	background-color: #79a1ab;
 }
 
 .hr-m {
-    border-top: 2px solid rgb(221, 216, 216);
+	border-top: 2px solid rgb(221, 216, 216);
 }
 
-.table-striped>tbody>tr:nth-child(2n+1)>td, .table-striped>tbody>tr:nth-child(2n+1)>th {
-    background-color: #f1effa;
+.table-striped > tbody > tr:nth-child(2n + 1) > td,
+.table-striped > tbody > tr:nth-child(2n + 1) > th {
+	background-color: #f1effa;
 }
 
 /* td{
     padding-bottom: 0px !important;
-} */
+  } */
 
 .table-striped td {
-    padding-bottom: 0px;
+	padding-bottom: 0px;
 }
 
 .roledrop:focus {
-    border: none !important;
-    box-shadow: 0 -3px 0px #775ecf inset, 0px 0 0 white !important;
-    outline: 0 none;
+	border: none !important;
+	box-shadow: 0 -3px 0px #775ecf inset, 0px 0 0 white !important;
+	outline: 0 none;
 }
 
 .pad-td {
-    padding-top: 20px !important;
+	padding-top: 20px !important;
 }
 
 .tbr {
-    box-shadow: 1px 1px 0px 0px rgb(204, 196, 196);
+	box-shadow: 1px 1px 0px 0px rgb(204, 196, 196);
 }
 
-@media (max-width:767px) and (min-width:300px) {
-    .roledrop {
-        width: 110px;
-    }
+@media (max-width: 767px) and (min-width: 300px) {
+	.roledrop {
+		width: 110px;
+	}
 }

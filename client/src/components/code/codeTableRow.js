@@ -34,7 +34,7 @@ const CodeTableRow = ({ code: { isDeleted },
                     <a
                         className="fa fa-book questSol"
                         aria-hidden="true"
-                        href="#"
+                        href="!#"
                     ></a>
                 </span>
             </td>
@@ -76,7 +76,7 @@ const CodeTableRow = ({ code: { isDeleted },
                     <a
                         className="fa fa-trash operation-D"
                         aria-hidden="true"
-                        href="#"
+                        href="#!"
                         onClick={() => deleteQuestion(question._id)}
                     ></a>
                 </span>

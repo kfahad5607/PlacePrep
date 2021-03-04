@@ -16,13 +16,18 @@ import {
     GET_ALL_USERS,
     SET_TEST_DETAILS,
     CLEAR_TEST_DETAILS,
-    USER_LOADED_FAILED
+    USER_LOADED_FAILED,
+    FILTER_ALL_USERS,
+    CLEAR_FILTER_ALL_USERS,
+    UPDATE_USER,
+    DELETE_USER
 } from "../actions/actionTypes";
 
 const initialState = {
     isAuthenticated: null,
     user: null,
     allUsers: null,
+    filteredUsers: null,
     details: null,
     testDetails: null,
     error: null,
@@ -114,6 +119,41 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: {}
+            };
+        case FILTER_ALL_USERS:
+            return {
+                ...state,
+                filteredUsers: state.allUsers.filter((user) => {
+                    const regex = new RegExp(`${action.payload}`, "gi");
+                    return user.name.match(regex) || user.email.match(regex);
+                }),
+            };
+        case CLEAR_FILTER_ALL_USERS:
+            return {
+                ...state,
+                filteredUsers: null,
+            };
+        case UPDATE_USER:
+            return {
+                ...state,
+                allUsers: state.allUsers?.map((User) =>
+                    User._id === action.payload._id ? action.payload : User
+                ),
+                filteredUsers: state.filteredUsers?.map((User) =>
+                    User._id === action.payload._id ? action.payload : User
+                ),
+                loading: false,
+            };
+        case DELETE_USER:
+            return {
+                ...state,
+                allUsers: state.allUsers?.filter(
+                    (user) => user._id !== action.payload
+                ),
+                filteredUsers: state.filteredUsers ? state.filteredUsers.filter(
+                    (user) => user._id !== action.payload
+                ) : null,
+                loading: false,
             };
         default:
             return state;

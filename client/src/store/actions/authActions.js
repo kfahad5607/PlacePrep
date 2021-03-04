@@ -15,7 +15,11 @@ import {
     GET_ALL_USERS,
     SET_TEST_DETAILS,
     CLEAR_TEST_DETAILS,
-    USER_LOADED_FAILED
+    USER_LOADED_FAILED,
+    FILTER_ALL_USERS,
+    CLEAR_FILTER_ALL_USERS,
+    DELETE_USER,
+    UPDATE_USER
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -35,6 +39,7 @@ export const loadUser = (verified = false, startCheck = false) => async (dispatc
                 payload: res.data.data,
             });
         } catch (err) {
+            console.log(err.response);
             if (!startCheck) {
                 dispatch({
                     type: AUTH_ERROR,
@@ -206,3 +211,43 @@ export const clearTestDetails = () => (dispatch) => {
     });
 };
 
+export const updateUser = (data) => async (dispatch) => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        const res = await axios.patch(`/api/v1/user/${data.id}`, data, config);
+        dispatch({
+            type: UPDATE_USER,
+            payload: res.data.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+
+export const deleteUser = (id) => async (dispatch) => {
+    try {
+        await axios.delete(`/api/v1/user/${id}`);
+        dispatch({
+            type: DELETE_USER,
+            payload: id
+        });
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+
+export const filterUsers = user => async dispatch => {
+    dispatch({ type: FILTER_ALL_USERS, payload: user });
+};
+
+export const clearUserFilter = () => ({ type: CLEAR_FILTER_ALL_USERS });

@@ -173,3 +173,11 @@ thead th {
 .form-control {
     color: black;
 }
+
+.create-btn{
+    background-color: #775ecf !important;
+    border-radius: 7px !important;
+}
+.create-btn i{
+    margin-right: 8px;
+}

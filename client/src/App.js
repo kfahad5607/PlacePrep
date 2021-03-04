@@ -33,7 +33,9 @@ const App = (props) => {
                 test: user.currentTest.slug
             });
         }
+        //eslint-disable-next-line
     }, [user]);
+
 
     return (
         <Router>

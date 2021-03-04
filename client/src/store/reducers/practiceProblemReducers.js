@@ -68,7 +68,7 @@ const reducer = (state = initialState, action) => {
                 questions: state.questions?.filter(ele => ele._id !== action.payload)
             };
         case actionTypes.DELETE_PRAC_PROB_BY_TOPIC:
-            let index = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
+            const index = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
             return {
                 ...state,
                 catAndTopic: {
@@ -97,6 +97,21 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
+            };
+
+        case actionTypes.FILTER_PRACTICE_PROBLEMS:
+            const idx = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
+            return {
+                ...state,
+                filtered: state.catAndTopic?.distinctTopicByCat[idx].filter(ele => {
+                    const regex = new RegExp(`${action.payload.query}`, "gi");
+                    return ele.match(regex);
+                })
+            };
+        case actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS:
+            return {
+                ...state,
+                filtered: null
             };
         default:
             return state;
