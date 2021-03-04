@@ -3,6 +3,12 @@
     box-shadow: 1px 0px 2px 1px rgb(190, 195, 197);
 }
 
+.pieHeader {
+    background-color: #ec8b8beb;
+    border-bottom: none;
+    padding: 0.89rem;
+}
+
 .easyIndicator {
     background-color: #5cb85c;
     color: white;
