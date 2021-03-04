@@ -9,24 +9,6 @@
     padding: 0.89rem;
 }
 
-.easyIndicator {
-    background-color: #5cb85c;
-    color: white;
-    width: 150px;
-}
-
-.mediumIndicator {
-    background-color: #f0ad4e;
-    color: white;
-    width: 150px;
-}
-
-.hardIndicator {
-    background-color: #d8091c;
-    color: white;
-    width: 150px;
-}
-
 .inlineParent {
     padding-left: 50px;
     padding-top: 80px;
@@ -38,8 +20,8 @@
 }
 
 @media (max-width: 1200px) and (min-width:991px) {
-    .easyIndicator, .mediumIndicator, .hardIndicator {
-        width: 130px;
+    .indicator {
+        width: 130px !important;
     }
 }
 
@@ -54,8 +36,8 @@
         padding-top: 10px;
         padding-right: 0px;
     }
-    .easyIndicator, .mediumIndicator, .hardIndicator {
-        width: 200px;
+    .indicator {
+        width: 200px !important;
     }
 }
 
@@ -69,8 +51,8 @@
         padding-top: 10px;
         padding-right: 0px;
     }
-    .easyIndicator, .mediumIndicator, .hardIndicator {
-        width: 200px;
+    .indicator {
+        width: 200px !important;
     }
 }
 

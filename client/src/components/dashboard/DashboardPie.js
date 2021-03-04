@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import PieBadge from './Piebadge';
 import "./dashboard.css";
 
 function DashboardPie() {
     ///piechart data
     const data01 = [
-        { name: 'Easy', value: 100, fill: "#5cb85c" },
+        { name: 'Easy', value: 400, fill: "#5cb85c" },
         { name: 'Medium', value: 200, fill: "#f0ad4e" },
         { name: 'Hard', value: 300, fill: "#d8091c" }
 
     ];
+
+
 
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -24,6 +27,15 @@ function DashboardPie() {
             </text>
         );
     };
+
+
+    function badgeCall(badge) {
+        return (
+            <PieBadge name={badge.name} color={badge.fill} />
+        );
+    }
+
+
     return (
         <div className="card mb-3 cardPie">
             <div className="card-header text-center pieHeader" >
@@ -49,13 +61,11 @@ function DashboardPie() {
                         </ResponsiveContainer>
                     </div>
                     <div className="col-md-8 inlineParent text-center ">
-                        <div className="inline"><h3> <span class="badge easyIndicator">Easy </span></h3></div>
-                        <div className="inline"><h3>  <span class="badge mediumIndicator">Medium </span></h3></div>
-                        <div className="inline"><h3> <span class="badge hardIndicator">Hard</span></h3></div>
+                        {data01.map(badgeCall)}
                     </div>
                 </div>
-            </div>
-        </div >
+            </div >
+        </div>
     )
 }
 
