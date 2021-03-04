@@ -12,7 +12,10 @@ import {
     UPDATE_ERROR,
     CLEAR_AUTH_ERRORS,
     GET_DETAILS,
-    GET_ALL_USERS
+    GET_ALL_USERS,
+    SET_TEST_DETAILS,
+    CLEAR_TEST_DETAILS,
+    USER_LOADED_FAILED
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -26,6 +29,7 @@ export const loadUser = (verified = false, startCheck = false) => async (dispatc
                 method: "GET",
                 url: "/api/v1/user/me?check=true",
             });
+            console.log('useres', res);
             dispatch({
                 type: USER_LOADED_JWT,
                 payload: res.data.data,
@@ -35,6 +39,11 @@ export const loadUser = (verified = false, startCheck = false) => async (dispatc
                 dispatch({
                     type: AUTH_ERROR,
                     payload: err.response.data.message,
+                });
+            }
+            else {
+                dispatch({
+                    type: USER_LOADED_FAILED
                 });
             }
         }
@@ -126,7 +135,6 @@ export const updateMe = (data, type) => async dispatch => {
     }
 };
 
-
 export const clearErrors = () => ({ type: CLEAR_AUTH_ERRORS });
 
 export const forgotPassword = (email) => async dispatch => {
@@ -142,6 +150,7 @@ export const forgotPassword = (email) => async dispatch => {
 
     }
 };
+
 export const resetPassword = (passwords, token) => async dispatch => {
     try {
         const res = await axios.patch(`/api/v1/user/resetPassword/${token}`, passwords);
@@ -156,6 +165,7 @@ export const resetPassword = (passwords, token) => async dispatch => {
 
     }
 };
+
 export const getDetailsAndUsers = (isStudent) => async (dispatch) => {
     try {
         let resUsers;
@@ -181,5 +191,18 @@ export const getDetailsAndUsers = (isStudent) => async (dispatch) => {
             payload: err.response.data.message
         });
     }
+};
+
+export const setTestDetails = (details) => (dispatch) => {
+    dispatch({
+        type: SET_TEST_DETAILS,
+        payload: details
+    });
+};
+
+export const clearTestDetails = () => (dispatch) => {
+    dispatch({
+        type: CLEAR_TEST_DETAILS
+    });
 };
 

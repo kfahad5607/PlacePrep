@@ -19,7 +19,7 @@ const SideBar = ({ sidebarOpen, onClick }) => {
                     <span className='header-text'>Dashboard Kit</span>
                 </div>
                 <div className='sidebar-menu'>
-                    <MenuList />
+                    <MenuList key={0} />
                     {/* <ul className='menu-list'>
                         <li className='menu-item'>
                             <a href='/'>

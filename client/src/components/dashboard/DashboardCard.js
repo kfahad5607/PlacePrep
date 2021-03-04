@@ -8,7 +8,7 @@ const DashboardCard = (props) => {
                 <img
                     className="card-img-top cardimg"
                     src={imgSrc}
-                    alt="Card image cap"
+                    alt="Card cap"
                 ></img>
                 <div className="card-body">
                     <h5 className="card-title text-center">{title}</h5>

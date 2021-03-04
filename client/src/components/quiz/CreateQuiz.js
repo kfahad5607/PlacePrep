@@ -4,17 +4,19 @@ import "./quiz.css";
 import { Button, Container, Form } from "react-bootstrap";
 import QuizQuestion from "./CreateQuizQuestion";
 import { connect } from "react-redux";
-import { addQuiz, clearQuizErrors } from "../../store/actions/quizActions";
+import { addQuiz, clearQuizErrors, clrQuizCreateSuccess } from "../../store/actions/quizActions";
 import { setAlert } from "../../store/actions/alertActions";
 
 function CreateQuiz(props) {
     const {
         auth: { user },
-        quiz: { error },
+        quiz: { error, isCreated },
         addQuiz,
         clearQuizErrors,
+        clrQuizCreateSuccess,
         setAlert,
     } = props;
+
 
     const [quiz, setQuiz] = useState({
         author: '',
@@ -34,10 +36,35 @@ function CreateQuiz(props) {
     const [lastId, setLastId] = useState(0);
 
     useEffect(() => {
+        if (isCreated) {
+            setAlert('Quiz has been created', 'success');
+
+            clrQuizCreateSuccess();
+            setQuiz({
+                title: '',
+                category: '',
+                topic: '',
+                duration: '',
+                questionWeightage: '',
+                questions: [{
+                    id: 0,
+                    question: '',
+                    answers: ['', '', '', ''],
+                    correctAnswer: ''
+                }]
+            });
+        }
+
+        // eslint-disable-next-line
+    }, [isCreated]);
+
+    useEffect(() => {
         if (error) {
             setAlert(error, "danger");
             clearQuizErrors();
         }
+
+        // eslint-disable-next-line
     }, [error]);
 
     const handleAddQuesClick = () => {
@@ -102,7 +129,8 @@ function CreateQuiz(props) {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if (quiz.title === "" || quiz.topic === "" || quiz.duration === "") {
+        if (quiz.title === "" || quiz.topic === "" || quiz.duration === "" ||
+            quiz.questionWeightage === "") {
             setAlert("Please enter all fields", "danger");
         } else {
             let tempQuiz = JSON.parse(JSON.stringify(quiz));
@@ -110,21 +138,10 @@ function CreateQuiz(props) {
             console.log("quiz", tempQuiz);
             addQuiz(tempQuiz);
 
-            setQuiz({
-                title: '',
-                category: '',
-                topic: '',
-                duration: '',
-                questionWeightage: '',
-                questions: [{
-                    id: 0,
-                    question: '',
-                    answers: ['', '', '', ''],
-                    correctAnswer: ''
-                }]
-            });
+
+
         };
-    }
+    };
 
     return (
         <Container className="container-quiz">
@@ -267,4 +284,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { addQuiz, clearQuizErrors, setAlert })(CreateQuiz)
+export default connect(mapStateToProps, { addQuiz, clearQuizErrors, clrQuizCreateSuccess, setAlert })(CreateQuiz);

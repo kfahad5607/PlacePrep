@@ -8,6 +8,8 @@ const initialState = {
     filtered: null,
     filteredSubmissions: null,
     error: null,
+    isCreated: null,
+    isDeleted: null,
     score: null,
     loading: false
 };
@@ -39,7 +41,31 @@ const reducer = (state = initialState, action) => {
                 quizzes: [action.payload, ...(state.quizzes ? state.quizzes : [])],
                 loading: false
             };
+        case actionTypes.QUIZ_CREATED_SUCCESS:
+            return {
+                ...state,
+                isCreated: true,
+                loading: false
+            };
+        case actionTypes.CLR_QUIZ_CREATED_SUCCESS:
+            return {
+                ...state,
+                isCreated: null,
+                loading: false
+            };
 
+        case actionTypes.QUIZ_DELETED_SUCCESS:
+            return {
+                ...state,
+                isDeleted: true,
+                loading: false
+            };
+        case actionTypes.CLR_QUIZ_DELETED_SUCCESS:
+            return {
+                ...state,
+                isDeleted: null,
+                loading: false
+            };
         case actionTypes.UPDATE_QUIZ:
             return {
                 ...state,
@@ -113,7 +139,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
-            }
+            };
         case actionTypes.FILTER_QUIZ_SUBMISSIONS:
             return {
                 ...state,

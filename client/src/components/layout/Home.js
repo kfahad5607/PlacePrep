@@ -20,6 +20,7 @@ import AddTopics from '../practiceProblems/AddTopics';
 import EditPracticeProblem from '../practiceProblems/EditPracticeProblem';
 import { Route, Switch } from "react-router-dom";
 import Dashboard from '../dashboard/Dashboard';
+import TestRoute from '../routing/TestRoute';
 
 const Home = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -42,7 +43,7 @@ const Home = () => {
                         <Route path="/createCodeQuestion" component={CreateCodeQuestion} />
                         <Route path="/quizzes" component={QuizCardPage} />
                         <Route exact path="/editQuiz/:slug" component={EditQuiz} />
-                        <Route exact path="/quiz/:slug" component={QuizPage} />
+                        {/* <Route exact path="/quiz/:slug" component={QuizPage} /> */}
                         <Route exact path="/quizSubmissions" component={QuizSubmissions} />
                         <Route exact path="/quizSubmissions/:quizId" component={QuizSubmissions} />
                         <Route exact path="/quizSubmission/:id" component={QuizPageSub} />
@@ -58,8 +59,6 @@ const Home = () => {
                             path="/editCodeQuestion/:slug"
                             component={CreateCodeQuestion}
                         />
-
-
                     </Switch>
                 </div>
             </div>

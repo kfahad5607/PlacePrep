@@ -6,9 +6,9 @@ import Col from 'react-bootstrap/Col';
 import QuizQues from './QuizQues';
 import QuizTimer from './QuizTimer';
 import Spinner from '../layout/Spinner';
+import { Prompt } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getQuiz, submitQuiz } from '../../store/actions/quizActions';
-import { loadUser, setUserNull } from '../../store/actions/authActions';
 
 const QuizPage = (props) => {
     const quizQuesRef = useRef(null);
@@ -16,7 +16,6 @@ const QuizPage = (props) => {
     const {
         quiz: { current },
         auth: { user },
-        loadUser,
         getQuiz,
         match
     } = props;
@@ -25,7 +24,18 @@ const QuizPage = (props) => {
     useEffect(() => {
         getQuiz(slug);
         // loadUser(false, true);
+
+        // eslint-disable-next-line
     }, []);
+
+    // useEffect(() => {
+    //     window.addEventListener('beforeunload', alertUser);
+    //     window.addEventListener('unload', handleEndConcert);
+    //     return () => {
+    //         window.removeEventListener('beforeunload', alertUser);
+    //         window.removeEventListener('unload', handleEndConcert);
+    //     };
+    // }, []);
 
 
     return (
@@ -57,4 +67,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { getQuiz, submitQuiz, loadUser })(QuizPage);
+export default connect(mapStateToProps, { getQuiz, submitQuiz })(QuizPage);

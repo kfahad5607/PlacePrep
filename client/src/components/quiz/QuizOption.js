@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
 import './quiz.css';
@@ -11,7 +11,7 @@ const QuizOption = (props) => {
                 <Accordion.Toggle as={Button} onClick={props.onClickFunc} variant="" eventKey={props.isCorrect ? '0' : '1'}  >
                     {props.text}
                 </Accordion.Toggle>
-                
+
                 {/* <div className='icon cross' ><i className="fa fa-times" aria-hidden="true"></i></div> */}
             </div>
         </Fragment>

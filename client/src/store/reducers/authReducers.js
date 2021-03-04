@@ -13,7 +13,10 @@ import {
     UPDATE_ERROR,
     CLEAR_AUTH_ERRORS,
     GET_DETAILS,
-    GET_ALL_USERS
+    GET_ALL_USERS,
+    SET_TEST_DETAILS,
+    CLEAR_TEST_DETAILS,
+    USER_LOADED_FAILED
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -21,6 +24,7 @@ const initialState = {
     user: null,
     allUsers: null,
     details: null,
+    testDetails: null,
     error: null,
     loading: true,
 };
@@ -95,6 +99,21 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 allUsers: action.payload,
                 loading: false
+            };
+        case SET_TEST_DETAILS:
+            return {
+                ...state,
+                testDetails: action.payload
+            };
+        case CLEAR_TEST_DETAILS:
+            return {
+                ...state,
+                testDetails: null
+            };
+        case USER_LOADED_FAILED:
+            return {
+                ...state,
+                user: {}
             };
         default:
             return state;

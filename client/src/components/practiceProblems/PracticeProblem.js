@@ -10,6 +10,8 @@ const PracticeProblem = (props) => {
 
     useEffect(() => {
         getCategoryAndTopic();
+
+        // eslint-disable-next-line
     }, []);
 
     return (

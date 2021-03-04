@@ -74,11 +74,11 @@ exports.logout = (req, res) => {
     res.cookie('jwt', 'LoggedOut', {
         expires: new Date(Date.now() + 0 * 1000),
         httpOnly: true
-    })
+    });
     res.status(200).json({
         status: 'success'
-    })
-}
+    });
+};
 
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -101,7 +101,10 @@ exports.protect = catchAsync(async (req, res, next) => {
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
     // 3) Check if user still exists
-    const currentUser = await User.findById(decoded.id);
+    const currentUser = await User.findById(decoded.id).populate({
+        path: 'currentTest',
+        select: 'slug'
+    });
     if (!currentUser) {
         return next(
             new AppError(
@@ -211,4 +214,4 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
     // 4) Log the user in, send JWT
     createSendToken(user, 200, res);
-})
+});

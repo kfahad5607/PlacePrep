@@ -68,6 +68,13 @@ export const addQuiz = (quiz) => async (dispatch) => {
         });
         const res = await axios.post('/api/v1/quizzes', quiz, config);
         console.log('res', res);
+
+        if (res.request.status === 201 && res.request.statusText === 'Created') {
+            dispatch({
+                type: actionTypes.QUIZ_CREATED_SUCCESS
+            });
+        }
+
         dispatch({
             type: actionTypes.ADD_QUIZ,
             payload: res.data.data.data
@@ -93,7 +100,13 @@ export const updateQuiz = (quiz) => async (dispatch) => {
             type: actionTypes.SET_LOADING_QUIZ
         });
         const res = await axios.patch(`/api/v1/quizzes/${quiz._id}`, quiz, config);
-        console.log('res', res.data.data);
+        console.log('res', res);
+
+        if (res.request.status === 200 && res.request.statusText === 'OK') {
+            dispatch({
+                type: actionTypes.QUIZ_CREATED_SUCCESS
+            });
+        }
 
         dispatch({
             type: actionTypes.UPDATE_QUIZ,
@@ -114,7 +127,14 @@ export const deleteQuiz = (id) => async (dispatch) => {
         dispatch({
             type: actionTypes.SET_LOADING_QUIZ
         });
-        await axios.delete(`/api/v1/quizzes/${id}`);
+        const res = await axios.delete(`/api/v1/quizzes/${id}`);
+        console.log('res', res);
+
+        if (res.request.status === 204 && res.request.statusText === 'No Content') {
+            dispatch({
+                type: actionTypes.QUIZ_DELETED_SUCCESS
+            });
+        }
 
         dispatch({
             type: actionTypes.DELETE_QUIZ,
@@ -135,7 +155,8 @@ export const deleteQuizQuestion = (id) => async (dispatch) => {
         dispatch({
             type: actionTypes.SET_LOADING_QUIZ
         });
-        await axios.delete(`/api/v1/quizQuestions/${id}`);
+        const res = await axios.delete(`/api/v1/quizQuestions/${id}`);
+        console.log('res', res);
 
         dispatch({
             type: actionTypes.DELETE_QUIZ_QUESTION,
@@ -194,6 +215,13 @@ export const submitQuiz = (id, userQuiz) => async (dispatch) => {
             type: actionTypes.SET_LOADING_QUIZ
         });
         const res = await axios.post(`/api/v1/quizzes/submit/${id}`, userQuiz, config);
+        console.log('res', res);
+
+        if (res.request.status === 200 && res.request.statusText === 'OK') {
+            dispatch({
+                type: actionTypes.QUIZ_CREATED_SUCCESS
+            });
+        }
 
         dispatch({
             type: actionTypes.SUBMIT_QUIZ,
@@ -259,7 +287,14 @@ export const deleteQuizSubmission = (id) => async (dispatch) => {
         dispatch({
             type: actionTypes.SET_LOADING_QUIZ
         });
-        await axios.delete(`/api/v1/quizSubmissions/${id}`);
+        const res = await axios.delete(`/api/v1/quizSubmissions/${id}`);
+        console.log('res', res);
+
+        if (res.request.status === 204 && res.request.statusText === 'No Content') {
+            dispatch({
+                type: actionTypes.QUIZ_DELETED_SUCCESS
+            });
+        }
 
         dispatch({
             type: actionTypes.DELETE_QUIZ_SUBMISSION,
@@ -274,7 +309,7 @@ export const deleteQuizSubmission = (id) => async (dispatch) => {
     };
 };
 
-export const clearQuizErrors = () => ({ type: actionTypes.CLEAR_QUIZ_ERRORS});
+export const clearQuizErrors = () => ({ type: actionTypes.CLEAR_QUIZ_ERRORS });
 
 export const filterQuizSubmissions = (query, isStudent) => (dispatch) => {
     console.log('iss', isStudent);
@@ -290,5 +325,17 @@ export const filterQuizSubmissions = (query, isStudent) => (dispatch) => {
 export const clearFilterQuizSub = () => (dispatch) => {
     dispatch({
         type: actionTypes.CLEAR_FILTER_QUIZ_SUBMISSIONS
+    });
+};
+
+export const clrQuizCreateSuccess = () => (dispatch) => {
+    dispatch({
+        type: actionTypes.CLR_QUIZ_CREATED_SUCCESS
+    });
+};
+
+export const clrQuizDeleteSuccess = () => (dispatch) => {
+    dispatch({
+        type: actionTypes.CLR_QUIZ_DELETED_SUCCESS
     });
 };

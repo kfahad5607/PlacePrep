@@ -7,7 +7,7 @@ const { remove_linebreaks,
     is2dArray,
     replace1QTo2Q } = require('../../utils/helperFunctions');
 
-const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
+const testCodeCPP = async (file, testcaseFile, inputFile, noOfInputs) => {
     // replacing '/' with '\\' because path like './onlineJudge/questions/solution.exe' 
     // is not recognized by machine while running .exe file
     let exeFile = file.replace('.cpp', '.exe').replace(/[/]+/gm, '\\');
@@ -68,11 +68,11 @@ const testCodeCPP = async (file, testcaseFile, noOfInputs) => {
             }
         }
         let inputStr = inputArr.join('\n');
-        fs.writeFileSync('./onlineJudge/input.txt', inputStr);
+        fs.writeFileSync(inputFile, inputStr);
 
         try {
             const info = await new Promise((resolve, reject) => {
-                exec(`${exeFile} < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
+                exec(`${exeFile} < ${inputFile} `, (err, stdout, stderr) => {
                     if (err) {
                         let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
 

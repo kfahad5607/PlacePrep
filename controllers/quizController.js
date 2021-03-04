@@ -38,8 +38,8 @@ exports.createQuiz = async (req, res, next) => {
 
 exports.updateQuiz = async (req, res, next) => {
     let newQuizQuesIDs;
+    let newQuizQuestions;
     try {
-        let newQuizQuestions;
         let quizQuestions;
         let updateObj = req.body;
 
@@ -224,7 +224,7 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
         quiz: req.params.id,
         score,
         userAnswers,
-        user: req.user
+        user: req.user._id
     };
 
     // console.log('validation', Date.now() - new Date(req.user.testWillEndAt) > 1000, Date.now() - new Date(req.user.testWillEndAt));
@@ -285,6 +285,9 @@ exports.startQuiz = catchAsync(async (req, res, next) => {
     }, {
         new: true,
         runValidators: true
+    }).populate({
+        path: 'currentTest',
+        select: 'slug'
     });
 
     if (!user) {

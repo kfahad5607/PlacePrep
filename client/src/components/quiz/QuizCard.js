@@ -1,30 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import Alert from 'react-bootstrap/Alert';
 import { Link } from 'react-router-dom';
 import './quiz.css';
 import { connect } from 'react-redux';
 import {
     updateQuiz,
     deleteQuiz,
-    startQuiz
+    startQuiz,
+    clrQuizDeleteSuccess
 } from '../../store/actions/quizActions';
-import { loadUser, setUserNull } from '../../store/actions/authActions';
+import { setUserNull, setTestDetails } from '../../store/actions/authActions';
+import { setAlert } from '../../store/actions/alertActions';
 
 const QuizCard = (props) => {
     const {
+        quiz: { isDeleted },
         auth: { user },
         quizObj,
         updateQuiz,
-        loadUser,
         setUserNull,
         deleteQuiz,
-        startQuiz } = props;
+        setTestDetails,
+        startQuiz,
+        clrQuizDeleteSuccess,
+        setAlert } = props;
+
+    useEffect(() => {
+        if (isDeleted) {
+            setAlert('Quiz Deleted', 'success');
+            clrQuizDeleteSuccess();
+        }
+    }, [isDeleted]);
 
     const handleOnClick = () => {
         setUserNull();
         startQuiz(quizObj._id);
+        setTestDetails({
+            type: 'quiz',
+            test: quizObj.slug
+        });
         // loadUser(false, true);
     };
 
@@ -62,7 +77,6 @@ const QuizCard = (props) => {
                     </div>}
 
                 {(user.role === 'faculty' || user.role === 'admin') &&
-
                     <div className='text-center' >
                         <Link to={`/editQuiz/${quizObj.slug}`} className="btn btn-primary start_quiz_btn mr-2" >Edit</Link>
                         <button onClick={() => deleteQuiz(quizObj._id)} className="btn btn-primary start_quiz_btn mr-2" >Delete</button>
@@ -90,6 +104,8 @@ export default connect(mapStateToProps, {
     updateQuiz,
     deleteQuiz,
     startQuiz,
-    loadUser,
-    setUserNull
+    setUserNull,
+    setTestDetails,
+    setAlert,
+    clrQuizDeleteSuccess
 })(QuizCard);

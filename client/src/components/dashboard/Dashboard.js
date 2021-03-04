@@ -3,17 +3,11 @@ import { Container, Form } from "react-bootstrap";
 import "./dashboard.css";
 import DashboardCard from "./DashboardCard";
 import { connect } from "react-redux";
-import { getQuizzes } from "../../store/actions/quizActions";
-import { getQuestions } from "../../store/actions/codeActions";
 import { getDetailsAndUsers } from "../../store/actions/authActions";
 
 const Dashboard = (props) => {
     const {
         auth: { user },
-        quiz: { quizzes },
-        code: { questions },
-        getQuizzes,
-        getQuestions,
         getDetailsAndUsers
     } = props;
 
@@ -291,6 +285,6 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getQuizzes, getQuestions, getDetailsAndUsers })(
+export default connect(mapStateToProps, { getDetailsAndUsers })(
     Dashboard
 );

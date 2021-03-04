@@ -7,7 +7,7 @@ const { remove_linebreaks,
     is2dArray,
     replace1QTo2Q } = require('../../utils/helperFunctions');
 
-const testCodePython = async (file, testcaseFile, noOfInputs) => {
+const testCodePython = async (file, testcaseFile, inputFile, noOfInputs) => {
     let givenInput = '';
     let expectedOutput;
     let userOutput;
@@ -48,11 +48,11 @@ const testCodePython = async (file, testcaseFile, noOfInputs) => {
             }
         }
         let inputStr = inputArr.join('\n');
-        fs.writeFileSync('./onlineJudge/input.txt', inputStr);
+        fs.writeFileSync(inputFile, inputStr);
 
         try {
             const info = await new Promise((resolve, reject) => {
-                exec(`python ${file}  < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
+                exec(`python ${file}  < ${inputFile}`, (err, stdout, stderr) => {
                     if (err) {
                         let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
 

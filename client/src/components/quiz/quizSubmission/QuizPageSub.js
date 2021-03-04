@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -18,6 +18,8 @@ const QuizPageSub = (props) => {
 
     useEffect(() => {
         getQuizSubmission(quizSubId);
+
+        // eslint-disable-next-line
     }, []);
 
 

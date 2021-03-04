@@ -3,15 +3,21 @@ import '../quiz/quiz.css';
 import { Button, Container, Form } from 'react-bootstrap';
 import CreateAptiQuestion from './CreateAptiQuestion';
 import { connect } from 'react-redux';
-import { updatePracticeProblem, getPracticeProblem, clearPracticeProblemErrors } from '../../store/actions/practiceProblemActions';
+import {
+    updatePracticeProblem,
+    getPracticeProblem,
+    clearPracticeProblemErrors,
+    clrPracProbCreateSuccess
+} from '../../store/actions/practiceProblemActions';
 import { setAlert } from "../../store/actions/alertActions";
 
 const EditPracticeProblem = (props) => {
-    const { auth: { user },
-        practiceProblem: { current, error },
+    const {
+        practiceProblem: { current, error, isCreated },
         updatePracticeProblem,
         getPracticeProblem,
         clearPracticeProblemErrors,
+        clrPracProbCreateSuccess,
         setAlert,
         match
     } = props;
@@ -19,7 +25,18 @@ const EditPracticeProblem = (props) => {
 
     useEffect(() => {
         getPracticeProblem(id);
+
+        // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if (isCreated) {
+            setAlert('Question has been updated.', 'success');
+            clrPracProbCreateSuccess();
+        }
+
+        // eslint-disable-next-line
+    }, [isCreated]);
 
     useEffect(() => {
         if (error) {
@@ -30,7 +47,8 @@ const EditPracticeProblem = (props) => {
             let tempDeepCopy = JSON.parse(JSON.stringify(current));
 
             setApti(tempDeepCopy);
-        } else {
+        }
+        else {
             setApti({
                 author: '',
                 topic: '',
@@ -41,6 +59,8 @@ const EditPracticeProblem = (props) => {
                 explanation: ''
             });
         }
+
+        // eslint-disable-next-line
     }, [current, error]);
 
     const [apti, setApti] = useState({
@@ -86,23 +106,9 @@ const EditPracticeProblem = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        // addTopic(tempApti);
-        // {
-        //     aptiQuestions : []
-        // }
         console.log('temp', apti);
         updatePracticeProblem(apti);
 
-        // setApti([{
-        //     id: 0,
-        //     author: aptiInfo.author,
-        //     topic: aptiInfo.topic,
-        //     category: aptiInfo.category,
-        //     question: '',
-        //     answers: ['', '', '', ''],
-        //     correctAnswer: '',
-        //     explanation: ''
-        // }]);
     };
 
     return (
@@ -167,4 +173,10 @@ const mapStateToProps = (state) => {
     });
 };
 
-export default connect(mapStateToProps, { updatePracticeProblem, getPracticeProblem, setAlert, clearPracticeProblemErrors })(EditPracticeProblem);
+export default connect(mapStateToProps, {
+    updatePracticeProblem,
+    getPracticeProblem,
+    setAlert,
+    clearPracticeProblemErrors,
+    clrPracProbCreateSuccess
+})(EditPracticeProblem);

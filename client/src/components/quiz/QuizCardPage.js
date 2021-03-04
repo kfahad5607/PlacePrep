@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import QuizCard from './QuizCard';
 import Spinner from '../layout/Spinner';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getQuizzes } from '../../store/actions/quizActions';
 
 const QuizCardPage = (props) => {
     const {
         auth: { user },
-        quiz: { quizzes, loading: quizLoading }, getQuizzes } = props;
+        quiz: { quizzes }, getQuizzes } = props;
 
     useEffect(() => {
         if (user?.role === 'faculty' || user?.role === 'admin') {
@@ -24,6 +21,8 @@ const QuizCardPage = (props) => {
         return () => {
 
         };
+
+        // eslint-disable-next-line
     }, []);
     // }, [user]);
 

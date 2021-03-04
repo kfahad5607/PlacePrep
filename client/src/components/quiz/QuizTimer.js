@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const QuizTimer = (props) => {
 
@@ -14,9 +14,11 @@ const QuizTimer = (props) => {
 
     let myInterval;
     useEffect(() => {
+        // eslint-disable-next-line
         myInterval = setInterval(() => setNewTime(), 1000);
 
         return () => clearInterval(myInterval);
+
     }, [timer]);
 
     const setNewTime = () => {

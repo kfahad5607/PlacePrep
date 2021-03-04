@@ -30,6 +30,9 @@ exports.createQuestion = catchAsync(async (req, res, next) => {
 
 exports.updateQuestion = catchAsync(async (req, res, next) => {
     req.body.slug = slugify(req.body.title, { lower: true });
+
+    const oldQuestion = await Question.findById(req.params.id).select('-difficulty -description -testcases -solution -sampleInputs -hint -author -noOfInputs -title -__v');
+
     const question = await Question.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
@@ -39,9 +42,15 @@ exports.updateQuestion = catchAsync(async (req, res, next) => {
         return next(new AppError('No coding question found with that ID.', 404));
     }
 
+    if (oldQuestion.slug !== req.body.slug) {
+        fs.mkdirSync(`onlineJudge/codeQuestions/${req.body.slug}`);
+        // Deletes the question folder
+        rimraf.sync(`onlineJudge/codeQuestions/${oldQuestion.slug}`);
+    }
+
     fs.writeFileSync(`onlineJudge/codeQuestions/${req.body.slug}/testcase.txt`, remove_linebreaks(req.body.testcases));
 
-    res.status(201).json({
+    res.status(200).json({
         status: 'success',
         data: {
             data: question
@@ -120,6 +129,8 @@ exports.deleteQuestion = catchAsync(async (req, res, next) => {
     if (!question) {
         return next(new AppError('No coding question found with that ID.', 404));
     }
+
+    await CodeSubmission.deleteMany({ question: req.params.id });
 
     // Deletes the question folder
     rimraf.sync(`onlineJudge/codeQuestions/${question.slug}`);

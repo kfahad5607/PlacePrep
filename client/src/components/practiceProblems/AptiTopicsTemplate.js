@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import "./practiceProblem.css";
@@ -6,7 +6,8 @@ import slugify from 'slugify';
 import MyModal from '../layout/MyModal';
 import { Container, Button, Form, Accordion, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { deletePracProbByTopic } from '../../store/actions/practiceProblemActions';
+import { clrPracProbDeleteSuccess } from '../../store/actions/practiceProblemActions';
+import { setAlert } from '../../store/actions/alertActions';
 
 const AptiTopicsTemplate = (props) => {
     // deletePracProbByTopic(title, ele)
@@ -14,7 +15,19 @@ const AptiTopicsTemplate = (props) => {
     const [modalShow, setModalShow] = useState(false);
     const {
         auth: { user },
-        topics, title } = props;
+        practiceProblem: { isDeleted },
+        topics,
+        title,
+        setAlert,
+        clrPracProbDeleteSuccess
+    } = props;
+
+    useEffect(() => {
+        if (isDeleted) {
+            setAlert('Topic Deleted', 'success');
+            clrPracProbDeleteSuccess();
+        }
+    }, [isDeleted]);
 
     const [titleTopic, setTitleTopic] = useState({
         title: '',
@@ -29,7 +42,6 @@ const AptiTopicsTemplate = (props) => {
     };
 
     return (
-
         <Container className="container-problems">
             {/* modal starts here */}
             <MyModal
@@ -56,7 +68,7 @@ const AptiTopicsTemplate = (props) => {
                         <div className="row mr-2 ml-2">
                             <div className="col-12 ">
                                 <Form>
-                                    <Form.Group controlId="codingquestionSearch" >
+                                    <Form.Group controlId={title} >
                                         <Form.Control className="searchField" type="" placeholder="Search Topics" />
                                     </Form.Group>
                                 </Form>
@@ -105,4 +117,7 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { deletePracProbByTopic })(AptiTopicsTemplate);
+export default connect(mapStateToProps, {
+    setAlert,
+    clrPracProbDeleteSuccess
+})(AptiTopicsTemplate);
