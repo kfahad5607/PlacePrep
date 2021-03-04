@@ -3,7 +3,6 @@ import { Container } from "react-bootstrap";
 import "./dashboard.css";
 import DashboardCard from "./DashboardCard";
 import Spinner from "../layout/Spinner";
-import DashboardUserTable from "./DashboardUserTable";
 import { connect } from "react-redux";
 
 import { getDetailsAndUsers } from "../../store/actions/authActions";
@@ -20,7 +19,7 @@ const Dashboard = (props) => {
 	}, []);
 	return (
 		<Fragment>
-			{user !== null && details !== null ? (
+			{/* {user !== null && details !== null ? (
 				<Container className="container-user">
 					<h3 className="text-center mb-3 pt-4 ">DASHBOARD</h3>
 					<div className="title-border mb-4">
@@ -112,9 +111,9 @@ const Dashboard = (props) => {
 						</div>
 					</div>
 				</Container>
-			) : (
+			) : ( */}
 				<Spinner />
-			)}
+			{/* )} */}
 		</Fragment>
 	);
 };

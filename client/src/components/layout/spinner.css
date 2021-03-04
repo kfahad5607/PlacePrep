@@ -1,0 +1,25 @@
+#spinner-container {
+	display: flex;
+	justify-content: center;
+}
+
+.spinner {
+	width: 14rem;
+	height: 14rem;
+	border-radius: 50%;
+	background: transparent;
+}
+
+.spinner {
+	box-shadow: 0 5px 0 #775ecf;
+	animation: spinner infinite 0.8s linear;
+}
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

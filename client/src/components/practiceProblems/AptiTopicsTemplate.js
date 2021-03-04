@@ -89,9 +89,9 @@ const AptiTopicsTemplate = (props) => {
                             )}
                             {/* Topics component ends here */}
 
-                            {(user.role === 'faculty' || user.role === 'admin') && <div className="text-center">
+                            {/* {(user.role === 'faculty' || user.role === 'admin') && <div className="text-center">
                                 <Link to="/addtopic"><Button className="Addmore-btn mt-2" >Add More Topics</Button></Link>
-                            </div>}
+                            </div>} */}
                         </div>
                     </>
                 </Accordion.Collapse>

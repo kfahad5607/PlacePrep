@@ -100,7 +100,7 @@ const UserTable = (props) => {
 						<span></span>
 					</div>
 					<div className="row">
-						<div className="col-10 pb-2">
+						<div className="col-12 pb-2">
 							<Form>
 								<Form.Group controlId="codingquestionSearch">
 									<Form.Control
@@ -112,9 +112,6 @@ const UserTable = (props) => {
 									/>
 								</Form.Group>
 							</Form>
-						</div>
-						<div className="col-2 pb-2">
-							<Button>Create</Button>
 						</div>
 					</div>
 					<div className="table-responsive ">
