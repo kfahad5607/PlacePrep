@@ -450,3 +450,10 @@ h3 {
 .btn, .btn-primary {
   border: none !important;
 }
+
+.create-quiz-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-top: 10px;
+}

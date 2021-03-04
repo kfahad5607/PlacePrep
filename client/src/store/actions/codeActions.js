@@ -86,7 +86,6 @@ export const updateQuestion = (question) => async (dispatch) => {
             type: UPDATE_CODE_QUESTION,
             payload: res.data.data.data
         })
-        return res;
     } catch (err) {
         console.log('err', err?.response);
         dispatch({
@@ -104,6 +103,7 @@ export const deleteQuestion = (id) => async (dispatch) => {
             payload: id
         });
     } catch (err) {
+        console.log(err)
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,

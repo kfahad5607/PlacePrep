@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import React, { Fragment, useState, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/eclipse.css";
@@ -19,6 +19,7 @@ import {
     submitCode,
     resetCode,
 } from "../../store/actions/codeActions";
+import { setAlert } from "../../store/actions/alertActions";
 import RunCodeSuccess from './RunCodeSuccess';
 import RunCodeFail from './RunCodeFail';
 import SubmitCodeSuccess from './SubmitCodeSuccess';
@@ -26,7 +27,7 @@ import SubmitCodeSuccess from './SubmitCodeSuccess';
 // require("codemirror/addon/scroll/simplescrollbars.js");
 
 const CodeEditor = (props) => {
-    const { auth: { user }, code: { userCode, runSubmit }, runCode, submitCode, resetCode } = props;
+    const { auth: { user }, code: { userCode, runSubmit }, runCode, submitCode, resetCode, setAlert } = props;
 
     const [editorSelect, setEditorSelect] = useState({
         lang: "text/x-csrc",
@@ -171,6 +172,6 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { runCode, submitCode, resetCode })(
+export default connect(mapStateToProps, { runCode, submitCode, resetCode, setAlert })(
     CodeEditor
 );

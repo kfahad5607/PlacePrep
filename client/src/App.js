@@ -18,14 +18,8 @@ const App = (props) => {
         loadUser(false, true);
         return () => {
         };
+        //eslint-disable-next-line
     }, []);
-    {
-        /* <div style={{ display: 'flex', height: '100vh' }}> */
-    }
-
-    {
-        /* </div> */
-    }
     return (
         <Router>
             <Alerts />

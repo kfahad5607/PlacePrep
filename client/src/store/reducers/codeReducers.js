@@ -70,9 +70,12 @@ const reducer = (state = initialState, action) => {
         case DELETE_CODE_QUESTION:
             return {
                 ...state,
-                questions: state.questions.filter(
+                questions: state.questions?.filter(
                     (qsn) => qsn._id !== action.payload
                 ),
+                filtered: state.filtered ? state.filtered.filter(
+                    (qsn) => qsn._id !== action.payload
+                ) : null,
                 loading: false,
             };
         case RUN_CODE:

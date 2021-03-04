@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import MessagePanel from "./MessagePanel";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login, clearErrors } from "../../store/actions/authActions";
 import { setAlert } from "../../store/actions/alertActions";

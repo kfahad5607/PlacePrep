@@ -20,7 +20,7 @@ const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
                     <a
                         className="fa fa-book questSol"
                         aria-hidden="true"
-                        href="#"
+                        href="!#"
                     ></a>
                 </span>
             </td>
@@ -62,7 +62,7 @@ const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
                     <a
                         className="fa fa-trash operation-D"
                         aria-hidden="true"
-                        href="#"
+                        href="#!"
                         onClick={() => deleteQuestion(question._id)}
                     ></a>
                 </span>
