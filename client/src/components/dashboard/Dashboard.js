@@ -2,6 +2,7 @@ import React, { useEffect, Fragment } from "react";
 import { Container } from "react-bootstrap";
 import "./dashboard.css";
 import DashboardCard from "./DashboardCard";
+import DashboardPie from "./DashboardPie";
 import Spinner from "../layout/Spinner";
 import { connect } from "react-redux";
 
@@ -19,13 +20,14 @@ const Dashboard = (props) => {
 	}, []);
 	return (
 		<Fragment>
-			{/* {user !== null && details !== null ? (
+			{user !== null && details !== null ? (
 				<Container className="container-user">
 					<h3 className="text-center mb-3 pt-4 ">DASHBOARD</h3>
 					<div className="title-border mb-4">
 						<span></span>
 					</div>
 					<div className="userform">
+					<DashboardPie />
 						<div className="row pb-3 pt-3">
 							<div className="col-md-6 mb-3">
 								<div className="card card1">
@@ -111,9 +113,9 @@ const Dashboard = (props) => {
 						</div>
 					</div>
 				</Container>
-			) : ( */}
+			) : (
 				<Spinner />
-			{/* )} */}
+			 )}
 		</Fragment>
 	);
 };
