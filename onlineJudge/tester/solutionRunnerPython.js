@@ -58,7 +58,7 @@ const testCodePython = async (file, testcaseFile, inputFile, noOfInputs) => {
 
                         reject(newStderr);
                     }
-                    else if (stdout) {
+                    else if (stdout || stdout === '') {
                         let trimmedStdout = remove_linebreaks(stdout);
                         let trimmedTestcaseOutput = remove_linebreaks(testcases[i + noOfInputs]);
                         // userOutput = trimmedStdout;
@@ -94,7 +94,7 @@ const testCodePython = async (file, testcaseFile, inputFile, noOfInputs) => {
                         }
                     }
                     else {
-                        reject('Empty file is being run!');
+                        reject('Unexpected error!');
                     }
                 });
             });

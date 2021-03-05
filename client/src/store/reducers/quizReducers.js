@@ -135,7 +135,9 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 submissions: state.submissions.filter(ele => ele._id !== action.payload),
-                filteredSubmissions: state.filteredSubmissions?.filter(ele => ele._id !== action.payload),
+                filteredSubmissions: state.filteredSubmissions ?
+                    state.filteredSubmissions.filter(ele => ele._id !== action.payload)
+                    : null,
                 loading: false
             };
         case actionTypes.CLEAR_QUIZ_ERRORS:

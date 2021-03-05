@@ -16,22 +16,23 @@ const PracticeProblem = (props) => {
     }, []);
 
     const createLink = (
-		<Link to="/addTopic" className="btn btn-primary create-btn">
-			<i class="fa fa-plus" aria-hidden="true"></i>
+        <Link to="/addTopic" className="btn btn-primary create-btn">
+            <i className="fa fa-plus" aria-hidden="true"></i>
 			Create
-		</Link>
-	);
+        </Link>
+    );
 
     return (
         <div>
             {(user.role === "admin" || user.role === "faculty") && (
-				<div className="create-quiz-row">{createLink}</div>
-			)}
+                <div className="create-quiz-row">{createLink}</div>
+            )}
             {catAndTopic ?
                 <>
                     { catAndTopic.distinctCategory.map((ele, index) => <AptiTopicsTemplate
                         key={index}
                         title={ele}
+                        idx={index}
                         topics={catAndTopic.distinctTopicByCat[index]}
                     />)}
                 </>

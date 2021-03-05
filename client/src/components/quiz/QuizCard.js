@@ -86,7 +86,7 @@ const QuizCard = (props) => {
             </Card.Body>
             <Card.Footer className='quiz_card_footer' style={{ backgroundColor: 'white' }}>
                 {user.role === 'student' &&
-                    <label htmlFor="name">Uploader: {quizObj.author?.name}</label>}
+                    <label htmlFor="name">Author: {quizObj.author?.name}</label>}
                 {(user.role === 'faculty' || user.role === 'admin') &&
                     <Link to={`/quizSubmissions/${quizObj._id}`} className='alert-link' style={{ color: '#775ecf' }} >Submissions</Link>}
                 <label htmlFor="name" style={{ float: 'right' }}>Last updated on {new Date(quizObj.createdAt).toLocaleString('en-us', { day: '2-digit', month: 'short', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</label>

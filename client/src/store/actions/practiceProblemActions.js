@@ -212,8 +212,9 @@ export const filterPracProbTopics = (query, category) => (dispatch) => {
     });
 };
 
-export const clearFilterPracProbTopics = () => (dispatch) => {
+export const clearFilterPracProbTopics = (category) => (dispatch) => {
     dispatch({
-        type: actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS
+        type: actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS,
+        payload: category
     });
 };

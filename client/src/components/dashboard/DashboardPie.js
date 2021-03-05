@@ -49,14 +49,14 @@ function DashboardPie() {
                         </ResponsiveContainer>
                     </div>
                     <div className="col-md-8 inlineParent text-center ">
-                        <div className="inline"><h3> <span class="badge easyIndicator">Easy </span></h3></div>
-                        <div className="inline"><h3>  <span class="badge mediumIndicator">Medium </span></h3></div>
-                        <div className="inline"><h3> <span class="badge hardIndicator">Hard</span></h3></div>
+                        <div className="inline"><h3> <span className="badge easyIndicator">Easy </span></h3></div>
+                        <div className="inline"><h3>  <span className="badge mediumIndicator">Medium </span></h3></div>
+                        <div className="inline"><h3> <span className="badge hardIndicator">Hard</span></h3></div>
                     </div>
                 </div>
             </div>
-        </div >
-    )
+        </div>
+    );
 }
 
 export default DashboardPie;

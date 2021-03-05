@@ -56,11 +56,6 @@ const QuizQues = (props) => {
             };
         });
         setUserAnswers(tempUserAnswers);
-        // window.alert('Quiz Submitted successfully!. Redirectng to /quizzes after 2 sec');
-
-        // setTimeout(() => {
-        //     history.push('/quizzes');
-        // }, 2000);
     };
 
     return (

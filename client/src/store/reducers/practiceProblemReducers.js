@@ -101,17 +101,22 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.FILTER_PRACTICE_PROBLEMS:
             const idx = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
+            const regex = new RegExp(`${action.payload.query}`, "gi");
             return {
                 ...state,
-                filtered: state.catAndTopic?.distinctTopicByCat[idx].filter(ele => {
-                    const regex = new RegExp(`${action.payload.query}`, "gi");
-                    return ele.match(regex);
-                })
+                filtered: state.catAndTopic?.distinctTopicByCat.map((ele, eleIdx) => eleIdx === idx ?
+                    (ele?.filter(subEle => subEle.match(regex)))
+                    : ((state.filtered && state.filtered[eleIdx]) ? state.filtered[eleIdx] : ele)
+
+                )
             };
         case actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS:
+            const catIdx = state.catAndTopic.distinctCategory.indexOf(action.payload);
             return {
                 ...state,
-                filtered: null
+                filtered: state.filtered ?
+                    state.filtered.map((ele, eleIdx) => eleIdx === catIdx ? null : ele)
+                    : null
             };
         default:
             return state;

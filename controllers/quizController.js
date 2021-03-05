@@ -155,7 +155,8 @@ exports.getAllQuizzes = catchAsync(async (req, res, next) => {
         quizzes = await Quiz.find({
             _id: {
                 $nin: currentUserSubs
-            }
+            },
+            active: true
         }).populate({
             path: 'author',
             select: '+name'
@@ -232,10 +233,10 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
     // if ((Date.now() - req.user.testStartedAt) / 1000 > (quiz.duration * 60 + 10)) {
     // console.log('timeup', Date.now(), new Date(req.user.testWillEndAt).getTime(), Date.now() - new Date(req.user.testWillEndAt).getTime());
     // console.log('timeup1', Date.now() - new Date(req.user.testWillEndAt).getTime() > 1000);
-    if (Date.now() - new Date(req.user.testWillEndAt).getTime() > 1000) {
+    if (Date.now() - new Date(req.user.testWillEndAt).getTime() > 1500) {
         submissionObj.valid = false;
     }
-    let durInSec = Math.round((Date.now() - new Date(req.user.testStartedAt).getTime()) / 1000);
+    let durInSec = Math.round((Date.now() - new Date(req.user.testStartedAt).getTime() - 500) / 1000);
     let durMin = Math.floor(durInSec / 60);
     let durSec = durInSec % 60;
 
@@ -281,7 +282,7 @@ exports.startQuiz = catchAsync(async (req, res, next) => {
     const user = await User.findByIdAndUpdate(req.user._id, {
         testStartedAt: Date.now() + 500,
         currentTest: req.params.id,
-        testWillEndAt: Date.now() + (quiz.duration * 60000) + (1000)
+        testWillEndAt: Date.now() + (quiz.duration * 60000) + (500)
     }, {
         new: true,
         runValidators: true

@@ -14,9 +14,9 @@ const QuizCardPage = (props) => {
 
 	useEffect(() => {
 		if (user?.role === "faculty" || user?.role === "admin") {
-			// getQuizzes(user._id);
 			getQuizzes();
-		} else if (user?.role === "student") {
+		}
+		else if (user?.role === "student") {
 			getQuizzes();
 		}
 		return () => { };
@@ -25,7 +25,7 @@ const QuizCardPage = (props) => {
 
 	const createLink = (
 		<Link to="/createQuiz" className="btn btn-primary create-btn">
-			<i class="fa fa-plus" aria-hidden="true"></i>
+			<i className="fa fa-plus" aria-hidden="true"></i>
 			Create
 		</Link>
 	);

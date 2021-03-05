@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import "./practiceProblem.css";
@@ -22,6 +22,7 @@ const AptiTopicsTemplate = (props) => {
         auth: { user },
         practiceProblem: { isDeleted, filtered },
         topics,
+        idx,
         title,
         setAlert,
         clrPracProbDeleteSuccess,
@@ -29,7 +30,7 @@ const AptiTopicsTemplate = (props) => {
         clearFilterPracProbTopics
     } = props;
 
-    const text = useRef("");
+    const [query, setQuery] = useState('');
 
     useEffect(() => {
         if (isDeleted) {
@@ -40,8 +41,8 @@ const AptiTopicsTemplate = (props) => {
 
     useEffect(() => {
         if (filtered === null) {
-            text.current = "";
-            clearFilterPracProbTopics();
+            setQuery('');
+            clearFilterPracProbTopics(title);
         }
         //eslint-disable-next-line
     }, [filtered]);
@@ -52,11 +53,14 @@ const AptiTopicsTemplate = (props) => {
         topic: ''
     });
 
-    const hanndleOnChange = (e) => {
-        if (text.current.value !== "") {
+    const handleOnChange = (e) => {
+        setQuery(e.target.value);
+
+        if (e.target.value !== "") {
             filterPracProbTopics(e.target.value, title);
-        } else {
-            clearFilterPracProbTopics();
+        }
+        else {
+            clearFilterPracProbTopics(title);
         }
     };
 
@@ -68,7 +72,7 @@ const AptiTopicsTemplate = (props) => {
         setModalShow(true);
     };
 
-    const filteredTopics = filtered !== null ? filtered : topics;
+    const filteredTopics = (filtered && filtered[idx]) ? filtered[idx] : topics;
 
     return (
         <Container className="container-problems">
@@ -98,7 +102,13 @@ const AptiTopicsTemplate = (props) => {
                             <div className="col-12 ">
                                 <Form>
                                     <Form.Group controlId={title} >
-                                        <Form.Control className="searchField" onChange={hanndleOnChange} ref={text} type="text" placeholder="Search Topics" />
+                                        <Form.Control
+                                            className="searchField"
+                                            onChange={handleOnChange}
+                                            value={query}
+                                            type="text"
+                                            placeholder="Search Topics"
+                                        />
                                     </Form.Group>
                                 </Form>
                             </div>

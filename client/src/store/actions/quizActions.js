@@ -301,7 +301,7 @@ export const deleteQuizSubmission = (id) => async (dispatch) => {
             payload: id
         });
     } catch (err) {
-        console.log('err', err.response);
+        console.log('err', err);
         dispatch({
             type: actionTypes.QUIZ_ERROR,
             payload: err.response.data.message || err.response.data.error

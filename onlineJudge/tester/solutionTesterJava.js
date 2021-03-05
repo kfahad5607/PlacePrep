@@ -76,7 +76,7 @@ const testCodeJava = async (file, testcaseFile, inputFile, noOfInputs) => {
 
                         reject(newStderr);
                     }
-                    else if (stdout) {
+                    else if (stdout || stdout === '') {
                         let trimmedStdout = remove_linebreaks(stdout);
                         let trimmedTestcaseOutput = remove_linebreaks(testcases[i + noOfInputs]);
                         // Checking if the std output is an array
@@ -113,7 +113,7 @@ const testCodeJava = async (file, testcaseFile, inputFile, noOfInputs) => {
                         }
                     }
                     else {
-                        reject('Neither err nor sdterr');
+                        reject('Unexpected error!');
                     }
                 });
             });

@@ -12,7 +12,11 @@ const ViewAnswer = (props) => {
                 <Alert.Link style={{ color: '#775ecf' }}>View Answer</Alert.Link>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={props.eKey} >
-                <Card.Body className='explanation_area' >The Correct Answer is: <strong>{props.correctOption}</strong></Card.Body>
+                <Card.Body className='explanation_area' >
+                    <div>The Correct Answer is: <strong>{props.correctOption}</strong></div>
+                    {props.explain ? <div>Explanation: <strong>{props.explain}</strong></div>
+                        : <div>Explanation: <strong>Not Available</strong></div>}
+                </Card.Body>
             </Accordion.Collapse>
         </Fragment>
     );
