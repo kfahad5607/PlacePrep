@@ -134,7 +134,7 @@ const CodeQuestions = (props) => {
 								</Form>
 							</div>
 							{(user.role === "admin" || user.role === "faculty") && (
-								<div className="col-2 pb-2">{createLink}</div>
+								<div className="col-2 pb-2 create-btn-div">{createLink}</div>
 							)}
 						</div>
 
