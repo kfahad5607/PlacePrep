@@ -5,6 +5,7 @@ const initialState = {
     catAndTopic: null,
     current: null,
     filtered: null,
+    filteredQuestions: null,
     error: null,
     isCreated: null,
     isDeleted: null,
@@ -65,7 +66,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DELETE_PRACTICE_PROBLEM:
             return {
                 ...state,
-                questions: state.questions?.filter(ele => ele._id !== action.payload)
+                questions: state.questions?.filter(ele => ele._id !== action.payload),
+                filteredQuestions: state.filteredQuestions?.filter(ele => ele._id !== action.payload),
             };
         case actionTypes.DELETE_PRAC_PROB_BY_TOPIC:
             const index = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
@@ -77,7 +79,10 @@ const reducer = (state = initialState, action) => {
                         .catAndTopic
                         .distinctTopicByCat
                         .map((ele, idx) => idx === index ? (state.catAndTopic.distinctTopicByCat[index].filter(ele => ele !== action.payload.topic)) : ele)
-                }
+                },
+                filtered: state.filtered.map((ele, eleIdx) => eleIdx === index ?
+                    ele.filter(subEle => subEle !== action.payload.topic)
+                    : ele)
             };
         case actionTypes.UPDATE_PRACTICE_PROBLEM_TOPIC:
             return {
@@ -99,7 +104,7 @@ const reducer = (state = initialState, action) => {
                 error: null,
             };
 
-        case actionTypes.FILTER_PRACTICE_PROBLEMS:
+        case actionTypes.FILTER_PRACTICE_PROBLEMS_TOPICS:
             const idx = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
             const regex = new RegExp(`${action.payload.query}`, "gi");
             return {
@@ -107,16 +112,26 @@ const reducer = (state = initialState, action) => {
                 filtered: state.catAndTopic?.distinctTopicByCat.map((ele, eleIdx) => eleIdx === idx ?
                     (ele?.filter(subEle => subEle.match(regex)))
                     : ((state.filtered && state.filtered[eleIdx]) ? state.filtered[eleIdx] : ele)
-
                 )
             };
-        case actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS:
+        case actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS_TOPICS:
             const catIdx = state.catAndTopic.distinctCategory.indexOf(action.payload);
             return {
                 ...state,
                 filtered: state.filtered ?
                     state.filtered.map((ele, eleIdx) => eleIdx === catIdx ? null : ele)
                     : null
+            };
+        case actionTypes.FILTER_PRACTICE_PROBLEMS:
+            const rgx = new RegExp(`${action.payload}`, "gi");
+            return {
+                ...state,
+                filteredQuestions: state.questions.filter(ele => ele.question.match(rgx))
+            };
+        case actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS:
+            return {
+                ...state,
+                filteredQuestions: null
             };
         default:
             return state;

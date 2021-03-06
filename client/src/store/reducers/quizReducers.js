@@ -165,6 +165,18 @@ const reducer = (state = initialState, action) => {
                 filteredSubmissions: null,
                 loading: false
             };
+        case actionTypes.FILTER_QUIZZES:
+            const rgx = new RegExp(`${action.payload}`, "gi");
+            return {
+                ...state,
+                filtered: state.quizzes.filter(ele => ele.title.match(rgx) || ele.topic.match(rgx) || ele.category.match(rgx)
+                )
+            };
+        case actionTypes.CLEAR_FILTER_QUIZZES:
+            return {
+                ...state,
+                filtered: null
+            };
         default:
             return state;
     }

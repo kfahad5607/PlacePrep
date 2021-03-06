@@ -83,13 +83,13 @@ const CodeQuestions = (props) => {
 						{createLink}
 					</h4>
 				) : (
-						<h4>Currently There are No Questions Available.</h4>
-					)}
+					<h4>Currently There are No Questions Available.</h4>
+				)}
 			</div>
 		);
 	}
 
-	const filteredQsn = filtered !== null ? filtered : questions;
+	const filteredQsn = filtered ? filtered : questions;
 
 	const sortedQsn = _.orderBy(
 		filteredQsn,
@@ -219,8 +219,8 @@ const CodeQuestions = (props) => {
 					</div>
 				</Container>
 			) : (
-					<Spinner />
-				)}
+				<Spinner />
+			)}
 		</Fragment>
 	);
 };

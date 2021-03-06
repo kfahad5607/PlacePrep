@@ -328,6 +328,19 @@ export const clearFilterQuizSub = () => (dispatch) => {
     });
 };
 
+export const filterQuizzes = (query) => (dispatch) => {
+    dispatch({
+        type: actionTypes.FILTER_QUIZZES,
+        payload: query
+    });
+};
+
+export const clearFilterQuizzes = () => (dispatch) => {
+    dispatch({
+        type: actionTypes.CLEAR_FILTER_QUIZZES
+    });
+};
+
 export const clrQuizCreateSuccess = () => (dispatch) => {
     dispatch({
         type: actionTypes.CLR_QUIZ_CREATED_SUCCESS

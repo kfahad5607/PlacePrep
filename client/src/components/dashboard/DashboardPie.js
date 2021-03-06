@@ -9,7 +9,6 @@ function DashboardPie() {
         { name: 'Easy', value: 100, fill: "#5cb85c" },
         { name: 'Medium', value: 200, fill: "#f0ad4e" },
         { name: 'Hard', value: 300, fill: "#d8091c" }
-
     ];
 
     const RADIAN = Math.PI / 180;

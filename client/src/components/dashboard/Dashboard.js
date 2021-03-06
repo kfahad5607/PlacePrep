@@ -43,8 +43,8 @@ const Dashboard = (props) => {
                                                     } / {details.quizzes}
                                                 </b>
                                             ) : (
-                                                    <b> Total : {details.quizzes}</b>
-                                                )}
+                                                <b> Total : {details.quizzes}</b>
+                                            )}
                                         </span>
                                         <button
                                             type="button"
@@ -68,12 +68,12 @@ const Dashboard = (props) => {
                                                 <b>
                                                     {" "}
 													Attempted : {
-                                                        details.codeSubmissions
+                                                        details.codeSubmissions.total
                                                     } / {details.questions}
                                                 </b>
                                             ) : (
-                                                    <b> Total : {details.questions}</b>
-                                                )}
+                                                <b> Total : {details.questions}</b>
+                                            )}
                                         </span>
                                         <button
                                             type="button"
@@ -113,8 +113,8 @@ const Dashboard = (props) => {
                     </div>
                 </Container>
             ) : (
-                    <Spinner />
-                )}
+                <Spinner />
+            )}
         </Fragment>
     );
 };

@@ -79,7 +79,7 @@ const QuizSubmissions = (props) => {
         setPageDetails({ ...pageDetails, sortColumn });
     };
 
-    const filteredSub = filteredSubmissions !== null ? filteredSubmissions : submissions;
+    const filteredSub = filteredSubmissions ? filteredSubmissions : submissions;
 
     const sortedSub = _.orderBy(
         filteredSub,

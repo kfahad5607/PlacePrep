@@ -75,7 +75,7 @@ const UserTable = (props) => {
 		return <h4>Currently There are No Question Available</h4>;
 	}
 
-	const filteredUsr = filteredUsers !== null ? filteredUsers : allUsers;
+	const filteredUsr = filteredUsers ? filteredUsers : allUsers;
 
 	const sortedUsr = _.orderBy(
 		filteredUsr,
