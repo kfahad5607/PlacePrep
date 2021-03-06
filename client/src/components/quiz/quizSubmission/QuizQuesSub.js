@@ -9,8 +9,8 @@ import { submitQuiz } from '../../../store/actions/quizActions';
 const QuizQues = (props) => {
     const { userAns } = props;
 
-    // const [userAnswers] = useState(userAns);
-    const [userAnswers, setUserAnswers] = useState(userAns);
+    const [userAnswers] = useState(userAns);
+    // const [userAnswers, setUserAnswers] = useState(userAns);
 
     return (
         <>

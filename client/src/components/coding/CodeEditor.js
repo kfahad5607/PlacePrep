@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
@@ -27,7 +27,7 @@ import SubmitCodeSuccess from './SubmitCodeSuccess';
 // require("codemirror/addon/scroll/simplescrollbars.js");
 
 const CodeEditor = (props) => {
-    const { auth: { user }, code: { userCode, runSubmit }, runCode, submitCode, resetCode, setAlert } = props;
+    const { auth: { user }, code: { userCode, runSubmit }, runCode, submitCode } = props;
 
     const [editorSelect, setEditorSelect] = useState({
         lang: "text/x-csrc",

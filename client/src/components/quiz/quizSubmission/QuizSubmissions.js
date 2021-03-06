@@ -201,9 +201,8 @@ const QuizSubmissions = (props) => {
                             <nav aria-label="Page navigation example">
                                 <ul className="pagination nav2">
                                     <li className="">
-                                        <a
-                                            className="page-link"
-                                            href="#"
+                                        <i
+                                            className="page-link cursor-pointer"
                                             aria-label="Previous"
                                         >
                                             <span
@@ -212,7 +211,7 @@ const QuizSubmissions = (props) => {
                                             >
                                                 &laquo;
                                     </span>
-                                        </a>
+                                        </i>
                                     </li>
                                     <li className=" ">
                                         <a
@@ -239,9 +238,8 @@ const QuizSubmissions = (props) => {
                                 </a>
                                     </li>
                                     <li className="">
-                                        <a
-                                            className="page-link"
-                                            href="#"
+                                        <i
+                                            className="page-link cursor-pointer"
                                             aria-label="Next"
                                         >
                                             <span
@@ -250,7 +248,7 @@ const QuizSubmissions = (props) => {
                                             >
                                                 &raquo;
                                     </span>
-                                        </a>
+                                        </i>
                                     </li>
                                 </ul>
                             </nav>

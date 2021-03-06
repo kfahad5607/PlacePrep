@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from '../../store/actions/alertActions';
-import { deleteQuestion, clrCodeDeleteSuccess, clrCodeCreateSuccess } from "../../store/actions/codeActions";
+import { deleteQuestion, clrCodeDeleteSuccess } from "../../store/actions/codeActions";
 
-const CodeTableRow = ({ code: { isDeleted },
+const CodeTable = ({ code: { isDeleted },
     auth: { user },
     question,
     id,
@@ -15,6 +15,8 @@ const CodeTableRow = ({ code: { isDeleted },
             setAlert('Question Deleted', 'success');
             clrCodeDeleteSuccess();
         }
+        
+		//eslint-disable-next-line
     }, [isDeleted]);
 
     function capitalize(s) {
@@ -31,11 +33,10 @@ const CodeTableRow = ({ code: { isDeleted },
             </td>
             <td className="">
                 <span>
-                    <a
-                        className="fa fa-book questSol"
+                    <i
+                        className="fa fa-book questSol cursor-pointer"
                         aria-hidden="true"
-                        href="!#"
-                    ></a>
+                    ></i>
                 </span>
             </td>
             <td className="">
@@ -73,12 +74,11 @@ const CodeTableRow = ({ code: { isDeleted },
                     ></Link>
                 </span>
                 <span>
-                    <a
-                        className="fa fa-trash operation-D"
+                    <i
+                        className="fa fa-trash operation-D cursor-pointer"
                         aria-hidden="true"
-                        href="#!"
                         onClick={() => deleteQuestion(question._id)}
-                    ></a>
+                    ></i>
                 </span>
             </td>}
         </tr>
@@ -90,4 +90,4 @@ const mapStateToProps = state => ({
     code: state.code
 });
 
-export default connect(mapStateToProps, { deleteQuestion, setAlert, clrCodeDeleteSuccess })(CodeTableRow);
+export default connect(mapStateToProps, { deleteQuestion, setAlert, clrCodeDeleteSuccess })(CodeTable);

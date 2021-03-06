@@ -40,6 +40,8 @@ const QuizPage = (props) => {
             setAlert('Problem Deleted', 'success');
             clrPracProbDeleteSuccess();
         }
+        
+        //eslint-disable-next-line
     }, [isDeleted]);
 
     useEffect(() => {
@@ -47,6 +49,7 @@ const QuizPage = (props) => {
             setQuery('');
             clearFilterPracProbs();
         }
+
         //eslint-disable-next-line
     }, [filteredQuestions]);
 

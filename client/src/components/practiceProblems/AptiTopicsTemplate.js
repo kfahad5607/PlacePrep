@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import "./practiceProblem.css";
 import slugify from 'slugify';
 import MyModal from '../layout/MyModal';
-import { Container, Button, Form, Accordion, Alert } from 'react-bootstrap';
+import { Container, Form, Accordion, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {
     clrPracProbDeleteSuccess,
     filterPracProbTopics,
-    clearFilterPracProbTopics,
-    clearPracticeProblemErrors
+    clearFilterPracProbTopics
 } from '../../store/actions/practiceProblemActions';
 import { setAlert } from '../../store/actions/alertActions';
 
@@ -37,6 +36,8 @@ const AptiTopicsTemplate = (props) => {
             setAlert('Topic Deleted', 'success');
             clrPracProbDeleteSuccess();
         }
+        
+		//eslint-disable-next-line
     }, [isDeleted]);
 
     useEffect(() => {
@@ -44,6 +45,7 @@ const AptiTopicsTemplate = (props) => {
             setQuery('');
             clearFilterPracProbTopics(title);
         }
+
         //eslint-disable-next-line
     }, [filtered]);
 

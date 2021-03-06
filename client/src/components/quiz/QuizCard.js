@@ -31,6 +31,8 @@ const QuizCard = (props) => {
             setAlert('Quiz Deleted', 'success');
             clrQuizDeleteSuccess();
         }
+        
+        //eslint-disable-next-line
     }, [isDeleted]);
 
     const handleOnClick = () => {

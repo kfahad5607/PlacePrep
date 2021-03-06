@@ -1,5 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
@@ -12,7 +11,6 @@ import { clearTestDetails } from '../../store/actions/authActions';
 import { setAlert } from '../../store/actions/alertActions';
 
 const QuizQues = (props) => {
-    let history = useHistory();
     const { quiz: { isCreated }, submitQuiz, clearTestDetails, setAlert, clrQuizCreateSuccess } = props;
 
     useEffect(() => {
@@ -21,6 +19,8 @@ const QuizQues = (props) => {
             clrQuizCreateSuccess();
             clearTestDetails();
         }
+        
+        //eslint-disable-next-line
     }, [isCreated]);
 
     let tempUserAnswers;

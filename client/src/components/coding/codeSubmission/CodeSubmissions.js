@@ -43,6 +43,8 @@ const CodeSubmissions = (props) => {
         }
         return () => {
         };
+        
+		//eslint-disable-next-line
     }, [user]);
 
     if (submissions !== null && submissions.length === 0) {
@@ -107,7 +109,7 @@ const CodeSubmissions = (props) => {
     );
 
     const newSubmissions = paginate(sortedSub, currentPage, pageSize);
-    const subNumber = _.range(1, newSubmissions.length + 1);
+    // const subNumber = _.range(1, newSubmissions.length + 1);
 
 
     return (

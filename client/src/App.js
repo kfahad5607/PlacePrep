@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Auth.css";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Home from "./components/layout/Home";
@@ -15,7 +15,7 @@ import ResetPassword from './components/auth/Resetpassword';
 import TestRoute from "./components/routing/TestRoute";
 
 const App = (props) => {
-    const { auth: { user, error }, setTestDetails, loadUser } = props;
+    const { auth: { user }, setTestDetails, loadUser } = props;
 
     useEffect(() => {
         loadUser(false, true);

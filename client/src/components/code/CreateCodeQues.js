@@ -65,7 +65,7 @@ const CreateCodeQuestion = (props) => {
             clrCodeCreateSuccess();
         }
 
-
+		//eslint-disable-next-line
     }, [isCreated]);
 
     useEffect(() => {

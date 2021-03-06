@@ -29,7 +29,6 @@ const CodeEditor = (props) => {
     let { auth: { user }, code: { userCode, runSubmit },
         runCode,
         submitCode,
-        resetCode,
         userSolution, language } = props;
 
     if (language === 'C') {

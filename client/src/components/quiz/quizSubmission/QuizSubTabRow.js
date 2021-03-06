@@ -20,6 +20,8 @@ const QuizSubTabRow = (props) => {
             setAlert('Quiz Submission Deleted', 'success');
             clrQuizDeleteSuccess();
         }
+        
+        //eslint-disable-next-line
     }, [isDeleted]);
 
     return (
