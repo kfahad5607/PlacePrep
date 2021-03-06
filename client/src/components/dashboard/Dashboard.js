@@ -4,17 +4,18 @@ import "./dashboard.css";
 import DashboardCard from "./DashboardCard";
 import DashboardPie from "./DashboardPie";
 import Spinner from "../layout/Spinner";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getDetailsAndUsers } from "../../store/actions/authActions";
+import { getDetails } from "../../store/actions/authActions";
 
 const Dashboard = (props) => {
     const {
         auth: { user, details },
-        getDetailsAndUsers,
+        getDetails,
     } = props;
 
     useEffect(() => {
-        getDetailsAndUsers(user?.role === "student" ? true : false);
+        getDetails();
         //eslint-disable-next-line
     }, []);
     return (
@@ -26,7 +27,7 @@ const Dashboard = (props) => {
                         <span></span>
                     </div>
                     <div className="userform">
-                        <DashboardPie />
+                        {user.role === "student" && <DashboardPie submissions={details.codeSubmissions}/>}
                         <div className="row pb-3 pt-3">
                             <div className="col-md-6 mb-3">
                                 <div className="card card1">
@@ -38,7 +39,7 @@ const Dashboard = (props) => {
                                             {user.role === "student" ? (
                                                 <b>
                                                     {" "}
-													Attempted : {
+                                                    Attempted : {
                                                         details.quizSubmissions
                                                     } / {details.quizzes}
                                                 </b>
@@ -46,12 +47,12 @@ const Dashboard = (props) => {
                                                     <b> Total : {details.quizzes}</b>
                                                 )}
                                         </span>
-                                        <button
-                                            type="button"
+                                        <Link
+                                            to="/quizzes"
                                             className="btn btn-primary cardBtn1 setting "
                                         >
                                             See Quiz
-										</button>
+										</Link>
                                     </div>
                                 </div>
                             </div>
@@ -67,20 +68,20 @@ const Dashboard = (props) => {
                                             {user.role === "student" ? (
                                                 <b>
                                                     {" "}
-													Attempted : {
-                                                        details.codeSubmissions
+                                                    Attempted : {
+                                                        details.codeSubmissions.total
                                                     } / {details.questions}
                                                 </b>
                                             ) : (
                                                     <b> Total : {details.questions}</b>
                                                 )}
                                         </span>
-                                        <button
-                                            type="button"
+                                        <Link
+                                            to="/codeQuestions"
                                             className="btn btn-primary cardBtn2 setting "
                                         >
                                             Questions
-										</button>
+										</Link>
                                     </div>
                                 </div>
                             </div>
@@ -123,4 +124,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getDetailsAndUsers })(Dashboard);
+export default connect(mapStateToProps, { getDetails })(Dashboard);

@@ -171,24 +171,13 @@ export const resetPassword = (passwords, token) => async dispatch => {
     }
 };
 
-export const getDetailsAndUsers = (isStudent) => async (dispatch) => {
+export const getDetails = () => async (dispatch) => {
     try {
-        let resUsers;
-        const resDetails = await axios.get('/api/v1/user/getDetails');
-        if (!isStudent) {
-            resUsers = await axios.get('/api/v1/user/users');
-            dispatch({
-                type: GET_ALL_USERS,
-                payload: resUsers.data.data.users
-            });
-        }
-
+        const res = await axios.get('/api/v1/user/getDetails');
         dispatch({
             type: GET_DETAILS,
-            payload: resDetails.data.data
+            payload: res.data.data
         });
-
-
     } catch (err) {
         console.log(err?.response);
         dispatch({
@@ -197,6 +186,22 @@ export const getDetailsAndUsers = (isStudent) => async (dispatch) => {
         });
     }
 };
+
+export const getAllUsers = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/v1/user/users');
+        dispatch({
+            type: GET_ALL_USERS,
+            payload: res.data.data.users
+        });
+    } catch (err) {
+        console.log(err?.response);
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message
+        });
+    }
+}
 
 export const setTestDetails = (details) => (dispatch) => {
     dispatch({

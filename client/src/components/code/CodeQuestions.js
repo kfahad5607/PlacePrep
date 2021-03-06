@@ -7,7 +7,7 @@ import {
 	filterQuestions,
 	clearFilter,
 } from "../../store/actions/codeActions";
-import CodeTableRow from "./CodeTableRow";
+import CodeTableRow from "./CodeTable";
 import Spinner from "../layout/Spinner";
 import Pagination from "./Pagination";
 import paginate from "./paginate";
@@ -96,7 +96,8 @@ const CodeQuestions = (props) => {
 		[
 			function (item) {
 				if (sortColumn.path === "difficulty") return item.difficulty;
-				else return item.title.toLowerCase();
+				else if (sortColumn.path === "title") return item.title.toLowerCase();
+				else return item.author.name.toLowerCase();
 			},
 		],
 		[sortColumn.order]
@@ -155,14 +156,14 @@ const CodeQuestions = (props) => {
 										>
 											Difficulty
 										</th>
-										<th scope="col">
-											{user?.role === "student"
-												? "Author"
-												: "Submissions"}
-										</th>
+										{user?.role === "student"
+											&& <th scope="col" onClick={() => handleSort("author.name")}>Author</th>}
 										{(user?.role === "faculty" ||
 											user?.role === "admin") && (
-												<th scope="col">Operations</th>
+												<>
+													<th scope="col">Submissions</th>
+													<th scope="col">Operations</th>
+												</>
 											)}
 									</tr>
 								</thead>

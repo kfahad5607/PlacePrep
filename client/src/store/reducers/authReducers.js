@@ -139,9 +139,9 @@ const reducer = (state = initialState, action) => {
                 allUsers: state.allUsers?.map((User) =>
                     User._id === action.payload._id ? action.payload : User
                 ),
-                filteredUsers: state.filteredUsers?.map((User) =>
+                filteredUsers: state.filteredUsers ? state.filteredUsers.map((User) =>
                     User._id === action.payload._id ? action.payload : User
-                ),
+                ) : null,
                 loading: false,
             };
         case DELETE_USER:
