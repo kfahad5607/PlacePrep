@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as menuItemArrays from './MenuItemData';
 import { connect } from 'react-redux';
 
@@ -21,7 +21,10 @@ const MenuList = (props) => {
         } else {
             setMenuItems(menuItemArrays.student);
         }
+
+        // eslint-disable-next-line
     }, [user]);
+
 
     let [menuItems, setMenuItems] = useState(menuItemArrays.student);
 
@@ -42,7 +45,9 @@ const MenuList = (props) => {
             })[0];
             setSelected(selectedItem?.name);
         }
-    }, []);
+
+        // eslint-disable-next-line
+    }, [window.location.pathname]);
 
     useEffect(() => {
         const newSubMenus = {};
@@ -95,7 +100,9 @@ const MenuList = (props) => {
 
             setSubMenus(newSubMenus);
         });
-    }, []);
+
+        // eslint-disable-next-line
+    }, [window.location.pathname]);
 
     const handleMenuItemClick = (name, index) => {
         setSelected(name);
@@ -192,4 +199,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, null)(MenuList);
+export default withRouter(connect(mapStateToProps, null)(MenuList));

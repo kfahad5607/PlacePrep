@@ -8,6 +8,8 @@ const initialState = {
     filtered: null,
     filteredSubmissions: null,
     error: null,
+    isCreated: null,
+    isDeleted: null,
     score: null,
     loading: false
 };
@@ -39,11 +41,36 @@ const reducer = (state = initialState, action) => {
                 quizzes: [action.payload, ...(state.quizzes ? state.quizzes : [])],
                 loading: false
             };
+        case actionTypes.QUIZ_CREATED_SUCCESS:
+            return {
+                ...state,
+                isCreated: true,
+                loading: false
+            };
+        case actionTypes.CLR_QUIZ_CREATED_SUCCESS:
+            return {
+                ...state,
+                isCreated: null,
+                loading: false
+            };
 
+        case actionTypes.QUIZ_DELETED_SUCCESS:
+            return {
+                ...state,
+                isDeleted: true,
+                loading: false
+            };
+        case actionTypes.CLR_QUIZ_DELETED_SUCCESS:
+            return {
+                ...state,
+                isDeleted: null,
+                loading: false
+            };
         case actionTypes.UPDATE_QUIZ:
             return {
                 ...state,
                 quizzes: state.quizzes?.map((ele) => ele._id === action.payload._id ? action.payload : ele),
+                filtered: state.filtered?.map((ele) => ele._id === action.payload._id ? action.payload : ele),
                 current: action.payload,
                 loading: false
             };
@@ -52,6 +79,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 quizzes: state.quizzes.filter(ele => ele._id !== action.payload),
+                filtered: state.filtered?.filter(ele => ele._id !== action.payload),
                 loading: false
             };
 
@@ -107,13 +135,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 submissions: state.submissions.filter(ele => ele._id !== action.payload),
+                filteredSubmissions: state.filteredSubmissions ?
+                    state.filteredSubmissions.filter(ele => ele._id !== action.payload)
+                    : null,
                 loading: false
             };
         case actionTypes.CLEAR_QUIZ_ERRORS:
             return {
                 ...state,
                 error: null,
-            }
+            };
         case actionTypes.FILTER_QUIZ_SUBMISSIONS:
             return {
                 ...state,

@@ -7,7 +7,7 @@ import { setAlert } from "../../store/actions/alertActions";
 import ResPassModal from './ResPassModal';
 
 const Login = (props) => {
-    
+
     const { login, setAlert, clearErrors } = props;
     const { error, isAuthenticated } = props.auth;
 

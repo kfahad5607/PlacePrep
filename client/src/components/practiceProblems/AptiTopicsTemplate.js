@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import "./practiceProblem.css";
@@ -6,7 +6,13 @@ import slugify from 'slugify';
 import MyModal from '../layout/MyModal';
 import { Container, Button, Form, Accordion, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { deletePracProbByTopic } from '../../store/actions/practiceProblemActions';
+import {
+    clrPracProbDeleteSuccess,
+    filterPracProbTopics,
+    clearFilterPracProbTopics,
+    clearPracticeProblemErrors
+} from '../../store/actions/practiceProblemActions';
+import { setAlert } from '../../store/actions/alertActions';
 
 const AptiTopicsTemplate = (props) => {
     // deletePracProbByTopic(title, ele)
@@ -14,12 +20,50 @@ const AptiTopicsTemplate = (props) => {
     const [modalShow, setModalShow] = useState(false);
     const {
         auth: { user },
-        topics, title } = props;
+        practiceProblem: { isDeleted, filtered },
+        topics,
+        idx,
+        title,
+        setAlert,
+        clrPracProbDeleteSuccess,
+        filterPracProbTopics,
+        clearFilterPracProbTopics
+    } = props;
+
+    const [query, setQuery] = useState('');
+
+    useEffect(() => {
+        if (isDeleted) {
+            setAlert('Topic Deleted', 'success');
+            clrPracProbDeleteSuccess();
+        }
+    }, [isDeleted]);
+
+    useEffect(() => {
+        if (filtered === null) {
+            setQuery('');
+            clearFilterPracProbTopics(title);
+        }
+        //eslint-disable-next-line
+    }, [filtered]);
+
 
     const [titleTopic, setTitleTopic] = useState({
         title: '',
         topic: ''
     });
+
+    const handleOnChange = (e) => {
+        setQuery(e.target.value);
+
+        if (e.target.value !== "") {
+            filterPracProbTopics(e.target.value, title);
+        }
+        else {
+            clearFilterPracProbTopics(title);
+        }
+    };
+
     const handleOnClick = (title, topic) => {
         setTitleTopic({
             title,
@@ -28,8 +72,9 @@ const AptiTopicsTemplate = (props) => {
         setModalShow(true);
     };
 
-    return (
+    const filteredTopics = (filtered && filtered[idx]) ? filtered[idx] : topics;
 
+    return (
         <Container className="container-problems">
             {/* modal starts here */}
             <MyModal
@@ -56,8 +101,14 @@ const AptiTopicsTemplate = (props) => {
                         <div className="row mr-2 ml-2">
                             <div className="col-12 ">
                                 <Form>
-                                    <Form.Group controlId="codingquestionSearch" >
-                                        <Form.Control className="searchField" type="" placeholder="Search Topics" />
+                                    <Form.Group controlId={title} >
+                                        <Form.Control
+                                            className="searchField"
+                                            onChange={handleOnChange}
+                                            value={query}
+                                            type="text"
+                                            placeholder="Search Topics"
+                                        />
                                     </Form.Group>
                                 </Form>
                             </div>
@@ -67,7 +118,7 @@ const AptiTopicsTemplate = (props) => {
                         <div className="Topics pb-4">
 
                             {/* Topics component starts here */}
-                            {topics.map((ele, index) =>
+                            {filteredTopics.map((ele, index) =>
                                 <div key={index} className="row topic mb-3 pb-2 pt-2">
                                     <div className="col-sm-6 topic-left">
                                         <h5 className="topic-name">{ele}</h5>
@@ -105,4 +156,9 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { deletePracProbByTopic })(AptiTopicsTemplate);
+export default connect(mapStateToProps, {
+    setAlert,
+    clrPracProbDeleteSuccess,
+    filterPracProbTopics,
+    clearFilterPracProbTopics
+})(AptiTopicsTemplate);

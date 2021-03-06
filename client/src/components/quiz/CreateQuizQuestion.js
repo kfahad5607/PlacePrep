@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 // import './quiz.css';
-import { Button, Form, Alert, Row, Accordion } from "react-bootstrap";
+import { Button, Form, Alert, Accordion } from "react-bootstrap";
 import TextareaAutosize from "react-textarea-autosize";
 
 function QuizQuestion(props) {

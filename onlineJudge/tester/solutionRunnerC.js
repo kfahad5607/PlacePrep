@@ -7,7 +7,7 @@ const { remove_linebreaks,
     is2dArray,
     replace1QTo2Q } = require('../../utils/helperFunctions');
 
-const testCodeC = async (file, testcaseFile, noOfInputs) => {
+const testCodeC = async (file, testcaseFile, inputFile, noOfInputs) => {
     let givenInput = '';
     let expectedOutput;
     let userOutput;
@@ -63,20 +63,21 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
             }
         }
         let inputStr = inputArr.join('\n');
-        fs.writeFileSync('./onlineJudge/input.txt', inputStr);
+        fs.writeFileSync(inputFile, inputStr);
 
         try {
             const info = await new Promise((resolve, reject) => {
-                exec(`${exeFile} < ./onlineJudge/input.txt`, (err, stdout, stderr) => {
+                exec(`${exeFile} < ${inputFile}`, (err, stdout, stderr) => {
                     if (err) {
                         let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
 
                         reject(newStderr);
                     }
-                    else if (stdout) {
+                    else if (stdout || stdout === '') {
                         let trimmedStdout = remove_linebreaks(stdout);
                         let trimmedTestcaseOutput = remove_linebreaks(testcases[i + noOfInputs]);
-                        userOutput = trimmedStdout;
+                        // userOutput = trimmedStdout;
+                        userOutput = stdout;
                         expectedOutput = trimmedTestcaseOutput;
                         // Checking if the std output is an array
                         if (isJSON(replace1QTo2Q(trimmedStdout)) && JSON.parse(replace1QTo2Q(trimmedStdout)).constructor === Array) {
@@ -109,7 +110,7 @@ const testCodeC = async (file, testcaseFile, noOfInputs) => {
                         }
                     }
                     else {
-                        reject('Neither err nor sdterr');
+                        reject('Unexpected error!');
                     }
                 });
             });

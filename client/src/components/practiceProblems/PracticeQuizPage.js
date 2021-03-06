@@ -4,18 +4,17 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PracticeQuizQues from './PracticeQuizQues';
-import QuizTimer from '../quiz/QuizTimer';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
-import { getPracticeProblems } from '../../store/actions/practiceProblemActions';
-import { loadUser } from '../../store/actions/authActions';
+import { getPracticeProblems, clrPracProbDeleteSuccess } from '../../store/actions/practiceProblemActions';
+import { setAlert } from '../../store/actions/alertActions';
 
 const QuizPage = (props) => {
     const {
-        practiceProblem: { questions },
-        auth: { user },
-        loadUser,
+        practiceProblem: { questions, isDeleted },
         getPracticeProblems,
+        clrPracProbDeleteSuccess,
+        setAlert,
         match
     } = props;
     const { categorySlug, topicSlug } = match.params;
@@ -24,8 +23,16 @@ const QuizPage = (props) => {
     useEffect(() => {
         getPracticeProblems(categorySlug, topicSlug);
         // loadUser(false, true);
+
+        // eslint-disable-next-line
     }, []);
 
+    useEffect(() => {
+        if (isDeleted) {
+            setAlert('Problem Deleted', 'success');
+            clrPracProbDeleteSuccess();
+        }
+    }, [isDeleted]);
 
     return (
         <>
@@ -52,4 +59,8 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { getPracticeProblems, loadUser })(QuizPage);
+export default connect(mapStateToProps, {
+    getPracticeProblems,
+    clrPracProbDeleteSuccess,
+    setAlert
+})(QuizPage);

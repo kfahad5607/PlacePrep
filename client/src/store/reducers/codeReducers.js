@@ -18,7 +18,11 @@ import {
     GET_CODE_SUBMISSION,
     DELETE_CODE_SUBMISSION,
     FILTER_CODE_SUBMISSIONS,
-    CLEAR_FILTER_CODE_SUBMISSIONS
+    CLEAR_FILTER_CODE_SUBMISSIONS,
+    CODE_CREATED_SUCCESS,
+    CLR_CODE_CREATED_SUCCESS,
+    CODE_DELETED_SUCCESS,
+    CLR_CODE_DELETED_SUCCESS
 
 } from "../actions/actionTypes";
 
@@ -30,6 +34,8 @@ const initialState = {
     filtered: null,
     filteredSubmissions: null,
     error: null,
+    isCreated: null,
+    isDeleted: null,
     loading: true,
     userCode: null,
     runSubmit: 'submit'
@@ -58,12 +64,39 @@ const reducer = (state = initialState, action) => {
                         : [...state.questions, action.payload],
                 loading: false,
             };
+        case CODE_CREATED_SUCCESS:
+            return {
+                ...state,
+                isCreated: true,
+                loading: false
+            };
+        case CLR_CODE_CREATED_SUCCESS:
+            return {
+                ...state,
+                isCreated: null,
+                loading: false
+            };
+        case CODE_DELETED_SUCCESS:
+            return {
+                ...state,
+                isDeleted: true,
+                loading: false
+            };
+        case CLR_CODE_DELETED_SUCCESS:
+            return {
+                ...state,
+                isDeleted: null,
+                loading: false
+            };
         case UPDATE_CODE_QUESTION:
             return {
                 ...state,
                 questions: state.questions?.map((qsn) =>
                     qsn._id === action.payload._id ? action.payload : qsn
                 ),
+                filtered: state.filtered ? state.filtered.map((qsn) =>
+                    qsn._id === action.payload._id ? action.payload : qsn
+                ) : null,
                 current: action.payload,
                 loading: false,
             };
@@ -131,7 +164,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
-            }
+            };
         case SET_USER_CODE_NULL:
             return {
                 ...state,
@@ -153,6 +186,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 submissions: state.submissions.filter(ele => ele._id !== action.payload),
+                filteredSubmissions: state.filteredSubmissions?.filter(ele => ele._id !== action.payload),
                 loading: false
             };
         case FILTER_CODE_SUBMISSIONS:

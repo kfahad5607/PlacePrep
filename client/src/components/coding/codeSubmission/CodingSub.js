@@ -38,7 +38,7 @@ const CodingSub = (props) => {
                     </Col>
                     <Col className="editor-container">
                         <CodeEditorSub
-                            key={currentSubmission.question._id}
+                            key={currentSubmission.userSolution}
                             slugProp={currentSubmission.question.slug}
                             userSolution={currentSubmission.userSolution}
                             language={currentSubmission.language}

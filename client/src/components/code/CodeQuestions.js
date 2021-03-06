@@ -69,7 +69,7 @@ const CodeQuestions = (props) => {
 
 	const createLink = (
 		<Link to="/createCodeQuestion" className="btn btn-primary create-btn">
-			<i class="fa fa-plus" aria-hidden="true"></i>
+			<i className="fa fa-plus" aria-hidden="true"></i>
 			Create
 		</Link>
 	);
@@ -83,8 +83,8 @@ const CodeQuestions = (props) => {
 						{createLink}
 					</h4>
 				) : (
-					<h4>Currently There are No Questions Available.</h4>
-				)}
+						<h4>Currently There are No Questions Available.</h4>
+					)}
 			</div>
 		);
 	}
@@ -115,11 +115,10 @@ const CodeQuestions = (props) => {
 					<div className="displayQuest pb-2">
 						<div className="row">
 							<div
-								className={`${
-									user.role === "admin" || user.role === "faculty"
-										? "col-10"
-										: "col-12"
-								} pb-2`}
+								className={`${user.role === "admin" || user.role === "faculty"
+									? "col-10"
+									: "col-12"
+									} pb-2`}
 							>
 								<Form>
 									<Form.Group controlId="codingquestionSearch">
@@ -163,8 +162,8 @@ const CodeQuestions = (props) => {
 										</th>
 										{(user?.role === "faculty" ||
 											user?.role === "admin") && (
-											<th scope="col">Operations</th>
-										)}
+												<th scope="col">Operations</th>
+											)}
 									</tr>
 								</thead>
 								<tbody className="tbodyCode">
@@ -220,8 +219,8 @@ const CodeQuestions = (props) => {
 					</div>
 				</Container>
 			) : (
-				<Spinner />
-			)}
+					<Spinner />
+				)}
 		</Fragment>
 	);
 };

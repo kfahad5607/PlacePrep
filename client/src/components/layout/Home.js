@@ -44,7 +44,7 @@ const Home = () => {
                         <Route path="/createCodeQuestion" component={CreateCodeQuestion} />
                         <Route path="/quizzes" component={QuizCardPage} />
                         <Route exact path="/editQuiz/:slug" component={EditQuiz} />
-                        <Route exact path="/quiz/:slug" component={QuizPage} />
+                        {/* <Route exact path="/quiz/:slug" component={QuizPage} /> */}
                         <Route exact path="/quizSubmissions" component={QuizSubmissions} />
                         <Route exact path="/quizSubmissions/:quizId" component={QuizSubmissions} />
                         <Route exact path="/quizSubmission/:id" component={QuizPageSub} />
@@ -60,8 +60,6 @@ const Home = () => {
                             path="/editCodeQuestion/:slug"
                             component={CreateCodeQuestion}
                         />
-
-
                     </Switch>
                 </div>
             </div>

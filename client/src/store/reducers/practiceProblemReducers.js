@@ -6,6 +6,8 @@ const initialState = {
     current: null,
     filtered: null,
     error: null,
+    isCreated: null,
+    isDeleted: null,
     loading: true
 
 };
@@ -28,20 +30,45 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 questions: action.payload
             };
+
+        case actionTypes.PRAC_PROB_CREATED_SUCCESS:
+            return {
+                ...state,
+                isCreated: true,
+                loading: false
+            };
+        case actionTypes.CLR_PRAC_PROB_CREATED_SUCCESS:
+            return {
+                ...state,
+                isCreated: null,
+                loading: false
+            };
+
+        case actionTypes.PRAC_PROB_DELETED_SUCCESS:
+            return {
+                ...state,
+                isDeleted: true,
+                loading: false
+            };
+        case actionTypes.CLR_PRAC_PROB_DELETED_SUCCESS:
+            return {
+                ...state,
+                isDeleted: null,
+                loading: false
+            };
         case actionTypes.UPDATE_PRACTICE_PROBLEM:
             return {
                 ...state,
-                questions: state.questions.map(ele => ele._id === action.payload._id ? action.payload : ele),
+                questions: state.questions?.map(ele => ele._id === action.payload._id ? action.payload : ele),
                 current: action.payload
             };
         case actionTypes.DELETE_PRACTICE_PROBLEM:
             return {
                 ...state,
-                questions: state.questions.filter(ele => ele._id !== action.payload)
+                questions: state.questions?.filter(ele => ele._id !== action.payload)
             };
         case actionTypes.DELETE_PRAC_PROB_BY_TOPIC:
-            let index = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
-            console.log('inx', index);
+            const index = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
             return {
                 ...state,
                 catAndTopic: {
@@ -70,6 +97,26 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
+            };
+
+        case actionTypes.FILTER_PRACTICE_PROBLEMS:
+            const idx = state.catAndTopic.distinctCategory.indexOf(action.payload.category);
+            const regex = new RegExp(`${action.payload.query}`, "gi");
+            return {
+                ...state,
+                filtered: state.catAndTopic?.distinctTopicByCat.map((ele, eleIdx) => eleIdx === idx ?
+                    (ele?.filter(subEle => subEle.match(regex)))
+                    : ((state.filtered && state.filtered[eleIdx]) ? state.filtered[eleIdx] : ele)
+
+                )
+            };
+        case actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS:
+            const catIdx = state.catAndTopic.distinctCategory.indexOf(action.payload);
+            return {
+                ...state,
+                filtered: state.filtered ?
+                    state.filtered.map((ele, eleIdx) => eleIdx === catIdx ? null : ele)
+                    : null
             };
         default:
             return state;

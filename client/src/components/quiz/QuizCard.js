@@ -1,30 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import Alert from 'react-bootstrap/Alert';
 import { Link } from 'react-router-dom';
 import './quiz.css';
 import { connect } from 'react-redux';
 import {
     updateQuiz,
     deleteQuiz,
-    startQuiz
+    startQuiz,
+    clrQuizDeleteSuccess
 } from '../../store/actions/quizActions';
-import { loadUser, setUserNull } from '../../store/actions/authActions';
+import { setUserNull, setTestDetails } from '../../store/actions/authActions';
+import { setAlert } from '../../store/actions/alertActions';
 
 const QuizCard = (props) => {
     const {
+        quiz: { isDeleted },
         auth: { user },
         quizObj,
         updateQuiz,
-        loadUser,
         setUserNull,
         deleteQuiz,
-        startQuiz } = props;
+        setTestDetails,
+        startQuiz,
+        clrQuizDeleteSuccess,
+        setAlert } = props;
+
+    useEffect(() => {
+        if (isDeleted) {
+            setAlert('Quiz Deleted', 'success');
+            clrQuizDeleteSuccess();
+        }
+    }, [isDeleted]);
 
     const handleOnClick = () => {
         setUserNull();
         startQuiz(quizObj._id);
+        setTestDetails({
+            type: 'quiz',
+            test: quizObj.slug
+        });
         // loadUser(false, true);
     };
 
@@ -62,7 +77,6 @@ const QuizCard = (props) => {
                     </div>}
 
                 {(user.role === 'faculty' || user.role === 'admin') &&
-
                     <div className='text-center' >
                         <Link to={`/editQuiz/${quizObj.slug}`} className="btn btn-primary start_quiz_btn mr-2" >Edit</Link>
                         <button onClick={() => deleteQuiz(quizObj._id)} className="btn btn-primary start_quiz_btn mr-2" >Delete</button>
@@ -72,7 +86,7 @@ const QuizCard = (props) => {
             </Card.Body>
             <Card.Footer className='quiz_card_footer' style={{ backgroundColor: 'white' }}>
                 {user.role === 'student' &&
-                    <label htmlFor="name">Uploader: {quizObj.author?.name}</label>}
+                    <label htmlFor="name">Author: {quizObj.author?.name}</label>}
                 {(user.role === 'faculty' || user.role === 'admin') &&
                     <Link to={`/quizSubmissions/${quizObj._id}`} className='alert-link' style={{ color: '#775ecf' }} >Submissions</Link>}
                 <label htmlFor="name" style={{ float: 'right' }}>Last updated on {new Date(quizObj.createdAt).toLocaleString('en-us', { day: '2-digit', month: 'short', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</label>
@@ -90,6 +104,8 @@ export default connect(mapStateToProps, {
     updateQuiz,
     deleteQuiz,
     startQuiz,
-    loadUser,
-    setUserNull
+    setUserNull,
+    setTestDetails,
+    setAlert,
+    clrQuizDeleteSuccess
 })(QuizCard);

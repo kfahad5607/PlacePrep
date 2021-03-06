@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import QuizCard from "./QuizCard";
 import Spinner from "../layout/Spinner";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getQuizzes } from "../../store/actions/quizActions";
@@ -16,21 +14,22 @@ const QuizCardPage = (props) => {
 
 	useEffect(() => {
 		if (user?.role === "faculty" || user?.role === "admin") {
-			// getQuizzes(user._id);
-			getQuizzes();
-		} else if (user?.role === "student") {
 			getQuizzes();
 		}
-		return () => {};
+		else if (user?.role === "student") {
+			getQuizzes();
+		}
+		return () => { };
+
 	}, []);
-	// }, [user]);
 
 	const createLink = (
 		<Link to="/createQuiz" className="btn btn-primary create-btn">
-			<i class="fa fa-plus" aria-hidden="true"></i>
+			<i className="fa fa-plus" aria-hidden="true"></i>
 			Create
 		</Link>
 	);
+
 
 	if (quizzes !== null && quizzes.length === 0) {
 		return (
@@ -41,8 +40,8 @@ const QuizCardPage = (props) => {
 						{createLink}
 					</h4>
 				) : (
-					<h4>Currently There are No Quizzes Available.</h4>
-				)}
+						<h4>Currently There are No Quizzes Available.</h4>
+					)}
 			</div>
 		);
 	}
@@ -55,8 +54,8 @@ const QuizCardPage = (props) => {
 			{quizzes ? (
 				quizzes.map((ele) => <QuizCard key={ele._id} quizObj={ele} />)
 			) : (
-				<Spinner />
-			)}
+					<Spinner />
+				)}
 		</>
 	);
 };

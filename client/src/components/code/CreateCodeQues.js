@@ -9,6 +9,7 @@ import {
     updateQuestion,
     clearCurrent,
     clearCodeErrors,
+    clrCodeCreateSuccess
 } from "../../store/actions/codeActions";
 import { setAlert } from "../../store/actions/alertActions";
 
@@ -19,9 +20,10 @@ const CreateCodeQuestion = (props) => {
         updateQuestion,
         clearCurrent,
         clearCodeErrors,
+        clrCodeCreateSuccess,
         setAlert,
     } = props;
-    const { current, error } = props.code;
+    const { current, error, isCreated } = props.code;
     const [codeQuestion, setCodeQuestion] = useState({
         title: "",
         difficulty: "10",
@@ -41,6 +43,30 @@ const CreateCodeQuestion = (props) => {
         }
         // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if (isCreated) {
+            if (props.match.path.includes("editCodeQuestion")) {
+                setAlert('Question has been updated.', 'success');
+            }
+            else {
+                setAlert('Question has been created.', 'success');
+                setCodeQuestion({
+                    title: "",
+                    difficulty: "10",
+                    description: "",
+                    testcases: "",
+                    sampleInputs: [],
+                    solution: "",
+                    noOfInputs: ""
+                });
+                setSampleArray([]);
+            }
+            clrCodeCreateSuccess();
+        }
+
+
+    }, [isCreated]);
 
     useEffect(() => {
         if (error) {
@@ -67,13 +93,15 @@ const CreateCodeQuestion = (props) => {
                 current === null &&
                 !clickSubmit
             ) {
-                console.log("object");
+
                 setCodeQuestion({
                     title: "",
                     difficulty: "10",
                     description: "",
                     testcases: "",
                     sampleInputs: [],
+                    solution: "",
+                    noOfInputs: ""
                 });
             }
         }
@@ -365,5 +393,6 @@ export default connect(mapStateToProps, {
     updateQuestion,
     clearCurrent,
     clearCodeErrors,
+    clrCodeCreateSuccess,
     setAlert,
 })(CreateCodeQuestion);

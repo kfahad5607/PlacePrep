@@ -14,6 +14,9 @@ import {
     CLEAR_AUTH_ERRORS,
     GET_DETAILS,
     GET_ALL_USERS,
+    SET_TEST_DETAILS,
+    CLEAR_TEST_DETAILS,
+    USER_LOADED_FAILED,
     FILTER_ALL_USERS,
     CLEAR_FILTER_ALL_USERS,
     UPDATE_USER,
@@ -26,6 +29,7 @@ const initialState = {
     allUsers: null,
     filteredUsers: null,
     details: null,
+    testDetails: null,
     error: null,
     loading: true,
 };
@@ -100,6 +104,21 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 allUsers: action.payload,
                 loading: false
+            };
+        case SET_TEST_DETAILS:
+            return {
+                ...state,
+                testDetails: action.payload
+            };
+        case CLEAR_TEST_DETAILS:
+            return {
+                ...state,
+                testDetails: null
+            };
+        case USER_LOADED_FAILED:
+            return {
+                ...state,
+                user: {}
             };
         case FILTER_ALL_USERS:
             return {

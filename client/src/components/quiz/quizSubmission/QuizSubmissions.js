@@ -19,7 +19,6 @@ const QuizSubmissions = (props) => {
     const { auth: { user },
         quiz: { submissions, filteredSubmissions },
         getQuizSubmissions,
-        getQuizSubmission,
         filterQuizSubmissions,
         clearFilterQuizSub,
         match } = props;
@@ -45,6 +44,8 @@ const QuizSubmissions = (props) => {
         }
         return () => {
         };
+
+        // eslint-disable-next-line
     }, [user]);
 
     if (submissions !== null && submissions.length === 0) {
@@ -112,7 +113,7 @@ const QuizSubmissions = (props) => {
     );
 
     const newSubmissions = paginate(sortedSub, currentPage, pageSize);
-    const subNumber = _.range(1, newSubmissions.length + 1);
+    // const subNumber = _.range(1, newSubmissions.length + 1);
 
 
     return (
