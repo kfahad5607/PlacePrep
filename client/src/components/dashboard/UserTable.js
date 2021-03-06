@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Container } from "react-bootstrap";
 import Pagination from "../code/Pagination";
 import paginate from "../code/paginate";
 import _ from "lodash";
@@ -9,6 +9,7 @@ import {
 	clearUserFilter,
 	deleteUser,
 	updateUser,
+	getAllUsers
 } from "../../store/actions/authActions";
 
 const UserTable = (props) => {
@@ -18,6 +19,7 @@ const UserTable = (props) => {
 		clearUserFilter,
 		updateUser,
 		deleteUser,
+		getAllUsers
 	} = props;
 
 	const [pageDetails, setPageDetails] = useState({
@@ -27,6 +29,11 @@ const UserTable = (props) => {
 	});
 	const { pageSize, currentPage, sortColumn } = pageDetails;
 	const text = useRef("");
+
+	useEffect(() => {
+		getAllUsers();
+		//eslint-disable-next-line
+	}, []);
 
 	useEffect(() => {
 		if (filterUsers === null) {
@@ -181,8 +188,8 @@ const UserTable = (props) => {
 												</Form>
 											</td>
 										) : (
-											<td className="pad-td">{currentUser.role}</td>
-										)}
+												<td className="pad-td">{currentUser.role}</td>
+											)}
 										{user.role === "admin" && (
 											<td>
 												<span>
@@ -257,4 +264,5 @@ export default connect(mapStateToProps, {
 	clearUserFilter,
 	updateUser,
 	deleteUser,
+	getAllUsers
 })(UserTable);

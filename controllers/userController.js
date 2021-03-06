@@ -176,9 +176,38 @@ exports.getDetails = catchAsync(async (req, res, next) => {
         user: req.user._id
     });
     // Get all the submitted questions by current student
-    const codeSubmissions = await CodeSubmission.countDocuments({
+    let codeSubmissions = await CodeSubmission.find({
         user: req.user._id
+    }).select('+question -userSolution -status -createdAt -language -__v').populate({
+        path: 'question',
+        select: 'difficulty'
     });
+
+    let easy = 0;
+    let medium = 0;
+    let hard = 0;
+
+    codeSubmissions.forEach(ele => {
+        if (ele.question.difficulty === '10') {
+            easy = easy + 1;
+        }
+        else if (ele.question.difficulty === '20') {
+            medium = medium + 1;
+        }
+
+        else if (ele.question.difficulty === '30') {
+            hard = hard + 1;
+        }
+    });
+
+    let total = easy + medium + hard;
+
+    codeSubmissions = {
+        easy,
+        medium,
+        hard,
+        total
+    };
 
     res.status(200).json({
         status: 'success',

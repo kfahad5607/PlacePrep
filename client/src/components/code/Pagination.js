@@ -18,7 +18,7 @@ const Pagination = (props) => {
                         >
                             <a
                                 className="page-link pagntColor"
-                                href="!#"
+                                href="#"
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => onPageChange(page)}
                             >

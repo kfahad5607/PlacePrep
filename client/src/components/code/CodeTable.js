@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { setAlert } from '../../store/actions/alertActions';
 import { deleteQuestion, clrCodeDeleteSuccess, clrCodeCreateSuccess } from "../../store/actions/codeActions";
 
-const CodeTableRow = ({ code: { isDeleted },
+const CodeTable = ({ code: { isDeleted },
     auth: { user },
     question,
     id,
@@ -90,4 +90,4 @@ const mapStateToProps = state => ({
     code: state.code
 });
 
-export default connect(mapStateToProps, { deleteQuestion, setAlert, clrCodeDeleteSuccess })(CodeTableRow);
+export default connect(mapStateToProps, { deleteQuestion, setAlert, clrCodeDeleteSuccess })(CodeTable);
