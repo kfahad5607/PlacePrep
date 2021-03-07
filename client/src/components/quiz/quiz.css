@@ -450,3 +450,30 @@ h3 {
 .btn, .btn-primary {
   border: none !important;
 }
+
+.create-quiz-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+/* Sunday 7 march starts here */
+
+.deactivated {
+  opacity: 0.6
+}
+
+.bgWhite {
+  width: 100% !important;
+  background-color: white !important;
+  border: none !important;
+  box-shadow: 1px 1px 0px 0px rgb(204, 196, 196);
+  border-radius: 20px !important;
+}
+
+.bgWhite:focus {
+  border: none !important;
+  box-shadow: 0 -3px 0px #775ecf inset, 0px 0 0 white !important;
+  outline: 0 none;
+}

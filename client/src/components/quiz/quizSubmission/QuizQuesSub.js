@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import QuizOptionSub from './QuizOptionSub';
@@ -9,7 +9,8 @@ import { submitQuiz } from '../../../store/actions/quizActions';
 const QuizQues = (props) => {
     const { userAns } = props;
 
-    const [userAnswers, setUserAnswers] = useState(userAns);
+    const [userAnswers] = useState(userAns);
+    // const [userAnswers, setUserAnswers] = useState(userAns);
 
     return (
         <>

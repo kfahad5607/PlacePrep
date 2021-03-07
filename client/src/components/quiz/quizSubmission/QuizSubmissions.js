@@ -19,7 +19,6 @@ const QuizSubmissions = (props) => {
     const { auth: { user },
         quiz: { submissions, filteredSubmissions },
         getQuizSubmissions,
-        getQuizSubmission,
         filterQuizSubmissions,
         clearFilterQuizSub,
         match } = props;
@@ -45,10 +44,12 @@ const QuizSubmissions = (props) => {
         }
         return () => {
         };
+
+        // eslint-disable-next-line
     }, [user]);
 
     if (submissions !== null && submissions.length === 0) {
-        return <h4>Currently There are No Quiz Submissions.</h4>;
+        return <h4 className="text-center mt-3"> Currently There are No Quiz Submissions.</h4>;
     }
 
     const handleFilterChange = (e) => {
@@ -78,7 +79,7 @@ const QuizSubmissions = (props) => {
         setPageDetails({ ...pageDetails, sortColumn });
     };
 
-    const filteredSub = filteredSubmissions !== null ? filteredSubmissions : submissions;
+    const filteredSub = filteredSubmissions ? filteredSubmissions : submissions;
 
     const sortedSub = _.orderBy(
         filteredSub,
@@ -112,7 +113,7 @@ const QuizSubmissions = (props) => {
     );
 
     const newSubmissions = paginate(sortedSub, currentPage, pageSize);
-    const subNumber = _.range(1, newSubmissions.length + 1);
+    // const subNumber = _.range(1, newSubmissions.length + 1);
 
 
     return (
@@ -200,9 +201,8 @@ const QuizSubmissions = (props) => {
                             <nav aria-label="Page navigation example">
                                 <ul className="pagination nav2">
                                     <li className="">
-                                        <a
-                                            className="page-link"
-                                            href="#"
+                                        <i
+                                            className="page-link cursor-pointer"
                                             aria-label="Previous"
                                         >
                                             <span
@@ -211,7 +211,7 @@ const QuizSubmissions = (props) => {
                                             >
                                                 &laquo;
                                     </span>
-                                        </a>
+                                        </i>
                                     </li>
                                     <li className=" ">
                                         <a
@@ -238,9 +238,8 @@ const QuizSubmissions = (props) => {
                                 </a>
                                     </li>
                                     <li className="">
-                                        <a
-                                            className="page-link"
-                                            href="#"
+                                        <i
+                                            className="page-link cursor-pointer"
                                             aria-label="Next"
                                         >
                                             <span
@@ -249,7 +248,7 @@ const QuizSubmissions = (props) => {
                                             >
                                                 &raquo;
                                     </span>
-                                        </a>
+                                        </i>
                                     </li>
                                 </ul>
                             </nav>

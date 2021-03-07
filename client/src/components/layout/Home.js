@@ -8,7 +8,6 @@ import Coding from "../coding/Coding";
 import CodingSub from '../coding/codeSubmission/CodingSub';
 import CodeQuestions from "../code/CodeQuestions";
 import CreateCodeQuestion from "../code/CreateCodeQues";
-import QuizPage from "../quiz/QuizPage";
 import QuizPageSub from '../quiz/quizSubmission/QuizPageSub';
 import QuizCardPage from '../quiz/QuizCardPage';
 import EditQuiz from '../quiz/EditQuiz';
@@ -20,6 +19,7 @@ import AddTopics from '../practiceProblems/AddTopics';
 import EditPracticeProblem from '../practiceProblems/EditPracticeProblem';
 import { Route, Switch } from "react-router-dom";
 import Dashboard from '../dashboard/Dashboard';
+import UserTable from '../dashboard/UserTable';
 
 const Home = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -31,18 +31,18 @@ const Home = () => {
     return (
         <>
             <Navbar onClick={() => toggleSidebarBtn()} />
-            <div style={{ display: "flex", height: "100vh" }}>
+            <div style={{ display: "flex", position: "relative", top: "72px" }}>
                 <SideBar sidebarOpen={sidebarOpen} onClick={() => toggleSidebarBtn()} />
                 <div className={"mainview-container " + (!sidebarOpen && 'remove-margin')}>
                     <Switch>
                         <Route exact path="/" component={Dashboard} />
                         <Route path="/me" component={UserProfile} />
+                        <Route path="/users" component={UserTable} />
                         <Route path="/createQuiz" component={CreateQuiz} />
                         <Route path="/codeQuestions" component={CodeQuestions} />
                         <Route path="/createCodeQuestion" component={CreateCodeQuestion} />
                         <Route path="/quizzes" component={QuizCardPage} />
                         <Route exact path="/editQuiz/:slug" component={EditQuiz} />
-                        <Route exact path="/quiz/:slug" component={QuizPage} />
                         <Route exact path="/quizSubmissions" component={QuizSubmissions} />
                         <Route exact path="/quizSubmissions/:quizId" component={QuizSubmissions} />
                         <Route exact path="/quizSubmission/:id" component={QuizPageSub} />
@@ -58,8 +58,6 @@ const Home = () => {
                             path="/editCodeQuestion/:slug"
                             component={CreateCodeQuestion}
                         />
-
-
                     </Switch>
                 </div>
             </div>

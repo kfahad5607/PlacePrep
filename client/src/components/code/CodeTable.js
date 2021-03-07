@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { deleteQuestion } from "../../store/actions/codeActions";
+import { setAlert } from '../../store/actions/alertActions';
+import { deleteQuestion, clrCodeDeleteSuccess } from "../../store/actions/codeActions";
 
-const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
+const CodeTable = ({ code: { isDeleted },
+    auth: { user },
+    question,
+    id,
+    deleteQuestion, setAlert, clrCodeDeleteSuccess }) => {
+
+    useEffect(() => {
+        if (isDeleted) {
+            setAlert('Question Deleted', 'success');
+            clrCodeDeleteSuccess();
+        }
+        
+		//eslint-disable-next-line
+    }, [isDeleted]);
+
     function capitalize(s) {
         return s[0].toUpperCase() + s.slice(1);
     }
+
     return (
         <tr>
             <th scope="row">{id}</th>
@@ -17,11 +33,10 @@ const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
             </td>
             <td className="">
                 <span>
-                    <a
-                        className="fa fa-book questSol"
+                    <i
+                        className="fa fa-book questSol cursor-pointer"
                         aria-hidden="true"
-                        href="#"
-                    ></a>
+                    ></i>
                 </span>
             </td>
             <td className="">
@@ -59,12 +74,11 @@ const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
                     ></Link>
                 </span>
                 <span>
-                    <a
-                        className="fa fa-trash operation-D"
+                    <i
+                        className="fa fa-trash operation-D cursor-pointer"
                         aria-hidden="true"
-                        href="#"
                         onClick={() => deleteQuestion(question._id)}
-                    ></a>
+                    ></i>
                 </span>
             </td>}
         </tr>
@@ -72,7 +86,8 @@ const CodeTableRow = ({ auth: { user }, question, id, deleteQuestion }) => {
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    code: state.code
 });
 
-export default connect(mapStateToProps, { deleteQuestion })(CodeTableRow);
+export default connect(mapStateToProps, { deleteQuestion, setAlert, clrCodeDeleteSuccess })(CodeTable);

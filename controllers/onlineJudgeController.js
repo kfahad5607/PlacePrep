@@ -28,6 +28,7 @@ exports.runCode = catchAsync(async (req, res, next) => {
     }
 
     let testcaseFile = `onlineJudge/codeQuestions/${req.body.slug}/testcase.txt`;
+    let inputFile = `onlineJudge/temp/user-${req.body.slug}-${req.user._id}/input.txt`;
     let file = `onlineJudge/temp/user-${req.body.slug}-${req.user._id}/solution${ext}`;
     fs.mkdirSync(`onlineJudge/temp/user-${req.body.slug}-${req.user._id}`);
     fs.writeFileSync(file, req.body.code);
@@ -35,16 +36,16 @@ exports.runCode = catchAsync(async (req, res, next) => {
     let { noOfInputs } = req.body;
     let data;
     if (lang === 'text/x-csrc') {
-        data = await solutionRunnerC(file, testcaseFile, noOfInputs);
+        data = await solutionRunnerC(file, testcaseFile, inputFile, noOfInputs);
     }
     else if (lang === 'text/x-c++src') {
-        data = await solutionRunnerCPP(file, testcaseFile, noOfInputs);
+        data = await solutionRunnerCPP(file, testcaseFile, inputFile, noOfInputs);
     }
     else if (lang === 'text/x-java') {
-        data = await solutionRunnerJava(file, testcaseFile, noOfInputs);
+        data = await solutionRunnerJava(file, testcaseFile, inputFile, noOfInputs);
     }
     else if (lang === 'text/x-python') {
-        data = await solutionRunnerPython(file, testcaseFile, noOfInputs);
+        data = await solutionRunnerPython(file, testcaseFile, inputFile, noOfInputs);
     }
     else {
         data = 'Unexpected language!';
@@ -75,6 +76,7 @@ exports.submitCode = catchAsync(async (req, res, next) => {
     }
 
     let testcaseFile = `onlineJudge/codeQuestions/${req.body.slug}/testcase.txt`;
+    let inputFile = `onlineJudge/temp/user-${req.body.slug}-${req.user._id}/input.txt`;
     let file = `onlineJudge/temp/user-${req.body.slug}-${req.user._id}/solution${ext}`;
     fs.mkdirSync(`onlineJudge/temp/user-${req.body.slug}-${req.user._id}`);
     fs.writeFileSync(file, req.body.code);
@@ -82,19 +84,19 @@ exports.submitCode = catchAsync(async (req, res, next) => {
     let { noOfInputs } = req.body;
     let data;
     if (lang === 'text/x-csrc') {
-        data = await solutionTesterC(file, testcaseFile, noOfInputs);
+        data = await solutionTesterC(file, testcaseFile, inputFile, noOfInputs);
         language = 'C';
     }
     else if (lang === 'text/x-c++src') {
-        data = await solutionTesterCPP(file, testcaseFile, noOfInputs);
+        data = await solutionTesterCPP(file, testcaseFile, inputFile, noOfInputs);
         language = 'C++';
     }
     else if (lang === 'text/x-java') {
-        data = await solutionTesterJava(file, testcaseFile, noOfInputs);
+        data = await solutionTesterJava(file, testcaseFile, inputFile, noOfInputs);
         language = 'Java';
     }
     else if (lang === 'text/x-python') {
-        data = await solutionTesterPython(file, testcaseFile, noOfInputs);
+        data = await solutionTesterPython(file, testcaseFile, inputFile, noOfInputs);
         language = 'Python';
     }
     else {

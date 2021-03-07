@@ -1,5 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
@@ -7,14 +6,26 @@ import QuizOption from './QuizOption';
 import Spinner from '../layout/Spinner';
 import './quiz.css';
 import { connect } from 'react-redux';
-import { submitQuiz } from '../../store/actions/quizActions';
+import { submitQuiz, clrQuizCreateSuccess } from '../../store/actions/quizActions';
+import { clearTestDetails } from '../../store/actions/authActions';
+import { setAlert } from '../../store/actions/alertActions';
 
 const QuizQues = (props) => {
-    let history = useHistory();
-    const { submitQuiz } = props;
+    const { quiz: { isCreated }, submitQuiz, clearTestDetails, setAlert, clrQuizCreateSuccess } = props;
+
+    useEffect(() => {
+        if (isCreated) {
+            setAlert('Quiz Submitted.', 'success');
+            clrQuizCreateSuccess();
+            clearTestDetails();
+        }
+        
+        //eslint-disable-next-line
+    }, [isCreated]);
 
     let tempUserAnswers;
     useEffect(() => {
+        // eslint-disable-next-line
         tempUserAnswers = props.questions.map((ele) => {
             return {
                 questionId: ele._id,
@@ -22,6 +33,7 @@ const QuizQues = (props) => {
             };
         });
         setUserAnswers(tempUserAnswers);
+
     }, [tempUserAnswers]);
 
     const [userAnswers, setUserAnswers] = useState(null);
@@ -44,10 +56,6 @@ const QuizQues = (props) => {
             };
         });
         setUserAnswers(tempUserAnswers);
-        // window.alert('Quiz Submitted successfully!. Redirectng to /quizzes after 2 sec');
-        setTimeout(() => {
-            history.push('/quizzes');
-        }, 2000);
     };
 
     return (
@@ -81,4 +89,9 @@ const mapStateToProps = (state) => ({
     quiz: state.quiz
 });
 
-export default connect(mapStateToProps, { submitQuiz })(QuizQues);
+export default connect(mapStateToProps, {
+    submitQuiz,
+    clearTestDetails,
+    setAlert,
+    clrQuizCreateSuccess
+})(QuizQues);

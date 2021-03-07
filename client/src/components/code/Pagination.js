@@ -13,12 +13,12 @@ const Pagination = (props) => {
                 <ul className="pagination nav2">
                     {pages.map((page) => (
                         <li
-                            className=" "
                             key={page}
                             className={currentPage === page ? "active" : " "}
                         >
                             <a
                                 className="page-link pagntColor"
+                                href="#"
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => onPageChange(page)}
                             >

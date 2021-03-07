@@ -1,13 +1,16 @@
 import React, { Fragment } from 'react';
-import spinner from './loading.gif'
+import './spinner.css';
 
 function Spinner() {
     return (
         <Fragment>
-            <img src={spinner} alt='Loading...' style={{
+            <div id="spinner-container">
+                <div className="spinner"></div>
+            </div>
+            {/* <img src={spinner} alt='Loading...' style={{
                 width: '200px', margin: 'auto',
                 display: 'block'
-            }}></img>
+            }}></img> */}
         </Fragment>
     );
 }

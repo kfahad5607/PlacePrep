@@ -6,26 +6,37 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Home from "./components/layout/Home";
 import Alerts from "./components/layout/Alerts";
+import QuizPage from './components/quiz/QuizPage';
 import { connect } from "react-redux";
-import { loadUser } from "./store/actions/authActions";
+import { loadUser, setTestDetails } from "./store/actions/authActions";
 import PrivateRoute from "./components/routing/PrivateRoute";
+// import TestRoute from './components/routing/TestRoute';
 import ResetPassword from './components/auth/Resetpassword';
+import TestRoute from "./components/routing/TestRoute";
 
 const App = (props) => {
-    const { auth: { user }, loadUser } = props;
+    const { auth: { user }, setTestDetails, loadUser } = props;
 
     useEffect(() => {
         loadUser(false, true);
+
         return () => {
         };
-    }, []);
-    {
-        /* <div style={{ display: 'flex', height: '100vh' }}> */
-    }
 
-    {
-        /* </div> */
-    }
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        if (user?.currentTest) {
+            setTestDetails({
+                type: 'quiz',
+                test: user.currentTest.slug
+            });
+        }
+        //eslint-disable-next-line
+    }, [user]);
+
+
     return (
         <Router>
             <Alerts />
@@ -33,6 +44,8 @@ const App = (props) => {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/ResetPassword/:token" component={ResetPassword} />
+                {/* <PrivateRoute path="/" component={Home} /> */}
+                <TestRoute path='/quiz/:slug' component={QuizPage} />
                 {user && <PrivateRoute path="/" component={Home} />}
             </Switch>
         </Router>
@@ -43,4 +56,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { loadUser })(App);
+export default connect(mapStateToProps, { loadUser, setTestDetails })(App);

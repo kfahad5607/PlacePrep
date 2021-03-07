@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteQuizSubmission } from '../../../store/actions/quizActions';
+import { setAlert } from '../../../store/actions/alertActions';
+import { deleteQuizSubmission, clrQuizDeleteSuccess } from '../../../store/actions/quizActions';
 
 const QuizSubTabRow = (props) => {
     const { auth: { user },
-        eleObj, idx, name, deleteQuizSubmission } = props;
+        quiz: { isDeleted },
+        eleObj,
+        idx,
+        name,
+        deleteQuizSubmission,
+        clrQuizDeleteSuccess,
+        setAlert } = props;
+
+    useEffect(() => {
+        if (isDeleted) {
+            console.log('delel', isDeleted);
+            setAlert('Quiz Submission Deleted', 'success');
+            clrQuizDeleteSuccess();
+        }
+        
+        //eslint-disable-next-line
+    }, [isDeleted]);
 
     return (
         <tr>
@@ -33,4 +50,8 @@ const mapStateToProps = (state) => {
     });
 };
 
-export default connect(mapStateToProps, { deleteQuizSubmission })(QuizSubTabRow);
+export default connect(mapStateToProps, {
+    deleteQuizSubmission,
+    clrQuizDeleteSuccess,
+    setAlert
+})(QuizSubTabRow);

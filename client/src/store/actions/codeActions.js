@@ -18,7 +18,11 @@ import {
     GET_CODE_SUBMISSION,
     DELETE_CODE_SUBMISSION,
     FILTER_CODE_SUBMISSIONS,
-    CLEAR_FILTER_CODE_SUBMISSIONS
+    CLEAR_FILTER_CODE_SUBMISSIONS,
+    CODE_CREATED_SUCCESS,
+    CLR_CODE_CREATED_SUCCESS,
+    CODE_DELETED_SUCCESS,
+    CLR_CODE_DELETED_SUCCESS
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -62,6 +66,13 @@ export const addQuestion = (question) => async (dispatch) => {
     };
     try {
         const res = await axios.post(`/api/v1/questions`, question, config);
+
+        if (res.request.status === 201 && res.request.statusText === 'Created') {
+            dispatch({
+                type: CODE_CREATED_SUCCESS
+            });
+        }
+
         dispatch({
             type: ADD_CODE_QUESTION,
             payload: res.data.data.data
@@ -82,11 +93,19 @@ export const updateQuestion = (question) => async (dispatch) => {
     };
     try {
         const res = await axios.patch(`/api/v1/questions/${question._id}`, question, config);
+        console.log('res', res);
+
+        if (res.request.status === 200 && res.request.statusText === 'OK') {
+            dispatch({
+                type: CODE_CREATED_SUCCESS
+            });
+        }
+
         dispatch({
             type: UPDATE_CODE_QUESTION,
             payload: res.data.data.data
-        })
-        return res;
+        });
+
     } catch (err) {
         console.log('err', err?.response);
         dispatch({
@@ -98,12 +117,22 @@ export const updateQuestion = (question) => async (dispatch) => {
 
 export const deleteQuestion = (id) => async (dispatch) => {
     try {
-        await axios.delete(`/api/v1/questions/${id}`);
+        const res = await axios.delete(`/api/v1/questions/${id}`);
+        console.log('res', res);
+
+        if (res.request.status === 204 && res.request.statusText === 'No Content') {
+            dispatch({
+                type: CODE_DELETED_SUCCESS
+            });
+        }
+
         dispatch({
             type: DELETE_CODE_QUESTION,
             payload: id
         });
     } catch (err) {
+        console.log('err', err);
+
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,
@@ -161,7 +190,7 @@ export const filterQuestions = questions => async dispatch => {
 
 export const clearFilter = () => ({ type: CLEAR_FILTER });
 
-export const clearCodeErrors = () => ({ type: CLEAR_CODE_ERRORS});
+export const clearCodeErrors = () => ({ type: CLEAR_CODE_ERRORS });
 
 export const filterCodeSubmissions = (query, isStudent) => (dispatch) => {
     dispatch({
@@ -237,3 +266,17 @@ export const deleteCodeSubmission = (id) => async (dispatch) => {
         });
     }
 };
+
+
+export const clrCodeCreateSuccess = () => (dispatch) => {
+    dispatch({
+        type: CLR_CODE_CREATED_SUCCESS
+    });
+};
+
+export const clrCodeDeleteSuccess = () => (dispatch) => {
+    dispatch({
+        type: CLR_CODE_DELETED_SUCCESS
+    });
+};
+

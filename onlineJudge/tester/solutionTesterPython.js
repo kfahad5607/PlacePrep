@@ -7,7 +7,7 @@ const { remove_linebreaks,
     is2dArray,
     replace1QTo2Q } = require('../../utils/helperFunctions');
 
-const testCodePython = async (file, testcaseFile, noOfInputs) => {
+const testCodePython = async (file, testcaseFile, inputFile, noOfInputs) => {
     let results = [];
     const data = fs.readFileSync(testcaseFile, { encoding: 'utf8', flag: 'r' });
     let testcases = data.split('\n');
@@ -42,17 +42,17 @@ const testCodePython = async (file, testcaseFile, noOfInputs) => {
             }
         }
         let inputStr = inputArr.join('\n');
-        fs.writeFileSync('./onlineJudge/input.txt', inputStr);
+        fs.writeFileSync(inputFile, inputStr);
 
         try {
             const info = await new Promise((resolve, reject) => {
-                exec(`python ${file}  < ./onlineJudge/input.txt `, (err, stdout, stderr) => {
+                exec(`python ${file}  < ${inputFile} `, (err, stdout, stderr) => {
                     if (err) {
                         let newStderr = stderr.replace(/onlineJudge\/temp\/user-.*\/solution/gm, 'main');
 
                         reject(newStderr);
                     }
-                    else if (stdout) {
+                    else if (stdout || stdout === '') {
                         let trimmedStdout = remove_linebreaks(stdout);
                         let trimmedTestcaseOutput = remove_linebreaks(testcases[i + noOfInputs]);
                         // Checking if the std output is an array
@@ -85,7 +85,7 @@ const testCodePython = async (file, testcaseFile, noOfInputs) => {
                         }
                     }
                     else {
-                        reject('Neither err nor sdterr');
+                        reject('Unexpected error!');
                     }
                 });
             });

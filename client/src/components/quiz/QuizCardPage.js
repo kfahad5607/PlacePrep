@@ -1,48 +1,119 @@
-import React, { useEffect } from 'react';
-import QuizCard from './QuizCard';
-import Spinner from '../layout/Spinner';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { getQuizzes } from '../../store/actions/quizActions';
+import React, { useEffect, useState } from "react";
+import QuizCard from "./QuizCard";
+import Spinner from "../layout/Spinner";
+import Form from 'react-bootstrap/Form';
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getQuizzes, filterQuizzes, clearFilterQuizzes } from "../../store/actions/quizActions";
 
 const QuizCardPage = (props) => {
-    const {
-        auth: { user },
-        quiz: { quizzes, loading: quizLoading }, getQuizzes } = props;
+	const {
+		auth: { user },
+		quiz: { quizzes, filtered },
+		getQuizzes,
+		filterQuizzes,
+		clearFilterQuizzes
+	} = props;
 
-    useEffect(() => {
-        if (user?.role === 'faculty' || user?.role === 'admin') {
-            // getQuizzes(user._id);
-            getQuizzes();
+	useEffect(() => {
+		if (user?.role === "faculty" || user?.role === "admin") {
+			getQuizzes();
+		}
+		else if (user?.role === "student") {
+			getQuizzes();
+		}
+		return () => { };
 
-        }
-        else if (user?.role === 'student') {
-            getQuizzes();
-        }
-        return () => {
+		//eslint-disable-next-line
+	}, []);
 
-        };
-    }, []);
-    // }, [user]);
+	useEffect(() => {
+		if (filtered === null) {
+			setQuery('');
+			clearFilterQuizzes();
+		}
+		//eslint-disable-next-line
+	}, [filtered]);
 
-    if (quizzes !== null && quizzes.length === 0) {
-        return <h4>Currently There are No Quizzes Available</h4>;
-    }
+	const [query, setQuery] = useState('');
 
-    return (
-        <>
-            {quizzes ? quizzes.map((ele) => <QuizCard key={ele._id} quizObj={ele} />)
-                : <Spinner />
-            }
-        </>
-    );
+	const handleOnChange = (e) => {
+		setQuery(e.target.value);
+
+		if (e.target.value !== "") {
+			filterQuizzes(e.target.value);
+		}
+		else {
+			clearFilterQuizzes();
+		}
+	};
+
+	const createLink = (
+		<Link to="/createQuiz" className="btn btn-primary create-btn">
+			<i className="fa fa-plus" aria-hidden="true"></i>
+			Create
+		</Link>
+	);
+
+
+	if (quizzes !== null && quizzes.length === 0) {
+		return (
+			<div className="text-center mt-3">
+				{user.role === "admin" || user.role === "faculty" ? (
+					<h4>
+
+						Currently There are No Quizzes Available. Instead create one{" "}
+						{createLink}
+					</h4>
+				) : (
+					<h4>Currently There are No Quizzes Available.</h4>
+				)}
+			</div>
+		);
+	}
+
+	const filteredQuizzes = filtered ? filtered : quizzes;
+
+	return (
+		<>
+			{/* {(user.role === "admin" || user.role === "faculty") && (
+				<div className="create-quiz-row">{createLink}</div>
+			)} */}
+			<div className="row mt-3 ml-3 text-center">
+				<div
+					className={`${user.role === "admin" || user.role === "faculty"
+						? "col-xl-10"
+						: "col-xl-12"
+						} pb-2`}
+				>
+					<Form>
+						<Form.Group controlId="codingquestionSearch">
+							<Form.Control
+								className="bgWhite "
+								type="text"
+								value={query}
+								placeholder="Search quiz titles, topics or category"
+								onChange={handleOnChange}
+							/>
+						</Form.Group>
+					</Form>
+				</div>
+				{(user.role === "admin" || user.role === "faculty") && (
+					<div className="col-xl-2 pb-2" >{createLink}</div>
+				)}
+			</div>
+			{quizzes ? (
+				filteredQuizzes.map((ele) => <QuizCard key={ele._id} quizObj={ele} />)
+			) : (
+				<Spinner />
+			)}
+		</>
+	);
 };
 
 const mapStateToProps = (state) => ({
-    quiz: state.quiz,
-    auth: state.auth
+	quiz: state.quiz,
+	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getQuizzes })(QuizCardPage);
+export default connect(mapStateToProps, { getQuizzes, filterQuizzes, clearFilterQuizzes })(QuizCardPage);

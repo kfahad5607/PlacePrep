@@ -36,8 +36,7 @@
   border-radius: 7px !important;
 }
 
-.setting:focus,
-.setting:active {
+.setting:focus, .setting:active {
   box-shadow: 0 2px 1px #412e85 inset, 0 0 8px white !important;
   background-color: #412e85 !important;
   outline: 0 none;
@@ -95,12 +94,12 @@ input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
 }
 
-.photo:focus + .photolabel {
+.photo:focus+.photolabel {
   outline: 3px solid #775ecf;
   outline-offset: 3px;
 }
 
-.photo + .photolabel {
+.photo+.photolabel {
   color: #775ecf;
   display: inline-block;
   text-decoration: none;
@@ -121,6 +120,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 /* temporary */
+
 .form-control {
   color: black;
 }
@@ -130,7 +130,6 @@ input[type="file"]::-webkit-file-upload-button {
     margin-top: 10px !important;
     display: flex;
   }
-
   .title-border {
     width: 200px;
     height: 1px;
@@ -138,7 +137,6 @@ input[type="file"]::-webkit-file-upload-button {
     background-color: #e1e1e1;
     display: block;
   }
-
   .title-border span {
     width: 100px;
     height: 2px;

@@ -11,6 +11,15 @@ import {
     UPDATE_ME,
     UPDATE_ERROR,
     CLEAR_AUTH_ERRORS,
+    GET_DETAILS,
+    GET_ALL_USERS,
+    SET_TEST_DETAILS,
+    CLEAR_TEST_DETAILS,
+    USER_LOADED_FAILED,
+    FILTER_ALL_USERS,
+    CLEAR_FILTER_ALL_USERS,
+    DELETE_USER,
+    UPDATE_USER
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -24,15 +33,22 @@ export const loadUser = (verified = false, startCheck = false) => async (dispatc
                 method: "GET",
                 url: "/api/v1/user/me?check=true",
             });
+            console.log('useres', res);
             dispatch({
                 type: USER_LOADED_JWT,
                 payload: res.data.data,
             });
         } catch (err) {
+            console.log(err.response);
             if (!startCheck) {
                 dispatch({
                     type: AUTH_ERROR,
                     payload: err.response.data.message,
+                });
+            }
+            else {
+                dispatch({
+                    type: USER_LOADED_FAILED
                 });
             }
         }
@@ -124,8 +140,7 @@ export const updateMe = (data, type) => async dispatch => {
     }
 };
 
-
-export const clearErrors = () => ({ type: CLEAR_AUTH_ERRORS});
+export const clearErrors = () => ({ type: CLEAR_AUTH_ERRORS });
 
 export const forgotPassword = (email) => async dispatch => {
     try {
@@ -139,7 +154,8 @@ export const forgotPassword = (email) => async dispatch => {
         });
 
     }
-}
+};
+
 export const resetPassword = (passwords, token) => async dispatch => {
     try {
         const res = await axios.patch(`/api/v1/user/resetPassword/${token}`, passwords);
@@ -153,5 +169,90 @@ export const resetPassword = (passwords, token) => async dispatch => {
         });
 
     }
+};
+
+export const getDetails = () => async (dispatch) => {
+    try {
+        const res = await axios.get('/api/v1/user/getDetails');
+        dispatch({
+            type: GET_DETAILS,
+            payload: res.data.data
+        });
+    } catch (err) {
+        console.log(err?.response);
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message
+        });
+    }
+};
+
+export const getAllUsers = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/v1/user/users');
+        dispatch({
+            type: GET_ALL_USERS,
+            payload: res.data.data.users
+        });
+    } catch (err) {
+        console.log(err?.response);
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message
+        });
+    }
 }
 
+export const setTestDetails = (details) => (dispatch) => {
+    dispatch({
+        type: SET_TEST_DETAILS,
+        payload: details
+    });
+};
+
+export const clearTestDetails = () => (dispatch) => {
+    dispatch({
+        type: CLEAR_TEST_DETAILS
+    });
+};
+
+export const updateUser = (data) => async (dispatch) => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    try {
+        const res = await axios.patch(`/api/v1/user/${data.id}`, data, config);
+        dispatch({
+            type: UPDATE_USER,
+            payload: res.data.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+
+export const deleteUser = (id) => async (dispatch) => {
+    try {
+        await axios.delete(`/api/v1/user/${id}`);
+        dispatch({
+            type: DELETE_USER,
+            payload: id
+        });
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR,
+            payload: err.response.data.message,
+        });
+    }
+};
+
+export const filterUsers = user => async dispatch => {
+    dispatch({ type: FILTER_ALL_USERS, payload: user });
+};
+
+export const clearUserFilter = () => ({ type: CLEAR_FILTER_ALL_USERS });

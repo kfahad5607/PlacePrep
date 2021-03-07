@@ -3,15 +3,20 @@ import "../quiz/quiz.css";
 import { Button, Container, Form } from "react-bootstrap";
 import CreateAptiQuestion from "./CreateAptiQuestion";
 import { connect } from "react-redux";
-import { addTopic, clearPracticeProblemErrors } from "../../store/actions/practiceProblemActions";
+import {
+    addTopic,
+    clearPracticeProblemErrors,
+    clrPracProbCreateSuccess
+} from "../../store/actions/practiceProblemActions";
 import { setAlert } from "../../store/actions/alertActions";
 
 const AddTopics = (props) => {
     const {
         auth: { user },
-        practiceProblem: { error },
+        practiceProblem: { error, isCreated },
         addTopic,
         clearPracticeProblemErrors,
+        clrPracProbCreateSuccess,
         setAlert,
     } = props;
 
@@ -35,10 +40,39 @@ const AddTopics = (props) => {
     const [lastId, setLastId] = useState(0);
 
     useEffect(() => {
+        if (isCreated) {
+            setAlert('Topic has been created.', 'success');
+
+            clrPracProbCreateSuccess();
+            setAptiInfo({
+                topic: "",
+                category: "quantitative analysis",
+            });
+
+            setApti([
+                {
+                    id: 0,
+                    author: "",
+                    topic: "",
+                    category: "",
+                    question: "",
+                    answers: ["", "", "", ""],
+                    correctAnswer: "",
+                    explanation: "",
+                },
+            ]);
+        }
+
+        // eslint-disable-next-line
+    }, [isCreated]);
+
+    useEffect(() => {
         if (error) {
             setAlert(error, "danger");
             clearPracticeProblemErrors();
         }
+
+        // eslint-disable-next-line
     }, [error]);
 
     const handleAddQuesClick = () => {
@@ -108,32 +142,10 @@ const AddTopics = (props) => {
                 ele.author = user._id;
                 return ele;
             });
-            // addTopic(tempApti);
-            // {
-            //     aptiQuestions : []
-            // }
-            console.log("temp", tempApti);
+
             addTopic({
                 aptiQuestions: tempApti,
             });
-
-            setAptiInfo({
-                topic: "",
-                category: "quantitative analysis",
-            });
-
-            setApti([
-                {
-                    id: 0,
-                    author: "",
-                    topic: "",
-                    category: "",
-                    question: "",
-                    answers: ["", "", "", ""],
-                    correctAnswer: "",
-                    explanation: "",
-                },
-            ]);
         }
     };
 
@@ -249,4 +261,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { addTopic, clearPracticeProblemErrors, setAlert })(AddTopics);
+export default connect(mapStateToProps, {
+    addTopic,
+    clearPracticeProblemErrors,
+    setAlert,
+    clrPracProbCreateSuccess
+})(AddTopics);

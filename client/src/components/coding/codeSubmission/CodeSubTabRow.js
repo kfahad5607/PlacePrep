@@ -17,7 +17,23 @@ const CodeSubTabRow = (props) => {
             }
             <td ><span>{new Date(eleObj.createdAt).toLocaleString('en-us', { day: '2-digit', month: 'short', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</span></td>
             <td>{eleObj.language}</td>
-            <td ><span className="subStatus badge badgeDanger">{eleObj.status}</span></td>
+            <td >
+                {eleObj.status === "Accepted" && (
+                    <span className="subStatus badge badgeSuccess ">
+                        {eleObj.status}
+                    </span>
+                )}
+                {eleObj.status === "Not Accepted" && (
+                    <span className="subStatus badge badgeWarning ">
+                        {eleObj.status}
+                    </span>
+                )}
+                {(eleObj.status === "Compile-time Error" || eleObj.status === "Runtime Error") && (
+                    <span className="subStatus badge badgeDanger ">
+                        {eleObj.status}
+                    </span>
+                )}
+            </td>
             {user.role === 'student' && <td >
                 <span className='pl-4' style={{ cursor: 'pointer' }} onClick={() => deleteCodeSubmission(eleObj._id)} >
                     <i className="fa fa-trash operation-D mr-3 mt-1 op" aria-hidden="true" ></i>

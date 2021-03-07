@@ -1,6 +1,10 @@
 const multer = require('multer');
 const sharp = require('sharp');
 const User = require('../models/userModel');
+const QuizSubmission = require('../models/quizSubmissionModel');
+const CodeSubmission = require('../models/codeSubmissionModel');
+const Quiz = require('../models/quizModel');
+const Question = require('../models/questionModel');
 const AppError = require("../utils/appError");
 const catchAsync = require('../utils/catchAsync');
 
@@ -12,7 +16,7 @@ const multerFilter = (req, file, cb) => {
     } else {
         cb(new AppError('Not an image! Please upload only images.', 400), false);
     }
-}
+};
 
 const upload = multer({
     storage: multerStorage,
@@ -25,7 +29,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     if (!req.file) {
         return next();
     }
-    req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`
+    req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
     await sharp(req.file.buffer)
         .resize(500, 500)
@@ -87,7 +91,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
-    const users = await User.find();
+    const users = await User.find({ "role": { $ne: "admin" } });
 
     // SEND RESPONSE
     res.status(200).json({
@@ -100,17 +104,17 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.getMe = (req, res, next) => {
-    req.params.id = req.user.id
+    req.params.id = req.user.id;
     if (req.query.check) {
         return res.status(200).json({
             status: 'success',
             data: {
                 user: req.user
             }
-        })
+        });
     }
-    next()
-}
+    next();
+};
 
 exports.getUser = catchAsync(async (req, res, next) => {
 
@@ -157,5 +161,61 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
     res.status(204).json({
         status: "success",
         data: null
+    });
+});
+
+exports.getDetails = catchAsync(async (req, res, next) => {
+    // Get all the available quizzes
+    const quizzes = await Quiz.countDocuments({});
+
+    // Get all the available questions
+    const questions = await Question.countDocuments({});
+
+    // Get all the submitted quizzes by current student
+    const quizSubmissions = await QuizSubmission.countDocuments({
+        user: req.user._id
+    });
+    // Get all the submitted questions by current student
+    let codeSubmissions = await CodeSubmission.find({
+        user: req.user._id
+    }).select('+question -userSolution -status -createdAt -language -__v').populate({
+        path: 'question',
+        select: 'difficulty'
+    });
+
+    let easy = 0;
+    let medium = 0;
+    let hard = 0;
+
+    codeSubmissions.forEach(ele => {
+        if (ele.question.difficulty === '10') {
+            easy = easy + 1;
+        }
+        else if (ele.question.difficulty === '20') {
+            medium = medium + 1;
+        }
+
+        else if (ele.question.difficulty === '30') {
+            hard = hard + 1;
+        }
+    });
+
+    let total = easy + medium + hard;
+
+    codeSubmissions = {
+        easy,
+        medium,
+        hard,
+        total
+    };
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            quizzes,
+            questions,
+            quizSubmissions,
+            codeSubmissions
+        }
     });
 });

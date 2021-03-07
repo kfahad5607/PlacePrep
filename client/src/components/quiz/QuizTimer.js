@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const QuizTimer = (props) => {
 
@@ -6,7 +6,7 @@ const QuizTimer = (props) => {
     let durMin = Math.floor(durInSec / 60);
     let durSec = durInSec % 60;
 
-    const [countdownDate, setCountdownDate] = useState(new Date(props.endAt).getTime());
+    const [countdownDate] = useState(new Date(props.endAt).getTime());
     const [timer, setTimer] = useState({
         minutes: durMin,
         seconds: durSec
@@ -14,9 +14,11 @@ const QuizTimer = (props) => {
 
     let myInterval;
     useEffect(() => {
+        // eslint-disable-next-line
         myInterval = setInterval(() => setNewTime(), 1000);
 
         return () => clearInterval(myInterval);
+
     }, [timer]);
 
     const setNewTime = () => {

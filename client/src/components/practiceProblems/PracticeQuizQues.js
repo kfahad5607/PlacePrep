@@ -33,7 +33,10 @@ const PracticeQuizQues = (props) => {
                                 text={ansEle}
                                 isCorrect={ansEle === ele.correctAnswer ? true : false} />)}
 
-                            <ViewAnswer eKey='0' correctOption={ele.correctAnswer} />
+                            <ViewAnswer eKey='0'
+                                correctOption={ele.correctAnswer}
+                                explain={ele.explanation}
+                            />
                         </Card.Body>
                     </Card>
                 </Accordion>

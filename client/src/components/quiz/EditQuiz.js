@@ -9,18 +9,20 @@ import {
     updateQuiz,
     deleteQuizQuestion,
     setCurrentQuiz,
-    clearQuizErrors
+    clearQuizErrors,
+    clrQuizCreateSuccess
 } from "../../store/actions/quizActions";
 import { setAlert } from "../../store/actions/alertActions";
 
 const EditQuiz = (props) => {
     const {
-        quiz: { current, error },
+        quiz: { current, error, isCreated },
         getQuiz,
         updateQuiz,
         deleteQuizQuestion,
         setCurrentQuiz,
         clearQuizErrors,
+        clrQuizCreateSuccess,
         setAlert,
         match,
     } = props;
@@ -28,7 +30,18 @@ const EditQuiz = (props) => {
     const slug = match.params.slug;
     useEffect(() => {
         getQuiz(slug);
+
+        // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if (isCreated) {
+            setAlert('Quiz has been updated', 'success');
+            clrQuizCreateSuccess();
+        }
+
+        // eslint-disable-next-line
+    }, [isCreated]);
 
     useEffect(() => {
         if (error) {
@@ -57,6 +70,8 @@ const EditQuiz = (props) => {
                 }]
             });
         }
+
+        // eslint-disable-next-line
     }, [current, error]);
 
     // let tempDeepCopy = JSON.parse(JSON.stringify(current));
@@ -146,7 +161,8 @@ const EditQuiz = (props) => {
         if (
             quizLocal.title === "" ||
             quizLocal.topic === "" ||
-            quizLocal.duration === ""
+            quizLocal.duration === "" ||
+            quizLocal.questionWeightage === ""
         ) {
             setAlert("Please enter all fields", "danger");
         } else {
@@ -250,5 +266,6 @@ export default connect(mapStateToProps, {
     deleteQuizQuestion,
     setCurrentQuiz,
     clearQuizErrors,
+    clrQuizCreateSuccess,
     setAlert,
 })(EditQuiz);

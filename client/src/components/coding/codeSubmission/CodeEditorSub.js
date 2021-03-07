@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/eclipse.css";
@@ -29,7 +29,6 @@ const CodeEditor = (props) => {
     let { auth: { user }, code: { userCode, runSubmit },
         runCode,
         submitCode,
-        resetCode,
         userSolution, language } = props;
 
     if (language === 'C') {
@@ -51,8 +50,11 @@ const CodeEditor = (props) => {
         mime: "text/x-csrc",
     });
 
+
     const [showConsole, setShowConsole] = useState(false);
     const [code, setCode] = useState(userSolution);
+
+
     const handleOnChange = (e) => {
         let selectedMime = e.target.selectedOptions[0].getAttribute(
             "data-mime"

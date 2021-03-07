@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -11,12 +11,13 @@ const Navbars = (props) => {
 
     const onlogout = () => {
         logout();
-    }
+    };
 
     const authLinks = (
         <Fragment>
             <span>
-                <img className="nav__user-img" src={`/img/users/${user.photo}`} />
+                {/* <img className="nav__user-img" src={`/img/users/${user.photo}`} alt={user.name} /> */}
+                <img className="nav__user-img" src={`/img/users/${user.photo}`} alt={`${user.photo}`} />
                 <span className='user-name'>Hello {user && user.name.split(' ')[0]}</span>
             </span>
             <span className="logout-div">
@@ -34,13 +35,13 @@ const Navbars = (props) => {
         </Fragment>
     );
     return (
-        <Navbar bg="dark" variant="dark" sticky="top">
+        <Navbar bg="dark" variant="dark" fixed="top">
             <div id='sidebar-btn' onClick={onClick} >
                 <i className='fas fa-bars menu-icon' ></i>
             </div>
             <Navbar.Brand className="brand-name">
                 <img
-                    alt=""
+                    alt="logo"
                     src="./assets/img/logo.png"
                     width="30"
                     height="30"
