@@ -8,6 +8,13 @@ const AppError = require('../utils/appError');
 
 exports.createQuiz = async (req, res, next) => {
     try {
+        // temporary starts
+
+        req.body.author = req.user._id;
+
+        // temorary end
+
+
         const quizQuestions = await QuizQuestion.insertMany(req.body.questions);
 
         // Filtering out only quiz questions IDs

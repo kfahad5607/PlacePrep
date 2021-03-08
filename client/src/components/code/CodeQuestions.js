@@ -76,12 +76,14 @@ const CodeQuestions = (props) => {
 
 	if (questions !== null && questions.length === 0) {
 		return (
-			<div>
+			<div className="text-center mt-3">
 				{user.role === "admin" || user.role === "faculty" ? (
+
 					<h4>
 						Currently There are No Questions Available. Instead create one{" "}
 						{createLink}
 					</h4>
+
 				) : (
 					<h4>Currently There are No Questions Available.</h4>
 				)}
@@ -114,11 +116,11 @@ const CodeQuestions = (props) => {
 						<span></span>
 					</div>
 					<div className="displayQuest pb-2">
-						<div className="row">
+						<div className="row text-center">
 							<div
 								className={`${user.role === "admin" || user.role === "faculty"
-									? "col-10"
-									: "col-12"
+									? "col-xl-10"
+									: "col-xl-12"
 									} pb-2`}
 							>
 								<Form>
@@ -134,7 +136,7 @@ const CodeQuestions = (props) => {
 								</Form>
 							</div>
 							{(user.role === "admin" || user.role === "faculty") && (
-								<div className="col-2 pb-2 create-btn-div">{createLink}</div>
+								<div className="col-xl-2 pb-3 create-btn-div">{createLink}</div>
 							)}
 						</div>
 

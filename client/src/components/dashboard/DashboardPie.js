@@ -8,6 +8,7 @@ const DashboardPie = (props) => {
 		{ name: "Easy", value: easy, fill: "#5cb85c" },
 		{ name: "Medium", value: medium, fill: "#f0ad4e" },
 		{ name: "Hard", value: hard, fill: "#d9534f" },
+	
 	];
 
 	const RADIAN = Math.PI / 180;

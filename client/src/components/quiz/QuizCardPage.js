@@ -58,9 +58,10 @@ const QuizCardPage = (props) => {
 
 	if (quizzes !== null && quizzes.length === 0) {
 		return (
-			<div>
+			<div className="text-center mt-3">
 				{user.role === "admin" || user.role === "faculty" ? (
 					<h4>
+
 						Currently There are No Quizzes Available. Instead create one{" "}
 						{createLink}
 					</h4>
@@ -78,17 +79,17 @@ const QuizCardPage = (props) => {
 			{/* {(user.role === "admin" || user.role === "faculty") && (
 				<div className="create-quiz-row">{createLink}</div>
 			)} */}
-			<div className="row mt-3 ml-3">
+			<div className="row mt-3 ml-3 text-center">
 				<div
 					className={`${user.role === "admin" || user.role === "faculty"
-						? "col-10"
-						: "col-12"
+						? "col-xl-10"
+						: "col-xl-12"
 						} pb-2`}
 				>
 					<Form>
 						<Form.Group controlId="codingquestionSearch">
 							<Form.Control
-								className=" codingQuestSearch"
+								className="bgWhite "
 								type="text"
 								value={query}
 								placeholder="Search quiz titles, topics or category"
@@ -98,7 +99,7 @@ const QuizCardPage = (props) => {
 					</Form>
 				</div>
 				{(user.role === "admin" || user.role === "faculty") && (
-					<div className="col-2 pb-2">{createLink}</div>
+					<div className="col-xl-2 pb-2" >{createLink}</div>
 				)}
 			</div>
 			{quizzes ? (

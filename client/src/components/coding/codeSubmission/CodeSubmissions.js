@@ -43,12 +43,12 @@ const CodeSubmissions = (props) => {
         }
         return () => {
         };
-        
-		//eslint-disable-next-line
+
+        //eslint-disable-next-line
     }, [user]);
 
     if (submissions !== null && submissions.length === 0) {
-        return <h4>Currently There are No Code Submissions.</h4>;
+        return <h4 className="text-center mt-3">Currently There are No Code Submissions.</h4>;
     }
 
     const handleFilterChange = (e) => {
