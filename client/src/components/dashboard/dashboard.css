@@ -4,30 +4,9 @@
 }
 
 .pieHeader {
-	background-color: #ec8b8beb;
+	background-color: #6a6a6a;
 	border-bottom: none;
 	padding: 0.89rem;
-}
-
-.easyIndicator {
-	background-color: #5cb85c;
-	color: white;
-	width: 150px;
-}
-
-.mediumIndicator {
-	background-color: #f0ad4e;
-	color: white;
-	width: 150px;
-}
-
-.hardIndicator {
-	background-color: #d9534f;
-	color: white;
-	width: 150px;
-}
-.recharts-pie{
-	cursor: pointer;
 }
 
 .inlineParent {
@@ -40,15 +19,13 @@
 	float: left;
 }
 
-@media (max-width: 1200px) and (min-width: 991px) {
-	.easyIndicator,
-	.mediumIndicator,
-	.hardIndicator {
-		width: 130px;
+@media (max-width: 1200px) and (min-width:991px) {
+	.indicator {
+		width: 130px !important;
 	}
 }
 
-@media (max-width: 991px) and (min-width: 767px) {
+@media (max-width: 991px) and (min-width:767px) {
 	/* .easyIndicator, .mediumIndicator, .hardIndicator { */
 	.inlineParent {
 		padding-left: 0px;
@@ -59,14 +36,12 @@
 		padding-top: 10px;
 		padding-right: 0px;
 	}
-	.easyIndicator,
-	.mediumIndicator,
-	.hardIndicator {
-		width: 200px;
+	.indicator {
+		width: 200px !important;
 	}
 }
 
-@media (max-width: 767px) and (min-width: 375px) {
+@media (max-width :767px) and (min-width:375px) {
 	.inlineParent {
 		padding-top: 10px;
 		padding-left: 15px;
@@ -76,18 +51,20 @@
 		padding-top: 10px;
 		padding-right: 0px;
 	}
-	.easyIndicator,
-	.mediumIndicator,
-	.hardIndicator {
-		width: 200px;
+	.indicator {
+		width: 200px !important;
 	}
 }
 
-@media (max-width: 375px) and (min-width: 300px) {
+@media (max-width:375px) and (min-width:300px) {
 	.inlineParent {
 		padding-top: 5px;
 		/* padding */
 	}
+}
+
+.recharts-pie {
+	cursor: pointer;
 }
 
 .cardHeader1 {
@@ -137,15 +114,8 @@ h6 {
 	font-weight: 500;
 }
 
-/* @media (max-width: 767px) and (min-width:576px) {
-    .cardBtn1, .cardBtn2 {
-        margin-left: 35px !important;
-    }
-  } */
-
 @media (max-width: 393px) and (min-width: 300px) {
-	.cardBtn1,
-	.cardBtn2 {
+	.cardBtn1, .cardBtn2 {
 		margin-top: 10px;
 	}
 }
@@ -164,18 +134,15 @@ h6 {
 	background-color: #775ecf !important;
 }
 
-.pbtnQ,
-.pbtnQ:hover {
+.pbtnQ, .pbtnQ:hover {
 	background-color: #f3ce38;
 }
 
-.pbtnL,
-.pbtnL:hover {
+.pbtnL, .pbtnL:hover {
 	background-color: #47c6f3;
 }
 
-.pbtnV,
-.pbtnV:hover {
+.pbtnV, .pbtnV:hover {
 	background-color: #79a1ab;
 }
 
@@ -183,14 +150,9 @@ h6 {
 	border-top: 2px solid rgb(221, 216, 216);
 }
 
-.table-striped > tbody > tr:nth-child(2n + 1) > td,
-.table-striped > tbody > tr:nth-child(2n + 1) > th {
+.table-striped>tbody>tr:nth-child(2n + 1)>td, .table-striped>tbody>tr:nth-child(2n + 1)>th {
 	background-color: #f1effa;
 }
-
-/* td{
-    padding-bottom: 0px !important;
-  } */
 
 .table-striped td {
 	padding-bottom: 0px;
