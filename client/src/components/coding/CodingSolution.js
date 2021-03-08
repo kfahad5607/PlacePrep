@@ -1,16 +1,15 @@
 import React, { Fragment } from 'react'
 
-const CodingSolution = () => {
+const CodingSolution = ({ solution }) => {
     return (
         <Fragment>
             <div className='description solution'>
                 <div className='head'>
-                    <p className='solution-title'>Solution</p>
+                    <p className='solution-title'>Approach</p>
                 </div>
                 <hr />
                 <div className='solution-description'>
-                    <p>Approach</p>
-                    <pre></pre>
+                    <pre>{solution}</pre>
                 </div>
             </div>
         </Fragment>

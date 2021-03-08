@@ -148,7 +148,7 @@ const CodeEditor = (props) => {
             </div>
             <div className="console-container" style={{ display: `${showConsole ? 'block' : 'none'}` }}>
                 {userCode ? (
-                    <div style={{ padding: '20px', backgroundColor: 'aliceblue' }} >
+                    <div style={{ padding: '12px', background: '#fff' }} >
                         {userCode.error ? (
                             <RunCodeFail userCodeObj={userCode} />
                         )
