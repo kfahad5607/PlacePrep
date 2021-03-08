@@ -204,7 +204,7 @@ export const clrPracProbDeleteSuccess = () => (dispatch) => {
 
 export const filterPracProbTopics = (query, category) => (dispatch) => {
     dispatch({
-        type: actionTypes.FILTER_PRACTICE_PROBLEMS,
+        type: actionTypes.FILTER_PRACTICE_PROBLEMS_TOPICS,
         payload: {
             query,
             category
@@ -214,7 +214,20 @@ export const filterPracProbTopics = (query, category) => (dispatch) => {
 
 export const clearFilterPracProbTopics = (category) => (dispatch) => {
     dispatch({
-        type: actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS,
+        type: actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS_TOPICS,
         payload: category
+    });
+};
+
+export const filterPracProbs = (query) => (dispatch) => {
+    dispatch({
+        type: actionTypes.FILTER_PRACTICE_PROBLEMS,
+        payload: query
+    });
+};
+
+export const clearFilterPracProbs = () => (dispatch) => {
+    dispatch({
+        type: actionTypes.CLEAR_FILTER_PRACTICE_PROBLEMS
     });
 };

@@ -6,8 +6,9 @@ const DashboardPie = (props) => {
 	///piechart data
 	const data01 = [
 		{ name: "Easy", value: easy, fill: "#5cb85c" },
-		{ name: "Medium", value: 200, fill: "#f0ad4e" },
-		{ name: "Hard", value: 300, fill: "#d9534f" },
+		{ name: "Medium", value: medium, fill: "#f0ad4e" },
+		{ name: "Hard", value: hard, fill: "#d9534f" },
+	
 	];
 
 	const RADIAN = Math.PI / 180;

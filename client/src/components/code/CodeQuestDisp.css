@@ -60,7 +60,7 @@ h3 {
 
 .codingQuestSearch:focus {
 	border: none !important;
-	box-shadow: 0 -3px 0px #775ecf inset, 8px 0 0 white !important;
+	box-shadow: 0 -3px 0px #775ecf inset, 0px 0 0 white !important;
 	outline: 0 none;
 }
 
@@ -104,7 +104,7 @@ thead th {
 	color: #775ecf !important;
 }
 
-.nav2 > .active > a {
+.nav2>.active>a {
 	background-color: #775ecf !important;
 	color: white !important;
 }
@@ -119,8 +119,7 @@ thead th {
 	color: #775ecf !important;
 }
 
-.questSol:hover,
-.questSol:focus {
+.questSol:hover, .questSol:focus {
 	color: #270f7e !important;
 }
 
@@ -154,10 +153,7 @@ thead th {
 	color: #775ecf !important;
 }
 
-.operation-E:hover,
-.operation-E:focus,
-.operation-D:hover,
-.operation-D:focus {
+.operation-E:hover, .operation-E:focus, .operation-D:hover, .operation-D:focus {
 	color: #270f7e !important;
 	text-decoration: none !important;
 }
@@ -182,18 +178,15 @@ thead th {
 	background-color: #775ecf !important;
 	border-radius: 7px !important;
 }
+
 .create-btn i {
 	margin-right: 8px;
 }
 
-@media (max-width: 576px) and (min-width: 300px) {
-	.create-btn-div {
-		padding-right: 10px;
-        padding-left: 7px;
-        padding-top: 3px;
-    }
-    
-    .create-btn{
-        font-size: 0.95rem;
-    }
+@media (max-width: 1200px) and (min-width: 300px) {
+	
+	.create-btn {
+		font-size: 0.95rem;
+		width: 50%;
+	}
 }

@@ -27,7 +27,7 @@ const Dashboard = (props) => {
                         <span></span>
                     </div>
                     <div className="userform">
-                        {user.role === "student" && details.codeSubmissions.total>0 && <DashboardPie submissions={details.codeSubmissions}/>}
+                        {(user.role === "student" && details.codeSubmissions.total>0) && <DashboardPie submissions={details.codeSubmissions}/>}
                         <div className="row pb-3 pt-3">
                             <div className="col-md-6 mb-3">
                                 <div className="card card1">
@@ -44,8 +44,8 @@ const Dashboard = (props) => {
                                                     } / {details.quizzes}
                                                 </b>
                                             ) : (
-                                                    <b> Total : {details.quizzes}</b>
-                                                )}
+                                                <b> Total : {details.quizzes}</b>
+                                            )}
                                         </span>
                                         <Link
                                             to="/quizzes"
@@ -71,10 +71,11 @@ const Dashboard = (props) => {
                                                     Attempted : {
                                                         details.codeSubmissions.total
                                                     } / {details.questions}
+
                                                 </b>
                                             ) : (
-                                                    <b> Total : {details.questions}</b>
-                                                )}
+                                                <b> Total : {details.questions}</b>
+                                            )}
                                         </span>
                                         <Link
                                             to="/codeQuestions"
@@ -114,8 +115,8 @@ const Dashboard = (props) => {
                     </div>
                 </Container>
             ) : (
-                    <Spinner />
-                )}
+                <Spinner />
+            )}
         </Fragment>
     );
 };

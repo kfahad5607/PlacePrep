@@ -43,10 +43,12 @@ const CodeSubmissions = (props) => {
         }
         return () => {
         };
+
+        //eslint-disable-next-line
     }, [user]);
 
     if (submissions !== null && submissions.length === 0) {
-        return <h4>Currently There are No Code Submissions.</h4>;
+        return <h4 className="text-center mt-3">Currently There are No Code Submissions.</h4>;
     }
 
     const handleFilterChange = (e) => {
@@ -76,7 +78,7 @@ const CodeSubmissions = (props) => {
         setPageDetails({ ...pageDetails, sortColumn });
     };
 
-    const filteredSub = filteredSubmissions !== null ? filteredSubmissions : submissions;
+    const filteredSub = filteredSubmissions ? filteredSubmissions : submissions;
 
     const sortedSub = _.orderBy(
         filteredSub,
@@ -107,7 +109,7 @@ const CodeSubmissions = (props) => {
     );
 
     const newSubmissions = paginate(sortedSub, currentPage, pageSize);
-    const subNumber = _.range(1, newSubmissions.length + 1);
+    // const subNumber = _.range(1, newSubmissions.length + 1);
 
 
     return (

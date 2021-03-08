@@ -1,24 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PracticeQuizQues from './PracticeQuizQues';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
-import { getPracticeProblems, clrPracProbDeleteSuccess } from '../../store/actions/practiceProblemActions';
+import {
+    getPracticeProblems,
+    clrPracProbDeleteSuccess,
+    filterPracProbs,
+    clearFilterPracProbs
+} from '../../store/actions/practiceProblemActions';
 import { setAlert } from '../../store/actions/alertActions';
 
 const QuizPage = (props) => {
     const {
-        practiceProblem: { questions, isDeleted },
+        practiceProblem: { questions, isDeleted, filteredQuestions },
         getPracticeProblems,
         clrPracProbDeleteSuccess,
         setAlert,
+        filterPracProbs,
+        clearFilterPracProbs,
         match
     } = props;
     const { categorySlug, topicSlug } = match.params;
-    console.log('params', match.params);
+    const [query, setQuery] = useState('');
 
     useEffect(() => {
         getPracticeProblems(categorySlug, topicSlug);
@@ -32,7 +40,31 @@ const QuizPage = (props) => {
             setAlert('Problem Deleted', 'success');
             clrPracProbDeleteSuccess();
         }
+        
+        //eslint-disable-next-line
     }, [isDeleted]);
+
+    useEffect(() => {
+        if (filteredQuestions === null) {
+            setQuery('');
+            clearFilterPracProbs();
+        }
+
+        //eslint-disable-next-line
+    }, [filteredQuestions]);
+
+    const handleOnChange = (e) => {
+        setQuery(e.target.value);
+
+        if (e.target.value !== "") {
+            filterPracProbs(e.target.value);
+        }
+        else {
+            clearFilterPracProbs();
+        }
+    };
+
+    const filtered = filteredQuestions ? filteredQuestions : questions;
 
     return (
         <>
@@ -45,7 +77,22 @@ const QuizPage = (props) => {
                             </Col>
                         </Row>
                     </Card.Header>
-                    <PracticeQuizQues key={0} questions={questions} />
+                    <div className="row mt-3">
+                        <div className="col-12 ">
+                            <Form>
+                                <Form.Group controlId='question' >
+                                    <Form.Control
+                                        className="searchField"
+                                        onChange={handleOnChange}
+                                        value={query}
+                                        type="text"
+                                        placeholder="Search Questions"
+                                    />
+                                </Form.Group>
+                            </Form>
+                        </div>
+                    </div>
+                    <PracticeQuizQues key={0} questions={filtered} />
                 </Container>)
                 :
                 <Spinner />
@@ -62,5 +109,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
     getPracticeProblems,
     clrPracProbDeleteSuccess,
-    setAlert
+    setAlert,
+    filterPracProbs,
+    clearFilterPracProbs
 })(QuizPage);

@@ -28,7 +28,7 @@ const CodeSubTabRow = (props) => {
                         {eleObj.status}
                     </span>
                 )}
-                {eleObj.status === "Compile-time Error" || "Runtime Error" && (
+                {(eleObj.status === "Compile-time Error" || eleObj.status === "Runtime Error") && (
                     <span className="subStatus badge badgeDanger ">
                         {eleObj.status}
                     </span>

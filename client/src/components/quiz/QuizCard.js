@@ -31,6 +31,8 @@ const QuizCard = (props) => {
             setAlert('Quiz Deleted', 'success');
             clrQuizDeleteSuccess();
         }
+        
+        //eslint-disable-next-line
     }, [isDeleted]);
 
     const handleOnClick = () => {
@@ -44,7 +46,7 @@ const QuizCard = (props) => {
     };
 
     return (
-        <Card className='quiz_card'>
+        <Card className='quiz_card deactivated'>
             <Card.Header className='quiz_card_header text-center'>
                 <h3>{quizObj.title}</h3>
             </Card.Header>

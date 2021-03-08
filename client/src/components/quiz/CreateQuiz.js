@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import "./quiz.css";
 import { Button, Container, Form } from "react-bootstrap";
 import QuizQuestion from "./CreateQuizQuestion";
@@ -35,6 +34,7 @@ function CreateQuiz(props) {
 
     const [lastId, setLastId] = useState(0);
 
+
     useEffect(() => {
         if (isCreated) {
             setAlert('Quiz has been created', 'success');
@@ -42,7 +42,7 @@ function CreateQuiz(props) {
             clrQuizCreateSuccess();
             setQuiz({
                 title: '',
-                category: '',
+                category: 'quantitative analysis',
                 topic: '',
                 duration: '',
                 questionWeightage: '',
@@ -135,10 +135,7 @@ function CreateQuiz(props) {
         } else {
             let tempQuiz = JSON.parse(JSON.stringify(quiz));
             tempQuiz.author = user._id;
-            console.log("quiz", tempQuiz);
             addQuiz(tempQuiz);
-
-
 
         };
     };
@@ -162,7 +159,7 @@ function CreateQuiz(props) {
                                     name="title"
                                     value={quiz.title}
                                     onChange={handleOnChange}
-                                    type=""
+                                    type="text"
                                     placeholder="Enter Title"
                                 />
                             </Form.Group>

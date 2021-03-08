@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
@@ -23,11 +23,12 @@ import { setAlert } from "../../store/actions/alertActions";
 import RunCodeSuccess from './RunCodeSuccess';
 import RunCodeFail from './RunCodeFail';
 import SubmitCodeSuccess from './SubmitCodeSuccess';
+import { cCode, cppCode, javaCode, pythonCode} from './defaultCode'
 
 // require("codemirror/addon/scroll/simplescrollbars.js");
 
 const CodeEditor = (props) => {
-    const { auth: { user }, code: { userCode, runSubmit }, runCode, submitCode, resetCode, setAlert } = props;
+    const { auth: { user }, code: { userCode, runSubmit }, runCode, submitCode } = props;
 
     const [editorSelect, setEditorSelect] = useState({
         lang: "text/x-csrc",
@@ -36,7 +37,8 @@ const CodeEditor = (props) => {
     });
 
     const [showConsole, setShowConsole] = useState(false);
-    const [code, setCode] = useState("");
+    const [code, setCode] = useState(cCode);
+
     const handleOnChange = (e) => {
         let selectedMime = e.target.selectedOptions[0].getAttribute(
             "data-mime"
@@ -46,6 +48,10 @@ const CodeEditor = (props) => {
             [e.target.name]: e.target.value,
             mime: selectedMime,
         });
+        if(selectedMime === 'text/x-csrc') setCode(cCode)
+        if(selectedMime === 'text/x-c++src') setCode(cppCode)
+        if(selectedMime === 'text/x-java') setCode(javaCode)
+        if(selectedMime === 'text/x-python') setCode(pythonCode)
     };
     let options = {
         lineNumbers: true,
@@ -148,7 +154,7 @@ const CodeEditor = (props) => {
             </div>
             <div className="console-container" style={{ display: `${showConsole ? 'block' : 'none'}` }}>
                 {userCode ? (
-                    <div style={{ padding: '12px', background: '#fff' }} >
+                    <div style={{ padding: '12px', background: '#fff', borderRadius: '5px' }} >
                         {userCode.error ? (
                             <RunCodeFail userCodeObj={userCode} />
                         )

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from '../../store/actions/alertActions';
-import { deleteQuestion, clrCodeDeleteSuccess, clrCodeCreateSuccess } from "../../store/actions/codeActions";
+import { deleteQuestion, clrCodeDeleteSuccess } from "../../store/actions/codeActions";
 
 const CodeTable = ({ code: { isDeleted },
     auth: { user },
@@ -15,6 +15,8 @@ const CodeTable = ({ code: { isDeleted },
             setAlert('Question Deleted', 'success');
             clrCodeDeleteSuccess();
         }
+        
+		//eslint-disable-next-line
     }, [isDeleted]);
 
     function capitalize(s) {
@@ -31,11 +33,10 @@ const CodeTable = ({ code: { isDeleted },
             </td>
             <td className="">
                 <span>
-                    <a
-                        className="fa fa-book questSol"
+                    <i
+                        className="fa fa-book questSol cursor-pointer ml-3"
                         aria-hidden="true"
-                        href="!#"
-                    ></a>
+                    ></i>
                 </span>
             </td>
             <td className="">
@@ -73,12 +74,11 @@ const CodeTable = ({ code: { isDeleted },
                     ></Link>
                 </span>
                 <span>
-                    <a
-                        className="fa fa-trash operation-D"
+                    <i
+                        className="fa fa-trash operation-D cursor-pointer"
                         aria-hidden="true"
-                        href="#!"
                         onClick={() => deleteQuestion(question._id)}
-                    ></a>
+                    ></i>
                 </span>
             </td>}
         </tr>

@@ -17,6 +17,8 @@ const CodingSub = (props) => {
 
     useEffect(() => {
         getCodeSubmission(id);
+        
+		//eslint-disable-next-line
     }, []);
 
     const [key, setKey] = useState("description");

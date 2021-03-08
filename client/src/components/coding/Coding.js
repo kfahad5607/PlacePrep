@@ -17,6 +17,8 @@ const Coding = (props) => {
 
     useEffect(() => {
         getQuestion(slug);
+        
+		//eslint-disable-next-line
     }, []);
 
     const [key, setKey] = useState("description");

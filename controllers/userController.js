@@ -91,7 +91,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
-    const users = await User.find({"role": {$ne: "admin"}});
+    const users = await User.find({ "role": { $ne: "admin" } });
 
     // SEND RESPONSE
     res.status(200).json({

@@ -8,7 +8,6 @@ import Coding from "../coding/Coding";
 import CodingSub from '../coding/codeSubmission/CodingSub';
 import CodeQuestions from "../code/CodeQuestions";
 import CreateCodeQuestion from "../code/CreateCodeQues";
-import QuizPage from "../quiz/QuizPage";
 import QuizPageSub from '../quiz/quizSubmission/QuizPageSub';
 import QuizCardPage from '../quiz/QuizCardPage';
 import EditQuiz from '../quiz/EditQuiz';
@@ -44,7 +43,6 @@ const Home = () => {
                         <Route path="/createCodeQuestion" component={CreateCodeQuestion} />
                         <Route path="/quizzes" component={QuizCardPage} />
                         <Route exact path="/editQuiz/:slug" component={EditQuiz} />
-                        {/* <Route exact path="/quiz/:slug" component={QuizPage} /> */}
                         <Route exact path="/quizSubmissions" component={QuizSubmissions} />
                         <Route exact path="/quizSubmissions/:quizId" component={QuizSubmissions} />
                         <Route exact path="/quizSubmission/:id" component={QuizPageSub} />
