@@ -408,6 +408,9 @@ input {
    .nav__user-img {
       margin-right: 0.25rem;
    }
+   .user-name{
+      font-size: 0.85rem;
+   }
 }
 
 /* Utility CSS */
