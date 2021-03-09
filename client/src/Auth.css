@@ -313,12 +313,19 @@ input {
    cursor: pointer;
 }
 
-.brand-name {
-   margin-left: 1rem;
+.user-name{
+   color: #fff;
 }
 
-.brand-name img {
-   margin-right: 0.5rem;
+.fullLogo {
+   height: 35px;
+   width: 185px;
+   cursor: pointer;
+}
+
+.logoName {
+   display: none !important;
+   cursor: pointer;
 }
 
 .alert {
@@ -366,15 +373,43 @@ input {
       font-size: 1.15rem;
    }
 
-   .brand-name img {
-      /* height: 27px;
-        width: 27px; */
+   .fullLogo {
       display: none !important;
    }
    .alert {
       font-size: 1.1rem;
       padding: 0.4rem;
       justify-content: center;
+   }
+}
+
+@media (max-width: 570px) and (min-width:375px) {
+   .logoName {
+      height: 30px;
+      display: inline-block !important;
+   }
+}
+
+@media (max-width: 410px) {
+   .navbar{
+      padding-right: 0.7rem;
+      padding-left: 0.7rem;
+   }
+   .brand-name{
+      margin-right: 0.25rem;
+   }
+}
+
+@media (max-width:374px) {
+   .logoName {
+      height: 30px;
+      display: flex !important;
+   }
+   .nav__user-img {
+      margin-right: 0.25rem;
+   }
+   .user-name{
+      font-size: 0.85rem;
    }
 }
 
