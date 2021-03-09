@@ -17,8 +17,8 @@ const CodingSub = (props) => {
 
     useEffect(() => {
         getCodeSubmission(id);
-        
-		//eslint-disable-next-line
+
+        //eslint-disable-next-line
     }, []);
 
     const [key, setKey] = useState("description");
@@ -40,7 +40,8 @@ const CodingSub = (props) => {
                     </Col>
                     <Col className="editor-container">
                         <CodeEditorSub
-                            key={currentSubmission.userSolution}
+                            // key={currentSubmission.userSolution}
+                            key={Date.now()}
                             slugProp={currentSubmission.question.slug}
                             userSolution={currentSubmission.userSolution}
                             language={currentSubmission.language}
