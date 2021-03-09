@@ -150,7 +150,7 @@
         ],
         "correctAnswer": "5 5/11 %",
         "topic": "Profit and Loss",
-        "category": "Quantitative analysis",
+        "category": "quantitative analysis",
         "explanation": "Cost Price (C.P.) = Rs. (4700 + 800) = Rs. 5500.\nSelling Price (S.P.) = Rs. 5800.\nGain = (S.P.) - (C.P.) = Rs.(5800 - 5500) = Rs. 300.\nGain % = ((300/5500) X 100) = 5 5/11 %"
     },
     {
