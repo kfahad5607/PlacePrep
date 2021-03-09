@@ -27,7 +27,8 @@ const Dashboard = (props) => {
                         <span></span>
                     </div>
                     <div className="userform">
-                        {user.role === "student" && <DashboardPie submissions={details.codeSubmissions} />}
+                        {(user.role === "student" && details.codeSubmissions.total > 0)
+                            && <DashboardPie submissions={details.codeSubmissions} />}
                         <div className="row pb-3 pt-3">
                             <div className="col-md-6 mb-3">
                                 <div className="card card1">

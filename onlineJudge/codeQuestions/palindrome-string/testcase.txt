@@ -1,0 +1,8 @@
+abba
+1
+abc
+0
+geeks
+0
+abbccbba
+1

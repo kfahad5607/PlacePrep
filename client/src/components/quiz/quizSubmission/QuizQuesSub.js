@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import QuizOptionSub from './QuizOptionSub';
+import Spinner from '../../layout/Spinner';
 import '../quiz.css';
 import { connect } from 'react-redux';
 import { submitQuiz } from '../../../store/actions/quizActions';
@@ -16,7 +17,7 @@ const QuizQues = (props) => {
         <>
             { props.questions.map((ele, index) => (
                 userAnswers ? (
-                    <Accordion key={index} className='my-2'>
+                    <Accordion key={index} className={`my-2 ${userAnswers[index].selectedAnswer === '' && 'deactivated'}`} >
                         <Card>
                             <Card.Body>
                                 <Card.Title>
@@ -30,11 +31,8 @@ const QuizQues = (props) => {
                             </Card.Body>
                         </Card>
                     </Accordion>) :
-                    <h3 key={index}>Loading...</h3>)
+                    <Spinner />)
             )}
-            {/* <div className="text-center" onClick={handleOnClick} style={{ width: '200px', margin: 'auto' }}>
-                <Button className="createquiz mb-4"  >Submit Quiz</Button>
-            </div> */}
         </>
     );
 };

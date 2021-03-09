@@ -45,6 +45,7 @@ const testCodeCPP = async (file, testcaseFile, inputFile, noOfInputs) => {
         for (let j = i; j < noOfInputs + i; j++) {
             let trimmedTestcaseInput = remove_linebreaks(testcases[j]);
             givenInput = givenInput + trimmedTestcaseInput + '\n';
+
             // Old way to check if the input string is an array
             // if (remove_linebreaks(testcases[j]).startsWith('[') && remove_linebreaks(testcases[j]).endsWith(']')) {
             // New way to check if the input string is an array

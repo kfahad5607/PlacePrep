@@ -20,7 +20,11 @@ import {
     FILTER_ALL_USERS,
     CLEAR_FILTER_ALL_USERS,
     UPDATE_USER,
-    DELETE_USER
+    DELETE_USER,
+    FOR_PASS_MAIL_SENT,
+    CLR_FOR_PASS_MAIL_SENT,
+    PASSWORD_RESET,
+    CLR_PASSWORD_RESET
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -32,6 +36,8 @@ const initialState = {
     testDetails: null,
     error: null,
     loading: true,
+    mailSent: null,
+    passReset: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -87,7 +93,6 @@ const reducer = (state = initialState, action) => {
                 error: action.payload,
                 loading: false,
             };
-
         case CLEAR_AUTH_ERRORS:
             return {
                 ...state,
@@ -154,6 +159,26 @@ const reducer = (state = initialState, action) => {
                     (user) => user._id !== action.payload
                 ) : null,
                 loading: false,
+            };
+        case FOR_PASS_MAIL_SENT:
+            return {
+                ...state,
+                mailSent: true
+            };
+        case CLR_FOR_PASS_MAIL_SENT:
+            return {
+                ...state,
+                mailSent: null
+            };
+        case PASSWORD_RESET:
+            return {
+                ...state,
+                passReset: true
+            };
+        case CLR_PASSWORD_RESET:
+            return {
+                ...state,
+                passReset: null
             };
         default:
             return state;

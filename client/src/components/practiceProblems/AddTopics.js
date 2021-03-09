@@ -41,9 +41,9 @@ const AddTopics = (props) => {
 
     useEffect(() => {
         if (isCreated) {
+            clrPracProbCreateSuccess();
             setAlert('Topic has been created.', 'success');
 
-            clrPracProbCreateSuccess();
             setAptiInfo({
                 topic: "",
                 category: "quantitative analysis",
@@ -68,8 +68,8 @@ const AddTopics = (props) => {
 
     useEffect(() => {
         if (error) {
-            setAlert(error, "danger");
             clearPracticeProblemErrors();
+            setAlert(error, "danger");
         }
 
         // eslint-disable-next-line

@@ -74,16 +74,16 @@ const CodeQuestions = (props) => {
 		</Link>
 	);
 
-	if (questions !== null && questions.length === 0) {
+	if (questions !== null && questions?.length === 0) {
 		return (
 			<div className="text-center mt-3">
 				{user.role === "admin" || user.role === "faculty" ? (
-
-					<h4>
-						Currently There are No Questions Available. Instead create one{" "}
+					<>
+						<h4>
+							Currently There are No Questions Available. Instead create one{" "}
+						</h4>
 						{createLink}
-					</h4>
-
+					</>
 				) : (
 					<h4>Currently There are No Questions Available.</h4>
 				)}
@@ -109,7 +109,7 @@ const CodeQuestions = (props) => {
 	const qsnNumber = _.range(1, newQuestions.length + 1);
 	return (
 		<Fragment>
-			{questions !== null && !loading ? (
+			{questions && !loading ? (
 				<Container className="container-codeQuest">
 					<h3 className="text-center  mb-2 pt-4 ">Coding Questions</h3>
 					<div className="title-border mb-4">

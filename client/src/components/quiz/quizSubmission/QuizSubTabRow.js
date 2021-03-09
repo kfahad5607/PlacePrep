@@ -16,11 +16,10 @@ const QuizSubTabRow = (props) => {
 
     useEffect(() => {
         if (isDeleted) {
-            console.log('delel', isDeleted);
-            setAlert('Quiz Submission Deleted', 'success');
             clrQuizDeleteSuccess();
+            setAlert('Quiz Submission Deleted', 'success');
         }
-        
+
         //eslint-disable-next-line
     }, [isDeleted]);
 

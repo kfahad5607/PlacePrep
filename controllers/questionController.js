@@ -49,11 +49,13 @@ exports.updateQuestion = catchAsync(async (req, res, next) => {
     }
 
     fs.writeFileSync(`onlineJudge/codeQuestions/${req.body.slug}/testcase.txt`, remove_linebreaks(req.body.testcases));
+    let newQuestion = JSON.parse(JSON.stringify(question));
+    newQuestion.testcases = req.body.testcases;
 
     res.status(200).json({
         status: 'success',
         data: {
-            data: question
+            data: newQuestion
         }
     });
 });
@@ -65,15 +67,17 @@ exports.getQuestion = catchAsync(async (req, res, next) => {
         return next(new AppError('No coding question found with that ID.', 404));
     }
 
-    // Optional
-    let content = fs.readFileSync(`onlineJudge/codeQuestions/${req.params.slug}/testcase.txt`);
+    let newQuestion = JSON.parse(JSON.stringify(question));
+    if (req.query.check === 'true') {
+        let content = fs.readFileSync(`onlineJudge/codeQuestions/${req.params.slug}/testcase.txt`);
+        newQuestion.testcases = content.toString();
+    }
 
-    question.testcases = content.toString();
 
     res.status(200).json({
         status: 'success',
         data: {
-            data: question
+            data: newQuestion
         }
     });
 });
@@ -91,7 +95,7 @@ exports.getAllQuestions = catchAsync(async (req, res, next) => {
             _id: {
                 $nin: currentUserSubs
             }
-        }).select('-description -testcases -solution -noOfInputs -hint').populate({
+        }).select('-description -testcases -noOfInputs').populate({
             path: 'author',
             select: '-photo -email -currentTest -testWillEndAt -testStartedAt -__v'
         });

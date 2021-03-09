@@ -39,13 +39,14 @@ const CreateCodeQuestion = (props) => {
 
     useEffect(() => {
         if (props.match.path.includes("editCodeQuestion")) {
-            getQuestion(props.match.params.slug);
+            getQuestion(props.match.params.slug, true);
         }
         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
         if (isCreated) {
+            clrCodeCreateSuccess();
             if (props.match.path.includes("editCodeQuestion")) {
                 setAlert('Question has been updated.', 'success');
             }
@@ -62,7 +63,6 @@ const CreateCodeQuestion = (props) => {
                 });
                 setSampleArray([]);
             }
-            clrCodeCreateSuccess();
         }
 
         //eslint-disable-next-line
@@ -157,6 +157,7 @@ const CreateCodeQuestion = (props) => {
 
             setCodeQuestion({ ...codeQuestion, sampleInputs: sampleArray });
 
+            console.log('temp', temp);
             current !== null
                 ? updateQuestion(temp)
                 : addQuestion(temp);
@@ -373,8 +374,8 @@ const CreateCodeQuestion = (props) => {
                             onClick={handleOnSubmit}
                         >
                             {current !== null
-                                ? " Edit Question "
-                                : " Create Question "}
+                                ? "Update Question"
+                                : "Create Question"}
                         </Button>
                     </div>
                 </Form>

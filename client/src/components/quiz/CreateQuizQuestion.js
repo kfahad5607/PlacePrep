@@ -147,6 +147,7 @@ function QuizQuestion(props) {
                                 <Button
                                     className="deletebtn"
                                     onClick={props.onDeleteFunc}
+                                    disabled={!props.deletable}
                                 >
                                     Delete question
                                 </Button>

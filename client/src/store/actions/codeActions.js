@@ -42,9 +42,10 @@ export const getQuestions = () => async (dispatch) => {
     }
 };
 
-export const getQuestion = (slug) => async (dispatch) => {
+export const getQuestion = (slug, check = false) => async (dispatch) => {
     try {
-        const res = await axios.get(`/api/v1/questions/${slug}`);
+        const res = await axios.get(`/api/v1/questions/${slug}?check=${check}`);
+        console.log('res', res);
         dispatch({
             type: GET_CODE_QUESTION,
             payload: res.data.data.data

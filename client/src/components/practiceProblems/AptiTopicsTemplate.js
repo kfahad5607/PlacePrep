@@ -33,11 +33,11 @@ const AptiTopicsTemplate = (props) => {
 
     useEffect(() => {
         if (isDeleted) {
-            setAlert('Topic Deleted', 'success');
             clrPracProbDeleteSuccess();
+            setAlert('Topic Deleted', 'success');
         }
-        
-		//eslint-disable-next-line
+
+        //eslint-disable-next-line
     }, [isDeleted]);
 
     useEffect(() => {

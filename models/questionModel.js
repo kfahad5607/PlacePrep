@@ -29,39 +29,17 @@ const questionSchema = new mongoose.Schema({
             message: 'Difficulty is either: 10, 20, 30'
         }
     },
-    // sampleInputs: [{
-    //     id: Number,
-    //     sampleInput: String,
-    //     sampleOutput: String
-    // }],
     sampleInputs: {
         type: [Object]
     },
-    testcases: String,
-    solution: { type: String },
-    hint: {
-        type: [String]
+    solution: {
+        type: String,
+        trim: true
     },
     noOfInputs: {
         type: Number,
         required: [true, 'A question must have number of inputs.'],
     }
-    // javaMain: {
-    //     type: String,
-    //     default: 'java psvm'
-    // },
-    // cMain: {
-    //     type: String,
-    //     default: 'C int main'
-    // },
-    // cppMain: {
-    //     type: String,
-    //     default: 'Cpp int main'
-    // },
-    // pythonMain: {
-    //     type: String,
-    //     default: 'python main'
-    // }
 
 });
 

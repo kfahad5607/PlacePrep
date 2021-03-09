@@ -10,6 +10,7 @@ const initialState = {
     error: null,
     isCreated: null,
     isDeleted: null,
+    editable: null,
     score: null,
     loading: false
 };
@@ -29,9 +30,11 @@ const reducer = (state = initialState, action) => {
             };
 
         case actionTypes.GET_QUIZ:
+            let temp = action.payload.subCount === 0 ? true : null;
             return {
                 ...state,
-                current: action.payload,
+                current: action.payload.currentQuiz,
+                editable: temp,
                 loading: false
             };
 

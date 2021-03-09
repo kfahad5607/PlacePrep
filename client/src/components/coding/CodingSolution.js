@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from 'react';
 
-const CodingSolution = () => {
+const CodingSolution = (props) => {
     return (
         <Fragment>
             <div className='description solution'>
@@ -9,12 +9,12 @@ const CodingSolution = () => {
                 </div>
                 <hr />
                 <div className='solution-description'>
-                    <p>Approach</p>
-                    <pre></pre>
+                    {props.current.solution === '' ? <h5 className='text-center'>Not Available</h5>
+                        : <pre>{props.current.solution}</pre>}
                 </div>
             </div>
         </Fragment>
-    )
-}
+    );
+};
 
-export default CodingSolution
+export default CodingSolution;
