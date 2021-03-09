@@ -213,9 +213,6 @@
     box-shadow: none !important;
 }
 
-.solution-container{
-    height: 60vh;
-}
 
 @media (max-width: 870px) {
     .coding-container {
