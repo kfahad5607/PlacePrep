@@ -5,11 +5,11 @@ const CodingSolution = ({ solution }) => {
         <Fragment>
             <div className='description solution'>
                 <div className='head'>
-                    <p className='solution-title'>Approach</p>
+                    <p className='solution-title'>Solution</p>
                 </div>
                 <hr />
                 <div className='solution-description'>
-                    <pre>{solution}</pre>
+                    <pre className="solution-container">{solution}</pre>
                 </div>
             </div>
         </Fragment>

@@ -79,7 +79,7 @@ const QuizCardPage = (props) => {
 			{/* {(user.role === "admin" || user.role === "faculty") && (
 				<div className="create-quiz-row">{createLink}</div>
 			)} */}
-			<div className="row mt-3 ml-3 text-center">
+			<div className="row mt-3 ml-3 text-center" style={{marginRight: "0px" }}>
 				<div
 					className={`${user.role === "admin" || user.role === "faculty"
 						? "col-xl-10"
