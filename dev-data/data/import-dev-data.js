@@ -2,16 +2,17 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-// const Tour = require('./../../models/tourModel')
-const User = require('./../../models/userModel')
-// const Review = require('./../../models/reviewModel')
+
+const AptiQuestion = require("../../models/aptiQuestionModel");
+
 
 dotenv.config({ path: './../../config.env' });
 
-// const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
+const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 
-mongoose.connect(process.env.DATABASE_LOCAL, {
-    // .connect(DB, {
+mongoose
+// .connect(process.env.DATABASE_LOCAL, {
+    .connect(DB, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -19,14 +20,14 @@ mongoose.connect(process.env.DATABASE_LOCAL, {
 }).then(() => console.log("Database connected"))
 
 // const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`,'utf-8'))
-const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`,'utf-8'))
+const questions = JSON.parse(fs.readFileSync(`${__dirname}/aptiQuestions.json`,'utf-8'))
 // const reviews = JSON.parse(fs.readFileSync(`${__dirname}/reviews.json`,'utf-8'))
 
 const importData = async () => {
     try {
         // await Tour.create(tours)
-        await User.create(users, { validateBeforeSave: false})
-        // await Review.create(reviews)
+        // await User.create(users, { validateBeforeSave: false})
+        await AptiQuestion.create(questions)
         console.log("Data inserted successfully")
     } catch (err) {
         console.log(err)
@@ -36,7 +37,7 @@ const importData = async () => {
 const deleteData = async () => {
     try {
         // await Tour.deleteMany()
-        await User.deleteMany()
+        await AptiQuestion.deleteMany()
         // await Review.deleteMany()
         console.log("Data deleted successfully")
     } catch (err) {
