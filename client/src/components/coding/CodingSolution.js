@@ -1,6 +1,23 @@
 import React, { Fragment } from 'react';
+import { Controlled as CodeMirror } from "react-codemirror2";
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/eclipse.css";
+import "codemirror/addon/display/autorefresh";
 
-const CodingSolution = (props) => {
+const CodingSolution = ({ solution }) => {
+    let options = {
+        lineNumbers: true,
+        mode: "text/plain",
+        theme: "eclipse",
+        autoRefresh: true,
+        styleActiveLine: true,
+        lineWrapping: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        scrollbarStyle: "overlay",
+        readOnly: true
+    };
+
     return (
         <Fragment>
             <div className='description solution'>
@@ -9,8 +26,13 @@ const CodingSolution = (props) => {
                 </div>
                 <hr />
                 <div className='solution-description'>
-                    {props.current.solution === '' ? <h5 className='text-center'>Not Available</h5>
-                        : <pre>{props.current.solution}</pre>}
+                    {solution === '' ? <h5 className='text-center'>Not Available</h5>
+                        :
+                        <CodeMirror
+                            value={solution}
+                            options={options}
+                            autoFocus={true}
+                        />}
                 </div>
             </div>
         </Fragment>

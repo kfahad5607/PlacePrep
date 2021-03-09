@@ -13,3 +13,9 @@
     margin-left: 0;
   }
 }
+
+@media (max-width: 570px){
+  .content{
+    top: 66px !important;
+  }
+}

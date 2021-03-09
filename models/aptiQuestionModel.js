@@ -48,7 +48,8 @@ const aptiQuestionSchema = new mongoose.Schema({
 
 // aptiQuestionSchema.pre('save', function (next) {
 //     console.log('presave')
-//     this.slug = slugify(this.topic, { lower: true });
+//     this.topicSlug = slugify(this.topic, { lower: true });
+//     this.categorySlug = slugify(this.category, { lower: true });
 //     next();
 // });
 

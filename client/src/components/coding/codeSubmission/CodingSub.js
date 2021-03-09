@@ -40,8 +40,7 @@ const CodingSub = (props) => {
                     </Col>
                     <Col className="editor-container">
                         <CodeEditorSub
-                            // key={currentSubmission.userSolution}
-                            key={Date.now()}
+                            key={currentSubmission.userSolution}
                             slugProp={currentSubmission.question.slug}
                             userSolution={currentSubmission.userSolution}
                             language={currentSubmission.language}

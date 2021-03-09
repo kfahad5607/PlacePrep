@@ -34,7 +34,8 @@ const CodeTable = ({ code: { isDeleted },
             <td className="">
                 <span>
                     <i
-                        className={`fa fa-book questSol cursor-pointer ${question.solution === '' && 'deactivated'}`}
+                        className={`fa fa-book questSol cursor-pointer ml-3 ${question.solution === '' && 'deactivated'}`}
+
                         aria-hidden="true"
                     ></i>
                 </span>

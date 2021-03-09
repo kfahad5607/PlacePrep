@@ -34,7 +34,7 @@ const Coding = (props) => {
                             </Tab>
                             {/* {current.solution &&} */}
                             <Tab eventKey="solution" title={<span><i className="fa fa-flask" aria-hidden="true"></i>Solution</span>}>
-                                <CodingSolution current={current} />
+                                <CodingSolution solution={current.solution} />
                             </Tab>
                         </Tabs>
                     </Col>
