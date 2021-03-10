@@ -78,12 +78,12 @@ const CodeQuestions = (props) => {
 		return (
 			<div className="text-center mt-3">
 				{user.role === "admin" || user.role === "faculty" ? (
-
-					<h4>
-						Currently There are No Questions Available. Instead create one{" "}
+					<>
+						<h4>
+							Currently There are No Questions Available. Instead create one{" "}
+						</h4>
 						{createLink}
-					</h4>
-
+					</>
 				) : (
 					<h4>Currently There are No Questions Available.</h4>
 				)}

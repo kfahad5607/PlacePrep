@@ -42,12 +42,16 @@ const Navbars = (props) => {
             <Navbar.Brand className="brand-name">
                 <img
                     alt="logo"
-                    src="./assets/img/logo.png"
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-top"
+                    src="./assets/img/fullLogo.png"
+                    className="d-inline-block align-top fullLogo"
                 />{" "}
-                PlacePrep
+                <img
+                    alt="logo"
+                    src="./assets/img/logoName.png"
+                    className="d-inline-block align-top logoName"
+                />{" "}
+
+                {/* PlacePrep */}
             </Navbar.Brand>
             <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>

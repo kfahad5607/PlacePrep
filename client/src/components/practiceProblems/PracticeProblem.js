@@ -25,7 +25,7 @@ const PracticeProblem = (props) => {
     return (
         <div>
             {(user.role === "admin" || user.role === "faculty") && (
-                <div className="create-quiz-row">{createLink}</div>
+                <div className="create-quiz-row ">{createLink}</div>
             )}
             {catAndTopic ?
                 <>

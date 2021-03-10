@@ -60,11 +60,13 @@ const QuizCardPage = (props) => {
 		return (
 			<div className="text-center mt-3">
 				{user.role === "admin" || user.role === "faculty" ? (
-					<h4>
+					<>
+						<h4>
 
-						Currently There are No Quizzes Available. Instead create one{" "}
+							Currently There are No Quizzes Available. Instead create one{" "}
+						</h4>
 						{createLink}
-					</h4>
+					</>
 				) : (
 					<h4>Currently There are No Quizzes Available.</h4>
 				)}
@@ -79,7 +81,7 @@ const QuizCardPage = (props) => {
 			{/* {(user.role === "admin" || user.role === "faculty") && (
 				<div className="create-quiz-row">{createLink}</div>
 			)} */}
-			<div className="row mt-3 ml-3 text-center">
+			<div className="row mt-3 ml-3 mr-3 text-center">
 				<div
 					className={`${user.role === "admin" || user.role === "faculty"
 						? "col-xl-10"
