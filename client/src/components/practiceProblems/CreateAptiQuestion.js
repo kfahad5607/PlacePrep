@@ -30,6 +30,7 @@ const CreateAptiQuestion = (props) => {
                                 {toggle ? 'Collapse' : 'Expand'}
                             </Accordion.Toggle>
                             <TextareaAutosize
+                                id={`question${props.index}`}
                                 className="quiz-inputFiled questiontextarea"
                                 name="question"
                                 onFocus={handleOnFocus}
@@ -83,8 +84,11 @@ const CreateAptiQuestion = (props) => {
                         </div>
                         <div className="row mb-4">
                             <div className="col-sm-9">
-                                <Form.Label><b>Explanation</b></Form.Label>
-                                <TextareaAutosize className="quiz-inputFiled questiontextarea" onChange={props.onChangeFunc} value={props.quesObj.explanation} name="explanation" placeholder="" ></TextareaAutosize>
+                                <Form.Group controlId={`explanation${props.index}`}>
+
+                                    <Form.Label><b>Explanation</b></Form.Label>
+                                    <TextareaAutosize id={`explanation${props.index}`} className="quiz-inputFiled questiontextarea" onChange={props.onChangeFunc} value={props.quesObj.explanation} name="explanation" placeholder="" ></TextareaAutosize>
+                                </Form.Group>
                             </div>
                             {props.onDeleteFunc && <div className="col-sm-3">
                                 <Button className="deletebtn" onClick={props.onDeleteFunc} >Delete question</Button>

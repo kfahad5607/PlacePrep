@@ -184,7 +184,6 @@ thead th {
 }
 
 @media (max-width: 1200px) and (min-width: 300px) {
-	
 	.create-btn {
 		font-size: 0.95rem;
 		width: 50%;

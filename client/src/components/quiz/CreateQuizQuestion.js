@@ -38,6 +38,7 @@ function QuizQuestion(props) {
                                 {toggle ? "Collapse" : "Expand"}
                             </Accordion.Toggle>
                             <TextareaAutosize
+                                id={`question${props.index}`}
                                 className="quiz-inputFiled questiontextarea"
                                 name="question"
                                 onFocus={handleOnFocus}

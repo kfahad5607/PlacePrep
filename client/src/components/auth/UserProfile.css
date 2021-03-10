@@ -59,6 +59,7 @@
 .user-inputFiled:focus {
   border: none !important;
   box-shadow: 0 -3px 0px #775ecf inset, 8px 0 0 white !important;
+  color: black !important;
   outline: 0 none;
 }
 

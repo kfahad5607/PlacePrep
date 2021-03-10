@@ -31,7 +31,7 @@ button:focus {
    transition: all 0.3s ease;
 }
 
-.option > button {
+.option>button {
    display: flex;
    /* align-items: center;
     justify-content: space-between; */
@@ -107,8 +107,7 @@ button:focus {
    margin-top: 5px;
 }
 
-.start_quiz_btn:active,
-.start_quiz_btn:focus {
+.start_quiz_btn:active, .start_quiz_btn:focus {
    background-color: #412e85 !important;
    border-color: #412e85;
    box-shadow: none !important;
@@ -116,9 +115,7 @@ button:focus {
 
 .start_quiz_btn {
    color: #fff;
-   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
    font-size: 20px;
    font-weight: 400;
    border-radius: 8px;
@@ -232,7 +229,7 @@ button:focus {
 /* *****Responsive Design***** */
 
 @media only screen and (max-width: 570px) and (min-width: 361px) {
-   .option .icon.cross > i {
+   .option .icon.cross>i {
       margin-bottom: 2px;
    }
    .timer {
@@ -271,7 +268,7 @@ button:focus {
 }
 
 @media only screen and (max-width: 360px) and (min-width: 281px) {
-   .option .icon.cross > i {
+   .option .icon.cross>i {
       margin-bottom: 2px;
    }
    .timer {
@@ -384,8 +381,7 @@ h3 {
 
 /* chrome */
 
-.quizDuration::-webkit-outer-spin-button,
-.quizDuration::-webkit-inner-spin-button {
+.quizDuration::-webkit-outer-spin-button, .quizDuration::-webkit-inner-spin-button {
    -webkit-appearance: none;
    margin: 0;
 }
@@ -402,6 +398,7 @@ h3 {
 .quiz-inputFiled:focus {
    border: none !important;
    box-shadow: 0 -3px 0px #775ecf inset, 8px 0 0 white !important;
+   color: black !important;
    outline: 0 none;
 }
 
@@ -429,15 +426,13 @@ h3 {
    }
 }
 
-.deletebtn:focus,
-.deletebtn:active {
+.deletebtn:focus, .deletebtn:active {
    box-shadow: 0 2px 1px #412e85 inset, 0 0 8px white !important;
    background-color: #412e85 !important;
    outline: 0 none;
 }
 
-.createquiz,
-.addquestbtn {
+.createquiz, .addquestbtn {
    background-color: #775ecf !important;
    font-size: 15px !important;
    border-radius: 7px !important;
@@ -445,10 +440,7 @@ h3 {
    border: none !important;
 }
 
-.createquiz:focus,
-.createquiz:active,
-.addquestbtn:focus,
-.addquestbtn:active {
+.createquiz:focus, .createquiz:active, .addquestbtn:focus, .addquestbtn:active {
    box-shadow: 0 2px 1px #412e85 inset, 0 0 8px white !important;
    background-color: #412e85 !important;
    outline: 0 none;
@@ -460,8 +452,7 @@ h3 {
    }
 }
 
-.btn,
-.btn-primary {
+.btn, .btn-primary {
    border: none !important;
 }
 

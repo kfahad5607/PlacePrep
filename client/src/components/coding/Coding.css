@@ -213,7 +213,6 @@
     box-shadow: none !important;
 }
 
-
 @media (max-width: 870px) {
     .coding-container {
         flex-direction: column;

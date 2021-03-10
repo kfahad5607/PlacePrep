@@ -82,7 +82,6 @@ const Dashboard = (props) => {
                                                     } / { details.questions < 10
                                                         ? `0${details.questions}`
                                                         : details.questions}
-
                                                 </b>
                                             ) : (
                                                 <b> Total : {details.questions < 10
