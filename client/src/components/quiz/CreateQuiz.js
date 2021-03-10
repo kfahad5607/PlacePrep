@@ -247,6 +247,7 @@ function CreateQuiz(props) {
                             onDeleteFunc={() => handleOnDelete(ele.id)}
                             onChangeFunc={(e) => handleOnChangeQues(e, index)}
                             quesObj={ele}
+                            deletable={true}
                         />
                     ))}
 

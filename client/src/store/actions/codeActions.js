@@ -173,7 +173,7 @@ export const runCode = (runObj) => async (dispatch) => {
             payload: res.data.data
         });
     } catch (err) {
-        console.log('err', err);
+        console.log('err', err.response);
         dispatch({
             type: CODE_QUESTION_ERROR,
             payload: err.response.data.message,

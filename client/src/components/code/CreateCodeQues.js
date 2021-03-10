@@ -83,7 +83,7 @@ const CreateCodeQuestion = (props) => {
                     ...curr,
                 }));
                 setSampleArray(newArray);
-                setLastId(current.sampleInputs.length - 1);
+                setLastId(current.sampleInputs.length);
             }
         } else {
             clearCurrent();

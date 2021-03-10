@@ -197,62 +197,6 @@ const QuizSubmissions = (props) => {
                             onPageChange={handlePageChange}
                         />
 
-                        <div className=" paginatt ">
-                            <nav aria-label="Page navigation example">
-                                <ul className="pagination nav2">
-                                    <li className="">
-                                        <i
-                                            className="page-link cursor-pointer"
-                                            aria-label="Previous"
-                                        >
-                                            <span
-                                                aria-hidden="true"
-                                                className="pagntColor"
-                                            >
-                                                &laquo;
-                                    </span>
-                                        </i>
-                                    </li>
-                                    <li className=" ">
-                                        <a
-                                            className="page-link pagntColor"
-                                            href="#1"
-                                        >
-                                            1
-                                </a>
-                                    </li>
-                                    <li className="active">
-                                        <a
-                                            className="page-link pagntColor "
-                                            href="#2"
-                                        >
-                                            2
-                                </a>
-                                    </li>
-                                    <li className=" ">
-                                        <a
-                                            className="page-link pagntColor "
-                                            href="#3"
-                                        >
-                                            3
-                                </a>
-                                    </li>
-                                    <li className="">
-                                        <i
-                                            className="page-link cursor-pointer"
-                                            aria-label="Next"
-                                        >
-                                            <span
-                                                aria-hidden="true"
-                                                className="pagntColor"
-                                            >
-                                                &raquo;
-                                    </span>
-                                        </i>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
                     </div>
                 </div>
             </Container>) :
@@ -260,7 +204,7 @@ const QuizSubmissions = (props) => {
                     <Spinner />
                 )
             }
-        </Fragment >
+        </Fragment>
     );
 };
 

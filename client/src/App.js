@@ -15,7 +15,7 @@ import ResetPassword from './components/auth/Resetpassword';
 import TestRoute from "./components/routing/TestRoute";
 
 const App = (props) => {
-    const { auth: { user }, setTestDetails, loadUser } = props;
+    const { auth: { user, testDetails }, setTestDetails, loadUser } = props;
 
     useEffect(() => {
         loadUser(false, true);
@@ -45,7 +45,7 @@ const App = (props) => {
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/ResetPassword/:token" component={ResetPassword} />
                 {/* <PrivateRoute path="/" component={Home} /> */}
-                <TestRoute path='/quiz/:slug' component={QuizPage} />
+                {user && <TestRoute path='/quiz/:slug' component={QuizPage} />}
                 {user && <PrivateRoute path="/" component={Home} />}
             </Switch>
         </Router>

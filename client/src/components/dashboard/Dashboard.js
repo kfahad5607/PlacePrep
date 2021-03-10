@@ -41,11 +41,17 @@ const Dashboard = (props) => {
                                                 <b>
                                                     {" "}
                                                     Attempted : {
-                                                        details.quizSubmissions
-                                                    } / {details.quizzes}
+                                                        details.quizSubmissions < 10
+                                                            ? `0${details.quizSubmissions}`
+                                                            : details.quizSubmissions
+                                                    } / {details.quizzes < 10
+                                                        ? `0${details.quizzes}`
+                                                        : details.quizzes}
                                                 </b>
                                             ) : (
-                                                <b> Total : {details.quizzes}</b>
+                                                <b> Total : {details.quizzes < 10
+                                                    ? `0${details.quizzes}`
+                                                    : details.quizzes}</b>
                                             )}
                                         </span>
                                         <Link
@@ -70,12 +76,18 @@ const Dashboard = (props) => {
                                                 <b>
                                                     {" "}
                                                     Attempted : {
-                                                        details.codeSubmissions.total
-                                                    } / {details.questions}
+                                                        details.codeSubmissions.total < 10
+                                                            ? `0${details.codeSubmissions.total}`
+                                                            : details.codeSubmissions.total
+                                                    } / { details.questions < 10
+                                                        ? `0${details.questions}`
+                                                        : details.questions}
 
                                                 </b>
                                             ) : (
-                                                <b> Total : {details.questions}</b>
+                                                <b> Total : {details.questions < 10
+                                                    ? `0${details.questions}`
+                                                    : details.questions}</b>
                                             )}
                                         </span>
                                         <Link

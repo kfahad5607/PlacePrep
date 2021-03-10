@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const PrivateRoute = ({ auth: { isAuthenticated, loading, testDetails }, component: Component, ...rest }) => {
+const PrivateRoute = ({ auth: { isAuthenticated, testDetails }, component: Component, ...rest }) => {
     return (
         <Route {...rest} render={props => {
             if (!isAuthenticated) {

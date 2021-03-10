@@ -19,7 +19,7 @@ function QuizQuestion(props) {
                 {/* <Accordion.Toggle as={Row} eventKey="0" style={{ cursor: 'pointer', backgroundColor: 'rgb(164, 166, 179)'}}> */}
                 <div className="row ">
                     <div className="col-12">
-                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Group controlId={`question${props.index}`}>
                             <Form.Label>
                                 {" "}
                                 <b>Question {props.index + 1}</b>
@@ -44,6 +44,7 @@ function QuizQuestion(props) {
                                 onChange={props.onChangeFunc}
                                 value={props.quesObj.question}
                                 placeholder="Type question here.."
+                                id={`question${props.index}`}
                                 required
                             ></TextareaAutosize>
                         </Form.Group>
@@ -55,7 +56,7 @@ function QuizQuestion(props) {
                         <div className="row ">
                             <div className="col-sm-6">
                                 <Form.Group
-                                    controlId={`optionA-${props.quesObj._id}`}
+                                    controlId={`optionA-${props.index}`}
                                 >
                                     <Form.Label>
                                         <b>Option A</b>
@@ -72,7 +73,7 @@ function QuizQuestion(props) {
                             </div>
                             <div className="col-sm-6">
                                 <Form.Group
-                                    controlId={`optionB-${props.quesObj._id}`}
+                                    controlId={`optionB-${props.index}`}
                                 >
                                     <Form.Label>
                                         <b>Option B</b>
@@ -91,7 +92,7 @@ function QuizQuestion(props) {
                         <div className="row ">
                             <div className="col-sm-6">
                                 <Form.Group
-                                    controlId={`optionC-${props.quesObj._id}`}
+                                    controlId={`optionC-${props.index}`}
                                 >
                                     <Form.Label>
                                         <b>Option C</b>
@@ -108,7 +109,7 @@ function QuizQuestion(props) {
                             </div>
                             <div className="col-sm-6">
                                 <Form.Group
-                                    controlId={`optionD-${props.quesObj._id}`}
+                                    controlId={`optionD-${props.index}`}
                                 >
                                     <Form.Label>
                                         <b>Option D</b>
@@ -128,7 +129,7 @@ function QuizQuestion(props) {
                         <div className="row ">
                             <div className="col-sm-6">
                                 <Form.Group
-                                    controlId={`correctOption-${props.quesObj._id}`}
+                                    controlId={`correctOption-${props.index}`}
                                 >
                                     <Form.Label>
                                         <b>Correct option</b>

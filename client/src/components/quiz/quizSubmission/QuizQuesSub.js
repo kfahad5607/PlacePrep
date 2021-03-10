@@ -17,8 +17,12 @@ const QuizQues = (props) => {
         <>
             { props.questions.map((ele, index) => (
                 userAnswers ? (
-                    <Accordion key={index} className={`my-2 ${userAnswers[index].selectedAnswer === '' && 'deactivated'}`} >
+                    <Accordion key={index} className={`my-2`} >
                         <Card>
+                            {userAnswers[index].selectedAnswer === '' &&
+                                <span className="subStatus badge badgeDanger mt-2"
+                                    style={{ margin: '0 auto' }}
+                                >Not Attempted</span>}
                             <Card.Body>
                                 <Card.Title>
                                     {`${index + 1}.`} {ele.question}

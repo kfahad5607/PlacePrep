@@ -106,8 +106,9 @@ exports.getAllQuestions = catchAsync(async (req, res, next) => {
             path: 'author',
             select: '-photo -email -currentTest -testWillEndAt -testStartedAt -__v'
         });
-    } else {
-        questions = await Question.find().select('-description -testcases -solution -noOfInputs -hint').populate({
+    }
+    else if (req.user.role === 'admin') {
+        questions = await Question.find({}).select('-description -testcases -solution -noOfInputs -hint').populate({
             path: 'author',
             select: '-photo -email -currentTest -testWillEndAt -testStartedAt -__v'
         });

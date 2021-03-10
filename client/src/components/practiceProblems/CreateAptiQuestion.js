@@ -19,7 +19,7 @@ const CreateAptiQuestion = (props) => {
             <Accordion>
                 <div className="row ">
                     <div className="col-12">
-                        <Form.Group controlId="exampleForm.ControlTextarea1" >
+                        <Form.Group controlId={`question${props.index}`} >
                             <Form.Label> <b>Question {props.index + 1}</b></Form.Label>
                             <Accordion.Toggle as={Alert.Link}
                                 ref={inpRef}
@@ -35,6 +35,7 @@ const CreateAptiQuestion = (props) => {
                                 onFocus={handleOnFocus}
                                 onChange={props.onChangeFunc}
                                 value={props.quesObj.question}
+                                id={`question${props.index}`}
                                 placeholder="Type question here..">
 
                             </TextareaAutosize>
@@ -46,13 +47,13 @@ const CreateAptiQuestion = (props) => {
                     <>
                         <div className="row ">
                             <div className="col-sm-6">
-                                <Form.Group controlId={`optionA-${props.quesObj._id}`} >
+                                <Form.Group controlId={`optionA-${props.index}`} >
                                     <Form.Label><b>Option A</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled" onChange={props.onChangeFunc} value={props.quesObj.answers[0]} name="optionA" placeholder="" />
                                 </Form.Group>
                             </div>
                             <div className="col-sm-6">
-                                <Form.Group controlId={`optionB-${props.quesObj._id}`} >
+                                <Form.Group controlId={`optionB-${props.index}`} >
                                     <Form.Label><b>Option B</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.answers[1]} name="optionB" placeholder="" />
                                 </Form.Group>
@@ -60,13 +61,13 @@ const CreateAptiQuestion = (props) => {
                         </div>
                         <div className="row ">
                             <div className="col-sm-6">
-                                <Form.Group controlId={`optionC-${props.quesObj._id}`} >
+                                <Form.Group controlId={`optionC-${props.index}`} >
                                     <Form.Label><b>Option C</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.answers[2]} name="optionC" placeholder="" />
                                 </Form.Group>
                             </div>
                             <div className="col-sm-6">
-                                <Form.Group controlId={`optionD-${props.quesObj._id}`} >
+                                <Form.Group controlId={`optionD-${props.index}`} >
                                     <Form.Label><b>Option D</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.answers[3]} name="optionD" placeholder="" />
                                 </Form.Group>
@@ -74,7 +75,7 @@ const CreateAptiQuestion = (props) => {
                         </div>
                         <div className="row ">
                             <div className="col-sm-6">
-                                <Form.Group controlId={`correctOption-${props.quesObj._id}`} >
+                                <Form.Group controlId={`correctOption-${props.index}`} >
                                     <Form.Label><b>Correct option</b></Form.Label>
                                     <Form.Control className="quiz-inputFiled " onChange={props.onChangeFunc} value={props.quesObj.correctAnswer} name="correctAnswer" placeholder="Enter answer/text" />
                                 </Form.Group>

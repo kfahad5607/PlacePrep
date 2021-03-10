@@ -16,12 +16,7 @@ const QuizCardPage = (props) => {
 	} = props;
 
 	useEffect(() => {
-		if (user?.role === "faculty" || user?.role === "admin") {
-			getQuizzes();
-		}
-		else if (user?.role === "student") {
-			getQuizzes();
-		}
+		getQuizzes();
 		return () => { };
 
 		//eslint-disable-next-line

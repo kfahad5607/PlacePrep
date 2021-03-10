@@ -179,9 +179,15 @@ exports.getAllQuizzes = catchAsync(async (req, res, next) => {
             select: '+name'
         });
     }
-    else if (req.user.role === 'faculty' || req.user.role === 'admin') {
+    else if (req.user.role === 'faculty') {
         filterObj.author = req.user._id;
         quizzes = await Quiz.find(filterObj).populate({
+            path: 'author',
+            select: '+name'
+        });
+    }
+    else if (req.user.role === 'admin') {
+        quizzes = await Quiz.find({}).populate({
             path: 'author',
             select: '+name'
         });
