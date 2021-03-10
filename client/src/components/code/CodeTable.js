@@ -12,11 +12,11 @@ const CodeTable = ({ code: { isDeleted },
 
     useEffect(() => {
         if (isDeleted) {
-            setAlert('Question Deleted', 'success');
             clrCodeDeleteSuccess();
+            setAlert('Question Deleted', 'success');
         }
-        
-		//eslint-disable-next-line
+
+        //eslint-disable-next-line
     }, [isDeleted]);
 
     function capitalize(s) {
@@ -34,7 +34,8 @@ const CodeTable = ({ code: { isDeleted },
             <td className="">
                 <span>
                     <i
-                        className="fa fa-book questSol cursor-pointer"
+                        className={`fa fa-book questSol cursor-pointer ml-3 ${question.solution === '' && 'deactivated'}`}
+
                         aria-hidden="true"
                     ></i>
                 </span>

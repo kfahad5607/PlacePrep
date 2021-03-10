@@ -28,8 +28,8 @@ const QuizCard = (props) => {
 
     useEffect(() => {
         if (isDeleted) {
-            setAlert('Quiz Deleted', 'success');
             clrQuizDeleteSuccess();
+            setAlert('Quiz Deleted', 'success');
         }
 
         //eslint-disable-next-line
@@ -46,10 +46,9 @@ const QuizCard = (props) => {
     };
 
     return (
-        <div className="table-responsive">
+        <div className='table-responsive' >
+            <Card className={`quiz_card ${!quizObj.active && 'deactivated'}`}>
 
-
-            <Card className='quiz_card deactivated'>
                 <Card.Header className='quiz_card_header text-center'>
                     <h3>{quizObj.title}</h3>
                 </Card.Header>

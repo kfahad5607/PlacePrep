@@ -31,8 +31,8 @@ const EditPracticeProblem = (props) => {
 
     useEffect(() => {
         if (isCreated) {
-            setAlert('Question has been updated.', 'success');
             clrPracProbCreateSuccess();
+            setAlert('Question has been updated.', 'success');
         }
 
         // eslint-disable-next-line
@@ -40,8 +40,8 @@ const EditPracticeProblem = (props) => {
 
     useEffect(() => {
         if (error) {
-            setAlert(error, "danger");
             clearPracticeProblemErrors();
+            setAlert(error, "danger");
         }
         if (current !== null) {
             let tempDeepCopy = JSON.parse(JSON.stringify(current));

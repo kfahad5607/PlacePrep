@@ -16,7 +16,7 @@ import { setAlert } from "../../store/actions/alertActions";
 
 const EditQuiz = (props) => {
     const {
-        quiz: { current, error, isCreated },
+        quiz: { current, error, isCreated, editable },
         getQuiz,
         updateQuiz,
         deleteQuizQuestion,
@@ -29,15 +29,15 @@ const EditQuiz = (props) => {
 
     const slug = match.params.slug;
     useEffect(() => {
-        getQuiz(slug);
+        getQuiz(slug, true);
 
         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
         if (isCreated) {
-            setAlert('Quiz has been updated', 'success');
             clrQuizCreateSuccess();
+            setAlert('Quiz has been updated', 'success');
         }
 
         // eslint-disable-next-line
@@ -45,8 +45,8 @@ const EditQuiz = (props) => {
 
     useEffect(() => {
         if (error) {
-            setAlert(error, "danger");
             clearQuizErrors();
+            setAlert(error, "danger");
         }
         if (current !== null) {
             // if User updates Quiz title then slug also updates
@@ -235,15 +235,20 @@ const EditQuiz = (props) => {
                             onDeleteFunc={() => handleOnDelete(ele.id || ele._id)}
                             onChangeFunc={(e) => handleOnChangeQues(e, index)}
                             quesObj={ele}
+                            deletable={editable}
                         />
                         )}
 
                         <div className="row">
                             <div className="col-sm-6">
-                                <Button className="addquestbtn mb-2" onClick={handleAddQuesClick} > Add Next Question  </Button>
+                                <Button
+                                    className="addquestbtn mb-2"
+                                    onClick={handleAddQuesClick}
+                                    disabled={!editable}
+                                > Add Next Question  </Button>
                             </div>
                             <div className="col-sm-6 text-center">
-                                <Button className="createquiz mb-4" type="submit" > Update Quiz</Button>
+                                <Button className="createquiz mb-4" type="submit" >Update Quiz</Button>
                             </div>
                         </div>
                     </Form>

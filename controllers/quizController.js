@@ -8,13 +8,7 @@ const AppError = require('../utils/appError');
 
 exports.createQuiz = async (req, res, next) => {
     try {
-        // temporary starts
-
         req.body.author = req.user._id;
-
-        // temorary end
-
-
         const quizQuestions = await QuizQuestion.insertMany(req.body.questions);
 
         // Filtering out only quiz questions IDs
@@ -132,12 +126,28 @@ exports.getQuiz = catchAsync(async (req, res, next) => {
         return next(new AppError('No quiz found with that ID.', 404));
     }
 
+
+
     // if (quiz.active) {
     if ((req.user.role === 'faculty' || req.user.role === 'admin') || quiz.active) {
+        if (req.query.check === 'true') {
+            const submissions = await QuizSubmission.countDocuments({
+                quiz: quiz._id
+            });
+            return res.status(200).json({
+                status: 'success',
+                data: {
+                    data: quiz,
+                    subCount: submissions
+                }
+            });
+        }
+
         return res.status(200).json({
             status: 'success',
             data: {
-                data: quiz
+                data: quiz,
+                subCount: 0
             }
         });
     }

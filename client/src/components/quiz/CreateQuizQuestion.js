@@ -19,7 +19,7 @@ function QuizQuestion(props) {
                 {/* <Accordion.Toggle as={Row} eventKey="0" style={{ cursor: 'pointer', backgroundColor: 'rgb(164, 166, 179)'}}> */}
                 <div className="row ">
                     <div className="col-12">
-                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Group controlId={`question${props.index}`}>
                             <Form.Label>
                                 {" "}
                                 <b>Question {props.index + 1}</b>
@@ -38,6 +38,7 @@ function QuizQuestion(props) {
                                 {toggle ? "Collapse" : "Expand"}
                             </Accordion.Toggle>
                             <TextareaAutosize
+                                id={`question${props.index}`}
                                 className="quiz-inputFiled questiontextarea"
                                 name="question"
                                 onFocus={handleOnFocus}
@@ -147,6 +148,7 @@ function QuizQuestion(props) {
                                 <Button
                                     className="deletebtn"
                                     onClick={props.onDeleteFunc}
+                                    disabled={!props.deletable}
                                 >
                                     Delete question
                                 </Button>

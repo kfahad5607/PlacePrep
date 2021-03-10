@@ -16,7 +16,6 @@ const Navbars = (props) => {
     const authLinks = (
         <Fragment>
             <span>
-                {/* <img className="nav__user-img" src={`/img/users/${user.photo}`} alt={user.name} /> */}
                 <img className="nav__user-img" src={`/img/users/${user.photo}`} alt={`${user.photo}`} />
                 <span className='user-name'>Hello {user && user.name.split(' ')[0]}</span>
             </span>
@@ -42,12 +41,12 @@ const Navbars = (props) => {
             <Navbar.Brand className="brand-name">
                 <img
                     alt="logo"
-                    src="./assets/img/fullLogo.png"
+                    src="/assets/img/fullLogo.png"
                     className="d-inline-block align-top fullLogo"
                 />{" "}
                 <img
                     alt="logo"
-                    src="./assets/img/logoName.png"
+                    src="/assets/img/logoName.png"
                     className="d-inline-block align-top logoName"
                 />{" "}
 

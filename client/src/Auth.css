@@ -310,21 +310,19 @@ body, input {
    cursor: pointer;
 }
 
-.brand-name {
-   /* margin-left: 1rem; */
-}
-
-.brand-name img {
-   /* margin-right: 0.5rem; */
+.user-name{
+   color: #fff;
 }
 
 .fullLogo {
    height: 35px;
    width: 185px;
+   cursor: pointer;
 }
 
 .logoName {
    display: none !important;
+   cursor: pointer;
 }
 
 .alert {
@@ -389,10 +387,26 @@ body, input {
    }
 }
 
+@media (max-width: 410px) {
+   .navbar{
+      padding-right: 0.7rem;
+      padding-left: 0.7rem;
+   }
+   .brand-name{
+      margin-right: 0.25rem;
+   }
+}
+
 @media (max-width:374px) {
    .logoName {
       height: 30px;
       display: flex !important;
+   }
+   .nav__user-img {
+      margin-right: 0.25rem;
+   }
+   .user-name{
+      font-size: 0.85rem;
    }
 }
 

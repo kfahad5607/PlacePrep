@@ -33,11 +33,11 @@ const AptiTopicsTemplate = (props) => {
 
     useEffect(() => {
         if (isDeleted) {
-            setAlert('Topic Deleted', 'success');
             clrPracProbDeleteSuccess();
+            setAlert('Topic Deleted', 'success');
         }
-        
-		//eslint-disable-next-line
+
+        //eslint-disable-next-line
     }, [isDeleted]);
 
     useEffect(() => {
@@ -105,7 +105,7 @@ const AptiTopicsTemplate = (props) => {
                                 <Form>
                                     <Form.Group controlId={title} >
                                         <Form.Control
-                                            className="searchField"
+                                            className="codingQuestSearch"
                                             onChange={handleOnChange}
                                             value={query}
                                             type="text"
@@ -129,11 +129,11 @@ const AptiTopicsTemplate = (props) => {
                                         <div className="topic-right">
                                             {(user.role === 'faculty' || user.role === 'admin') &&
                                                 <span onClick={() => handleOnClick(title, ele)} style={{ cursor: 'pointer' }} >
-                                                    <i className="fa fa-trash operation-D mr-3 mt-1 op" aria-hidden="true" ></i>
+                                                    <i className="fa fa-trash operation-D mr-3 mt-3 op" aria-hidden="true" ></i>
                                                 </span>}
                                             <Link to={`/practiceproblems/${slugify(title, { lower: true })}/${slugify(ele, { lower: true })}`} >
                                                 <span>
-                                                    <i className="fa fa-chevron-circle-right operation-D mr-3 mt-1 op" aria-hidden="true" ></i>
+                                                    <i className="fa fa-chevron-circle-right operation-D mr-3 mt-3 op" aria-hidden="true" ></i>
                                                 </span>
                                             </Link>
                                         </div>
@@ -149,7 +149,7 @@ const AptiTopicsTemplate = (props) => {
                     </>
                 </Accordion.Collapse>
             </Accordion>
-        </Container >
+        </Container>
     );
 };
 

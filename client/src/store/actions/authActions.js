@@ -19,7 +19,11 @@ import {
     FILTER_ALL_USERS,
     CLEAR_FILTER_ALL_USERS,
     DELETE_USER,
-    UPDATE_USER
+    UPDATE_USER,
+    FOR_PASS_MAIL_SENT,
+    CLR_FOR_PASS_MAIL_SENT,
+    PASSWORD_RESET,
+    CLR_PASSWORD_RESET
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -145,9 +149,16 @@ export const clearErrors = () => ({ type: CLEAR_AUTH_ERRORS });
 export const forgotPassword = (email) => async dispatch => {
     try {
         const res = await axios.post(`/api/v1/user/forgotPassword`, { email });
-        console.log(res);
+        console.log('respass', res);
+
+        if (res.request.status === 200 && res.request.statusText === 'OK') {
+            dispatch({
+                type: FOR_PASS_MAIL_SENT
+            });
+        }
 
     } catch (err) {
+        console.log(err?.response);
         dispatch({
             type: AUTH_ERROR,
             payload: err.response.data.message
@@ -160,6 +171,12 @@ export const resetPassword = (passwords, token) => async dispatch => {
     try {
         const res = await axios.patch(`/api/v1/user/resetPassword/${token}`, passwords);
         console.log(res);
+
+        if (res.request.status === 200 && res.request.statusText === 'OK') {
+            dispatch({
+                type: PASSWORD_RESET
+            });
+        }
 
     } catch (err) {
         console.log(err?.response);
@@ -201,7 +218,7 @@ export const getAllUsers = () => async dispatch => {
             payload: err.response.data.message
         });
     }
-}
+};
 
 export const setTestDetails = (details) => (dispatch) => {
     dispatch({
@@ -256,3 +273,15 @@ export const filterUsers = user => async dispatch => {
 };
 
 export const clearUserFilter = () => ({ type: CLEAR_FILTER_ALL_USERS });
+
+export const clearForPassMailSent = () => (dispatch) => {
+    dispatch({
+        type: CLR_FOR_PASS_MAIL_SENT
+    });
+};
+
+export const clearPassReset = () => (dispatch) => {
+    dispatch({
+        type: CLR_PASSWORD_RESET
+    });
+};

@@ -1,26 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { connect } from 'react-redux';
-import { forgotPassword } from '../../store/actions/authActions';
+import { forgotPassword, clearForPassMailSent } from '../../store/actions/authActions';
+import { setAlert } from '../../store/actions/alertActions';
 
 const ResPassModal = (props) => {
-    //   let { titleAndTopic, deletePracProbByTopic, ...newProps } = props;
+    let { auth: { mailSent },
+        setAlert,
+        clearForPassMailSent,
+        forgotPassword,
+        ...newProps } = props;
 
     //   const [isDisabled, setIsDisabled] = useState(true);
     const [email, setEmail] = useState('');
 
+    useEffect(() => {
+        if (mailSent) {
+            clearForPassMailSent();
+            setEmail("");
+            setAlert('Mail has been sent. Please check your inbox.', 'success');
+            props.onHide();
+        }
+
+        //eslint-disable-next-line
+    }, [mailSent]);
+
     const handleOnClick = () => {
-        props.forgotPassword(email);
-        props.onHide();
-        setEmail("");
-    }
+        forgotPassword(email);
+    };
 
 
     return (
         <Modal
-            {...props}
+            {...newProps}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -48,8 +62,12 @@ const ResPassModal = (props) => {
     );
 };
 
-// const mapStateToProps = state => ({
-//   practiceProblem: state.practiceProblem
-// });
+const mapStateToProps = state => ({
+    auth: state.auth
+});
 
-export default connect(null, { forgotPassword })(ResPassModal);
+export default connect(mapStateToProps, {
+    forgotPassword,
+    setAlert,
+    clearForPassMailSent
+})(ResPassModal);

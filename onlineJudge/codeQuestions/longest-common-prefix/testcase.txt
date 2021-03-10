@@ -1,0 +1,4 @@
+["apple", "ape", "april"]
+ap
+["geeksforgeeks","geeks", "geek", "geezer"]
+gee

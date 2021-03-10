@@ -37,10 +37,10 @@ const QuizPage = (props) => {
 
     useEffect(() => {
         if (isDeleted) {
-            setAlert('Problem Deleted', 'success');
             clrPracProbDeleteSuccess();
+            setAlert('Problem Deleted', 'success');
         }
-        
+
         //eslint-disable-next-line
     }, [isDeleted]);
 
@@ -82,7 +82,7 @@ const QuizPage = (props) => {
                             <Form>
                                 <Form.Group controlId='question' >
                                     <Form.Control
-                                        className="searchField"
+                                        className="bgWhite"
                                         onChange={handleOnChange}
                                         value={query}
                                         type="text"

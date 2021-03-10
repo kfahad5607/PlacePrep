@@ -18,7 +18,6 @@ function CreateQuiz(props) {
 
 
     const [quiz, setQuiz] = useState({
-        author: '',
         title: '',
         category: 'quantitative analysis',
         topic: '',
@@ -37,9 +36,9 @@ function CreateQuiz(props) {
 
     useEffect(() => {
         if (isCreated) {
+            clrQuizCreateSuccess();
             setAlert('Quiz has been created', 'success');
 
-            clrQuizCreateSuccess();
             setQuiz({
                 title: '',
                 category: 'quantitative analysis',
@@ -60,8 +59,8 @@ function CreateQuiz(props) {
 
     useEffect(() => {
         if (error) {
-            setAlert(error, "danger");
             clearQuizErrors();
+            setAlert(error, "danger");
         }
 
         // eslint-disable-next-line
@@ -134,7 +133,6 @@ function CreateQuiz(props) {
             setAlert("Please enter all fields", "danger");
         } else {
             let tempQuiz = JSON.parse(JSON.stringify(quiz));
-            tempQuiz.author = user._id;
             addQuiz(tempQuiz);
 
         };
@@ -169,7 +167,7 @@ function CreateQuiz(props) {
                                 <Form.Label>
                                     <b>Select Category</b>
                                 </Form.Label>
-                                <Form.Group controlId="SelectRowsPerpage">
+                                <Form.Group controlId="category">
                                     <Form.Control
                                         as="select"
                                         className="quiz-inputFiled"

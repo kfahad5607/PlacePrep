@@ -41,3 +41,8 @@
   border-radius: 3px;
   overflow: auto;
 }
+
+.pre-container {
+  display: flex;
+  align-items: center;
+}

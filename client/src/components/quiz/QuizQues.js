@@ -15,11 +15,11 @@ const QuizQues = (props) => {
 
     useEffect(() => {
         if (isCreated) {
-            setAlert('Quiz Submitted.', 'success');
             clrQuizCreateSuccess();
             clearTestDetails();
+            setAlert('Quiz Submitted.', 'success');
         }
-        
+
         //eslint-disable-next-line
     }, [isCreated]);
 

@@ -41,9 +41,9 @@ const AddTopics = (props) => {
 
     useEffect(() => {
         if (isCreated) {
+            clrPracProbCreateSuccess();
             setAlert('Topic has been created.', 'success');
 
-            clrPracProbCreateSuccess();
             setAptiInfo({
                 topic: "",
                 category: "quantitative analysis",
@@ -68,8 +68,8 @@ const AddTopics = (props) => {
 
     useEffect(() => {
         if (error) {
-            setAlert(error, "danger");
             clearPracticeProblemErrors();
+            setAlert(error, "danger");
         }
 
         // eslint-disable-next-line
@@ -177,7 +177,7 @@ const AddTopics = (props) => {
                                 <Form.Label>
                                     <b>Select Category</b>
                                 </Form.Label>
-                                <Form.Group controlId="SelectRowsPerpage">
+                                <Form.Group controlId="category">
                                     <Form.Control
                                         as="select"
                                         className="quiz-inputFiled"

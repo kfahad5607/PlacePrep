@@ -1,20 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import '../quiz/quiz.css';
 import { connect } from 'react-redux';
-import { resetPassword } from '../../store/actions/authActions';
+import { resetPassword, clearPassReset, clearErrors } from '../../store/actions/authActions';
+import { setAlert } from '../../store/actions/alertActions';
 
 function ResetPassword(props) {
+    const {
+        auth: { passReset, error },
+        setAlert,
+        clearPassReset,
+        clearErrors
+    } = props;
     const { token } = props.match.params;
 
     const [passwords, setPasswords] = useState({
         password: "",
         passwordConfirm: ""
     });
+
+    useEffect(() => {
+        if (passReset) {
+            clearPassReset();
+            setPasswords({ password: "", passwordConfirm: "" });
+            setAlert('Password has been reset.', 'success');
+        }
+        if (error) {
+            clearErrors();
+            setAlert(error, 'danger');
+        }
+        //eslint-disable-next-line
+    }, [passReset, error]);
+
     const handleOnClick = () => {
         props.resetPassword(passwords, token);
-        setPasswords({ password: "", passwordConfirm: "" });
-    }
+    };
 
     return (
         <Container className="container-quiz">
@@ -49,6 +69,16 @@ function ResetPassword(props) {
                 </Form>
             </div>
         </Container>
-    )
+    );
 }
-export default connect(null, { resetPassword })(ResetPassword);
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, {
+    resetPassword,
+    setAlert,
+    clearPassReset,
+    clearErrors
+})(ResetPassword);

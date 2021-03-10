@@ -7,7 +7,7 @@
 }
 
 .nav-item {
-    color: rgb(117, 117, 117) !important;
+    color: #212529 !important;
 }
 
 .navTabs {
@@ -17,7 +17,7 @@
 }
 
 .nav-item:hover {
-    color: rgb(117, 117, 117) !important;
+    color: #212529 !important;
     border: #fff !important;
 }
 
@@ -33,7 +33,7 @@
 .question-title {
     display: flex;
     font-size: 1.3rem;
-    margin-left: 0.4rem;
+    margin-left: 0.2rem;
 }
 
 .head {

@@ -29,14 +29,15 @@ export const getQuizzes = () => async (dispatch) => {
     }
 };
 
-export const getQuiz = (slug) => async (dispatch) => {
+export const getQuiz = (slug, check = false) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.SET_LOADING_QUIZ
         });
-        const res = await axios.get(`/api/v1/quizzes/${slug}`);
+        const res = await axios.get(`/api/v1/quizzes/${slug}?check=${check}`);
+        console.log('res', res)
+
         if (res.data.message === 'Quiz is deactivated') {
-            console.log('hera');
             return dispatch({
                 type: actionTypes.SET_CURRENT_QUIZ,
                 payload: null
@@ -44,7 +45,10 @@ export const getQuiz = (slug) => async (dispatch) => {
         }
         dispatch({
             type: actionTypes.GET_QUIZ,
-            payload: res.data.data.data
+            payload: {
+                currentQuiz: res.data.data.data,
+                subCount: res.data.data.subCount
+            }
         });
     }
     catch (err) {
