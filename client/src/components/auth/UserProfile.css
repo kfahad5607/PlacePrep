@@ -59,6 +59,7 @@
 .user-inputFiled:focus {
   border: none !important;
   box-shadow: 0 -3px 0px #775ecf inset, 8px 0 0 white !important;
+  color: black !important;
   outline: 0 none;
 }
 
@@ -125,7 +126,7 @@ input[type="file"]::-webkit-file-upload-button {
   color: black;
 }
 
-@media (max-width: 767px) and (min-width: 430px) {
+@media (max-width: 767px) and (min-width: 330px) {
   .photo {
     margin-top: 10px !important;
     display: flex;

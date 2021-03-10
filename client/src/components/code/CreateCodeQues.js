@@ -191,11 +191,12 @@ const CreateCodeQuestion = (props) => {
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <Form.Group controlId="quiztitle">
+                            <Form.Group controlId="description">
                                 <Form.Label>
                                     <b>Description</b>
                                 </Form.Label>
                                 <TextareaAutosize
+                                    id="description"
                                     className="createC-inputFiled questiontextarea"
                                     placeholder="Provide Description...."
                                     name="description"
@@ -217,11 +218,12 @@ const CreateCodeQuestion = (props) => {
                             <div className="" key={ele.id}>
                                 <div className="row ">
                                     <div className="col-sm-6">
-                                        <Form.Group controlId="quiztitle">
+                                        <Form.Group controlId={`sampleInput ${index}`}>
                                             <Form.Label>
                                                 <b>Sample Input</b>
                                             </Form.Label>
                                             <TextareaAutosize
+                                                id={`sampleInput ${index}`}
                                                 className="createC-inputFiled questiontextarea"
                                                 placeholder=""
                                                 name="sampleInput"
@@ -236,11 +238,12 @@ const CreateCodeQuestion = (props) => {
                                         </Form.Group>
                                     </div>
                                     <div className="col-sm-6">
-                                        <Form.Group controlId="quiztitle">
+                                        <Form.Group controlId={`sampleoutput ${index}`}>
                                             <Form.Label>
                                                 <b>Sample Output</b>
                                             </Form.Label>
                                             <TextareaAutosize
+                                                id={`sampleoutput ${index}`}
                                                 className="createC-inputFiled questiontextarea"
                                                 placeholder=""
                                                 name="sampleOutput"
@@ -291,7 +294,7 @@ const CreateCodeQuestion = (props) => {
 
                     <div className="row">
                         <div className="col-12">
-                            <Form.Group controlId="quiztitle">
+                            <Form.Group controlId="">
                                 <TextareaAutosize
                                     className="createC-inputFiled questiontextarea "
                                     minRows="2"
@@ -307,25 +310,31 @@ const CreateCodeQuestion = (props) => {
 
                     <div className="row pt-2 pb-3">
                         <div className="col-sm-12">
-                            <Form.Label>
-                                <b className="mr-2">Solution </b>
-                            </Form.Label>
-                            <TextareaAutosize
-                                className="createC-inputFiled questiontextarea "
-                                minRows="2"
-                                placeholder=""
-                                name="solution"
-                                value={codeQuestion.solution}
-                                onChange={handleOnChange}
-                            ></TextareaAutosize>
+                            <Form.Group controlId="solution">
+                                <Form.Label >
+                                    <b className="mr-2">Solution </b>
+                                </Form.Label>
+                                <TextareaAutosize
+                                    id="solution"
+                                    className="createC-inputFiled questiontextarea "
+                                    minRows="2"
+                                    placeholder=""
+                                    name="solution"
+                                    value={codeQuestion.solution}
+                                    onChange={handleOnChange}
+                                ></TextareaAutosize>
+                            </Form.Group>
+
                         </div>
 
                     </div>
                     <div className="row pt-2 pb-3">
                         <div className="col-sm-2 pt-1 difflabel">
-                            <Form.Label>
-                                <b className="">No. of inputs</b>
-                            </Form.Label>
+                            <Form.Group controlId="noOfInputs">
+                                <Form.Label>
+                                    <b className="">No. of inputs</b>
+                                </Form.Label>
+                            </Form.Group>
                         </div>
                         <div className="col-sm-4">
                             <Form.Group controlId="noOfInputs" >
@@ -333,9 +342,11 @@ const CreateCodeQuestion = (props) => {
                             </Form.Group>
                         </div>
                         <div className="col-sm-2 pt-1 difflabel">
-                            <Form.Label>
-                                <b className=""> Set Difficulty </b>
-                            </Form.Label>
+                            <Form.Group controlId="SelectDifficulty">
+                                <Form.Label>
+                                    <b className=""> Set Difficulty </b>
+                                </Form.Label>
+                            </Form.Group>
                         </div>
                         <div className="col-sm-4">
                             <Form.Group controlId="SelectDifficulty">

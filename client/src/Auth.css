@@ -5,8 +5,7 @@
    box-sizing: border-box;
 }
 
-body,
-input {
+body, input {
    font-family: "Poppins", sans-serif;
 }
 
@@ -223,8 +222,7 @@ input {
       transition-delay: 0.6s;
       margin-top: 0 !important;
    }
-   .panel-container,
-   .form-container {
+   .panel-container, .form-container {
       flex-basis: auto;
       flex-grow: 0;
    }
@@ -267,8 +265,7 @@ input {
    .image {
       display: none;
    }
-   .panel-container,
-   .form-container {
+   .panel-container, .form-container {
       flex-basis: auto;
       flex-grow: 0;
    }
@@ -278,8 +275,7 @@ input {
    .panel .content {
       padding: 0.5rem 1rem;
    }
-   .input-field,
-   .btn-login {
+   .input-field, .btn-login {
       height: 45px;
    }
    .input-field i {
@@ -297,6 +293,7 @@ input {
 }
 
 /* Navbar and alert css */
+
 .navbar-text a {
    margin: 0.5rem;
 }
@@ -345,9 +342,11 @@ input {
    -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
 }
+
 .alert--success {
    background-color: #20bf6b;
 }
+
 .alert--danger {
    background-color: #eb4d4b;
 }
@@ -368,11 +367,9 @@ input {
       height: 2.1rem;
       width: 2.1rem;
    }
-
    .brand-name {
       font-size: 1.15rem;
    }
-
    .fullLogo {
       display: none !important;
    }
@@ -414,6 +411,7 @@ input {
 }
 
 /* Utility CSS */
+
 .cursor-pointer {
    cursor: pointer;
 }

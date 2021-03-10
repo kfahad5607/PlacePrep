@@ -63,51 +63,53 @@ const QuizCardPage = (props) => {
 					<>
 						<h4>
 							Currently There are No Quizzes Available. Instead create one{" "}
-						</h4>
+					</h4>
 						{createLink}
 					</>
-				) : (
-					<h4>Currently There are No Quizzes Available.</h4>
-				)}
-			</div>
+		) : (
+			<h4>Currently There are No Quizzes Available.</h4>
+		)
+	}
+			</div >
 		);
 	}
 
-	const filteredQuizzes = filtered ? filtered : quizzes;
+const filteredQuizzes = filtered ? filtered : quizzes;
 
-	return (
-		<>
-			{/* <div className="row mt-3 ml-3 mr-3 text-center"> */}
-			<div className="row mt-3 ml-3 mr-3 text-center" style={{ marginRight: "0px" }}>
-				<div
-					className={`${user.role === "admin" || user.role === "faculty"
-						? "col-xl-10"
-						: "col-xl-12"
-						} pb-2`}
-				>
-					<Form>
-						<Form.Group controlId="codingquestionSearch">
-							<Form.Control
-								className="bgWhite "
-								type="text"
-								value={query}
-								placeholder="Search quiz titles, topics or category"
-								onChange={handleOnChange}
-							/>
-						</Form.Group>
-					</Form>
-				</div>
-				{(user.role === "admin" || user.role === "faculty") && (
-					<div className="col-xl-2 pb-2" >{createLink}</div>
-				)}
+return (
+	<>
+
+
+		<div className="row mt-3 ml-3 mr-3 text-center" style={{ marginRight: "0px" }}>
+			<div
+				className={`${user.role === "admin" || user.role === "faculty"
+					? "col-xl-10"
+					: "col-xl-12"
+					} pb-2`}
+			>
+				<Form>
+					<Form.Group controlId="codingquestionSearch">
+						<Form.Control
+							className="bgWhite "
+							type="text"
+							value={query}
+							placeholder="Search quiz titles, topics or category"
+							onChange={handleOnChange}
+						/>
+					</Form.Group>
+				</Form>
 			</div>
-			{quizzes ? (
-				filteredQuizzes.map((ele) => <QuizCard key={ele._id} quizObj={ele} />)
-			) : (
-				<Spinner />
+			{(user.role === "admin" || user.role === "faculty") && (
+				<div className="col-xl-2 pb-2" >{createLink}</div>
 			)}
-		</>
-	);
+		</div>
+		{quizzes ? (
+			filteredQuizzes.map((ele) => <QuizCard key={ele._id} quizObj={ele} />)
+		) : (
+			<Spinner />
+		)}
+	</>
+);
 };
 
 const mapStateToProps = (state) => ({

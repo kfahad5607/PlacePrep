@@ -75,8 +75,7 @@ h5 {
   width: 200px;
 }
 
-.practice-btn:active,
-.practice-btn:focus {
+.practice-btn:active, .practice-btn:focus {
   box-shadow: 0 2px 1px #412e85 inset, 0 0 8px white !important;
   background-color: #412e85 !important;
   outline: 0 none;
@@ -97,8 +96,7 @@ hr.hr-1 {
   width: 500px;
 }
 
-.Addmore-btn:active,
-.Addmore-btn:focus {
+.Addmore-btn:active, .Addmore-btn:focus {
   box-shadow: 0 2px 1px #412e85 inset, 0 0 8px white !important;
   background-color: #412e85 !important;
   outline: 0 none;

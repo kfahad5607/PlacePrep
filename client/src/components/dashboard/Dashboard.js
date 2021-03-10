@@ -43,6 +43,7 @@ const Dashboard = (props) => {
                                                     Attempted : {
                                                         details.quizSubmissions
                                                     } / {details.quizzes}
+                                                   
                                                 </b>
                                             ) : (
                                                 <b> Total : {details.quizzes}</b>
@@ -72,6 +73,7 @@ const Dashboard = (props) => {
                                                     Attempted : {
                                                         details.codeSubmissions.total
                                                     } / {details.questions}
+                                                     
 
                                                 </b>
                                             ) : (

@@ -48,6 +48,7 @@ const QuizCard = (props) => {
     return (
         <div className='table-responsive' >
             <Card className={`quiz_card ${!quizObj.active && 'deactivated'}`}>
+
                 <Card.Header className='quiz_card_header text-center'>
                     <h3>{quizObj.title}</h3>
                 </Card.Header>
