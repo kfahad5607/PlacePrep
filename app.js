@@ -37,36 +37,11 @@ app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-app.use(globalErrorHandler);
+app.use((req, res, next) => {
+    console.log('middleware');
+    next();
+}, globalErrorHandler);
 
 
-// app.get('/run1', (req, res) => {
-//     exec('g++ ./main1.cpp -o main', (err, stdout, stderr) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log('output', stdout);
-//         }
-//     });
-
-//     res.json({
-//         data: 'running...'
-//     });
-// });
-
-// app.get('/run2', (req, res) => {
-
-//     exec('.\\main.exe < ./onlineJudge/input.txt ', (err, stdout, stderr) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log('output', stdout);
-//         }
-//     });
-
-//     res.json({
-//         data: 'running...'
-//     });
-// });
 
 module.exports = app;

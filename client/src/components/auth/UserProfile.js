@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./UserProfile.css";
 import { Button, Container, Form } from "react-bootstrap";
 import { connect } from "react-redux";
-import { updateMe } from "../../store/actions/authActions";
+import { updateMe, clearErrors, clearUserSettUpdated } from "../../store/actions/authActions";
 import { setAlert } from "../../store/actions/alertActions";
 
 const UserProfile = (props) => {
-    const { updateMe, setAlert } = props;
-    const { user, isAuthenticated } = props.auth;
+    const { updateMe, setAlert, clearUserSettUpdated } = props;
+    const { user, isAuthenticated, error, isUpdated } = props.auth;
 
     const [userDetails, setUserDetails] = useState({
         name: "",
@@ -19,6 +19,21 @@ const UserProfile = (props) => {
         password: "",
         passwordConfirm: "",
     });
+
+    useEffect(() => {
+        if (error) {
+            setAlert(error, 'danger');
+            clearErrors();
+        }
+    }, [error]);
+
+    useEffect(() => {
+        if (isUpdated) {
+            clearUserSettUpdated();
+            setAlert('Profile Updated', 'success');
+        }
+        //eslint-disable-next-line
+    }, [isUpdated]);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -213,4 +228,9 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { updateMe, setAlert })(UserProfile);
+export default connect(mapStateToProps, {
+    updateMe,
+    setAlert,
+    clearErrors,
+    clearUserSettUpdated
+})(UserProfile);

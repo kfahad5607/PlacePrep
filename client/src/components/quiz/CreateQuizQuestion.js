@@ -45,7 +45,6 @@ function QuizQuestion(props) {
                                 onChange={props.onChangeFunc}
                                 value={props.quesObj.question}
                                 placeholder="Type question here.."
-                                id={`question${props.index}`}
                                 required
                             ></TextareaAutosize>
                         </Form.Group>

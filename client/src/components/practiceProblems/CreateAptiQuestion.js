@@ -36,7 +36,6 @@ const CreateAptiQuestion = (props) => {
                                 onFocus={handleOnFocus}
                                 onChange={props.onChangeFunc}
                                 value={props.quesObj.question}
-                                id={`question${props.index}`}
                                 placeholder="Type question here..">
 
                             </TextareaAutosize>

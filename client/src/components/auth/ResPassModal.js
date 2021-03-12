@@ -38,17 +38,15 @@ const ResPassModal = (props) => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            className="resmodal"
+
         >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
+            <Modal.Header closeButton style={{ background: "#3b74d8" }}>
+                <Modal.Title id="contained-modal-title-vcenter" className="text-white" >
                     Forgot Password
         </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* <h3>{titleAndTopic.title}</h3> */}
-                {/* <p>
-          To delete all the questions from <b>{titleAndTopic.topic}</b> type <b>'{titleAndTopic.topic}'</b>
-        </p> */}
                 <Form.Group controlId="quiztitle" >
                     <Form.Control className="quiz-inputFiled" name="title" placeholder="Enter Email" value={email}
                         onChange={(e) => setEmail(e.target.value)} />

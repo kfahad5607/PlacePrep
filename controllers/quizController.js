@@ -105,10 +105,12 @@ exports.updateQuiz = async (req, res, next) => {
                 }
             });
         }
-        res.status(400).json({
-            status: 'fail',
-            error: err.message
-        });
+        console.log('err', err.name);
+        return next(err);
+        // res.status(400).json({
+        //     status: 'fail',
+        //     error: err.message
+        // });
     }
 
 };

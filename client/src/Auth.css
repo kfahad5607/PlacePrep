@@ -5,7 +5,8 @@
    box-sizing: border-box;
 }
 
-body, input {
+body,
+input {
    font-family: "Poppins", sans-serif;
 }
 
@@ -222,7 +223,8 @@ body, input {
       transition-delay: 0.6s;
       margin-top: 0 !important;
    }
-   .panel-container, .form-container {
+   .panel-container,
+   .form-container {
       flex-basis: auto;
       flex-grow: 0;
    }
@@ -265,7 +267,8 @@ body, input {
    .image {
       display: none;
    }
-   .panel-container, .form-container {
+   .panel-container,
+   .form-container {
       flex-basis: auto;
       flex-grow: 0;
    }
@@ -275,7 +278,8 @@ body, input {
    .panel .content {
       padding: 0.5rem 1rem;
    }
-   .input-field, .btn-login {
+   .input-field,
+   .btn-login {
       height: 45px;
    }
    .input-field i {
@@ -310,7 +314,7 @@ body, input {
    cursor: pointer;
 }
 
-.user-name{
+.user-name {
    color: #fff;
 }
 
@@ -380,7 +384,7 @@ body, input {
    }
 }
 
-@media (max-width: 570px) and (min-width:375px) {
+@media (max-width: 570px) and (min-width: 375px) {
    .logoName {
       height: 30px;
       display: inline-block !important;
@@ -388,16 +392,16 @@ body, input {
 }
 
 @media (max-width: 410px) {
-   .navbar{
+   .navbar {
       padding-right: 0.7rem;
       padding-left: 0.7rem;
    }
-   .brand-name{
+   .brand-name {
       margin-right: 0.25rem;
    }
 }
 
-@media (max-width:374px) {
+@media (max-width: 374px) {
    .logoName {
       height: 30px;
       display: flex !important;
@@ -405,7 +409,7 @@ body, input {
    .nav__user-img {
       margin-right: 0.25rem;
    }
-   .user-name{
+   .user-name {
       font-size: 0.85rem;
    }
 }
@@ -414,4 +418,8 @@ body, input {
 
 .cursor-pointer {
    cursor: pointer;
+}
+
+.resmodal .modal-content {
+   border: none;
 }

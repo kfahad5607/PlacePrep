@@ -7,6 +7,8 @@
   <link rel="icon" href="%PUBLIC_URL%/assets/img/favlogo.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
+
+  <link rel="apple-touch-icon" href="./images/logo.png" />
   <meta name="description" content="Web site created using create-react-app" />
   <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -20,7 +22,6 @@
     integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"> -->
 
   <script src="https://kit.fontawesome.com/4aa0969018.js" crossorigin="anonymous"></script>
-  <!-- <script src="https://use.fontawesome.com/e19905de2a.js"></script> -->
   <title>PlacePrep</title>
 
 </head>
@@ -28,7 +29,15 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
-
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./serviceworker.js')
+          .then((reg) => console.log('Success: ', reg.scope))
+          .catch((err) => console.log('Failure: ', err));
+      })
+    }
+  </script>
 </body>
 
 </html>

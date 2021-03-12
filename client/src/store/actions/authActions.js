@@ -23,7 +23,9 @@ import {
     FOR_PASS_MAIL_SENT,
     CLR_FOR_PASS_MAIL_SENT,
     PASSWORD_RESET,
-    CLR_PASSWORD_RESET
+    CLR_PASSWORD_RESET,
+    USER_SETT_UPDATED,
+    CLR_USER_SETT_UPDATED
 } from "../actions/actionTypes";
 import axios from "axios";
 
@@ -133,6 +135,14 @@ export const updateMe = (data, type) => async dispatch => {
     try {
         const url = type === 'password' ? '/api/v1/user/updateMyPassword' : '/api/v1/user/updateMe';
         const res = await axios.patch(url, data, config);
+
+        console.log('res', res);
+        if (res.request.status === 200 && res.request.statusText === 'OK') {
+            dispatch({
+                type: USER_SETT_UPDATED
+            });
+        }
+
         dispatch({
             type: UPDATE_ME,
             payload: res.data.data
@@ -143,6 +153,12 @@ export const updateMe = (data, type) => async dispatch => {
             payload: err.response.data.message
         });
     }
+};
+
+export const clearUserSettUpdated = () => (dispatch) => {
+    dispatch({
+        type: CLR_USER_SETT_UPDATED
+    });
 };
 
 export const clearErrors = () => ({ type: CLEAR_AUTH_ERRORS });

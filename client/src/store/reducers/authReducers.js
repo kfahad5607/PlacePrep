@@ -24,7 +24,9 @@ import {
     FOR_PASS_MAIL_SENT,
     CLR_FOR_PASS_MAIL_SENT,
     PASSWORD_RESET,
-    CLR_PASSWORD_RESET
+    CLR_PASSWORD_RESET,
+    USER_SETT_UPDATED,
+    CLR_USER_SETT_UPDATED
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -37,7 +39,8 @@ const initialState = {
     error: null,
     loading: true,
     mailSent: null,
-    passReset: null
+    passReset: null,
+    isUpdated: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -179,6 +182,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 passReset: null
+            };
+        case USER_SETT_UPDATED:
+            return {
+                ...state,
+                isUpdated: true
+            };
+        case CLR_USER_SETT_UPDATED:
+            return {
+                ...state,
+                isUpdated: null
             };
         default:
             return state;
